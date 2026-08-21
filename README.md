@@ -1,10 +1,30 @@
-- 👋 Hi, I’m @Konstantin Oreshnikov
-- 👀 I’m interested in programming, testing, web design, AI.
-- 🌱 I’m currently learning QA testing , date science and the Python programming language
-- 💞️ I’m looking to collaborate on coding in Python and automating the testing process
-- 📫 How to reach me: https://twitter.com/Grim_maze
+# Konstantin Oreshnikov
 
-<!---
-KonstantinOreshnikov/KonstantinOreshnikov is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+Credit risk leader combining risk management, data analytics, reporting, and automation.
+
+## Professional focus
+
+- Credit risk strategy and portfolio management
+- Credit funnel and underwriting analytics
+- Portfolio quality: PAR, NPL, vintage, FPD, SPD, and TPD
+- Management reporting and executive-level visualization
+- Data quality, reconciliation, and control frameworks
+- Process automation for repeatable risk reporting
+
+## Technology
+
+- Oracle SQL and ClickHouse
+- Python for analysis and automation
+- Excel-based reporting and financial modelling
+- PowerPoint automation and management reporting
+- Git and version-controlled analytical workflows
+
+## Current direction
+
+I am building practical systems that connect business methodology, reliable data, and decision-ready reporting. My focus is not technology for its own sake: every solution should improve control, speed, transparency, or management decisions.
+
+## Repository map
+
+Most existing repositories document earlier learning work in Python, QA automation, Linux, and Git. New professional projects will be added when they contain reusable, non-confidential material.
+
+> Banking data, internal methodologies, credentials, and employer-owned code are never published here.
