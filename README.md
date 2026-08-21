@@ -14,9 +14,9 @@ Credit risk leader combining risk strategy, portfolio management, analytics, and
   Credit risk and management reporting transformation
 - Стратегия кредитования, андеррайтинг и управление портфелем  
   Credit strategy, underwriting, and portfolio management
-- Credit Funnel, approval and take-rate analytics
-- Мониторинг качества портфеля: PAR, NPL, vintage, FPD, SPD и TPD  
-  Portfolio quality monitoring: PAR, NPL, vintage, FPD, SPD, and TPD
+- Credit funnel, conversion and portfolio analytics
+- Мониторинг качества портфеля и когортный анализ  
+  Portfolio quality monitoring and cohort analysis
 - Data quality, reconciliation and control frameworks
 - Разработка прозрачной риск-методологии для управленческих решений  
   Decision-ready risk methodology and executive reporting
@@ -30,8 +30,18 @@ I use technology as a management transformation tool—to improve decision speed
 - Oracle SQL and ClickHouse
 - Python for analytics and automation
 - Excel-based reporting and financial modelling
-- PowerPoint automation and executive visualization
+- Executive visualization and reporting design
 - Git and version-controlled analytical workflows
+
+## Featured projects
+
+### [Risk Analytics Playbook](https://github.com/KonstantinOreshnikov/risk-analytics-playbook)
+
+Practical guidance for metric contracts, data-quality controls, reconciliation, reporting workflows and management commentary.
+
+### [SQL Patterns for Risk Analytics](https://github.com/KonstantinOreshnikov/sql-patterns-for-risk-analytics)
+
+Reusable Oracle and ClickHouse examples covering analytical grain, safe conversion, period logic, reconciliation and quality checks.
 
 ## Мой подход · My approach
 
@@ -39,11 +49,7 @@ I use technology as a management transformation tool—to improve decision speed
 
 Every solution should create measurable management value: stronger risk control, less manual work, better data quality, or faster decisions.
 
-## Репозитории · Repositories
+## Confidentiality
 
-Существующие репозитории отражают ранние учебные проекты по Python, QA-автоматизации, Linux и Git. Новые профессиональные проекты будут публиковаться только при наличии полезного, переиспользуемого и полностью обезличенного материала.
+All public examples use generic logic and synthetic data. Confidential banking data, internal methodology, credentials, employer-owned code and proprietary decision rules are never published here.
 
-Existing repositories document earlier learning work in Python, QA automation, Linux, and Git. New professional projects will be published only when they contain useful, reusable, and fully sanitized material.
-
-> Конфиденциальные банковские данные, внутренняя методология, credentials и код работодателя здесь не публикуются.  
-> Confidential banking data, internal methodology, credentials, and employer-owned code are never published here.
