@@ -1,30 +1,49 @@
 # Konstantin Oreshnikov
 
-Credit risk leader combining risk management, data analytics, reporting, and automation.
+## Credit Risk Transformation Leader
 
-## Professional focus
+Руководитель в области кредитных рисков, объединяющий риск-стратегию, управление портфелем, аналитику и автоматизацию.
 
-- Credit risk strategy and portfolio management
-- Credit funnel and underwriting analytics
-- Portfolio quality: PAR, NPL, vintage, FPD, SPD, and TPD
-- Management reporting and executive-level visualization
-- Data quality, reconciliation, and control frameworks
-- Process automation for repeatable risk reporting
+Credit risk leader combining risk strategy, portfolio management, analytics, and automation.
 
-## Technology
+---
+
+## Профессиональный фокус · Professional focus
+
+- Трансформация процессов кредитного риска и управленческой отчётности  
+  Credit risk and management reporting transformation
+- Стратегия кредитования, андеррайтинг и управление портфелем  
+  Credit strategy, underwriting, and portfolio management
+- Credit Funnel, approval and take-rate analytics
+- Мониторинг качества портфеля: PAR, NPL, vintage, FPD, SPD и TPD  
+  Portfolio quality monitoring: PAR, NPL, vintage, FPD, SPD, and TPD
+- Data quality, reconciliation and control frameworks
+- Разработка прозрачной риск-методологии для управленческих решений  
+  Decision-ready risk methodology and executive reporting
+
+## Управление и технологии · Leadership and technology
+
+Я использую технологии как инструмент управленческой трансформации: для повышения скорости, прозрачности, воспроизводимости и качества решений.
+
+I use technology as a management transformation tool—to improve decision speed, transparency, reproducibility, and control.
 
 - Oracle SQL and ClickHouse
-- Python for analysis and automation
+- Python for analytics and automation
 - Excel-based reporting and financial modelling
-- PowerPoint automation and management reporting
+- PowerPoint automation and executive visualization
 - Git and version-controlled analytical workflows
 
-## Current direction
+## Мой подход · My approach
 
-I am building practical systems that connect business methodology, reliable data, and decision-ready reporting. My focus is not technology for its own sake: every solution should improve control, speed, transparency, or management decisions.
+Каждое решение должно давать измеримый управленческий эффект: улучшать контроль риска, сокращать ручной труд, повышать качество данных или ускорять принятие решений.
 
-## Repository map
+Every solution should create measurable management value: stronger risk control, less manual work, better data quality, or faster decisions.
 
-Most existing repositories document earlier learning work in Python, QA automation, Linux, and Git. New professional projects will be added when they contain reusable, non-confidential material.
+## Репозитории · Repositories
 
-> Banking data, internal methodologies, credentials, and employer-owned code are never published here.
+Существующие репозитории отражают ранние учебные проекты по Python, QA-автоматизации, Linux и Git. Новые профессиональные проекты будут публиковаться только при наличии полезного, переиспользуемого и полностью обезличенного материала.
+
+Existing repositories document earlier learning work in Python, QA automation, Linux, and Git. New professional projects will be published only when they contain useful, reusable, and fully sanitized material.
+
+> Конфиденциальные банковские данные, внутренняя методология, credentials и код работодателя здесь не публикуются.  
+> Confidential banking data, internal methodology, credentials, and employer-owned code are never published here.
