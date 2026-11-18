@@ -1,6 +1,6 @@
 # Selected Projects · Project Showcase
 
-A compact technical portfolio of independently developed digital products. Each case focuses on the problem, architecture, design decisions, quality controls and **verified** outcomes — without revealing private content, user identities or implementation secrets.
+A technical portfolio of analytical engineering work and independently developed digital products. Each case focuses on the problem, architecture, design decisions, quality controls and **verified** outcomes — without revealing private content, user identities or implementation secrets.
 
 | Project | Domain | Highlight | Case study |
 |---|---|---|---|
@@ -28,4 +28,4 @@ These pages are **sanitized case studies, not source-code releases**. No product
 
 ---
 
-**Кратко:** три обезличенных проекта: многоязычная платформа подготовки к экзаменам и веб-приложение Secret Santa. Акцент на архитектуре, автоматизации, QA и проверяемых результатах.
+**Кратко:** три обезличенных кейса: Risk Reporting & SQL Workspace, многоязычная экзаменационная платформа и приложение Secret Santa. Акцент на архитектуре, автоматизации, QA и проверяемых результатах.

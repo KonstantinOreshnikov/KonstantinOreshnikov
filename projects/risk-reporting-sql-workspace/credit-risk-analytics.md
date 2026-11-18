@@ -24,11 +24,11 @@ A portfolio trend needs a coherent contract: which accounts are eligible, what d
 
 A generic exposure share is:
 
-\[
+$$
 \text{Risk-status exposure share} =
 \frac{\sum \text{Eligible exposure in selected status}}
 {\sum \text{All eligible exposure}}
-\]
+$$
 
 The public example deliberately omits any institution-specific status mapping or internal definition of non-performing exposure.
 
@@ -42,11 +42,11 @@ A useful report shows its eligibility rule and denominator alongside its measure
 
 At a fixed one-case grain, a generic conversion is:
 
-\[
+$$
 \text{Completion rate} =
 \frac{\text{Eligible unique cases completed}}
 {\text{Eligible unique cases entering the process}}
-\]
+$$
 
 For a multistage funnel, **cumulative reached-stage counts** should normally decline or remain unchanged as stages progress. A terminal-stage distribution is a different visualization. Review source duplicates, stage order and alternative paths before declaring an increase an error.
 
