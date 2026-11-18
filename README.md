@@ -57,6 +57,21 @@ A 15-person event application with gift wishlists and secure server-side randomi
 
 [Browse all public project case studies](projects/README.md)
 
+## Engineering learning paths
+
+A connected set of educational repositories, from fundamentals to practical automation. Guides and newly authored examples are **synthetic**; historical lesson code is not represented as production software.
+
+| Track | Learn and practice | Main guide |
+|---|---|---|
+| Git and review | Branches, diffs, commits, pull requests and safe change control | [Git Collaboration Guide](https://github.com/KonstantinOreshnikov/git-instruction-workshop) |
+| Python for analytics | CSV validation, aggregation, reproducible reports and presentation generation | [Python Learning Lab](https://github.com/KonstantinOreshnikov/python-lessons-geekbrains) |
+| Linux and automation | Linux as a second environment, Bash/BAT, processes, SSH and repeatable workflows | [Linux Automation Lab](https://github.com/KonstantinOreshnikov/linux-testing-python) |
+| Quality engineering | Test design, pytest, API contracts, Selenium/Playwright and QA evidence | [Quality Engineering Lab](https://github.com/KonstantinOreshnikov/web-testing-page-object) |
+
+[**Browse the integrated learning map and synthetic capstone**](https://github.com/KonstantinOreshnikov/git-markdown-practice)
+
+The guides explain **what a tool is for, where it fits, how to test it, and what remains unverified**. No private training materials, internal system configurations or real operational data are needed.
+
 ## Мой подход · My approach
 
 Каждое решение должно давать измеримый управленческий эффект: улучшать контроль риска, сокращать ручной труд, повышать качество данных или ускорять принятие решений.
