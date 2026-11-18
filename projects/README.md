@@ -4,6 +4,7 @@ A compact technical portfolio of independently developed digital products. Each 
 
 | Project | Domain | Highlight | Case study |
 |---|---|---|---|
+| **Risk Reporting & SQL Workspace** | Risk analytics & SQL engineering | Metric contracts, join safety, reconciliation and management reporting (synthetic examples; dashboard DESIGN) | [Explore the case](risk-reporting-sql-workspace/README.md) |
 | **CBA Examinations Platform** | Learning & assessment | Multilingual exam/content architecture and evidence-based QA | [Explore the case](cba-examinations-platform/README.md) |
 | **Secret Santa 2026** | Event application | Privacy-aware gift exchange with unbiased server-side drawing | [Explore the case](secret-santa-2026/README.md) |
 
@@ -27,4 +28,4 @@ These pages are **sanitized case studies, not source-code releases**. No product
 
 ---
 
-**Кратко:** два обезличенных проекта: многоязычная платформа подготовки к экзаменам и веб-приложение Secret Santa. Акцент на архитектуре, автоматизации, QA и проверяемых результатах.
+**Кратко:** три обезличенных проекта: многоязычная платформа подготовки к экзаменам и веб-приложение Secret Santa. Акцент на архитектуре, автоматизации, QA и проверяемых результатах.

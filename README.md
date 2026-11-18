@@ -35,6 +35,10 @@ I use technology as a management transformation tool—to improve decision speed
 
 ## Featured projects
 
+### [Risk Reporting & SQL Workspace — Engineering Case Study](projects/risk-reporting-sql-workspace/README.md)
+
+A privacy-safe case study connecting portfolio analytics, SQL engineering, KPI contracts, data-quality controls and evidence-led reporting. The public examples are synthetic; the integrated dashboard is clearly labelled **DESIGN**.
+
 ### [Risk Analytics Playbook](https://github.com/KonstantinOreshnikov/risk-analytics-playbook)
 
 Practical guidance for metric contracts, data-quality controls, reconciliation, reporting workflows and management commentary.
