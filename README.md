@@ -43,6 +43,16 @@ Practical guidance for metric contracts, data-quality controls, reconciliation, 
 
 Reusable Oracle and ClickHouse examples covering analytical grain, safe conversion, period logic, reconciliation and quality checks.
 
+### [CBA Examinations Platform — Independent Case Study](projects/cba-examinations-platform/README.md)
+
+A multilingual professional learning and assessment platform: structured content operations, source/translation QA, protected question-bank design, architecture and staged delivery gates. Public documentation only; no internal materials or implementation secrets.
+
+### [Secret Santa 2026 — Private Gift Exchange](projects/secret-santa-2026/README.md)
+
+A 15-person event application with gift wishlists and secure server-side randomization. Verified snapshot: 15 registered, 15 completed wishlists, 15 one-to-one assignments and zero self-pairs. Only synthetic examples and aggregated outcomes are public.
+
+[Browse all public project case studies](projects/README.md)
+
 ## Мой подход · My approach
 
 Каждое решение должно давать измеримый управленческий эффект: улучшать контроль риска, сокращать ручной труд, повышать качество данных или ускорять принятие решений.
