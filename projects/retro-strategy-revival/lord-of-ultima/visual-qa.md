@@ -32,12 +32,17 @@ These are references and links, **not a license to republish copyrighted origina
 
 **Prohibited in visual baseline:** unverified EA original sprites/audio, Crown assets, generated fake “screenshots of the original”, unreadable city markers, color palette chosen without real original screenshots.
 
+## Smart planning UX acceptance
+
+After selecting a building the player must see three genuinely different objective-based recommendations where feasible, not a single magical 'best tile'. The interface must show exact current/projected output, adjacency source, cost, future-space compromise and food-deficit impact. A dry-run hover cannot spend resources. The palette, building scale and density must remain historically recognizable; advisory UI must stay compact and dismissible. See [the owner-directed planner contract](smart-planning-ux.md).
+
 ## QA / Unlazy acceptance gates
 
 | Gate | Pass evidence |
 |---|---|
 | V1 — Original reference | At least 3 labeled real historical screenshots, with screen anatomy and provenance |
 | V2 — Visual fidelity | Side-by-side comparative review of **layout/density/hierarchy** (not copied art) and human acceptance |
+| V4 — Advisor usability | Ranked tile alternatives, exact preview/actual parity, fit at 1366×768, explainable opportunity cost and no accidental execution |
 | V3 — Clickable visual | Screenshot plus interaction recording/click scenario; 21×21 tile selection at standard desktop |
 | E1 — Accounting | Wood/stone/iron/food/gold reconcile per event and per city |
 | E2 — Adjacency | Highlighted delta equals post-build actual output within rounding rules |

@@ -6,6 +6,8 @@ This research note preserves two **owner-requested future game candidates** afte
 
 > **RU:** Сохраняем на будущее две любимые стратегии: **Ancient Empires II (2005, Java phones)** и **Lord of Ultima (2010–2014, browser MMO)**. Исходники, референсы и риски проверены; разработка здесь **не начата**.
 
+**Current next-game priority:** [Ancient Empires II — research, original-mechanics audit and browser v0.1 plan](ancient-empires-ii/README.md). No implementation has begun. Lord of Ultima remains a separately documented future single-player project with an approved convenience/anti-paywall design direction.
+
 ## 1. Ancient Empires II (J2ME, 2005)
 
 Original: tactical turn-based fantasy strategy with tile maps, campaign missions, combat units and commanders. [Contemporary GameSpot review](https://www.gamespot.com/reviews/ancient-empires-ii-review/1900-6127192/).
@@ -44,6 +46,8 @@ Original: persistent browser MMORTS featuring precise city-layout bonuses, wood/
 - Preserve the differentiated resource adjacency bonuses, city planning, queues, army composition, travel times, dungeon raids, diplomacy and alliance progression.
 - A persistent multiplayer world is a **server-authoritative application**, unlike the single-file Caribbean Merchant game. It needs a relational database, background/clock processing, transactions, attack scheduling and safe authorization; state the actual architecture rather than pretending it works offline.
 - Prototype single-player/local simulation first only if it preserves important LoU design decisions. **Do not claim it is a full MMO** until multiplayer/security/scale tests pass.
+
+**Owner UX direction confirmed 19 Nov 2026:** free from-start placement advisor, adjacency forecast, goal-based upgrade plans, explainable city statistics, earned permanent automation, quiet offline single-player atmosphere; no pay-to-win or pressure to return daily. See [the detailed Smart Planning contract](lord-of-ultima/smart-planning-ux.md). **Exact disliked successor** is still uncertain; the owner's description suggests Crown of the Gods, not the unrelated JRPG Chrono Trigger.
 
 **Feasibility:** MODERATE for a single-city prototype; HIGHER effort and uncertainty for a faithful persistent MMO. No original-source extraction, proprietary art republication, trademarked branding or unauthorized assets.
 

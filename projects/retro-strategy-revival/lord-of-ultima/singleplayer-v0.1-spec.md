@@ -64,9 +64,9 @@ Conquest must require a Baron-like unit and an explicit **siege/claim** process 
 
 1. Launch, choose a name/language and a seeded compact continent.
 2. Region tab: readable map, colored human/bot holdings, terrain, dungeons and unclaimed sites.
-3. City tab: zoomable 21×21 grassy pseudo-isometric tile view. Select building; show **valid tiles, predicted hourly income and exact adjacency delta before click**.
+3. City tab: zoomable 21×21 grassy pseudo-isometric tile view. Select building; show **valid tiles, predicted hourly income and exact adjacency delta before click**; include free **Max Production / Balanced / Future Space** recommended candidate placements with detailed opportunity-cost warnings (see [Smart Planning](smart-planning-ux.md)).
 4. Right/top persistent HUD: wood, stone, iron, food, gold, per-hour rates, army upkeep, capacity and current queue — never lost while scrolling.
-5. Build queue: 6 free slots, ETA, cost, cancel and reorder; first helper unlockable early.
+5. Build queue: 6 free slots, ETA, cost, cancel and reorder; **basic advisor is free immediately**, first automation helper unlockable early through play; objective-based construction plans show ordered prerequisites and expected resource deficits.
 6. Army tab: troop availability, projected combat strength, travel time, raid loot capacity, predicted but clearly **non-certain** outcome.
 7. Reports tab: every raid/attack shows starting units, lost units, resources gained, time and bot counteraction.
 8. Progress tab: cumulative Renown, spendable Command Points, helper unlocks, wins, achievements, next objective.
