@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#081e2a" />
+  <meta name="description" content="Caribbean Merchant — independent browser strategy with trade, ports and naval combat." />
+  <title>Caribbean Merchant — v1.0</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <div>
+          <div class="brand-title" id="brandTitle">КАРИБСКИЙ КУПЕЦ</div>
+          <div class="brand-caption" id="brandCaption">Торговая стратегия · Карибское море, 1665</div>
+        </div>
+      </div>
+      <div id="stats" class="stats" aria-label="Current state"></div>
+      <div class="top-actions">
+        <div class="lang-switch" aria-label="Language switcher">
+          <button class="ghost lang-btn active" data-lang="ru">RU</button>
+          <button class="ghost lang-btn" data-lang="en">EN</button>
+          <button class="ghost lang-btn" data-lang="az">AZ</button>
+        </div>
+        <button class="ghost" id="helpBtn" title="How to play">Как играть</button>
+        <button class="ghost danger-lite" id="resetBtn" title="Start new game">Новая игра</button>
+      </div>
+    </header>
+    <main class="game-layout">
+      <section class="map-column">
+        <div class="panel map-panel">
+          <div class="panel-head">
+            <div>
+              <div class="eyebrow" id="mapEyebrow">МОРСКАЯ КАРТА</div>
+              <h1 id="mapTitle">Вест-Индия и Мексиканский залив</h1>
+            </div>
+            <div class="map-legend">
+              <span><i class="dot dot-me"></i><span id="legendHere">Вы здесь</span></span>
+              <span><i class="dot dot-other"></i><span id="legendPorts">Другие порты</span></span>
+            </div>
+            <div class="port-selector">
+              <label for="portPicker" id="portPickerLabel">Быстрый выбор порта</label>
+              <select id="portPicker" aria-label="Select port on map"></select>
+            </div>
+          </div>
+          <div class="map-wrap">
+            <svg id="worldMap" viewBox="0 0 1000 610" role="img" aria-label="Caribbean physical map with interactive ports" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="3" result="glow"/><feMerge><feMergeNode in="glow"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                <radialGradient id="pirateHeat"><stop offset="0" stop-color="#c95b33" stop-opacity=".13"/><stop offset=".55" stop-color="#c95b33" stop-opacity=".05"/><stop offset="1" stop-color="#c95b33" stop-opacity="0"/></radialGradient>
+                <linearGradient id="mapFade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#031b28" stop-opacity=".08"/><stop offset="1" stop-color="#041e30" stop-opacity=".2"/></linearGradient>
+              </defs>
+              <image id="physicalRaster" href="assets/physical_map.webp" x="0" y="0" width="1000" height="610" preserveAspectRatio="none" />
+              <rect width="1000" height="610" fill="url(#mapFade)" pointer-events="none"/>
+              <g id="routeLayer" pointer-events="none"></g>
+              <g id="portLayer"></g>
+              <g id="labelLayer"></g>
+            </svg>
+            <div class="map-footnote" id="mapFootnote">Физическая карта Карибского моря · нажмите на порт, чтобы выбрать маршрут</div>
+          </div>
+        </div>
+        <div class="below-map">
+          <section class="panel opportunities">
+            <div class="panel-head compact"><div><div class="eyebrow" id="tradeIntelEyebrow">ТОРГОВАЯ РАЗВЕДКА</div><h2 id="tradeIntelTitle">Выгодные направления</h2></div></div>
+            <div id="opportunities" class="opportunities-list"></div>
+            <p class="fineprint" id="tradeIntelFineprint">Расчёт по текущим ценам. Рынок изменится во время плавания; риск пиратов и издержки не учтены.</p>
+          </section>
+          <section class="panel captain">
+            <div class="panel-head compact"><div><div class="eyebrow" id="journalEyebrow">КАПИТАНСКИЙ ЖУРНАЛ</div><h2 id="journalTitle">Последние события</h2></div></div>
+            <div id="logShort" class="log-short"></div>
+          </section>
+        </div>
+      </section>
+      <aside class="panel dock-panel">
+        <div id="dockResourceBar" class="dock-resources" aria-live="polite"></div><div id="careerStrip" class="career-strip"></div>
+        <div class="dock-top">
+          <div class="eyebrow" id="selectedNation">ПОРТ</div>
+          <h2 id="selectedPortName">Гавана</h2>
+          <p id="selectedPortDesc" class="port-description"></p>
+          <div id="locationTag" class="location-tag"></div>
+          <div id="routeInfo" class="route-info"></div>
+          <button id="sailBtn" class="primary sail-button">Отправиться в порт</button>
+        </div>
+        <nav class="tabs" id="tabs" aria-label="Game sections">
+          <button class="tab active" data-tab="trade">Торговля</button>
+          <button class="tab" data-tab="ship">Корабль</button>
+          <button class="tab" data-tab="estate">Земля</button>
+          <button class="tab" data-tab="contracts">Задания</button>
+          <button class="tab" data-tab="journal">Журнал</button><button class="tab" data-tab="career">Карьера</button><button class="tab" data-tab="adventure">Приключения</button>
+        </nav>
+        <div id="tabContent" class="tab-content"></div>
+      </aside>
+    </main>
+    <footer class="footer"><span id="footerLeft">Caribbean Merchant v1.0 · независимый игровой прототип</span><span id="footerRight">Автосохранение в этом браузере · работает без интернета</span></footer>
+  </div>
+  <div id="modalHost"></div><div id="toast" role="status" aria-live="polite"></div>
+  <script src="game.js"></script>
+</body>
+</html>
