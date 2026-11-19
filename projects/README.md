@@ -9,6 +9,10 @@ A technical portfolio of analytical engineering work and independently developed
 | **Caribbean Merchant** | Game design, web development, QA | Memory-driven single-file naval strategy; 7 archived milestones; human playtest + 26/26 local browser checks | [Explore the case](caribbean-merchant/README.md) |
 | **Secret Santa 2026** | Event application | Privacy-aware gift exchange with unbiased server-side drawing | [Explore the case](secret-santa-2026/README.md) |
 
+### Next-game research (not released)
+
+Two nostalgia-driven strategy candidates have been investigated but **not developed**: [Ancient Empires II and Lord of Ultima — source audit, design risks and a practical feasibility assessment](retro-strategy-revival/README.md). Both are explicitly marked **RESEARCH ONLY**; they are not shipped case studies or licensed game remakes.
+
 ### What is included
 
 - Readable system diagrams and user journeys.
