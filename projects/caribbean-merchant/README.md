@@ -7,6 +7,10 @@
 
 **[Download the playable v1.0 HTML](play/CaribbeanMerchant_v1.0.html)** · [How to run](play/README.md) · [Follow the development diary](history/README.md)
 
+![Caribbean sea-floor relief and islands — physical map artwork used by the game](src/assets/physical_map.webp)
+
+*Physical terrain used in the game (NOAA ETOPO / Basemap processing). The live browser game overlays ports, piracy zones and routes on this geography.*
+
 ## The story
 
 The initial reference was **Port Royale 2 Mobile (Elkware / Java era, mid-2000s)**. The project began with fragments of personal recollection — ports, trading, pirates and ship combat — not an original JAR, source archive or extracted artwork.
