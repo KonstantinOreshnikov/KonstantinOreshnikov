@@ -21,6 +21,8 @@ Original: tactical turn-based fantasy strategy with tile maps, campaign missions
 
 **Feasibility:** HIGH for a *new independent, browser-first tactical game*. Phase 1 should inventory original unit stats / terrain rules / mission structure, then prototype the battle grid and an AI player with original visual assets. Decide clean-room vs GPL-based development **before copying code**.
 
+> **Deep-research addendum (19 November 2026):** [**Lord of Ultima — economy, Crown of the Gods comparison, visual references, earned automation and one-continent single-player design**](lord-of-ultima/README.md). This is **research and a proposed specification**, not implementation.
+
 ## 2. Lord of Ultima (EA Phenomic, 2010–2014)
 
 Original: persistent browser MMORTS featuring precise city-layout bonuses, wood/stone/iron/food economies, building queues, trade, troops, dungeons, alliances, continent warfare and shrines. [Original EA announcement](https://news.ea.com/press-releases/press-releases-details/2010/EAs-Phenomic-Introduces-Strategy-Game-Lord-of-Ultima/default.aspx) · [Original screenshots](https://www.mobygames.com/game/64169/lord-of-ultima/screenshots/) · [Game guide archive](https://wiki.ultimacodex.com/wiki/Lord_of_Ultima). Original official servers closed on 12 May 2014.
