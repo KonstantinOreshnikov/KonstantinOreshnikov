@@ -51,6 +51,10 @@ Reusable Oracle and ClickHouse examples covering analytical grain, safe conversi
 
 A multilingual professional learning and assessment platform: structured content operations, source/translation QA, protected question-bank design, architecture and staged delivery gates. Public documentation only; no internal materials or implementation secrets.
 
+### [Caribbean Merchant — Nostalgia to Playable Browser Game](projects/caribbean-merchant/README.md)
+
+A personal, AI-assisted revival of the *experience* of a mid-2000s Caribbean trading game: user-led playtesting, UI redesign, economic rules, game testing and a downloadable independent v1.0. Includes genuine archived milestones v0.1–v1.0, not a reconstructed fake commit history.
+
 ### [Secret Santa 2026 — Private Gift Exchange](projects/secret-santa-2026/README.md)
 
 A 15-person event application with gift wishlists and secure server-side randomization. Verified snapshot: 15 registered, 15 completed wishlists, 15 one-to-one assignments and zero self-pairs. Only synthetic examples and aggregated outcomes are public.

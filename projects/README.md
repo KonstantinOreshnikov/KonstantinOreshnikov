@@ -6,6 +6,7 @@ A technical portfolio of analytical engineering work and independently developed
 |---|---|---|---|
 | **Risk Reporting & SQL Workspace** | Risk analytics & SQL engineering | Metric contracts, join safety, reconciliation and management reporting (synthetic examples; dashboard DESIGN) | [Explore the case](risk-reporting-sql-workspace/README.md) |
 | **CBA Examinations Platform** | Learning & assessment | Multilingual exam/content architecture and evidence-based QA | [Explore the case](cba-examinations-platform/README.md) |
+| **Caribbean Merchant** | Game design, web development, QA | Memory-driven single-file naval strategy; 7 archived milestones; human playtest + 26/26 local browser checks | [Explore the case](caribbean-merchant/README.md) |
 | **Secret Santa 2026** | Event application | Privacy-aware gift exchange with unbiased server-side drawing | [Explore the case](secret-santa-2026/README.md) |
 
 ### What is included
@@ -22,10 +23,10 @@ English is the primary portfolio language. Short Russian summaries are included 
 
 ### Confidentiality
 
-These pages are **sanitized case studies, not source-code releases**. No production database dumps, individual records, answer keys, confidential training materials, secrets, tokens, internal service URLs, company-owned code, or privileged security procedures are shared. Figures describe different project states and should not be conflated with active users, deployment readiness or completed QA.
+These pages are **sanitized case studies**. The independently authored **Caribbean Merchant** includes its public playable HTML and archived snapshots; other case studies remain documentation-only. No production database dumps, individual records, answer keys, confidential training materials, secrets, tokens, internal service URLs, company-owned code, or privileged security procedures are shared. Figures describe different project states and should not be conflated with active users, deployment readiness or completed QA.
 
 [Publishing and privacy policy](PRIVACY.md)
 
 ---
 
-**Кратко:** три обезличенных кейса: Risk Reporting & SQL Workspace, многоязычная экзаменационная платформа и приложение Secret Santa. Акцент на архитектуре, автоматизации, QA и проверяемых результатах.
+**Кратко:** четыре проекта: Risk Reporting & SQL Workspace, многоязычная экзаменационная платформа и приложение Secret Santa. Акцент на архитектуре, автоматизации, QA и проверяемых результатах.

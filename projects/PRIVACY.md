@@ -1,6 +1,6 @@
 # Public Case Study — Disclosure Rules
 
-These portfolio files are deliberately **documentation-only** and do not grant access to the underlying systems or data.
+These portfolio files are privacy-safe case studies. Most are **documentation-only** and do not grant access to underlying private systems or data. **Caribbean Merchant** is an explicitly owner-directed exception: its independently authored offline browser game and historical builds are intentionally public after source/asset review, with no sensitive data or original commercial game assets.
 
 ## Allowed
 - Generalized product goals and architecture.
@@ -9,6 +9,7 @@ These portfolio files are deliberately **documentation-only** and do not grant a
 - Aggregate metrics that have been explicitly verified and are safe to publish.
 - Clearly labelled illustrative/synthetic examples.
 - Development methodology and stage-specific quality gates.
+- Public standalone code and historical snapshots for wholly independent, non-confidential projects explicitly designated as playable releases, with attribution and review (currently Caribbean Merchant).
 
 ## Not allowed
 - Real names, email addresses, authentication identifiers or gift-recipient mappings.
@@ -22,4 +23,4 @@ These portfolio files are deliberately **documentation-only** and do not grant a
 
 Separate **design baseline**, **verified current snapshot**, **aspirational functionality**, and **synthetic example** in every case. Date time-sensitive metrics. Do not treat a staging/test example as proof of a production deployment. Re-check aggregate counts before updating.
 
-All diagrams describe **generalized architecture**, not a deployable blueprint. Private repositories and original source authorities remain closed.
+Diagrams for private case studies describe **generalized architecture**, not deployable blueprints. The explicitly public Caribbean Merchant standalone game is an exception and does not provide access to any private systems. Private repositories and confidential source authorities remain closed.
