@@ -24,3 +24,14 @@
 
 - QA enhancement: isolated 64-square and legal e2-e4 Chromium checks on the actual single-file distribution; run #35 PASS (Node 12/12, DOM 7/7, browser 12/12).
 - CI efficiency: skip documentation-only changes and cancel obsolete same-branch runs.
+
+## 2026-11-21 — B2 Coach 2.0 and patch v0.2.1
+- Reused existing chess.js legal move engine; added custom deterministic coach-engine.js with full two-ply candidate and immediate-reply analysis and position-preservation checks. No Stockfish dependency or invented Elo.
+- Ranked 2–3 candidate moves with legal SAN, an explained purpose and actual legal reply; distinguished capturable piece from forced material loss.
+- Added material-and-center heuristic estimates, warning/major/fine review labels, compact contextual hint panel and three-moment player review.
+- Added retained local review notes, automatic terminal review, Undo rollback and lesson-session restoration of notes; corrupt/mismatched saved PGN review notes filtered on restore.
+- Refreshed coaching explanations and hint candidates when switching RU / EN / AZ. Rebalanced central pawn preference for useful beginner recommendations.
+- Created B2 source and tests: coach-engine.cjs, postgame-smoke.cjs, enhanced dom-smoke.cjs and Chromium browser.cjs; bundled standalone v0.2.0 and patch v0.2.1 for rollback.
+- CI failure #54: synthetic DOM test fixture incorrectly implemented replaceChildren() with required argument; fixed in commit 06fdbda38715b392f35620423a4234404d2e1d91.
+- CI #56: 12 rules + 8 coach + 9 DOM + 18 browser PASS. CI #60: added 5 postgame tests PASS, previous gates remain PASS.
+- B2.1 patch CI: see QA_LOG.md for the final verified run. Production v1.0 remains BLOCKED.
