@@ -1,8 +1,8 @@
 # Chess Odyssey QA Ledger
 
-**CURRENT VERIFIED CHECKPOINT (2026-11-21): B3 v0.3.0 Preview, run #112 — 75/75 executable checks PASS + verified ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
-GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44818905664  
-Current source/engine authority: docs/ENGINE_B3_DESIGN.md + engine/MANIFEST.md. Older B0/B1/B2 statements below are historical, not current release status.
+**CURRENT VERIFIED CHECKPOINT (2026-11-21): B4 v0.4.0 Preview, run #166 — 99/99 executable tests PASS + verified 22-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
+Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44824986016  
+Current authority: docs/ACADEMY_B4_DESIGN.md + academy.js + docs/ENGINE_B3_DESIGN.md + engine/MANIFEST.md. B0–B3 statements below are historical release checkpoints, not current production status.
 
 Date: 2026-11-21
 Branch: game/chess-odyssey-v0.1
@@ -128,3 +128,47 @@ Full logs and downloadable ZIP: https://github.com/KonstantinOreshnikov/Konstant
 - B4–B7 and all v1.0 release acceptance gates remain **OPEN**. No merge to main and no production deployment.
 
 **Next block:** B4 learning content and tactics (board-first lessons in RU/EN/AZ), with B3 strength and B2 coaching preserved and regression-tested.
+
+
+## B4 — complete 33-lesson interactive Academy · 2026-11-21
+
+**Actual implementation:** 4 category tracks, 33 unique exercises (Rules 9, Tactics 8, Openings 8, Endgames 8), 49 learner turns. Each has legal chess.js-backed opening history/FEN, expected SAN, scripted opponent responses where applicable, and RU/EN/AZ full title + intro + per-stage guidance. New application behavior: incorrect move rejection without board mutation, multi-step both-colour openings, next lesson, filtered track progress, in-progress exercise reload and practice-game return, queen vs knight promotion selection, mobile UI. Existing B2 coach and genuine B3 Stockfish retained.
+
+### Red/green issue history (not silently removed)
+
+| GitHub Actions | Status | Cause and correction |
+| --- | --- | --- |
+| #148, run 44823481011 | **FAIL** in content QA | French Defence EN step hint was too terse for the explicit quality threshold; expanded the English explanation; not a chess legality defect |
+| #151, run 44823633669 | **FAIL** in content QA | King-opposition setup contained only kings, automatically terminal by insufficient material; inserted distant pawns and added a gate rejecting already-finished lesson starts |
+| #154, run 44823774903 | **FAIL** in new Chromium B4 E2E | After a wrong valid move, piece selection remained active and re-clicking the piece deselected it; fixed by clearing selection and re-rendering before retry |
+| #157, run 44823995162 | **FAIL** in new E2E assertion | Test expected `c5 Nf3` without legal PGN move number `2.`; test repaired to accept `c5 2. Nf3`, game output itself correct |
+| #159, run 44824293554 | **CANCELLED**, not technical PASS | GitHub runner held at redundant Playwright `--with-deps` Chromium installation; moved CI to installed Chrome when available with Chromium-download fallback, retaining real-browser tests |
+| **#166, run 44824986016** | **PASS ALL GATES** | 99/99 executable checks, actual Stockfish and full new B4 Chromium behavior, 22-file ZIP integrity and artifact upload |
+
+### Verified final QA (run #166) — **99/99**
+
+| Gate | Count | Result |
+| --- | ---: | --- |
+| Chess legal rules + existing app smoke | 12 / 12 | PASS |
+| B2 candidate/reply and shallow coach | 8 / 8 | PASS |
+| B3 UCI bridge and six levels | 7 / 7 | PASS |
+| **B4 all Academy datasets / rules / RU-EN-AZ field coverage** | **8 / 8** | **PASS** |
+| Actual Stockfish native UCI (legal opening + Qxf7# mate) | 2 / 2 | PASS |
+| B2 postgame + persistence + rollback | 5 / 5 | PASS |
+| Synthetic DOM regressions | 9 / 9 | PASS |
+| Existing real browser E2E | 21 / 21 | PASS |
+| Genuine Stockfish Worker+WASM real browser E2E | 11 / 11 | PASS |
+| **B4 real Chromium-family browser exercises** | **16 / 16** | **PASS** |
+| **Total** | **99 / 99** | **PASS** |
+
+B4 browser acceptance explicitly exercised: four-track selector, incorrect-but-legal move, knight-fork completion and Next Lesson, exact parked-game return, three-step Sicilian as Black with scripted White replies, page reload at step 2, RU/EN/AZ mid-stage, both queen promotion and underpromotion knight selection, three-step Italian as White, persisted progress, 390px viewport overflow and the full v0.4.0 standalone bundle.
+
+**Source-backed build evidence:** `dist/ChessOdyssey_v0.4.0_PREVIEW.html`; `scripts/build-standalone.cjs`; `scripts/package-preview.py`; `engine/MANIFEST.md`. The full ZIP was actually generated and reopened with CRC tests: **22 files**, 1,347,257 bytes, internal SHA256 **ff812088f359c3a680a2a681917e5ceff89bc448836f99de62ec43aec4b263ac**. The GitHub Actions downloadable artifact **14673516854**, name `ChessOdyssey-v0.4.0-Academy-Stockfish-PREVIEW`, is retained until 2026-12-20 UTC (artifact-archive digest SHA256 `a5e7c418cbbf0139c53ab3f6ec795fd5bf08df32ff03c74845853083485431b7`). Archive and logs: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44824986016.
+
+### Hard boundaries after B4
+
+- **B4 Feature/technical QA: PASS**, including programmatic structural coverage in RU/EN/AZ; not an independent human editorial language PASS.
+- Physical **Windows double-click launcher end-to-end NOT TESTED**, though Node+HTTP and Chrome Browser E2E PASS.
+- The 33 exercises are a bounded introductory full four-track package, not an unlimited/accredited chess textbook, certified coach or verified master history.
+- B5 verified historical grandmaster PGNs, B6 separate Academy Reputation / provisional unrated-game separation and B7 production gates remain NOT IMPLEMENTED / BLOCKED.
+- Full-length win/loss/draw games in UI, all promotion paths, standalone accessibility review, independent RU/EN/AZ teaching correctness and production deployment remain release gates. Do not merge `main`; no production deploy. **Next block: B5 Masters & Legends**.
