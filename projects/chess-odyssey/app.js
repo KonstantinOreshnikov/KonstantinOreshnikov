@@ -283,14 +283,18 @@ function hint(){
     if(game.game_over())return message(tr("gameOver"));
     if(!lesson&&game.turn()!==side)return;
     if(lesson){
-      const task=LESSONS.find(x=>x.id===lesson);
-      message(task.description[language]);selected=task.from;render();return;
+      const task=lessonTask(),san=task.steps[lessonStep].san;
+      const expected=game.moves({verbose:true}).find(x=>x.san===san);
+      if(!expected)throw new Error("Academy answer not legal: "+task.id+"/"+san);
+      selected=expected.from;
+      message(at("hint",{move:san})+" "+task.steps[lessonStep].prompt[language]);
+      render();return;
     }
     const analysis=COACH.analyze(game,{limit:3});
     hintState={fen:analysis.fen,lines:analysis.lines};
     message(ct("hintIntro"));showHints();
   }
-    function doMove(from,to,promotion){
+  function doMove(from,to,promotion){
     const matches=game.moves({square:from,verbose:true}).filter(x=>x.to===to);
     if(!matches.length) return message(tr("illegal"));
     if(matches.some(m=>m.promotion) && !promotion) {
@@ -299,8 +303,12 @@ function hint(){
     const candidate=matches.find(x=>!x.promotion||x.promotion===promotion);
     if(!candidate) return message(tr("illegal"));
     if(lesson){
-      const task=LESSONS.find(x=>x.id===lesson);
-      if(from!==task.from||to!==task.to) return learnMessage(tr("lessonRetry"));
+      const task=lessonTask();
+      const expected=game.moves({verbose:true}).find(x=>x.san===task.steps[lessonStep].san);
+      if(!expected)throw new Error("Academy answer not legal: "+task.id);
+      if(from!==expected.from||to!==expected.to||(candidate.promotion||"")!==(expected.promotion||"")){
+        learnMessage(at("wrong"));return;
+      }
     }
     const assessment=lesson?null:COACH.grade(game,candidate.san);
     const move=game.move({from,to,promotion:promotion||"q"});
@@ -309,11 +317,24 @@ function hint(){
     clearHints();
     $("promotion").hidden=true; pendingPromotion=null;
     if(lesson){
-      const solved=lesson;
-      if(!completed.includes(solved)) completed.push(solved);
-      learnMessage(tr("lessonDone"));
-      message(tr("lessonGood")+" "+explain(move));
-      lesson=null; finalized=true; $("lesson").value="";
+      const task=lessonTask(),stage=task.steps[lessonStep];
+      if(stage.reply){
+        const response=game.move(stage.reply);
+        if(!response)throw new Error("Invalid scripted opponent response: "+task.id+"/"+stage.reply);
+        last=[response.from,response.to];
+      }
+      lessonStep++;
+      if(lessonStep===task.steps.length){
+        if(!completed.includes(task.id))completed.push(task.id);
+        lastLessonId=task.id;
+        lesson=null;lessonStep=0;finalized=true;$("lesson").value="";
+        learnMessage(at("completed"));
+        message(tr("lessonGood")+" "+explain(move));
+      }else{
+        learnMessage(lessonPrompt(task));
+        message(task.steps[lessonStep].prompt[language]);
+      }
+      renderAcademy();
     } else {
       notes.push(Object.assign({ply:game.history().length},assessment));
       message(assessmentMessage(assessment));
