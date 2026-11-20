@@ -95,7 +95,8 @@ const {chromium}=require("playwright");
   assert.match(exported,/23\. Be7#/);
   assert.match(exported,/\[Source "https:\/\/chessgator\.com\/games\/immortal-game"\]/);
   assert.match(exported,/\[Result "1-0"\]/);total++;
-  // Keyboard navigation and flip both affect only master timeline/board.
+  // First is correctly disabled at ply 0; test the back-to-first operation from ply 1.
+  await page.locator("#m-next").click();
   await page.locator("#m-first").click();
   await page.locator("#m-flip").check();
   assert.equal(await page.locator("#m-board button").first().getAttribute("aria-label").then(x=>x.slice(0,2)),"h1");total++;
