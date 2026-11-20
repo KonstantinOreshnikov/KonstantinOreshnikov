@@ -8,6 +8,9 @@ on:
       - "projects/chess-odyssey/styles.css"
       - "projects/chess-odyssey/app.js"
       - "projects/chess-odyssey/coach-engine.js"
+      - "projects/chess-odyssey/engine-bridge.js"
+      - "projects/chess-odyssey/engine/**"
+      - "projects/chess-odyssey/scripts/build-standalone.cjs"
       - "projects/chess-odyssey/vendor/**"
       - "projects/chess-odyssey/tests/**"
       - ".github/workflows/chess-odyssey-ci.yml"
@@ -19,6 +22,9 @@ on:
       - "projects/chess-odyssey/styles.css"
       - "projects/chess-odyssey/app.js"
       - "projects/chess-odyssey/coach-engine.js"
+      - "projects/chess-odyssey/engine-bridge.js"
+      - "projects/chess-odyssey/engine/**"
+      - "projects/chess-odyssey/scripts/build-standalone.cjs"
       - "projects/chess-odyssey/vendor/**"
       - "projects/chess-odyssey/tests/**"
       - ".github/workflows/chess-odyssey-ci.yml"
@@ -41,6 +47,11 @@ jobs:
           node --check projects/chess-odyssey/vendor/chess.js
           node --check projects/chess-odyssey/app.js
           node --check projects/chess-odyssey/coach-engine.js
+          node --check projects/chess-odyssey/engine-bridge.js
+          node --check projects/chess-odyssey/scripts/build-standalone.cjs
+          node --check projects/chess-odyssey/tests/engine-bridge.cjs
+          node --check projects/chess-odyssey/tests/stockfish-uci.cjs
+          node --check projects/chess-odyssey/tests/stockfish-browser.cjs
           node --check projects/chess-odyssey/tests/coach-engine.cjs
           node --check projects/chess-odyssey/tests/postgame-smoke.cjs
           node --check projects/chess-odyssey/tests/chess-smoke.cjs
@@ -51,6 +62,8 @@ jobs:
         run: |
           node tests/chess-smoke.cjs
           node tests/coach-engine.cjs
+          node tests/engine-bridge.cjs
+          node tests/stockfish-uci.cjs
           node tests/postgame-smoke.cjs
           node tests/dom-smoke.cjs
   browser:
@@ -71,4 +84,7 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Run browser regression
         working-directory: projects/chess-odyssey
-        run: node tests/browser.cjs
+        run: |
+          node scripts/build-standalone.cjs 0.3.0
+          node tests/browser.cjs
+          node tests/stockfish-browser.cjs
