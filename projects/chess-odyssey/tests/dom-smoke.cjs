@@ -5,6 +5,7 @@ const path=require("node:path");
 const vm=require("node:vm");
 const assert=require("node:assert/strict");
 const {Chess}=require("../vendor/chess.js");
+const Coach=require("../coach-engine.js");
 const script=fs.readFileSync(path.join(__dirname,"../app.js"),"utf8");
 class Element {
  constructor(id){
@@ -27,16 +28,34 @@ const localStorage={getItem:(k)=>storage.get(k)||null,setItem:(k,v)=>storage.set
 const timers=[];
 const setTimeout=(f)=>{timers.push(f);return timers.length;};
 const clearTimeout=()=>{};
-const window={};
+const window={ChessCoachEngine:Coach};
 vm.runInNewContext(script,{Chess,document,localStorage,window,setTimeout,clearTimeout,console},{timeout:5000});
 function square(s){return el("board").children.find(x=>(x.attrs["aria-label"]||"").startsWith(s+" "));}
 let pass=0;
 function check(name,fn){fn();pass++;console.log("PASS "+name);}
 check("64 squares, 32 pieces",()=>{assert.equal(el("board").children.length,64);assert.equal(el("board").children.filter(x=>x.children.some(y=>y.className==="piece" && Boolean(y.textContent))).length,32);});
 check("legal e2 selection",()=>{square("e2").listeners.click();assert.equal(el("board").children.filter(x=>x.flags.has("legal")).length,2);});
+check("B2 hint displays 3 legal lines with opponent responses",()=>{
+ el("hint").listeners.click();
+ assert.equal(el("coach-variations").hidden,false);
+ assert.equal(el("coach-variations").children.length,3);
+ assert.ok(el("coach-variations").children.every(x=>x.children.some(y=>y.textContent.includes("Nc6")||y.textContent.includes("ответ"))));
+});
 check("player move persisted",()=>{square("e4").listeners.click();assert.match(JSON.parse(storage.get("chess-odyssey-v01")).pgn,/e4/);});
+check("B2 grades own move and stores review",()=>{
+ const data=JSON.parse(storage.get("chess-odyssey-v01"));
+ assert.equal(data.notes.length,1);
+ assert.equal(data.notes[0].san,"e4");
+ assert.ok(data.notes[0].best);
+ el("review-button").listeners.click();
+ assert.equal(el("coach-review").hidden,false);
+ assert.ok(el("review-list").children.length>=3);
+});
 check("AI responds with a legal move",()=>{assert.ok(timers.length);timers[timers.length-1]();const pgn=JSON.parse(storage.get("chess-odyssey-v01")).pgn;assert.match(pgn,/1\. e4 [a-zA-Z]/);});
-check("undo returns to initial board",()=>{el("undo").listeners.click();assert.equal(el("moves").textContent,"—");});
+check("undo returns to initial board and clears B2 review",()=>{
+ el("undo").listeners.click();assert.equal(el("moves").textContent,"—");
+ assert.equal(JSON.parse(storage.get("chess-odyssey-v01")).notes.length,0);
+});
 check("lesson and no loss of parked game",()=>{
  el("lesson").value="pawn";el("lesson").listeners.change();
  square("e2").listeners.click();square("e4").listeners.click();
