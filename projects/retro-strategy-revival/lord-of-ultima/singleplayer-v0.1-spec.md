@@ -63,7 +63,7 @@ Conquest must require a Baron-like unit and an explicit **siege/claim** process 
 ## User interface and first 20 minutes
 
 1. Launch, choose a name/language and a seeded compact continent.
-2. Region tab: readable map, colored human/bot holdings, terrain, dungeons and unclaimed sites.
+2. Region tab: readable map, colored human/bot holdings, terrain, dungeons and unclaimed sites. From the start, a **free settlement advisor** highlights up to three candidate new-town sites with regional resource, travel and safety comparisons; the player must still choose the site.
 3. City tab: zoomable 21×21 grassy pseudo-isometric tile view. Select building; show **valid tiles, predicted hourly income and exact adjacency delta before click**; include free **Max Production / Balanced / Future Space** recommended candidate placements with detailed opportunity-cost warnings (see [Smart Planning](smart-planning-ux.md)).
 4. Right/top persistent HUD: wood, stone, iron, food, gold, per-hour rates, army upkeep, capacity and current queue — never lost while scrolling.
 5. Build queue: 6 free slots, ETA, cost, cancel and reorder; **basic advisor is free immediately**, first automation helper unlockable early through play; objective-based construction plans show ordered prerequisites and expected resource deficits.
@@ -97,7 +97,8 @@ Times are illustrative balancing goals, not actual verified implementation.
 - **Phase B — Economic vertical slice:** grid, adjacency, 5 resources, build upgrades, persistence, 1 bot economy.
 - **Phase C — Military/expansion:** units, raid reports, siege claim, Baron, 2–5 cities.
 - **Phase D — Automation/campaign:** permanent helpers, achievements, balancing and loss/win paths.
-- **Later only if asked:** coast, shipyard, sea dungeons, new continents, alliance NPC, authentic networked multiplayer.
+- **Deferred expansion, explicitly requested as future ideas:** 2 adjacent continents then optionally 4+, coastal logistics, ships and sea dungeons; multiple competing AI players and AI-controlled alliances (including 1 human + 2 bots versus 3 bots), invite/recruit NPC factions to an alliance and give allied bots high-level strategic directives. See [Expansion roadmap](expansion-roadmap.md). **Do not mix these phases into the initial 1-vs-1 acceptance.**
+- **Much later, separate decision:** authentic networked multiplayer with human players and server-authoritative synchronized state.
 
 A future MMO requires a separate **server-authoritative** design with database, auth, scheduled jobs, order idempotency and adversarial testing; the offline MVP must not be presented as a production MMO.
 

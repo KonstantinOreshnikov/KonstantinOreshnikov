@@ -4,7 +4,7 @@
 
 **Project goal (RU):** по памяти восстановить стратегическую глубину Lord of Ultima (2010–2014), прежде всего оригинальный *облик города*, правильную экономику соседства, здания и армии, баронов и подземелья. Начать с **одного континента 10×10, игрока и одного равноправного бота**, исключить донат, обеспечить достижимый бесплатный путь к постоянным управляющим.
 
-The owner described first-hand gameplay memories of continents, building one settlement up from scratch, fielding an army, training barons to establish/conquer towns, dungeons, sea raids and alliances. These recollections align substantially with surviving original LoU references. **The owner later described having tried a paid successor, **probably Crown of the Gods** (a voice transcription said “Chrono Trigger”, which is an unrelated 1995 JRPG). The exact previously played game remains unverified; do not treat this identification as certain. The earlier fan clone that disappointed the owner remains unknown**; do not assume it was Crown of the Gods.
+The owner described first-hand gameplay memories of continents, building one settlement up from scratch, fielding an army, training barons to establish/conquer towns, dungeons, sea raids and alliances. These recollections align substantially with surviving original LoU references. The owner also remembers trying a paid successor, **possibly Crown of the Gods**, but its identity is **not confirmed** (the name “Chrono Trigger” refers to an unrelated JRPG).
 
 ## Read this project in order
 
@@ -13,7 +13,8 @@ The owner described first-hand gameplay memories of continents, building one set
 3. [Economy, automation agents and anti-P2W](economy-and-agents.md) — detailed calculation contracts, earned automation, resource invariants.
 4. [Visual-reference checklist and QA gates](visual-qa.md) — original screenshots, how to avoid a misleading redesign and acceptance strategy.
 5. [Smart planning, advisor and peaceful UX — owner-directed requirements](smart-planning-ux.md) — free placement suggestions, forecasts, opportunity costs, goal planner, anti-P2W and explicit acceptance gates.
-6. [Evidence / source register](sources.md) — source URL, authority level and verification gaps.
+6. [Future expansion roadmap: continents, AI alliances and bot commands](expansion-roadmap.md) — clearly deferred beyond initial 1v1 test.
+7. [Evidence / source register](sources.md) — source URL, authority level and verification gaps.
 
 ## Preliminary conclusion
 

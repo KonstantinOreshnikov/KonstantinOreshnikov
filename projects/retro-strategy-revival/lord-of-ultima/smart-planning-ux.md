@@ -24,6 +24,20 @@ A contextual planning layer is **not** a purchasable helper. Even before earning
 
 **Display priority:** map and buildings remain visually dominant; the advisor is a compact collapsible panel and on-tile overlay, not a wall of labels. Keep treasury/resources and queue visible while working on the city.
 
+## World-level settlement adviser — free from the first session
+
+This extends the adviser **beyond the 21×21 internal city grid** to the continental / regional map, without taking over diplomacy or tactics.
+
+- Before founding a new settlement, offer **up to three viable sites**, with purpose tags: **rich resource base**, **safe economic expansion**, **trade/logistics access**. If fewer than three are legally available, explain why.
+- Explain the actual **regional terrain / local natural resource node modifiers** expected to influence city-production potential, as supported by the chosen ruleset. Distinguish known exact modifiers from estimates, future access and undiscovered enemy holdings.
+- Compare new-city location by **resource mix, adjacency opportunities, terrain quality, available construction space, travel/shipping distance to existing cities, vulnerability/exposure and distance to dungeons**.
+- Warn about weak choices: poor ore coverage for an iron-specialist city, limited farming space, avoidable isolation or opening a second front too early. This is **strategic situational awareness**, not an instruction to attack a particular player.
+- Let the user filter the suggested locations by an intention — **economy**, **food**, **safety**, **future logistics** — with an optional comparison table. Display alternative trade-offs rather than one supposedly perfect tile.
+- When revealing a site for the first time, use the player-visible map state only. Do **not** reveal unseen opponent positions, undeclared hidden treasures or future bot decisions.
+- The adviser **must not found a city, march units, enter an alliance or declare a siege without an explicit player action**. It presents information, and can propose a reversible plan.
+
+**Future scope:** if multiple continents and sea transport are later implemented, the same advisor can estimate overseas shipping cost, travel time and corridor risk while using actual route constraints.
+
 ## Planning engine contract
 
 For each feasible placement candidate c:
@@ -82,6 +96,9 @@ Players must be able to do any action manually without an agent. Agents save cli
 | U8 | Advance AI turn | AI subject to same action economy; no hidden resource multipliers |
 | U9 | Play with zero agents and no payments | All gameplay routes available; only automation ergonomics differ |
 | U10 | Review advisor in RU/EN/AZ and 1366×768 | Readable, no map/label overlaps, persistent resource HUD |
+| U11 | Choose a new town site on the regional map | Compare up to 3 legal sites with explained resource mix, travel exposure and future production potential |
+| U12 | Preview settlement and cancel | No deduction of resources, no new city and no movement order committed |
+| U13 | Enter unexplored world region | Advisor cannot leak invisible AI city locations or unsupported hidden map information |
 
 **Evidence required:** source commit/hash, deterministic seed, chosen city layout, expected/actual production ledger, screenshot/video of the three-candidate overlay, 10 negative scenarios, and reconciliation PASS. A design document does not pass these gates.
 
