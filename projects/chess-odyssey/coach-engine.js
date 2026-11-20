@@ -21,7 +21,8 @@
       const rel=piece.color===perspective ? 1 : -1;
       const advance=piece.color==="w" ? 6-r : r-1;
       const centre=3.5-(Math.abs(f-3.5)+Math.abs(r-3.5))/2;
-      const bonus=piece.type==="p" ? advance*3 : (piece.type==="n"?10:piece.type==="b"?5:0)*centre;
+      const square="abcdefgh"[f]+String(8-r);
+      const bonus=piece.type==="p" ? advance*3+(CENTRE.has(square)?32:0) : (piece.type==="n"?10:piece.type==="b"?5:0)*centre;
       total+=rel*(PIECE_VALUES[piece.type]+bonus);
     }
     return total;
