@@ -76,6 +76,14 @@ Latest verified CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov
 | Run #60, ID 44814804891 | rules 12/12 + coach 8/8 + postgame 5/5 + DOM 9/9 + Chromium 18/18 | PASS, logs read back |
 | Run #68, ID 44815128576 | removal of fileRank() (mistakenly judged dead) broke board render; production code regression detected by postgame test | FAIL; not concealed |
 | Fix d3a79f0c8de6a6804d79e1a48aec805cfbea7ada | restore fileRank() required by board rendering; distribution v0.2.1 re-bundled | Corrective commit |
-| Run #72, ID 44815259494 | regression after fileRank restoration and current distribution bundle | PENDING until GitHub logs confirm result |
+| Run #72, ID 44815259494 | regression after fileRank restoration | CANCELLED by superseding docs/PR run, not a technical FAIL |
+| Run #73, ID 44815318694 | B2.1 after fileRank fix and refreshed standalone: rules 12/12; coach 8/8; postgame 5/5; synthetic DOM 9/9; **Chromium 21/21** | **PASS**; step logs read back |
 
 **Release boundary:** B2 unit / browser evidence is not a v1.0 release signoff. Full-length game E2E across outcomes, promotions in UI, strong engine / six levels, all planned Academy lessons, full independently checked RU/EN/AZ, performance/UX accessibility and production signoff remain NOT TESTED or NOT IMPLEMENTED. No merge or production deploy.
+
+### Verified B2.1 checkpoint (21 November 2026)
+
+- **Current validated distribution:** dist/ChessOdyssey_v0.2.1_PREVIEW.html (standalone). B2.1 app and all four test categories passed GitHub Actions #73: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44815318694.
+- **PASS:** legal SAN and opponent replies; positive mate/no-reply detection; immediate capture warning; heuristic grading; saved review; automatic postgame review; Undo stats rollback; lesson resume; RU/EN/AZ in-browser switching including active hints; offline bundle rendering.
+- **Remaining NOT TESTED / NOT IMPLEMENTED:** full translation independent proofreading, entire UI games with all terminal scenarios, all promotions in UI, strong engine tiers, source-verified grandmaster PGN, learning route breadth, independent rated mode/reputation and final mobile/accessibility/release gates.
+- **Production:** BLOCKED. No main merge, no deployment. The original historical FAIL runs and corrections are retained above.
