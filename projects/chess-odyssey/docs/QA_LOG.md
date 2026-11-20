@@ -1,5 +1,9 @@
 # Chess Odyssey QA Ledger
 
+**CURRENT VERIFIED CHECKPOINT (2026-11-21): B3 v0.3.0 Preview, run #112 — 75/75 executable checks PASS + verified ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
+GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44818905664  
+Current source/engine authority: docs/ENGINE_B3_DESIGN.md + engine/MANIFEST.md. Older B0/B1/B2 statements below are historical, not current release status.
+
 Date: 2026-11-21
 Branch: game/chess-odyssey-v0.1
 Scope: B0 + B1 first implementation
@@ -60,7 +64,7 @@ Verified CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/action
 
 4. Run #35 (ID 44811717245), with docs-only CI suppression and versioned standalone coverage: **Offline 12/12 PASS, synthetic DOM 7/7 PASS, Chromium 12/12 PASS.** Two added browser assertions verified the self-contained dist/ChessOdyssey_v0.1.1_PREVIEW.html opens with all 64 squares and accepts a legal e2-e4 move in real Chromium. Head code/test revision: 7ee8625adc0542b8589e2ab7f7ce2eb61387506f. Logs read back with no exit-code error.
 
-Latest verified CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44811717245
+Historical B1 checkpoint CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44811717245
 
 
 ## B2 — Coach 2.0 QA (21 November 2026)
@@ -87,3 +91,40 @@ Latest verified CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov
 - **PASS:** legal SAN and opponent replies; positive mate/no-reply detection; immediate capture warning; heuristic grading; saved review; automatic postgame review; Undo stats rollback; lesson resume; RU/EN/AZ in-browser switching including active hints; offline bundle rendering.
 - **Remaining NOT TESTED / NOT IMPLEMENTED:** full translation independent proofreading, entire UI games with all terminal scenarios, all promotions in UI, strong engine tiers, source-verified grandmaster PGN, learning route breadth, independent rated mode/reputation and final mobile/accessibility/release gates.
 - **Production:** BLOCKED. No main merge, no deployment. The original historical FAIL runs and corrections are retained above.
+
+
+## B3 — genuine Stockfish 19 and six-level preview (2026-11-21)
+
+**Scope:** six game levels, Stockfish.js 19.0.1 Lite single-threaded WASM as separate local Web Worker, explicit offline fallback, UCI/legality gating, cancellation, packaging and GPL source evidence.
+
+### Provenance / asset integrity — PASS
+
+- Real upstream npm package **stockfish@19.0.1**, GPL-3.0, corresponding source https://github.com/nmrugg/stockfish.js/tree/v19.0.1.
+- Vendored binaries unmodified; matching file versions and full engine/Copying.txt read back from GitHub. Engine MANIFEST: engine/MANIFEST.md.
+- JS: **28,230 bytes**, SHA256 **ccb130d7ff29408531c47d859a49f91d59d4f482d05a53eb1a3231a4f624c91a**.
+- WASM: **1,845,971 bytes**, SHA256 **ee4f115bdb2d32cadf96cada104a05b5ec257d7ad6f57582190b49bc71f096de**.
+- Source version and licence checked by scripts/vendor-stockfish.cjs; actual Node UCI acceptance run before vendored assets were committed by a scoped GitHub Actions workflow.
+
+### Executed red/green evidence
+
+| Evidence | Result | Notes |
+| --- | --- | --- |
+| CI #98, run ID 44817996084 | **PASS** | 12 chess rules, 8 B2 coach, 7 B3 adapter, 1 native Stockfish UCI, 5 postgame, 9 DOM, 21 Chromium B2 and 9 actual Stockfish HTTP E2E |
+| CI #102 / #109 and intermediate code/docs checks | **CANCELLED by superseding commits** | Not a test FAIL; preserve prior run links/history |
+| CI **#112**, ID **44818905664** | **PASS** | 12 rules + 8 B2 coach + 7 B3 bridge + 2 native Stockfish UCI positions + 5 postgame + 9 DOM + 21 existing Chromium + 11 real Stockfish browser = **75 / 75 PASS** |
+| Real Stockfish native UCI | **PASS 2/2** | Legal opening move e2e3 and verified mate-in-one **h5f7 (Qxf7#)** at depth 5 |
+| Real browser all four UCI levels | **PASS 11/11** | Intermediate, Advanced, Expert and Grandmaster Challenge each returned a real Stockfish move via localhost Worker and .wasm; save/reload of level, stale search cancellation, and transparent file:// fallback |
+| Package build | **PASS** | ZIP created and reopened/CRC-checked: **20 files**, unmodified engine assets, GPL license, launcher and sources. Internal ZIP **1,313,545 bytes**, SHA256 **7f0ede9564828e8819b1ed74e780465adfd5fe75e61c3fc552547ce313092e48** |
+| GitHub Actions artifact | **PASS** | Artifact ID **14671266705**, name ChessOdyssey-v0.3.0-Stockfish-PREVIEW, attached to run #112. Artifact retention until **2026-12-20 UTC**; source and reproducible build remain in GitHub. |
+
+Full logs and downloadable ZIP: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44818905664.
+
+### Release gates remaining — explicitly NOT TESTED / NOT IMPLEMENTED
+
+- B3 is a **working Preview**, not a measured Elo or scientifically validated monotonically increasing difficulty ladder. Actual UCI Skill Level settings increase across tiers, but win-rate calibration is NOT TESTED.
+- **Windows double-click launcher:** packaged, but physical Windows end-to-end NOT TESTED; locally served HTTP path and real Chromium WASM on Ubuntu PASS.
+- The full 94MB multi-thread Stockfish is not bundled; Lite chosen intentionally. Single standalone HTML offers weaker local fallback and must not be labelled genuine Stockfish.
+- Entire UI games to every win/loss/draw outcome, all promotion UI paths, accessibility/touch review, independent RU/EN/AZ semantic QA, more academy lessons, historical verified PGNs, unassisted rating and Academy Reputation remain release blockers.
+- B4–B7 and all v1.0 release acceptance gates remain **OPEN**. No merge to main and no production deployment.
+
+**Next block:** B4 learning content and tactics (board-first lessons in RU/EN/AZ), with B3 strength and B2 coaching preserved and regression-tested.
