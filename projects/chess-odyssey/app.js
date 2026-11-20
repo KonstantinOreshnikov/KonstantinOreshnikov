@@ -29,10 +29,12 @@
     if(game.in_checkmate()) return game.turn()==="w" ? -100000:100000;
     if(game.in_draw()) return 0;
     let value=0;
-    for(const row of game.board()) for(const piece of row){
+    const rows=game.board();
+    for(let ri=0;ri<8;ri++) for(let ci=0;ci<8;ci++){
+      const piece=rows[ri][ci];
       if(!piece) continue;
       const p=piece.type, sign=piece.color==="w"?1:-1;
-      const [f,r]=fileRank(piece.square);
+      const f=ci, r=7-ri;
       const center=3.5-(Math.abs(f-3.5)+Math.abs(r-3.5))/2;
       const bonus=p==="n"?center*10:p==="b"?center*5:p==="p"?(piece.color==="w"?r:7-r)*3:0;
       value+=sign*(VALUES[p]+bonus);
