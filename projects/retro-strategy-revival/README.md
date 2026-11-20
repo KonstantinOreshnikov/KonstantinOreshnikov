@@ -1,12 +1,12 @@
 # Retro Strategy Revival — Two Game Candidates
 
-**Status: RESEARCH ONLY · Not implemented · Not approved for build · Updated 19 Nov 2026**
+**Status: HISTORICAL TWO-GAME RESEARCH · Updated 20 Nov 2026.** The original source audit is research-only; **Kingdoms of Ember has since been developed** independently on a distinct game branch. Lord of Ultima remains at design stage.
 
 This research note preserves two **owner-requested future game candidates** after the [Caribbean Merchant v1.0](../caribbean-merchant/README.md) project. The motivation is specific personal nostalgia for earlier games, not a generic clone factory.
 
-> **RU:** Сохраняем на будущее две любимые стратегии: **Ancient Empires II (2005, Java phones)** и **Lord of Ultima (2010–2014, browser MMO)**. Исходники, референсы и риски проверены; разработка здесь **не начата**.
+> **RU:** Сохраняем на будущее две любимые стратегии: **Ancient Empires II (2005, Java phones)** и **Lord of Ultima (2010–2014, browser MMO)**. Исходные референсы исследованы; Kingdoms of Ember уже существует на отдельной рабочей ветке, Lord of Ultima — пока исследование и дизайн.
 
-**Current next-game priority:** [Ancient Empires II — research, original-mechanics audit and browser v0.1 plan](ancient-empires-ii/README.md). No implementation has begun. Lord of Ultima remains a separately documented future single-player project with an approved convenience/anti-paywall design direction.
+**Current next-game priority:** [Ancient Empires II — research, original-mechanics audit and browser v0.1 plan](ancient-empires-ii/README.md). A separate playable [**Kingdoms of Ember v1.1** development branch](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/tree/game/kingdoms-of-ember-v1.1-20261120/projects/kingdoms-of-ember) now exists; its QA/readiness is documented there. Lord of Ultima remains a separately documented future single-player project with an approved convenience/anti-paywall design direction.
 
 ## 1. Ancient Empires II (J2ME, 2005)
 
