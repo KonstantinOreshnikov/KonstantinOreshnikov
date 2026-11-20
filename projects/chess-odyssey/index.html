@@ -8,6 +8,7 @@
   <title>Chess Odyssey — Academy & Arena</title>
   <link rel="stylesheet" href="styles.css">
   <script defer src="vendor/chess.js"></script>
+  <script defer src="coach-engine.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
@@ -16,7 +17,7 @@
       <div class="brand"><span class="brand-mark" aria-hidden="true">♞</span><div>
         <h1 data-i18n="title">Chess Odyssey</h1><p data-i18n="subtitle">ACADEMY & ARENA</p>
       </div></div>
-      <div class="version">PREVIEW <span>v0.1</span> · UNTIMED</div>
+      <div class="version">PREVIEW <span>v0.2 · B2</span> · UNTIMED</div>
     </header>
     <section class="workspace" aria-label="Chess game and coach">
       <div class="play-section">
@@ -36,6 +37,12 @@
         <section class="panel coach-panel">
           <div class="panel-head"><span class="coach-icon" aria-hidden="true">✦</span><h2 data-i18n="coach">AI Coach · Учимся играя</h2></div>
           <p id="coach-message" class="coach-message" aria-live="polite">Выберите фигуру, затем доступную клетку.</p>
+          <ol id="coach-variations" class="coach-variations" aria-label="Legal move choices" hidden></ol>
+          <button id="review-button" class="review-button" data-i18n="reviewButton">Разбор ключевых ходов</button>
+          <div id="coach-review" class="coach-review" aria-live="polite" hidden>
+            <h3 data-i18n="reviewTitle">Ключевые моменты</h3>
+            <ol id="review-list"></ol>
+          </div>
           <p class="footnote" data-i18n="about">Рейтинг отключён в тренировке; без таймера</p>
         </section>
         <section class="panel settings-panel">
