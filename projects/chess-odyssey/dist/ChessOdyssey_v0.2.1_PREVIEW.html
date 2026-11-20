@@ -2020,6 +2020,7 @@ if (typeof define !== 'undefined')
   }
 
   function boardSquares(){const squares=[]; for(let rank=8;rank>=1;rank--) for(const file of FILES) squares.push(file+rank); return squares;}
+  function fileRank(s){return [FILES.indexOf(s[0]),Number(s[1])-1];}
   function scorePosition(){
     if(game.in_checkmate()) return game.turn()==="w" ? -100000:100000;
     if(game.in_draw()) return 0;
