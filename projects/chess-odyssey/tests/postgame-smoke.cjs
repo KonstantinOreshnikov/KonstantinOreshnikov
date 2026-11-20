@@ -6,6 +6,7 @@ const path=require("node:path");
 const vm=require("node:vm");
 const {Chess}=require("../vendor/chess.js");
 const Coach=require("../coach-engine.js");
+const Engine=require("../engine-bridge.js");
 const app=fs.readFileSync(path.join(__dirname,"../app.js"),"utf8");
 const prefix=["e4","e5","Bc4","Nc6","Qh5","Nf6"];
 class TacticalChess extends Chess{
@@ -30,7 +31,7 @@ function mount(){
  el("side").value="w";el("level").value="beginner";el("lang").value="ru";
  const document={readyState:"complete",documentElement:{lang:"ru"},getElementById:el,
   createElement:tag=>new Element(tag),createDocumentFragment:()=>new Element("fragment"),querySelectorAll:()=>[]};
- const window={ChessCoachEngine:Coach};
+ const window={ChessCoachEngine:Coach,ChessEngineBridge:Engine};
  const timers=[],setTimeout=fn=>{timers.push(fn);return timers.length;};
  vm.runInNewContext(app,{Chess:TacticalChess,window,document,localStorage,setTimeout,clearTimeout:()=>{},console},{timeout:5000});
  return {el,square:s=>el("board").children.find(x=>(x.attrs["aria-label"]||"").startsWith(s+" "))};
