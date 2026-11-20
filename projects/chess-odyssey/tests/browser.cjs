@@ -40,7 +40,7 @@ const path=require("node:path");
     await page.selectOption("#lesson","pawn");
     await page.locator('button[aria-label^="e2 "]').click();
     await page.locator('button[aria-label^="e4 "]').click();
-    assert.equal(await page.locator("#completed").innerText(),"1/3");cases++;
+    assert.equal(await page.locator("#completed").innerText(),"1/33");cases++;
     await page.selectOption("#lang","az");
     assert.match(await page.locator(".academy-panel h2").innerText(),/Akademiya/);
     assert.match(await page.locator("#review-button").innerText(),/Gedişləri/);cases++;
