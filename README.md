@@ -53,7 +53,7 @@ A multilingual professional learning and assessment platform: structured content
 
 ### [Caribbean Merchant — Nostalgia to Playable Browser Game](projects/caribbean-merchant/README.md)
 
-A personal, AI-assisted revival of the *experience* of a mid-2000s Caribbean trading game: user-led playtesting, UI redesign, economic rules, game testing and a downloadable independent v1.0. Includes genuine archived milestones v0.1–v1.0, not a reconstructed fake commit history.
+A personal, AI-assisted revival of the *experience* of a mid-2000s Caribbean trading game: user-led playtesting, UI redesign, economic rules, game testing and a downloadable independent v1.1 with improved contracts and empire-wide auto-sale. Earlier v0.1–v1.0 milestones are preserved, not reconstructed as a fake commit history.
 
 ### [Independent Game Studio — Four Game Directions](projects/game-studio/README.md)
 

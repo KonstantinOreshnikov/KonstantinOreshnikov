@@ -1,4 +1,4 @@
-# Evidence register
+# Historical v1.0 evidence register
 
 **Release under test:** Caribbean Merchant v1.0, prepared 19 Nov 2026.  
 **Original local artifact:** `CaribbeanMerchant_v1.0.html`.  
@@ -17,5 +17,9 @@ The owner played two to three early sessions and reported firsthand UI and gamep
 ## Test implementation note
 
 Due to tool browser navigation restrictions, tests used `page.set_content` with the exact standalone HTML and a localStorage stub. The report did not claim standard HTTP deployment or production backend uptime.
+
+## Latest version evidence
+
+For v1.1, see the separate [contracts and global auto-sale regression report](v1.1-contracts-autosale.md). That report includes synthetic-DOM testing with a previous user save. It does not prove a native Windows/Android or cross-device browser E2E run.
 
 [QA approach](README.md) · [Test cases](test-strategy.md) · [History](../history/README.md)
