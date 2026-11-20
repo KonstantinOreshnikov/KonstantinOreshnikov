@@ -35,3 +35,12 @@
 - CI failure #54: synthetic DOM test fixture incorrectly implemented replaceChildren() with required argument; fixed in commit 06fdbda38715b392f35620423a4234404d2e1d91.
 - CI #56: 12 rules + 8 coach + 9 DOM + 18 browser PASS. CI #60: added 5 postgame tests PASS, previous gates remain PASS.
 - B2.1 patch CI: see QA_LOG.md for the final verified run. Production v1.0 remains BLOCKED.
+
+## 2026-11-21 — B3 Real Stockfish and six levels · Preview v0.3.0
+- Added genuine Stockfish.js 19.0.1 Lite single-threaded JavaScript+WASM from the exact GPLv3 npm release, with full Copying.txt, package provenance, source links, binary sizes and SHA256 checksums. No third-party engine code claimed as ours.
+- Added a separate engine-bridge.js UCI Worker adapter: handshake, ready gating, Skill Level/movetime configuration, startup/think timeouts, worker cancellation on new game/lesson/Undo, strict chess.js legal UCI validation and position/epoch guards.
+- Added six distinct game levels: Beginner and Novice preserve the gentle local AI; Intermediate (Skill 2/180ms), Advanced (8/350ms), Expert (15/750ms), Grandmaster Challenge (20/1450ms) use the real Stockfish Worker when served through HTTP(s).
+- Local file:// single-file mode remains fully playable with an **explicitly labelled weaker fallback**. UI RU/EN/AZ now identifies actual Stockfish vs weaker fallback. No fake rating or official FIDE/Elo estimate.
+- Added stockfish UCI and mock-protocol regressions, real Chromium Stockfish WASM E2E, local localhost server, Windows launcher and reproducible single-HTML/ZIP scripts.
+- Added docs/ENGINE_B3_DESIGN.md, changed obsolete third-party notes and retained previous versions for rollback. v1.0 remains blocked pending B4–B7.
+- Initial B3 CI run #98: rules 12/12, coach 8/8, bridge 7/7, real Stockfish native UCI 1 test, postgame 5/5, synthetic DOM 9/9, Chromium 21/21 and actual Stockfish HTTP-browser 9/9 PASS. Later expanded mate-in-one, all-four-tier and ZIP checks are recorded in QA_LOG.md after verification.
