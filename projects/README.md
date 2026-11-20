@@ -9,7 +9,16 @@ A technical portfolio of analytical engineering work and independently developed
 | **Caribbean Merchant** | Game design, web development, QA | Memory-driven single-file naval strategy; 7 archived milestones; human playtest + 26/26 local browser checks | [Explore the case](caribbean-merchant/README.md) |
 | **Secret Santa 2026** | Event application | Privacy-aware gift exchange with unbiased server-side drawing | [Explore the case](secret-santa-2026/README.md) |
 
-### Next-game research (not released)
+### Four independent game projects
+
+**Single navigation point:** [Game Studio — Caribbean Merchant, Kingdoms of Ember, Lord of Ultima-inspired, Chess Odyssey](game-studio/README.md). This is an audited **status index**, not a claim that four games are shipped.
+
+- **Caribbean Merchant:** published playable v1.0 on main, source and historical releases.
+- **Kingdoms of Ember:** playable v1.1 HTML and source on a dedicated development branch; not merged to main.
+- **Lord of Ultima-inspired:** detailed original-game research and proposed small offline game with one AI; not yet implemented.
+- **Chess Odyssey:** initial concept of untimed, explanation-led learn-by-playing chess with adaptive bots; not yet implemented.
+
+### What is included
 
 Two nostalgia-driven strategy candidates have been investigated but **not developed**: [Ancient Empires II and Lord of Ultima — source audit, design risks and a practical feasibility assessment](retro-strategy-revival/README.md). Both are explicitly marked **RESEARCH ONLY**; they are not shipped case studies or licensed game remakes.
 
@@ -27,10 +36,10 @@ English is the primary portfolio language. Short Russian summaries are included 
 
 ### Confidentiality
 
-These pages are **sanitized case studies**. The independently authored **Caribbean Merchant** includes its public playable HTML and archived snapshots; other case studies remain documentation-only. No production database dumps, individual records, answer keys, confidential training materials, secrets, tokens, internal service URLs, company-owned code, or privileged security procedures are shared. Figures describe different project states and should not be conflated with active users, deployment readiness or completed QA.
+These pages are **sanitized case studies and marked development concepts**. The independently authored **Caribbean Merchant** has playable HTML on main. **Kingdoms of Ember** source/binary resides on a separate public development branch and is not a main-branch release; future titles are currently documentation only. No production database dumps, individual records, answer keys, confidential training materials, secrets, tokens, internal service URLs, company-owned code, or privileged security procedures are shared. Figures describe different project states and should not be conflated with active users, deployment readiness or completed QA.
 
 [Publishing and privacy policy](PRIVACY.md)
 
 ---
 
-**Кратко:** четыре проекта: Risk Reporting & SQL Workspace, многоязычная экзаменационная платформа и приложение Secret Santa. Акцент на архитектуре, автоматизации, QA и проверяемых результатах.
+**Кратко:** каталог профессиональных кейсов и четырёх независимых игровых направлений. Статусы разделены: опубликовано / рабочая сборка / исследование / идея.

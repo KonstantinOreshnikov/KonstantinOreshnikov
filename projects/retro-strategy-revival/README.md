@@ -1,10 +1,12 @@
 # Retro Strategy Revival — Two Game Candidates
 
-**Status: RESEARCH ONLY · Not implemented · Not approved for build · Updated 19 Nov 2026**
+**Status: HISTORICAL TWO-GAME RESEARCH · Updated 20 Nov 2026.** The original source audit is research-only; **Kingdoms of Ember has since been developed** independently on a distinct game branch. Lord of Ultima remains at design stage.
 
 This research note preserves two **owner-requested future game candidates** after the [Caribbean Merchant v1.0](../caribbean-merchant/README.md) project. The motivation is specific personal nostalgia for earlier games, not a generic clone factory.
 
-> **RU:** Сохраняем на будущее две любимые стратегии: **Ancient Empires II (2005, Java phones)** и **Lord of Ultima (2010–2014, browser MMO)**. Исходники, референсы и риски проверены; разработка здесь **не начата**.
+> **RU:** Сохраняем на будущее две любимые стратегии: **Ancient Empires II (2005, Java phones)** и **Lord of Ultima (2010–2014, browser MMO)**. Исходные референсы исследованы; Kingdoms of Ember уже существует на отдельной рабочей ветке, Lord of Ultima — пока исследование и дизайн.
+
+**Current next-game priority:** [Ancient Empires II — research, original-mechanics audit and browser v0.1 plan](ancient-empires-ii/README.md). A separate playable [**Kingdoms of Ember v1.1** development branch](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/tree/game/kingdoms-of-ember-v1.1-20261120/projects/kingdoms-of-ember) now exists; its QA/readiness is documented there. Lord of Ultima remains a separately documented future single-player project with an approved convenience/anti-paywall design direction.
 
 ## 1. Ancient Empires II (J2ME, 2005)
 
@@ -44,6 +46,8 @@ Original: persistent browser MMORTS featuring precise city-layout bonuses, wood/
 - Preserve the differentiated resource adjacency bonuses, city planning, queues, army composition, travel times, dungeon raids, diplomacy and alliance progression.
 - A persistent multiplayer world is a **server-authoritative application**, unlike the single-file Caribbean Merchant game. It needs a relational database, background/clock processing, transactions, attack scheduling and safe authorization; state the actual architecture rather than pretending it works offline.
 - Prototype single-player/local simulation first only if it preserves important LoU design decisions. **Do not claim it is a full MMO** until multiplayer/security/scale tests pass.
+
+**Owner UX direction confirmed 19 Nov 2026:** free from-start placement advisor, adjacency forecast, goal-based upgrade plans, explainable city statistics, earned permanent automation, quiet offline single-player atmosphere; no pay-to-win or pressure to return daily. See [the detailed Smart Planning contract](lord-of-ultima/smart-planning-ux.md). **Exact disliked successor** is still uncertain; the owner's description suggests Crown of the Gods, not the unrelated JRPG Chrono Trigger.
 
 **Feasibility:** MODERATE for a single-city prototype; HIGHER effort and uncertainty for a faithful persistent MMO. No original-source extraction, proprietary art republication, trademarked branding or unauthorized assets.
 

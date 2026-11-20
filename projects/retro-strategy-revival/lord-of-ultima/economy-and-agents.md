@@ -52,6 +52,10 @@ For flavor, the underlying original used a **+50% first relevant node / +40% add
 
 These numbers are for *first-play tuning*, not the historical tables and not accepted final balance.
 
+## Always-free adviser vs permanently earned automation
+
+**Owner requirement (19 Nov 2026):** production forecast, ranked placement suggestions, tile opportunity cost, city statistics, feasible building-plan simulation, and resource/food deficit alerts are **free from turn 1**, not sold as agents or earned upgrades. Read the canonical [Smart Planning & Comfort Contract](smart-planning-ux.md). Only automation of repeated actions is a permanent earned reward.
+
 ## Agent model: unlocks, never subscriptions
 
 **Original:** paid Building/Defense/Trade/War Ministers. **Our model:** no paid currency, no microtransactions, no real-time expiry. A player can manually perform every action even before unlocking an agent.

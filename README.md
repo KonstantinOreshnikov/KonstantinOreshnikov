@@ -55,6 +55,10 @@ A multilingual professional learning and assessment platform: structured content
 
 A personal, AI-assisted revival of the *experience* of a mid-2000s Caribbean trading game: user-led playtesting, UI redesign, economic rules, game testing and a downloadable independent v1.0. Includes genuine archived milestones v0.1–v1.0, not a reconstructed fake commit history.
 
+### [Independent Game Studio — Four Game Directions](projects/game-studio/README.md)
+
+Four separately versioned game directions: the published Caribbean Merchant, Kingdoms of Ember (working v1.1 branch), research-stage Lord of Ultima-inspired strategy, and idea-stage Chess Odyssey. Each has its own current state, design and QA boundary.
+
 ### [Secret Santa 2026 — Private Gift Exchange](projects/secret-santa-2026/README.md)
 
 A 15-person event application with gift wishlists and secure server-side randomization. Verified snapshot: 15 registered, 15 completed wishlists, 15 one-to-one assignments and zero self-pairs. Only synthetic examples and aggregated outcomes are public.
