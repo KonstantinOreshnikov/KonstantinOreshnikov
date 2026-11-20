@@ -104,7 +104,7 @@ function pgn(game){
  const date=String(game.year).padStart(4,"0")+".??.??";
  const headers=[
   ["Event",game.event],["Site","?"],["Date",date],["Round","?"],["White",game.white],
-  ["Black",game.black],["Result",game.result],["Annotator","Chess Odyssey — original key moments only"]
+  ["Black",game.black],["Result",game.result],["Source",game.source]
  ].map(([key,val])=>'['+key+' "'+tag(val)+'"]').join("\n");
  const turns=[];
  for(let i=0;i<game.moves.length;i+=2){
