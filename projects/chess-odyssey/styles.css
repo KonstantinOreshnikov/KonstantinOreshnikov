@@ -46,3 +46,53 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
 .academy-actions .next-lesson{background:#d2b683;color:#17232a;border-color:#d2b683}
 .academy-actions .next-lesson:hover{background:#ead39e}
 @media(max-width:570px){.academy-intro,.academy-step{font-size:12px}.academy-actions{grid-template-columns:1fr}}
+
+
+/* B5 Masters & Legends: quiet archival style, a second independent chessboard. */
+.game-tabs{display:flex;flex-wrap:wrap;gap:9px;margin:-4px 0 22px;border-bottom:1px solid #344454;padding:0 0 12px}
+.game-tabs button{min-height:44px;padding:11px 19px;background:#142332;color:#aec1d0;border:1px solid #425165;border-radius:9px;font-weight:650;font-size:13px}
+.game-tabs button[aria-selected="true"]{background:#ceb17c;color:#121d26;border-color:#e0c98f}
+.masters-layout{display:grid;grid-template-columns:minmax(0,700px) minmax(290px,1fr);align-items:start;gap:28px}
+.masters-main,.masters-sidebar{min-width:0}.masters-sidebar{display:grid;gap:17px}
+.masters-heading{display:flex;justify-content:space-between;align-items:start;gap:15px;margin-bottom:12px}
+.masters-heading h2{font-family:Georgia,"Times New Roman",serif;font-size:25px;font-weight:600;margin:0 0 7px}
+.masters-meta{font-size:12px;line-height:1.5;color:#a9bcc9;margin:0 0 9px;overflow-wrap:anywhere}
+.masters-flip{display:flex;align-items:center;gap:8px;cursor:pointer;white-space:nowrap;color:#b6c2ce}
+.masters-flip input{accent-color:#d4b982}
+.masters-board-frame{max-width:704px;margin:0 auto}
+.masters-navigation{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin:13px 0 10px}
+.masters-navigation button{border:1px solid #53667b;background:#1c3040;color:#ebd2a6;border-radius:9px;min-height:48px;font-weight:750;font-size:17px}
+.masters-navigation button:not(:disabled):hover{background:#365166}
+.masters-navigation button:disabled{opacity:.35;cursor:not-allowed}
+.masters-range-label{display:grid;gap:8px;margin:3px 0 15px;font-size:12px;color:#a9bac9}
+.masters-range-label input{width:100%;min-height:30px;accent-color:#d8b778;cursor:pointer}
+.masters-toolbar{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:9px;margin:13px 0}
+.masters-toolbar .action{min-height:44px;line-height:1.35}
+.masters-move-panel{padding:16px 16px 19px;border:1px solid #2d4052;border-radius:12px;background:#111e2a}
+.masters-move-panel h3{font-size:13px;color:#d6c397;margin:0 0 13px;font-weight:550}
+.masters-moves{display:flex;flex-wrap:wrap;align-items:center;gap:6px;max-height:200px;overflow:auto;scrollbar-color:#516274 #182633;padding:1px}
+.masters-turn{font-size:11px;color:#9eacbb;font-weight:750;margin-left:5px;min-width:17px;text-align:right}
+.masters-move{border:1px solid #344658;background:#1d2d3b;color:#dce7ee;min-height:31px;border-radius:6px;padding:5px 7px;font-size:12px}
+.masters-move.current{background:#dfbe7e;border-color:#e8d29b;color:#15222c;font-weight:700}
+.masters-catalogue,.masters-teaching,.masters-bookmarks{display:grid;gap:13px}
+.masters-catalogue h2,.masters-teaching h2,.masters-bookmarks h2{margin-bottom:2px}
+.masters-catalogue input[type="search"]{width:100%;background:#0d1823;border:1px solid #364758;border-radius:8px;color:#f4f5f7;min-height:43px;padding:11px;font-size:12px}
+.masters-summary,.masters-explain{font-size:13px;line-height:1.65;color:#dce7ee;margin:0;white-space:pre-line}
+.masters-summary{border-left:3px solid #bda577;padding:6px 0 7px 12px}
+.masters-explain{border:1px solid #445365;border-radius:10px;background:#132434;padding:13px;min-height:85px}
+.masters-source{font-size:11px;color:#b5c5cf;overflow-wrap:anywhere;line-height:1.6;margin:0}
+.masters-source a{color:#e8c687;text-decoration:underline;text-underline-offset:2px}
+.masters-moments{display:grid;gap:9px;list-style:none;padding:0;margin:0;max-height:340px;overflow-y:auto}
+.masters-moments li{min-width:0}.masters-moment{width:100%;text-align:left;padding:10px 12px;border-radius:9px;background:#1c2d3c;border:1px solid #4a5d6d;color:#d8e4ea;font-size:12px;line-height:1.55;white-space:normal}
+.masters-moment:hover{background:#284050}.masters-moment.current{border-color:#ddbd85;background:#2b332f;color:#f5d69e}
+.masters-quiz{padding:12px;border:1px solid #ac9064;border-radius:10px;background:#292d2f}
+.masters-question{font-size:13px;color:#f1d7a6;line-height:1.5;margin:0 0 12px}
+.masters-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.masters-options button{min-height:43px;border:1px solid #957a51;border-radius:8px;background:#3a4244;color:#f7e8c9;font-weight:650}
+.masters-options button:hover{background:#53605b}
+#m-feedback{font-size:12px;color:#e6c393;line-height:1.5;margin:10px 0 0}
+.masters-bookmark-list{display:grid;gap:7px}
+.masters-bookmark-list button{padding:9px 10px;text-align:left;border:1px solid #4c6272;background:#1d2e3d;color:#dce7ee;border-radius:8px;font-size:11px;line-height:1.5}
+.masters-bookmark-list button:hover{background:#30465a}
+@media(max-width:920px){.masters-layout{grid-template-columns:minmax(0,1fr)}.masters-sidebar{grid-template-columns:repeat(2,minmax(0,1fr))}.masters-teaching{grid-column:1/-1}.masters-board-frame{margin:auto}}
+@media(max-width:570px){.masters-layout{gap:18px}.masters-sidebar{grid-template-columns:1fr}.masters-heading h2{font-size:20px}.masters-heading{gap:9px}.masters-navigation{gap:5px}.masters-navigation button{font-size:15px;min-height:44px}.masters-toolbar{grid-template-columns:1fr 1fr;gap:6px}.masters-toolbar .action:first-child{grid-column:1/-1}.game-tabs{gap:6px}.game-tabs button{flex:1 1 145px;min-width:0;padding:8px 10px;font-size:12px}.masters-move-panel{padding:12px}.masters-move{font-size:11px}.masters-source{font-size:11px}}
