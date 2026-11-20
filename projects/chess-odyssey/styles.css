@@ -27,3 +27,9 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
 .review-button:hover{background:#304659}.coach-review{border-top:1px solid #3b4a57;margin:2px 0 13px;padding-top:14px}
 .coach-review h3{font-size:14px;color:#eacb98;margin:0 0 9px}
 @media(max-width:570px){.coach-variations li,.coach-review li{font-size:12px;padding:9px}}
+
+/* B3: make engine identity explicit without competing with board/coach. */
+.engine-status{margin:0;padding:11px 12px;border:1px solid #405469;border-radius:9px;background:#111e2a;color:#b6c9d8;font-size:12px;line-height:1.55}
+.engine-status[data-kind="stockfish"]{border-color:#6e976e;color:#bfe7bc}
+.engine-status[data-kind="fallback"]{border-color:#967954;color:#e6c498}
+.engine-status[data-kind="loading"]{border-color:#8b97a3;color:#d2e4f2}
