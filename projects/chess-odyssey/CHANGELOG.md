@@ -12,3 +12,12 @@
 - Fixed real chess.js board() API integration issue (board pieces do not carry square attribute in v0.10.3).
 - Ran 15 isolated V8 source-backed checks: 15 PASS; real browser E2E still unverified.
 - State: DEVELOPMENT PREVIEW ONLY; no merge, release or deploy.
+
+
+## 2026-11-21 — Preview v0.1.1 (B1.1)
+- Added Return to Game after lessons without overwriting parked practice PGN, and corrected terminal-result accounting on practice Undo.
+- Distributed refreshed self-contained offline HTML under dist/ChessOdyssey_v0.1.1_PREVIEW.html.
+- Added a synthetic DOM regression test, created scoped AGENTS.md for Unlazy / Reuse First / Humanizer / Translation QA and opt-in Grill Me.
+- GitHub Actions red/green: #17 failed due to DOM test counting coordinates; fixed test. #19 passed Unit/DOM but failed browser installation on Ubuntu 26.04; pinned Ubuntu 24.04.
+- **Run #21 PASS:** Node rules 12/12, synthetic DOM 7/7, real Chromium 10/10.
+- Remaining v1.0 gates explicitly incomplete; production untouched.
