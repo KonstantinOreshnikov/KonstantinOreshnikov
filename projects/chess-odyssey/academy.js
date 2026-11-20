@@ -170,7 +170,7 @@
     L("end-opposition","endgames",
       ["28. Оппозиция королей","28. King opposition","28. Şahların oppozisiyası"],
       ["Когда короли стоят на одной вертикали через одно поле, сторона, которой ходить, часто должна уступить. Здесь белые могут занять оппозицию ходом Ke4.","When kings face each other with one square between, the side to move often yields ground. White can take the opposition with Ke4.","Şahlar aralarında bir xana olmaqla üz-üzə dayananda gediş edən tərəf çox vaxt geri çəkilməlidir. Ağlar Ke4 ilə oppozisiyanı tuta bilər."],
-      {fen:"8/8/4k3/8/8/4K3/8/8 w - - 0 1"},[S("Ke4","Встаньте королём напротив чёрного с одной пустой клеткой между ними.","Face the black king with one empty square between.","Arada bir boş xana saxlayaraq şahınızı rəqib şahın qarşısına gətirin.")],"opposition"),
+      {fen:"8/7p/4k3/8/8/4K3/P7/8 w - - 0 1"},[S("Ke4","Встаньте королём напротив чёрного с одной пустой клеткой между ними.","Face the black king with one empty square between.","Arada bir boş xana saxlayaraq şahınızı rəqib şahın qarşısına gətirin.")],"opposition"),
     L("end-underpromotion","endgames",
       ["29. Превращение не только в ферзя","29. Underpromotion to a knight","29. Piyadanın ata çevrilməsi"],
       ["Пешку можно превратить и в коня, ладью или слона. Здесь специально выберите коня — это знакомство с правилом, не утверждение, что конь сильнее ферзя.","You may promote to a knight, rook or bishop, not only a queen. Choose a knight for this drill; it does not claim a knight is stronger than a queen.","Piyadanı təkcə vəzirə deyil, ata, topa və ya filə də çevirmək olar. Qaydanı öyrənmək üçün burada atı seçin; atın vəzirdən güclü olması nəzərdə tutulmur."],
@@ -214,6 +214,7 @@
       }
       try{
         const board=createPosition(task,Chess);
+        if(board.game_over())throw new Error("starting position is already terminal");
         for(let index=0;index<task.steps.length;index++){
           const step=task.steps[index],found=board.moves({verbose:true}).find(m=>m.san===step.san);
           if(!found)throw new Error("illegal step "+index+" "+step.san);
