@@ -13,15 +13,14 @@
     en:{turn:"Your turn",thinking:"Opponent is choosing a move",check:"Check!",mate:"Checkmate",draw:"Draw",win:"Victory",loss:"Defeat",select:"Select a piece, then a legal destination.",illegal:"Illegal move.",hint:"Possible ideas",notRated:"Practice game: no rating changes.",safe:"This piece cannot be captured by an immediate legal move.",risk:"After this move, your opponent can capture the piece on {square}. Consider the reply.",capture:"Captures an opposing piece.",develop:"Developing a piece brings it into play.",center:"This move contributes to control of the center.",castle:"Castling helps shelter your king.",pawn:"Pawns help claim space.",quiet:"A quiet move: check the opponent's threats.",lesson:"Training challenge",lessonGood:"Correct! Keep learning.",lessonRetry:"Try to complete the displayed challenge.",lessonDone:"Lesson complete. Choose the next one.",mateMove:"This move ends the game with checkmate.",checkMove:"This move gives check.",promo:"Choose pawn promotion",restored:"Game restored.",newGame:"New practice game.",undo:"Last turn undone.",noUndo:"No moves to undo.",gameOver:"The game has ended.",bot:"Computer",you:"You",beginner:"Beginner",novice:"Novice",intermediate:"Intermediate",advanced:"Advanced",expert:"Expert",grandmaster:"Grandmaster Challenge"},
     az:{turn:"Sizin gedişiniz",thinking:"Rəqib gedişi seçir",check:"Şah!",mate:"Mat",draw:"Heç-heçə",win:"Qələbə",loss:"Məğlubiyyət",select:"Fiquru, sonra mümkün xanəni seçin.",illegal:"Qeyri-qanuni gediş.",hint:"Mümkün ideyalar",notRated:"Məşq oyunu: reytinq dəyişmir.",safe:"Hazırda bu fiquru dərhal qanuni gedişlə almaq mümkün deyil.",risk:"Bu gedişdən sonra rəqib {square} xanəsindəki fiquru ala bilər. Cavabı nəzərdən keçirin.",capture:"Rəqib fiqurunu alır.",develop:"Fiquru inkişaf etdirmək onu oyuna qoşur.",center:"Bu gediş mərkəzə nəzarətə kömək edir.",castle:"Rokirovka şahı qorumağa kömək edir.",pawn:"Piyadalar sahəyə nəzarəti artırır.",quiet:"Sakit gediş: rəqibin təhdidlərini yoxlayın.",lesson:"Təlim tapşırığı",lessonGood:"Düzdür! Öyrənməyə davam edin.",lessonRetry:"Göstərilən tapşırığı yerinə yetirin.",lessonDone:"Dərs tamamlandı. Növbəti dərsi seçin.",mateMove:"Bu gediş oyunu mat ilə bitirir.",checkMove:"Bu gediş şah verir.",promo:"Piyadanın çevrilməsini seçin",restored:"Oyun bərpa edildi.",newGame:"Yeni məşq oyunu.",undo:"Son gediş ləğv edildi.",noUndo:"Ləğv ediləcək gediş yoxdur.",gameOver:"Oyun başa çatıb.",bot:"Kompüter",you:"Siz",beginner:"Başlanğıc",novice:"Həvəskar",intermediate:"Orta",advanced:"İrəliləmiş",expert:"Ekspert",grandmaster:"Qrossmeyster sınağı"}
   };
-  const LESSONS = [
-    {id:"pawn",pre:[],from:"e2",to:"e4",title:{ru:"1. Пешка берёт пространство",en:"1. Claim space with a pawn",az:"1. Piyada ilə sahə qazanın"},description:{ru:"Выберите пешку e2 и сделайте первый ход на e4. Из центра пешка будет контролировать d5 и f5.",en:"Move the pawn from e2 to e4. From there it controls d5 and f5.",az:"e2 piyadasını e4-ə aparın. Oradan d5 və f5 xanələrinə nəzarət edəcək."}},
-    {id:"knight",pre:[],from:"g1",to:"f3",title:{ru:"2. Развиваем коня",en:"2. Develop your knight",az:"2. Atı inkişaf etdirin"},description:{ru:"Переведите коня с g1 на f3: конь прыгает буквой «Г» и не зависит от фигур между клетками.",en:"Move the knight from g1 to f3. Knights jump in an L shape, even over other pieces.",az:"Atı g1-dən f3-ə aparın. At «L» şəklində hərəkət edir və fiqurların üzərindən tullana bilir."}},
-    {id:"mate",pre:["e4","e5","Bc4","Nc6","Qh5","Nf6"],from:"h5",to:"f7",title:{ru:"3. Находим мат в один",en:"3. Find checkmate in one",az:"3. Bir gedişdə mat tapın"},description:{ru:"Чёрные забыли о слабом поле f7. Белые могут закончить партию одним ходом ферзя. Найдите его.",en:"Black neglected the vulnerable f7 square. White can finish the game with one queen move.",az:"Qaralar zəif f7 xanəsini nəzərdən qaçırıb. Ağlar vəzirin bir gedişi ilə oyunu bitirə bilər."}}
-  ];
+  const ACADEMY=window.ChessAcademy;
+  if(!ACADEMY||typeof ACADEMY.createPosition!=="function")throw new Error("Chess Academy content missing");
+  const LESSONS=ACADEMY.lessons;
   let game = new Chess();
   let language = "ru", side = "w", difficulty = "beginner", selected = null, last = null, lesson = null;
   let completed = [], stats = {wins:0,losses:0,draws:0}, epoch = 0, aiTimer = null, finalized = false, pendingPromotion = null, parked = null;
   let notes = [], hintState = null, showReview = false;
+  let lessonStep=0,academyTrack="all",lastLessonId=null;
   const engine = ENGINE && new ENGINE.Bridge();
   let lastEngineKind="local";
   function tr(k) {return (I18N[language] || I18N.ru)[k] || k;}
@@ -48,6 +47,42 @@
     const tier=ENGINE.profile(difficulty);
     showEngineStatus(tier.mode==="local"?"local":canRunStockfish()?"pending":"fallback");
   }
+
+  const ACADEMY_MESSAGES={
+    ru:{step:"Шаг {current} из {total}.",completed:"Урок выполнен. Можно продолжить обучение или вернуться к партии.",inTrack:"В разделе: {total}. Пройдено: {done}.",overall:"Всего уроков: {total}. Пройдено: {done}.",hint:"Подсказка: сыграйте {move}.",wrong:"Это легальный ход, но не решение задания. Проверьте цель урока."},
+    en:{step:"Step {current} of {total}.",completed:"Lesson complete. Continue learning or return to your game.",inTrack:"In this track: {total}. Completed: {done}.",overall:"All lessons: {total}. Completed: {done}.",hint:"Hint: play {move}.",wrong:"That move is legal, but it does not solve this exercise. Check the lesson goal."},
+    az:{step:"Addım {current}/{total}.",completed:"Dərs tamamlandı. Növbəti dərsə keçə və ya oyuna qayıda bilərsiniz.",inTrack:"Bölmədə: {total}. Tamamlanıb: {done}.",overall:"Bütün dərslər: {total}. Tamamlanıb: {done}.",hint:"İpucu: {move} gedişini edin.",wrong:"Bu gediş qanunidir, lakin tapşırığın həlli deyil. Dərsin məqsədini yoxlayın."}
+  };
+  function at(key,values){
+    return ((ACADEMY_MESSAGES[language]||ACADEMY_MESSAGES.ru)[key]||key)
+      .replace(/\{(\w+)\}/g,(_,name)=>values&&values[name]!==undefined?String(values[name]):"?");
+  }
+  function lessonTask(){return lesson?ACADEMY.byId[lesson]||null:null;}
+  function lessonPrompt(task){
+    const stage=task.steps[lessonStep];
+    return at("step",{current:lessonStep+1,total:task.steps.length})+" "+stage.prompt[language];
+  }
+  function renderAcademy(){
+    const tasks=LESSONS.filter(x=>academyTrack==="all"||x.track===academyTrack);
+    text("academy-track-status",at(academyTrack==="all"?"overall":"inTrack",{total:tasks.length,done:tasks.filter(x=>completed.includes(x.id)).length}));
+    const options=$("lesson").options;
+    options[0].textContent=LABELS[language].chooseLesson;
+    LESSONS.forEach((task,i)=>{
+      const option=options[i+1];
+      if(!option)throw new Error("Missing Academy option "+task.id);
+      option.textContent=(completed.includes(task.id)?"✓ ":"")+task.title[language];
+      option.hidden=academyTrack!=="all"&&task.track!==academyTrack&&task.id!==lesson;
+      option.disabled=option.hidden;
+    });
+    const task=lessonTask();
+    $("academy-intro").hidden=!task;
+    $("academy-step").hidden=!task;
+    text("academy-intro",task?task.intro[language]:"");
+    text("academy-step",task?lessonPrompt(task):"");
+    $("next-lesson").hidden=!lastLessonId||!parked||Boolean(lesson);
+    text("completed",completed.length+"/"+LESSONS.length);
+  }
+
   const COACH_TEXT = {
     ru:{
       hintIntro:"Возможные ходы (быстрый просмотр на один ответ соперника, не глубокий анализ):",
