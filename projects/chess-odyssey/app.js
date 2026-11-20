@@ -407,7 +407,7 @@ function hint(){
   }
   function persist(){
     const session=parked||{pgn:lesson?null:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized:finalized&&!lesson,notes};
-    try{localStorage.setItem(KEY,JSON.stringify({pgn:session.pgn,side:session.side,difficulty:session.difficulty,language,completed,stats,flipped:session.flipped,finalized:session.finalized,notes:session.notes||[]}));}
+    try{localStorage.setItem(KEY,JSON.stringify({pgn:session.pgn,side:session.side,difficulty:session.difficulty,language,completed,stats,flipped:session.flipped,finalized:session.finalized,notes:session.notes||[],academy:lesson?{id:lesson,step:lessonStep}:null,academyTrack}));}
     catch(e){message("Storage unavailable; progress cannot be saved.");}
   }
   function restore(){
@@ -417,15 +417,34 @@ function hint(){
       language=["ru","en","az"].includes(data.language)?data.language:"ru";
       side=["w","b"].includes(data.side)?data.side:"w";
       difficulty=ENGINE.ids.includes(data.difficulty)?data.difficulty:"beginner";
-      completed=Array.isArray(data.completed)?data.completed.filter(x=>LESSONS.some(y=>y.id===x)):[];
+      completed=Array.isArray(data.completed)?[...new Set(data.completed.filter(x=>Boolean(ACADEMY.byId[x])))]:[];
+      academyTrack=data.academyTrack==="all"||ACADEMY.tracks.some(x=>x.id===data.academyTrack)?data.academyTrack:"all";
       stats=data.stats&&["wins","losses","draws"].every(k=>Number.isInteger(data.stats[k])&&data.stats[k]>=0)?data.stats:stats;
       if(typeof data.pgn==="string"&&data.pgn.trim()){const test=new Chess();if(test.load_pgn(data.pgn))game=test;}
       finalized=Boolean(data.finalized);
       const savedHistory=game.history();
       notes=Array.isArray(data.notes)?data.notes.filter(x=>x&&Number.isInteger(x.ply)&&x.ply>0&&x.ply<=savedHistory.length&&savedHistory[x.ply-1]===x.san&&typeof x.best==="string"&&Number.isFinite(x.drop)&&["fine","warning","major"].includes(x.severity)).slice(-160):[];
       showReview=finalized&&game.game_over()&&notes.length>0;
+      // A lesson may be continued across reload, while the original practice PGN stays parked.
+      if(data.academy&&ACADEMY.byId[data.academy.id]){
+        const task=ACADEMY.byId[data.academy.id],step=data.academy.step;
+        if(Number.isInteger(step)&&step>=0&&step<task.steps.length){
+          const staged=ACADEMY.createPosition(task,Chess);
+          let valid=true;
+          for(let i=0;i<step;i++){
+            const turn=task.steps[i];
+            if(!staged.move(turn.san)||(turn.reply&&!staged.move(turn.reply))){valid=false;break;}
+          }
+          if(valid){
+            parked={pgn:game.pgn(),side,difficulty,flipped:Boolean(data.flipped),finalized,notes:notes.slice()};
+            game=staged;side=game.turn();lesson=task.id;lessonStep=step;finalized=false;
+            showReview=false;
+          }
+        }
+      }
       $("flip").checked=Boolean(data.flipped);
       $("lang").value=language;$("side").value=side;$("level").value=difficulty;
+      $("academy-track").value=academyTrack;$("lesson").value=lesson||"";
       if(game.history().length)last=game.history({verbose:true}).slice(-1).map(x=>[x.from,x.to])[0]||null;
       message(tr("restored"));
     }catch(e){message("Saved state is invalid; a fresh game was started.");}
