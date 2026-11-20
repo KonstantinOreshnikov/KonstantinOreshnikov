@@ -7,6 +7,7 @@ const assert=require("node:assert/strict");
 const {Chess}=require("../vendor/chess.js");
 const Coach=require("../coach-engine.js");
 const Engine=require("../engine-bridge.js");
+const Academy=require("../academy.js");
 const script=fs.readFileSync(path.join(__dirname,"../app.js"),"utf8");
 class Element {
  constructor(id){
@@ -23,13 +24,14 @@ class Element {
 const elements={};
 function el(k){return elements[k]||(elements[k]=new Element(k));}
 el("side").value="w";el("level").value="beginner";el("lang").value="ru";
+el("lesson").options=Array.from({length:Academy.lessons.length+1},()=>({textContent:"",hidden:false,disabled:false}));
 const document={readyState:"complete",documentElement:{lang:"ru"},getElementById:el,createElement:(tag)=>new Element(tag),createDocumentFragment:()=>new Element("fragment"),querySelectorAll:()=>[]};
 const storage=new Map();
 const localStorage={getItem:(k)=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)};
 const timers=[];
 const setTimeout=(f)=>{timers.push(f);return timers.length;};
 const clearTimeout=()=>{};
-const window={ChessCoachEngine:Coach,ChessEngineBridge:Engine};
+const window={ChessCoachEngine:Coach,ChessEngineBridge:Engine,ChessAcademy:Academy};
 vm.runInNewContext(script,{Chess,document,localStorage,window,setTimeout,clearTimeout,console},{timeout:5000});
 function square(s){return el("board").children.find(x=>(x.attrs["aria-label"]||"").startsWith(s+" "));}
 let pass=0;
@@ -60,7 +62,7 @@ check("undo returns to initial board and clears B2 review",()=>{
 check("lesson and no loss of parked game",()=>{
  el("lesson").value="pawn";el("lesson").listeners.change();
  square("e2").listeners.click();square("e4").listeners.click();
- assert.equal(el("completed").textContent,"1/3");
+ assert.equal(el("completed").textContent,"1/33");
  assert.equal(el("resume-game").hidden,false);
  el("resume-game").listeners.click();
  assert.equal(el("moves").textContent,"—");
