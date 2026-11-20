@@ -25,7 +25,7 @@ function startServer(){
 (async()=>{
  let tests=0;
  const server=await startServer();
- const browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
+ const browser=await chromium.launch({headless:true,channel:process.env.CHESS_CHROME_CHANNEL||undefined,args:["--no-sandbox"]});
  const context=await browser.newContext({viewport:{width:1140,height:800}});
  const page=await context.newPage();
  const errors=[];page.on("pageerror",e=>errors.push(e.message));
