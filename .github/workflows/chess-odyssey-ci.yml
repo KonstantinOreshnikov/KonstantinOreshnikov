@@ -93,9 +93,16 @@ jobs:
       - name: Install pinned test runner
         working-directory: projects/chess-odyssey
         run: npm install --no-audit --no-fund --no-save playwright@1.57.0
-      - name: Install Chromium
+      - name: Detect preinstalled Chrome or install Chromium
         working-directory: projects/chess-odyssey
-        run: npx playwright install --with-deps chromium
+        run: |
+          if command -v google-chrome >/dev/null 2>&1; then
+            google-chrome --version
+            echo "CHESS_CHROME_CHANNEL=chrome" >> "$GITHUB_ENV"
+          else
+            echo "Preinstalled Chrome absent: installing Playwright Chromium"
+            npx playwright install chromium
+          fi
       - name: Run browser regression
         working-directory: projects/chess-odyssey
         run: |
