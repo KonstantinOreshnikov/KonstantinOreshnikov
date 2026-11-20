@@ -6,6 +6,12 @@ on:
     paths:
       - "projects/chess-odyssey/**"
       - ".github/workflows/chess-odyssey-ci.yml"
+  pull_request:
+    branches:
+      - "docs/retro-strategy-ux-aeii-foundation-20261119"
+    paths:
+      - "projects/chess-odyssey/**"
+      - ".github/workflows/chess-odyssey-ci.yml"
   workflow_dispatch:
 jobs:
   unit:
