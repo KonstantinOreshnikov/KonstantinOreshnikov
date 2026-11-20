@@ -68,6 +68,8 @@ test("HTML routes JS, offline vendor, coach and promotion",()=>{
  const h=fs.readFileSync(path.join(__dirname,"../index.html"),"utf8");
  for(const id of ["board","coach-message","promotion","lesson","academy-track","academy-intro","academy-step","next-lesson","lang","level","side","undo"])assert.ok(h.includes('id="'+id+'"'));
  assert.ok(h.includes('src="vendor/chess.js"'));assert.ok(h.includes('src="academy.js"'));assert.ok(h.includes('src="app.js"'));
- assert.ok(!h.includes("http://")&&!h.includes("https://"));
+ assert.ok(!/<script[^>]+src="https?:\/\//i.test(h),"No third-party runtime JS");
+ assert.ok(!/<link[^>]+href="https?:\/\//i.test(h),"No external stylesheet");
+ assert.ok(h.includes('https://chessgator.com/games/opera-game'),"Historical source citation is allowed");
 });
 console.log("PASS total "+passed+" / "+passed);
