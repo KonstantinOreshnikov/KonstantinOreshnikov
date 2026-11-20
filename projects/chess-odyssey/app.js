@@ -6,6 +6,7 @@
   const PIECES = {wk:"♔",wq:"♕",wr:"♖",wb:"♗",wn:"♘",wp:"♙",bk:"♚",bq:"♛",br:"♜",bb:"♝",bn:"♞",bp:"♟"};
   const VALUES = {p:100,n:320,b:330,r:500,q:900,k:0};
   const FILES = "abcdefgh";
+  const COACH = window.ChessCoachEngine;
   const I18N = {
     ru:{turn:"Ваш ход",thinking:"Противник выбирает ход",check:"Шах!",mate:"Мат",draw:"Ничья",win:"Победа",loss:"Поражение",select:"Выберите фигуру, затем доступную клетку.",illegal:"Недопустимый ход.",hint:"Возможные идеи",notRated:"Тренировочная игра: рейтинг не меняется.",safe:"Сейчас фигуру нельзя немедленно взять легальным ходом.",risk:"После этого хода соперник сможет взять фигуру на {square}. Подумайте о продолжении.",capture:"Взятие фигуры соперника",develop:"Развитие фигуры помогает включить её в игру.",center:"Ход влияет на борьбу за центр.",castle:"Рокировка помогает укрыть короля.",pawn:"Пешки помогают контролировать пространство.",quiet:"Спокойный ход: проверьте угрозы соперника.",lesson:"Учебная задача",lessonGood:"Верно! Продолжайте обучение.",lessonRetry:"Попробуйте выполнить показанную задачу.",lessonDone:"Урок пройден. Выберите следующий.",mateMove:"Этот ход завершает партию матом.",checkMove:"Вы даёте шах.",promo:"Выберите превращение пешки",restored:"Партия восстановлена.",newGame:"Новая тренировочная партия.",undo:"Последний ход отменён.",noUndo:"Нет ходов для отмены.",gameOver:"Партия окончена.",bot:"Компьютер",you:"Вы",beginner:"Начинающий",novice:"Любитель"},
     en:{turn:"Your turn",thinking:"Opponent is choosing a move",check:"Check!",mate:"Checkmate",draw:"Draw",win:"Victory",loss:"Defeat",select:"Select a piece, then a legal destination.",illegal:"Illegal move.",hint:"Possible ideas",notRated:"Practice game: no rating changes.",safe:"This piece cannot be captured by an immediate legal move.",risk:"After this move, your opponent can capture the piece on {square}. Consider the reply.",capture:"Captures an opposing piece.",develop:"Developing a piece brings it into play.",center:"This move contributes to control of the center.",castle:"Castling helps shelter your king.",pawn:"Pawns help claim space.",quiet:"A quiet move: check the opponent's threats.",lesson:"Training challenge",lessonGood:"Correct! Keep learning.",lessonRetry:"Try to complete the displayed challenge.",lessonDone:"Lesson complete. Choose the next one.",mateMove:"This move ends the game with checkmate.",checkMove:"This move gives check.",promo:"Choose pawn promotion",restored:"Game restored.",newGame:"New practice game.",undo:"Last turn undone.",noUndo:"No moves to undo.",gameOver:"The game has ended.",bot:"Computer",you:"You",beginner:"Beginner",novice:"Novice"},
@@ -19,10 +20,112 @@
   let game = new Chess();
   let language = "ru", side = "w", difficulty = "beginner", selected = null, last = null, lesson = null;
   let completed = [], stats = {wins:0,losses:0,draws:0}, epoch = 0, aiTimer = null, finalized = false, pendingPromotion = null, parked = null;
+  let notes = [], hintState = null, showReview = false;
   function tr(k) {return (I18N[language] || I18N.ru)[k] || k;}
   function text(k, val){return $(k) && ($(k).textContent=val);}
   function message(str){text("coach-message",str);}
   function learnMessage(str){text("lesson-status",str);}
+
+  const COACH_TEXT = {
+    ru:{
+      hintIntro:"Возможные ходы (быстрый просмотр на один ответ соперника, не глубокий анализ):",
+      candidate:"Вариант",answer:"Возможный ответ соперника",noAnswer:"Ответа нет: партия закончена",
+      captureRisk:"Соперник может сразу взять фигуру на {square} ходом {reply}. Это возможность взятия, не доказательство потери.",
+      major:"По короткой оценке этот ход существенно слабее варианта {best}.",
+      warning:"По короткой оценке стоит рассмотреть альтернативу {best}.",
+      fine:"Короткая проверка не выявила существенного отставания от варианта {best}.",
+      reviewEmpty:"Пока нет ходов для разбора. Сыграйте хотя бы один ход.",
+      reviewCount:"Разобрано ходов: {total}. Заметных отклонений в коротком расчёте: {count}.",
+      reviewMove:"Ваш ход №{ply}: {san}",reviewAlternative:"Альтернатива",limited:"Оценка предварительная, только на один ответ соперника.",
+      reasonMate:"Шах и мат подтверждены правилами.",reasonCheck:"Шах: король соперника под атакой.",
+      reasonCapture:"Ход забирает фигуру соперника.",reasonCastle:"Рокировка уводит короля в сторону и развивает ладью.",
+      reasonDevelop:"Фигура выходит с начального поля в игру.",reasonCenter:"Ход помогает бороться за центральные поля.",
+      reasonPawn:"Пешка продвигается и меняет контроль над клетками.",
+      reasonQuiet:"Нет немедленного взятия или шаха: проверьте возможный ответ."
+    },
+    en:{
+      hintIntro:"Legal ideas (short look-ahead: one opponent reply, not deep analysis):",
+      candidate:"Candidate",answer:"Possible opponent reply",noAnswer:"No reply: the game has ended",
+      captureRisk:"The opponent can immediately capture a piece on {square} with {reply}. This is a legal capture, not proof of material loss.",
+      major:"In this shallow check, the move is substantially weaker than {best}.",
+      warning:"This shallow check suggests considering {best}.",
+      fine:"The shallow check found no significant gap from {best}.",
+      reviewEmpty:"No moves to review yet. Play at least one move.",
+      reviewCount:"Moves analyzed: {total}. Notable gaps in the shallow check: {count}.",
+      reviewMove:"Your move #{ply}: {san}",reviewAlternative:"Alternative",limited:"Preliminary estimate, looking only one opponent reply ahead.",
+      reasonMate:"Checkmate confirmed by the rules.",reasonCheck:"Check: the enemy king is under attack.",
+      reasonCapture:"This move captures an opposing piece.",reasonCastle:"Castling shelters the king and activates the rook.",
+      reasonDevelop:"A piece leaves its starting square and enters play.",reasonCenter:"This move helps contest the central squares.",
+      reasonPawn:"The pawn advances and changes square control.",
+      reasonQuiet:"No immediate capture or check: consider the opponent's reply."
+    },
+    az:{
+      hintIntro:"Qanuni variantlar (rəqibin bir cavab gedişi üzrə qısa baxış, dərin təhlil deyil):",
+      candidate:"Variant",answer:"Rəqibin mümkün cavabı",noAnswer:"Cavab yoxdur: oyun başa çatıb",
+      captureRisk:"Rəqib {reply} gedişi ilə {square} xanəsindəki fiquru dərhal ala bilər. Bu, mümkün götürmədir, mütləq itki deyil.",
+      major:"Qısa qiymətləndirməyə görə bu gediş {best} variantından xeyli zəifdir.",
+      warning:"Qısa qiymətləndirməyə əsasən {best} variantını da nəzərdən keçirin.",
+      fine:"Qısa yoxlama {best} variantına nisbətən əhəmiyyətli fərq göstərmədi.",
+      reviewEmpty:"Hələ təhlil ediləcək gediş yoxdur. Ən azı bir gediş edin.",
+      reviewCount:"Təhlil edilən gedişlər: {total}. Qısa yoxlamada nəzərə çarpan fərqlər: {count}.",
+      reviewMove:"Sizin {ply}-ci gedişiniz: {san}",reviewAlternative:"Alternativ",limited:"İlkin qiymətləndirmədir: yalnız rəqibin bir cavab gedişi yoxlanılıb.",
+      reasonMate:"Mat şahmat qaydaları ilə təsdiqlənib.",reasonCheck:"Şah: rəqibin şahı hücum altındadır.",
+      reasonCapture:"Bu gediş rəqibin fiqurunu alır.",reasonCastle:"Rokirovka şahı qoruyur və topu oyuna qoşur.",
+      reasonDevelop:"Fiqur başlanğıc xanəsindən oyuna daxil olur.",reasonCenter:"Bu gediş mərkəzi xanələr uğrunda mübarizəyə kömək edir.",
+      reasonPawn:"Piyada irəliləyir və xanələrə nəzarəti dəyişir.",
+      reasonQuiet:"Dərhal götürmə və ya şah yoxdur: rəqibin cavabını nəzərdən keçirin."
+    }
+  };
+  function ct(key, values){
+    const raw=(COACH_TEXT[language]||COACH_TEXT.ru)[key]||key;
+    return raw.replace(/\{(\w+)\}/g,(_match,name)=>values&&values[name]!==undefined?String(values[name]):"?");
+  }
+  function reason(kind){return ct("reason"+(kind||"quiet").charAt(0).toUpperCase()+(kind||"quiet").slice(1));}
+  function clearHints(){hintState=null;$("coach-variations").replaceChildren();$("coach-variations").hidden=true;}
+  function appendLabel(parent,heading,detail){
+    const bold=document.createElement("strong");bold.textContent=heading;
+    const info=document.createElement("p");info.textContent=detail;
+    parent.appendChild(bold);parent.appendChild(info);
+  }
+  function showHints(){
+    const list=$("coach-variations");list.replaceChildren();
+    if(!hintState || hintState.fen!==game.fen()){list.hidden=true;return;}
+    for(let i=0;i<hintState.lines.length;i++){
+      const line=hintState.lines[i], item=document.createElement("li");
+      const responses=line.reply ? ct("answer")+": "+line.reply : ct("noAnswer");
+      const capture=line.risk?" "+ct("captureRisk",{square:line.risk.square,reply:line.risk.capture}):"";
+      appendLabel(item,(i+1)+". "+line.san,reason(line.kind)+" "+responses+"."+capture);
+      list.appendChild(item);
+    }
+    list.hidden=hintState.lines.length===0;
+  }
+  function renderReview(){
+    const panel=$("coach-review"),list=$("review-list");
+    panel.hidden=!showReview;list.replaceChildren();
+    if(!showReview)return;
+    if(!notes.length){const item=document.createElement("li");item.textContent=ct("reviewEmpty");list.appendChild(item);return;}
+    const count=notes.filter(x=>x.severity!=="fine").length;
+    const intro=document.createElement("li");
+    intro.textContent=ct("reviewCount",{total:notes.length,count});
+    list.appendChild(intro);
+    const ranked=notes.slice().sort((a,b)=>b.drop-a.drop||a.ply-b.ply).slice(0,3);
+    for(const note of ranked){
+      const item=document.createElement("li"),better=ct("reviewAlternative")+": "+note.best;
+      const verdict=ct(note.severity,{best:note.best});
+      const response=note.reply?ct("answer")+": "+note.reply+". ":"";
+      appendLabel(item,ct("reviewMove",{ply:note.ply,san:note.san}),
+        verdict+" "+reason(note.kind)+" "+better+". "+response);
+      list.appendChild(item);
+    }
+    const caution=document.createElement("li");caution.textContent=ct("limited");list.appendChild(caution);
+  }
+  function assessmentMessage(note){
+    const base=ct(note.severity,{best:note.best});
+    const counter=note.reply?ct("answer")+": "+note.reply+". ":"";
+    const capture=note.risk?ct("captureRisk",{square:note.risk.square,reply:note.risk.capture}):"";
+    return base+" "+reason(note.kind)+" "+counter+capture;
+  }
+
   function boardSquares(){const squares=[]; for(let rank=8;rank>=1;rank--) for(const file of FILES) squares.push(file+rank); return squares;}
   function fileRank(s){return [FILES.indexOf(s[0]),Number(s[1])-1];}
   function scorePosition(){
@@ -76,6 +179,7 @@
     const allowed=ranked.filter(x=>x.score >= max-(difficulty==="novice"?20:105)).slice(0,difficulty==="novice"?2:5);
     const choice=allowed[Math.floor(Math.random()*allowed.length)].move;
     const moved=game.move(choice);
+    clearHints();
     last=[moved.from,moved.to];
     finalized=false;
     selected=null;
@@ -105,25 +209,17 @@
     return reply || null;
   }
   function hint(){
-    if(game.game_over()) return message(tr("gameOver"));
-    if(!lesson && game.turn()!==side) return;
+    if(game.game_over())return message(tr("gameOver"));
+    if(!lesson&&game.turn()!==side)return;
     if(lesson){
-      const target=LESSONS.find(x=>x.id===lesson);
-      message(target.description[language]);
-      selected=target.from; render(); return;
+      const task=LESSONS.find(x=>x.id===lesson);
+      message(task.description[language]);selected=task.from;render();return;
     }
-    const ideas=candidates(1).slice(0,3).map(x=>x.move.san+": "+explainPreview(x.move));
-    message(tr("hint")+": "+ideas.join(" • "));
+    const analysis=COACH.analyze(game,{limit:3});
+    hintState={fen:analysis.fen,lines:analysis.lines};
+    message(ct("hintIntro"));showHints();
   }
-  function explainPreview(move){
-    const atRisk=dangerAfter(move);
-    if(atRisk) return tr("risk").replace("{square}",move.to);
-    game.move(move);
-    const msg=explain(move);
-    game.undo();
-    return msg;
-  }
-  function doMove(from,to,promotion){
+    function doMove(from,to,promotion){
     const matches=game.moves({square:from,verbose:true}).filter(x=>x.to===to);
     if(!matches.length) return message(tr("illegal"));
     if(matches.some(m=>m.promotion) && !promotion) {
@@ -135,10 +231,11 @@
       const task=LESSONS.find(x=>x.id===lesson);
       if(from!==task.from||to!==task.to) return learnMessage(tr("lessonRetry"));
     }
-    const atRisk=dangerAfter(candidate);
+    const assessment=lesson?null:COACH.grade(game,candidate.san);
     const move=game.move({from,to,promotion:promotion||"q"});
     if(!move) return message(tr("illegal"));
     last=[from,to]; selected=null;
+    clearHints();
     $("promotion").hidden=true; pendingPromotion=null;
     if(lesson){
       const solved=lesson;
@@ -147,7 +244,8 @@
       message(tr("lessonGood")+" "+explain(move));
       lesson=null; finalized=true; $("lesson").value="";
     } else {
-      message(atRisk?tr("risk").replace("{square}",to):explain(move));
+      notes.push(Object.assign({ply:game.history().length},assessment));
+      message(assessmentMessage(assessment));
     }
     render();persist();
     if(game.game_over()) finish();
@@ -212,12 +310,12 @@
       if(game.turn()===side)stats.losses++;
       else stats.wins++;
     } else stats.draws++;
-    finalized=true;persist();render();
+    finalized=true;showReview=true;persist();render();renderReview();
     message(status()+" — "+tr("notRated"));
   }
   function persist(){
-    const session=parked||{pgn:lesson?null:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized:finalized&&!lesson};
-    try{localStorage.setItem(KEY,JSON.stringify({pgn:session.pgn,side:session.side,difficulty:session.difficulty,language,completed,stats,flipped:session.flipped,finalized:session.finalized}));}
+    const session=parked||{pgn:lesson?null:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized:finalized&&!lesson,notes};
+    try{localStorage.setItem(KEY,JSON.stringify({pgn:session.pgn,side:session.side,difficulty:session.difficulty,language,completed,stats,flipped:session.flipped,finalized:session.finalized,notes:session.notes||[]}));}
     catch(e){message("Storage unavailable; progress cannot be saved.");}
   }
   function restore(){
@@ -231,6 +329,8 @@
       stats=data.stats&&["wins","losses","draws"].every(k=>Number.isInteger(data.stats[k])&&data.stats[k]>=0)?data.stats:stats;
       if(typeof data.pgn==="string"&&data.pgn.trim()){const test=new Chess();if(test.load_pgn(data.pgn))game=test;}
       finalized=Boolean(data.finalized);
+      notes=Array.isArray(data.notes)?data.notes.filter(x=>x&&Number.isInteger(x.ply)&&x.ply>0&&typeof x.san==="string"&&typeof x.best==="string"&&Number.isFinite(x.drop)&&["fine","warning","major"].includes(x.severity)).slice(-160):[];
+      showReview=finalized&&game.game_over()&&notes.length>0;
       $("flip").checked=Boolean(data.flipped);
       $("lang").value=language;$("side").value=side;$("level").value=difficulty;
       if(game.history().length)last=game.history({verbose:true}).slice(-1).map(x=>[x.from,x.to])[0]||null;
@@ -238,7 +338,7 @@
     }catch(e){message("Saved state is invalid; a fresh game was started.");}
   }
   function newGame(){
-    clearTimeout(aiTimer);++epoch;game=new Chess();lesson=null;parked=null;selected=null;last=null;finalized=false;
+    clearTimeout(aiTimer);++epoch;game=new Chess();lesson=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
     side=$("side").value;difficulty=$("level").value;language=$("lang").value;
     learnMessage("");message(tr("newGame")+" "+tr("notRated"));render();persist();
     if(side==="b")scheduleBot();
@@ -252,13 +352,15 @@
     }
     game.undo();
     if(game.history().length&&game.turn()!==side) game.undo();
+    notes=notes.filter(x=>x.ply<=game.history().length);showReview=false;clearHints();renderReview();
     selected=null;last=null;finalized=false;
     message(tr("undo"));render();persist();
     if(game.turn()!==side)scheduleBot();
   }
   function startLesson(id){
     const task=LESSONS.find(x=>x.id===id);if(!task)return;
-    if(!parked)parked={pgn:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized};
+    if(!parked)parked={pgn:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized,notes:notes.slice()};
+    clearHints();showReview=false;renderReview();
     clearTimeout(aiTimer);++epoch;game=new Chess();lesson=id;side="w";selected=null;last=null;finalized=false;
     for(const san of task.pre){if(!game.move(san))throw new Error("Invalid verified lesson sequence "+san);}
     $("side").value="w";render();message(task.description[language]);learnMessage(task.title[language]);persist();
@@ -268,7 +370,8 @@
     const previous=parked, restored=new Chess();
     if(previous.pgn && !restored.load_pgn(previous.pgn))return message("Cannot restore saved PGN.");
     clearTimeout(aiTimer);++epoch;game=restored;parked=null;lesson=null;selected=null;last=null;
-    side=previous.side;difficulty=previous.difficulty;finalized=previous.finalized;
+    side=previous.side;difficulty=previous.difficulty;finalized=previous.finalized;notes=previous.notes||[];
+    clearHints();showReview=finalized&&game.game_over();renderReview();
     $("side").value=side;$("level").value=difficulty;$("flip").checked=previous.flipped;$("lesson").value="";
     learnMessage("");message(tr("restored"));render();persist();
     if(!finalized&&!game.game_over()&&game.turn()!==side)scheduleBot();
@@ -282,20 +385,22 @@
     lessonOptions[0].textContent=LABELS[language].chooseLesson;
     LESSONS.forEach((task,i)=>{lessonOptions[i+1].textContent=task.title[language];});
     if(lesson) {const task=LESSONS.find(x=>x.id===lesson);learnMessage(task.title[language]);message(task.description[language]);}
-    render();
+    showHints();renderReview();render();
   }
   const LABELS={
-    ru:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Учимся играя",newGame:"Новая партия",undo:"Отменить ход",hint:"Подсказка",game:"Тренировочная партия",level:"Сложность AI",side:"Мои фигуры",language:"Язык",flip:"Повернуть доску",lessons:"Академия",chooseLesson:"Выбрать урок…",resume:"Вернуться к партии",record:"Победы / поражения / ничьи",done:"Пройдено уроков",moves:"История ходов",about:"Рейтинг отключён в тренировке; без таймера",white:"Белые",black:"Чёрные",beginner:"Начинающий",novice:"Любитель"},
-    en:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Learn by playing",newGame:"New game",undo:"Undo move",hint:"Hint",game:"Practice game",level:"AI difficulty",side:"My pieces",language:"Language",flip:"Flip board",lessons:"Academy",chooseLesson:"Choose a lesson…",resume:"Return to game",record:"Wins / losses / draws",done:"Lessons completed",moves:"Move history",about:"No rating in practice; no chess clock",white:"White",black:"Black",beginner:"Beginner",novice:"Novice"},
-    az:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Oynayaraq öyrənin",newGame:"Yeni oyun",undo:"Gedişi ləğv et",hint:"İpucu",game:"Məşq oyunu",level:"AI çətinliyi",side:"Mənim fiqurlarım",language:"Dil",flip:"Taxtanı çevir",lessons:"Akademiya",chooseLesson:"Dərs seçin…",resume:"Oyuna qayıt",record:"Qələbə / məğlubiyyət / heç-heçə",done:"Tamamlanmış dərslər",moves:"Gedişlərin tarixçəsi",about:"Məşqdə reytinq yoxdur; vaxt limiti yoxdur",white:"Ağlar",black:"Qaralar",beginner:"Başlanğıc",novice:"Həvəskar"}
+    ru:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Учимся играя",newGame:"Новая партия",undo:"Отменить ход",hint:"Подсказка",game:"Тренировочная партия",level:"Сложность AI",side:"Мои фигуры",language:"Язык",flip:"Повернуть доску",lessons:"Академия",chooseLesson:"Выбрать урок…",resume:"Вернуться к партии",reviewButton:"Разобрать ходы",reviewTitle:"Ключевые моменты",record:"Победы / поражения / ничьи",done:"Пройдено уроков",moves:"История ходов",about:"Рейтинг отключён в тренировке; без таймера",white:"Белые",black:"Чёрные",beginner:"Начинающий",novice:"Любитель"},
+    en:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Learn by playing",newGame:"New game",undo:"Undo move",hint:"Hint",game:"Practice game",level:"AI difficulty",side:"My pieces",language:"Language",flip:"Flip board",lessons:"Academy",chooseLesson:"Choose a lesson…",resume:"Return to game",reviewButton:"Review moves",reviewTitle:"Key moments",record:"Wins / losses / draws",done:"Lessons completed",moves:"Move history",about:"No rating in practice; no chess clock",white:"White",black:"Black",beginner:"Beginner",novice:"Novice"},
+    az:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Oynayaraq öyrənin",newGame:"Yeni oyun",undo:"Gedişi ləğv et",hint:"İpucu",game:"Məşq oyunu",level:"AI çətinliyi",side:"Mənim fiqurlarım",language:"Dil",flip:"Taxtanı çevir",lessons:"Akademiya",chooseLesson:"Dərs seçin…",resume:"Oyuna qayıt",reviewButton:"Gedişləri təhlil et",reviewTitle:"Əsas məqamlar",record:"Qələbə / məğlubiyyət / heç-heçə",done:"Tamamlanmış dərslər",moves:"Gedişlərin tarixçəsi",about:"Məşqdə reytinq yoxdur; vaxt limiti yoxdur",white:"Ağlar",black:"Qaralar",beginner:"Başlanğıc",novice:"Həvəskar"}
   };
   function init(){
     if(typeof Chess!=="function")throw new Error("Rules Engine missing");
+    if(!COACH||typeof COACH.analyze!=="function")throw new Error("Chess Coach Engine missing");
     restore();
     $("new-game").addEventListener("click",newGame);
     $("undo").addEventListener("click",undo);
     $("resume-game").addEventListener("click",resumeGame);
     $("hint").addEventListener("click",hint);
+    $("review-button").addEventListener("click",()=>{showReview=!showReview;renderReview();});
     $("flip").addEventListener("change",()=>{render();persist();});
     $("lang").addEventListener("change",()=>{language=$("lang").value;refreshLabels();persist();});
     $("side").addEventListener("change",newGame);
@@ -304,9 +409,10 @@
     for(const btn of document.querySelectorAll("[data-promote]"))btn.addEventListener("click",()=>{if(pendingPromotion)doMove(pendingPromotion.from,pendingPromotion.to,btn.dataset.promote);});
     $("promotion-close").addEventListener("click",()=>{pendingPromotion=null;$("promotion").hidden=true;});
     refreshLabels();
+    if(showReview)renderReview();
     if(game.turn()!==side && !game.game_over() && !finalized)scheduleBot();
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init); else init();
   // Stable test surface without providing a user-facing debug console.
-  window.ChessOdysseyQA={legalCount:(fen)=>{const c=new Chess();if(fen&&!c.load(fen))throw new Error("invalid FEN");return c.moves().length;},lessonIds:()=>LESSONS.map(x=>x.id),evaluate:()=>scorePosition()};
+  window.ChessOdysseyQA={legalCount:(fen)=>{const c=new Chess();if(fen&&!c.load(fen))throw new Error("invalid FEN");return c.moves().length;},lessonIds:()=>LESSONS.map(x=>x.id),evaluate:()=>scorePosition(),coach:()=>COACH.version,notes:()=>notes.length};
 })();
