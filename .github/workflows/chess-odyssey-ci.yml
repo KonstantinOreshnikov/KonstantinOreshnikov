@@ -22,10 +22,13 @@ jobs:
           node --check projects/chess-odyssey/vendor/chess.js
           node --check projects/chess-odyssey/app.js
           node --check projects/chess-odyssey/tests/chess-smoke.cjs
+          node --check projects/chess-odyssey/tests/dom-smoke.cjs
           node --check projects/chess-odyssey/tests/browser.cjs
       - name: Unit and integration
         working-directory: projects/chess-odyssey
-        run: node tests/chess-smoke.cjs
+        run: |
+          node tests/chess-smoke.cjs
+          node tests/dom-smoke.cjs
   browser:
     name: Chromium real UI E2E
     needs: unit
