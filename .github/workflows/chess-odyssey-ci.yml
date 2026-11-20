@@ -1,0 +1,47 @@
+name: Chess Odyssey QA
+on:
+  push:
+    branches:
+      - "game/chess-odyssey-v0.1"
+    paths:
+      - "projects/chess-odyssey/**"
+      - ".github/workflows/chess-odyssey-ci.yml"
+  workflow_dispatch:
+jobs:
+  unit:
+    name: Offline rules + app smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax
+        run: |
+          node --check projects/chess-odyssey/vendor/chess.js
+          node --check projects/chess-odyssey/app.js
+          node --check projects/chess-odyssey/tests/chess-smoke.cjs
+          node --check projects/chess-odyssey/tests/browser.cjs
+      - name: Unit and integration
+        working-directory: projects/chess-odyssey
+        run: node tests/chess-smoke.cjs
+  browser:
+    name: Chromium real UI E2E
+    needs: unit
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned test runner
+        working-directory: projects/chess-odyssey
+        run: npm install --no-audit --no-fund --no-save playwright@1.57.0
+      - name: Install Chromium
+        working-directory: projects/chess-odyssey
+        run: npx playwright install --with-deps chromium
+      - name: Run browser regression
+        working-directory: projects/chess-odyssey
+        run: node tests/browser.cjs
