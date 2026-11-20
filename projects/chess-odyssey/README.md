@@ -60,8 +60,11 @@ The names are **game levels**, not actual Elo/FIDE chess titles or calibrated wi
 - Stockfish.js **19.0.1 Lite single-threaded** — GPLv3, port https://github.com/nmrugg/stockfish.js/tree/v19.0.1, original engine https://github.com/official-stockfish/Stockfish. Corresponding source/build scripts available at the pinned port source tree; full licence in `engine/Copying.txt`. Exact binary SHA256 in `engine/MANIFEST.md`. This project does **not** claim to author Stockfish.
 - See `THIRD_PARTY_NOTICES.md` and `docs/ENGINE_B3_DESIGN.md` for the exact distribution contract.
 
-## 5. QA and release boundary
+## 5. Verified QA and release boundary
 
-Verified before the new B3 expansion: GitHub Actions #73 established B2.1 PASS. The first B3 true-engine run [#98](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44817996084) passed rules, coach, adapter, native Stockfish UCI and real Chromium HTTP worker tests. The extended four-tier/mate/package acceptance is reported separately in `docs/QA_LOG.md` after actual CI evidence.
+- **B3 v0.3.0 QA PASS:** [GitHub Actions #112](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44818905664) — **75/75 executable checks PASS**: rules 12, coach 8, UCI bridge 7, genuine Stockfish native 2 (including Qxf7#), postgame 5, synthetic DOM 9, previous real Chromium 21, and real HTTP Stockfish browser 11.
+- Tested actual Stockfish Lite in **Intermediate, Advanced, Expert, Grandmaster Challenge**, and verified local fallback is correctly named when loading with file://.
+- **Complete GPL ZIP PASS:** 20 files and verified archive integrity. GitHub Actions artifact `ChessOdyssey-v0.3.0-Stockfish-PREVIEW` available on run #112 until 2026-12-20; it can be rebuilt from source after that. Stockfish source and manifest remain versioned in GitHub.
+- See [docs/QA_LOG.md](docs/QA_LOG.md) for exact commit/run evidence, canceled runs, checksums and remaining gates.
 
-**Not yet v1.0:** complete Academy, historical grandmaster PGNs with authoritative provenance, internal rating/reputation, all-outcome full-game UI E2E, complete promotion UI/accessibility, independently reviewed RU/EN/AZ teaching accuracy, and final production acceptance. No merge into `main` and no deployment.
+**Still NOT production v1.0:** full Academy, authoritative historical grandmaster PGNs, independent playing rating/reputation, complete win/loss/draw UI games, every promotion path, independently reviewed RU/EN/AZ semantics, and physical Windows launcher/UX/accessibility verification. No merge to `main` and no production deployment.
