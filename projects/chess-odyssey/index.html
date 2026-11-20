@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Chess Odyssey: learn chess while playing with a gentle AI opponent.">
+  <title>Chess Odyssey — Academy & Arena</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="vendor/chess.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">♞</span><div>
+        <h1 data-i18n="title">Chess Odyssey</h1><p data-i18n="subtitle">ACADEMY & ARENA</p>
+      </div></div>
+      <div class="version">PREVIEW <span>v0.1</span> · UNTIMED</div>
+    </header>
+    <section class="workspace" aria-label="Chess game and coach">
+      <div class="play-section">
+        <div class="board-topline">
+          <div><p class="eyebrow" data-i18n="game">Тренировочная партия</p><h2 id="game-status" aria-live="polite">Ваш ход</h2></div>
+          <label class="flip-control"><input type="checkbox" id="flip"><span data-i18n="flip">Повернуть доску</span></label>
+        </div>
+        <div class="board-frame"><div id="board" class="board" aria-label="Chessboard"></div></div>
+        <div class="board-controls">
+          <button id="new-game" class="action primary" data-i18n="newGame">Новая партия</button>
+          <button id="undo" class="action" data-i18n="undo">Отменить ход</button>
+          <button id="hint" class="action accent" data-i18n="hint">Подсказка</button>
+        </div>
+        <div class="moves-panel"><h3 data-i18n="moves">История ходов</h3><p id="moves" aria-live="polite">—</p></div>
+      </div>
+      <aside class="sidebar">
+        <section class="panel coach-panel">
+          <div class="panel-head"><span class="coach-icon" aria-hidden="true">✦</span><h2 data-i18n="coach">AI Coach · Учимся играя</h2></div>
+          <p id="coach-message" class="coach-message" aria-live="polite">Выберите фигуру, затем доступную клетку.</p>
+          <p class="footnote" data-i18n="about">Рейтинг отключён в тренировке; без таймера</p>
+        </section>
+        <section class="panel settings-panel">
+          <div class="two-fields">
+            <label><span data-i18n="level">Сложность AI</span><select id="level"><option value="beginner" data-i18n="beginner">Начинающий</option><option value="novice" data-i18n="novice">Любитель</option></select></label>
+            <label><span data-i18n="side">Мои фигуры</span><select id="side"><option value="w" data-i18n="white">Белые</option><option value="b" data-i18n="black">Чёрные</option></select></label>
+          </div>
+          <label><span data-i18n="language">Язык</span><select id="lang"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label>
+        </section>
+        <section class="panel academy-panel">
+          <h2 data-i18n="lessons">Академия</h2>
+          <select id="lesson" aria-label="Choose lesson">
+            <option value="" data-i18n="chooseLesson">Выбрать урок…</option>
+            <option value="pawn">1. Пешка берёт пространство</option>
+            <option value="knight">2. Развиваем коня</option>
+            <option value="mate">3. Находим мат в один</option>
+          </select>
+          <p id="lesson-status" aria-live="polite"></p>
+          <div class="stats-grid">
+            <div><strong id="completed">0/3</strong><small data-i18n="done">Пройдено уроков</small></div>
+            <div><strong id="record">0 / 0 / 0</strong><small data-i18n="record">Победы / поражения / ничьи</small></div>
+          </div>
+        </section>
+      </aside>
+    </section>
+  </main>
+  <div id="promotion" class="promotion-backdrop" hidden>
+    <div class="promotion-box" role="dialog" aria-modal="true" aria-labelledby="promotion-label">
+      <button id="promotion-close" class="close" aria-label="Close">×</button>
+      <h2 id="promotion-label">Выберите превращение пешки</h2>
+      <div class="promotion-choices">
+        <button data-promote="q" title="Queen">♛</button>
+        <button data-promote="r" title="Rook">♜</button>
+        <button data-promote="b" title="Bishop">♝</button>
+        <button data-promote="n" title="Knight">♞</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
