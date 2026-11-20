@@ -32,7 +32,7 @@ vm.runInNewContext(script,{Chess,document,localStorage,window,setTimeout,clearTi
 function square(s){return el("board").children.find(x=>(x.attrs["aria-label"]||"").startsWith(s+" "));}
 let pass=0;
 function check(name,fn){fn();pass++;console.log("PASS "+name);}
-check("64 squares, 32 pieces",()=>{assert.equal(el("board").children.length,64);assert.equal(el("board").children.filter(x=>x.children.some(y=>Boolean(y.textContent))).length,32);});
+check("64 squares, 32 pieces",()=>{assert.equal(el("board").children.length,64);assert.equal(el("board").children.filter(x=>x.children.some(y=>y.className==="piece" && Boolean(y.textContent))).length,32);});
 check("legal e2 selection",()=>{square("e2").listeners.click();assert.equal(el("board").children.filter(x=>x.flags.has("legal")).length,2);});
 check("player move persisted",()=>{square("e4").listeners.click();assert.match(JSON.parse(storage.get("chess-odyssey-v01")).pgn,/e4/);});
 check("AI responds with a legal move",()=>{assert.ok(timers.length);timers[timers.length-1]();const pgn=JSON.parse(storage.get("chess-odyssey-v01")).pgn;assert.match(pgn,/1\. e4 [a-zA-Z]/);});
