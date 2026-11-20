@@ -5,7 +5,7 @@
 
 ## Start playing
 
-**Full Stockfish + Academy:** open the passing [GitHub Actions B4 run #166](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44824986016), find the **Artifacts** section and download `ChessOdyssey-v0.4.0-Academy-Stockfish-PREVIEW`. Extract the ZIP (22 files), then double-click `START_WINDOWS.cmd` on Windows. Python 3 or Node.js must be on PATH. It hosts the game **only on 127.0.0.1** and opens your local browser. Alternatively, in the project directory run:
+**Full Stockfish + Academy:** open the passing [GitHub Actions B4 run #166](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44825370339), find the **Artifacts** section and download `ChessOdyssey-v0.4.0-Academy-Stockfish-PREVIEW`. Extract the ZIP (22 files), then double-click `START_WINDOWS.cmd` on Windows. Python 3 or Node.js must be on PATH. It hosts the game **only on 127.0.0.1** and opens your local browser. Alternatively, in the project directory run:
 
 ```sh
 python -m http.server 8765 --bind 127.0.0.1
@@ -64,7 +64,7 @@ Third-party licenses: chess.js v0.10.3 (BSD-2-Clause) and genuine [Stockfish.js 
 
 ## Evidence and what remains
 
-- **B4 full green CI #166:** [99/99 functional tests and verified ZIP integrity](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44824986016), covering all 33 lesson positions, both-colour multi-step openings, reload, wrong moves, correct queen/knight promotions, RU/EN/AZ switching and mobile overflow, plus retained Stockfish E2E.
+- **B4 full green CI #170:** [99/99 functional tests and verified ZIP integrity](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44825370339), covering all 33 lesson positions, both-colour multi-step openings, reload, wrong moves, correct queen/knight promotions, RU/EN/AZ switching and mobile overflow, plus retained Stockfish E2E.
 - The 22-file ZIP integrity and GPL inclusion are verified. Independent *editorial* RU/EN/AZ semantic proofreading and physical Windows CMD testing remain **NOT TESTED** and are not falsely counted as PASS.
 - Previous build failures and repairs remain in `docs/QA_LOG.md`; B0/B1/B2/B3 source and standalone files are kept for rollback.
 - **Next B5:** source-verified historical master PGNs with chess teaching commentary. Then B6 playing progress/reputation, and B7 full release gates (complete games, usability, promotion/draw outcomes, accessibility, independent translations, versioned deployment).
