@@ -7,6 +7,7 @@ on:
       - "projects/chess-odyssey/index.html"
       - "projects/chess-odyssey/styles.css"
       - "projects/chess-odyssey/app.js"
+      - "projects/chess-odyssey/coach-engine.js"
       - "projects/chess-odyssey/vendor/**"
       - "projects/chess-odyssey/tests/**"
       - ".github/workflows/chess-odyssey-ci.yml"
@@ -38,6 +39,8 @@ jobs:
         run: |
           node --check projects/chess-odyssey/vendor/chess.js
           node --check projects/chess-odyssey/app.js
+          node --check projects/chess-odyssey/coach-engine.js
+          node --check projects/chess-odyssey/tests/coach-engine.cjs
           node --check projects/chess-odyssey/tests/chess-smoke.cjs
           node --check projects/chess-odyssey/tests/dom-smoke.cjs
           node --check projects/chess-odyssey/tests/browser.cjs
@@ -45,6 +48,7 @@ jobs:
         working-directory: projects/chess-odyssey
         run: |
           node tests/chess-smoke.cjs
+          node tests/coach-engine.cjs
           node tests/dom-smoke.cjs
   browser:
     name: Chromium real UI E2E
