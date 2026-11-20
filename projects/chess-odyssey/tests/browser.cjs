@@ -16,6 +16,10 @@ const path=require("node:path");
     await page.locator("#hint").click();
     assert.equal(await page.locator("#coach-variations li").count(),3);
     assert.match(await page.locator("#coach-variations").innerText(),/Возможный ответ соперника/);cases++;
+    await page.selectOption("#lang","en");
+    assert.match(await page.locator("#coach-message").innerText(),/Legal ideas/);
+    assert.match(await page.locator("#coach-variations").innerText(),/Possible opponent reply/);
+    await page.selectOption("#lang","ru");cases++;
     await page.locator('button[aria-label^="e2 "]').click();
     assert.ok(await page.locator("#board .square.legal").count()>=2);
     await page.locator('button[aria-label^="e4 "]').click();
@@ -68,6 +72,14 @@ const path=require("node:path");
     await page.locator("#new-game").click();
     await page.locator("#hint").click();
     assert.equal(await page.locator("#coach-variations li").count(),3);cases++;
+    // The patch release must bundle updated translations and review validation.
+    await page.goto("file://"+path.resolve(__dirname,"../dist/ChessOdyssey_v0.2.1_PREVIEW.html"));
+    await page.waitForFunction("window.ChessOdysseyQA && window.ChessOdysseyQA.coach()==='B2-2ply'");
+    assert.equal(await page.locator("#board .square").count(),64);cases++;
+    await page.locator("#hint").click();
+    await page.selectOption("#lang","az");
+    assert.match(await page.locator("#coach-message").innerText(),/Qanuni variantlar/);
+    assert.match(await page.locator("#coach-variations").innerText(),/Rəqibin mümkün cavabı/);cases++;
     assert.deepEqual(errors,[]);cases++;
     console.log("PASS browser E2E "+cases+" / "+cases);
   }finally{await browser.close();}
