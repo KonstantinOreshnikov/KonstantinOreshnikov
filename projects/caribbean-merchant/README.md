@@ -1,11 +1,11 @@
 # Caribbean Merchant
 ### From a childhood mobile-game memory to a playable Caribbean strategy
 
-**Independent fan-inspired project · Playable offline release v1.0 · RU / EN / AZ**
+**Independent fan-inspired project · Latest playable offline release v1.1 · RU / EN / AZ**
 
 > I remembered a mid-2000s mobile game: trading between Caribbean ports, dodging pirates, growing a business and fighting tactical sea battles. Years later, I set out to rebuild that *feeling*, one remembered feature and one playtest at a time — without copying the original game.
 
-**[Download the playable v1.0 HTML](play/CaribbeanMerchant_v1.0.html)** · [How to run](play/README.md) · [Follow the development diary](history/README.md)
+**[Download Caribbean Merchant v1.1](play/CaribbeanMerchant_v1.1.html)** · [Previous v1.0](play/CaribbeanMerchant_v1.0.html) · [How to run and migrate saves](play/README.md) · [v1.1 QA report](testing/v1.1-contracts-autosale.md)
 
 ![Caribbean sea-floor relief and islands — physical map artwork used by the game](src/assets/physical_map.webp)
 
@@ -15,13 +15,15 @@
 
 The initial reference was **Port Royale 2 Mobile (Elkware / Java era, mid-2000s)**. The project began with fragments of personal recollection — ports, trading, pirates and ship combat — not an original JAR, source archive or extracted artwork.
 
-We turned those recollections into a small working browser prototype. I tested it as a player, reported practical friction and adjusted the requirements: the unreadable first map, hidden cargo and cash during scrolling, repetitive factory collection, slow contracts and a lack of meaningful late-game goals. The browser game evolved through **seven preserved build milestones** and many design, feedback and QA cycles.
+We turned those recollections into a small working browser prototype. I tested it as a player, reported practical friction and adjusted the requirements: the unreadable first map, hidden cargo and cash during scrolling, repetitive factory collection, slow contracts and a lack of meaningful late-game goals. The browser game evolved through **seven preserved pre-v1.1 build milestones** and many design, feedback and QA cycles.
 
 **My role:** concept originator, product owner, gameplay critic and hands-on user tester; feature prioritization and acceptance feedback. **AI-assisted implementation:** ChatGPT helped research mechanics, write and iterate code, prepare documentation and execute scripted browser checks. This is an honest solo-owner/AI-assisted workflow, not an invented studio team.
 
 ## Playable result
 
-| Area | Implemented in v1.0 |
+The following baseline capabilities were introduced by v1.0 and remain in v1.1.
+
+| Area | Baseline features retained in v1.1 |
 |---|---|
 | World | 15 Caribbean ports, 4 colonial nations, physical relief map |
 | Trade | 10 goods, changing stock/price, quantity-aware bulk transactions |
@@ -32,6 +34,16 @@ We turned those recollections into a small working browser prototype. I tested i
 | Exploration | Pirate zones, named hideouts, treasure fragments and simplified diplomacy |
 | Localization | Russian, English, Azerbaijani with instant switching |
 | Save | Local browser storage plus JSON export/import |
+
+### v1.1 additions and fixes
+
+- Expired governor offers rotate instead of blocking contract progression; imported old saves refresh their stale offers.
+- New priority contracts pay enhanced rewards. Accepted delivery cargo is loaded consistently, with a one-click completion action at the destination.
+- Empire-wide industry auto-sale presets **0% / 75% / 100%** update factories in all cities while preserving reserve and price-floor settings.
+- Clearer **Port Governor** requirements to designate a capital before constructing a Personal Palace.
+- The release keeps RU / EN / AZ; visible browser title and footer now reflect **v1.1**.
+
+**Quality evidence:** the historical v1.0 report records 26/26 local Chromium/Playwright scenarios. The v1.1 development report separately records 19 synthetic-DOM gameplay assertions, 14 assertions with an actual previously provided save in synthetic runtime, and 5 synthetic UI event assertions as PASS. **Native Windows/Android opening, cross-device save E2E and long-campaign balance were not certified.** [Read the v1.1 report](testing/v1.1-contracts-autosale.md).
 
 The game is **self-contained HTML**. Download it and open it locally. No installation, account, server or gameplay connection is required.
 
@@ -58,11 +70,12 @@ flowchart LR
  C --> U[v0.5 usable commerce]
  U --> G[v0.6 career and achievements]
  G --> R[v1.0 automated economy and richer world]
- R --> T[Ongoing real-player testing]
+ R --> S[v1.1 repaired contracts and global auto-sale]
+ S --> T[Ongoing real-player testing]
  T -.feedback.-> R
 ```
 
-[**Browse every preserved HTML milestone**](history/releases/README.md) (historical builds are not recommended over v1.0).
+[**Browse every preserved HTML milestone**](history/releases/README.md) (historical builds are preserved, while v1.1 is the latest available standalone).
 
 ## Links to the wider portfolio
 
@@ -76,7 +89,7 @@ flowchart LR
 
 Not an official Port Royale product, a decompiled/remastered copy, a replacement for the original, or evidence of a full production studio. The original brand belongs to its respective owners. The code, UI and gameplay are independently created; no proprietary original game code or artwork is included. **Public visibility is not an open-source license grant.** See [Attribution and distribution](research/attribution.md).
 
-**Verification boundary:** archived QA reports state 26 passing *local scripted browser scenarios* for v1.0. They do **not** prove a long campaign, real Windows file-open smoke test, native Android app, formal security audit or mathematical game balance.
+**Verification boundary:** v1.0 and v1.1 have separate historical QA reports; neither proves a long campaign, native Windows/Android local-file smoke testing, a security audit or statistically sound game balance.
 
 ---
 

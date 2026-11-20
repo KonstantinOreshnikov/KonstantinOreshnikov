@@ -6,7 +6,7 @@
 
 | Project | Inspired by | Current evidence and location | Current status |
 |---|---|---|---|
-| [Caribbean Merchant](../caribbean-merchant/README.md) | Port Royale 2 Mobile / Caribbean trade strategy | [Main-branch game v1.0](../caribbean-merchant/play/CaribbeanMerchant_v1.0.html), source tree, six earlier snapshots and QA | **Published playable v1.0**; subsequent fixes have [separate development branch](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/tree/fix/caribbean-contracts-bulk-autosale-20261119) (its contents have not been release-audited here) |
+| [Caribbean Merchant](../caribbean-merchant/README.md) | Port Royale 2 Mobile / Caribbean trade strategy | [Main-branch v1.1](../caribbean-merchant/play/CaribbeanMerchant_v1.1.html) · [v1.0 preserved](../caribbean-merchant/play/CaribbeanMerchant_v1.0.html) · [v1.1 QA](../caribbean-merchant/testing/v1.1-contracts-autosale.md) | **Latest standalone v1.1**: refreshed contracts, priority orders, global auto-sale, clearer palace unlock; documented synthetic QA PASS, native file-open E2E NOT TESTED |
 | [Kingdoms of Ember](../kingdoms-of-ember/README.md) | Ancient Empires II (2005) tactical games | [Independent v1.1 development branch](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/tree/game/kingdoms-of-ember-v1.1-20261120/projects/kingdoms-of-ember) with HTML, source and QA notes | **v1.1 build exists on branch, NOT merged or tagged released**. Branch README reports 41/41 checks and 12/12 simulated matches, with blocked true file:// browser launch and persistent storage E2E; these are *reported* QA results, not a new independent rerun |
 | [Lord of Ultima-inspired strategy](../retro-strategy-revival/lord-of-ultima/README.md) | Lord of Ultima (2010–2014) | Prior research: [economy and visual study](../retro-strategy-revival/lord-of-ultima/original-vs-successors.md), [solo campaign spec](../retro-strategy-revival/lord-of-ultima/singleplayer-v0.1-spec.md), [AI alliances/continents roadmap](../retro-strategy-revival/lord-of-ultima/expansion-roadmap.md) | **Design / research only**; no playable build |
 | [Chess Odyssey — Academy & Arena](../chess-odyssey/README.md) | Classical chess, instructional opening/tactics/endgame study | New approved-for-documentation concept, lesson/game-mode design, competence ladder and provisional rating approach | **Idea only**; no code, game, rating engine or QA |
@@ -20,10 +20,8 @@
 - **No changes** to confidential CBA, banking, or other unrelated projects. Portfolio documentation is sanitized.
 - These four entries do **not** imply four independent GitHub repositories. They are four separate project directories/case studies and some ongoing development branches in the current public portfolio repo.
 
-## Current portfolio synchronization gap
+## Current releases and scope boundaries
 
-As verified on 20 Nov 2026, **main** had the playable Caribbean Merchant and earlier research of Lord of Ultima. The newer Kingdoms of Ember v1.1 exists on branch `game/kingdoms-of-ember-v1.1-20261120`; more recent Lord of Ultima and chess documentation is in the open docs PR **#5**, not yet in main.
-
-**Do not silently overwrite main** or claim the documentation is visible on the public default-branch portfolio until reviewed and merged.
+**As of 20 November 2026:** Caribbean Merchant **v1.1** is the latest standalone artifact available on main; the original v1.0 remains unchanged. Kingdoms of Ember v1.1 is still on a separate working branch. Lord of Ultima-inspired is design/research only, and Chess Odyssey remains an idea. The earlier docs PR #5 is already merged; do not refer to it as pending.
 
 [Back to portfolio](../README.md)
