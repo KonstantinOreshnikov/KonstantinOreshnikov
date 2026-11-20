@@ -1,8 +1,8 @@
 # Chess Odyssey QA Ledger
 
-**CURRENT VERIFIED CHECKPOINT (2026-11-21): B4 v0.4.0 Preview, run #170 — 99/99 executable tests PASS + documentation-synchronized 22-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
-Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44825370339  
-Current authority: docs/ACADEMY_B4_DESIGN.md + academy.js + docs/ENGINE_B3_DESIGN.md + engine/MANIFEST.md. B0–B3 statements below are historical release checkpoints, not current production status.
+**CURRENT VERIFIED CHECKPOINT (2026-11-21): B5 v0.5.0 Preview, GitHub Actions run #206 — 135/135 executable tests PASS + verified 31-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
+Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44829450536  
+Current authority: docs/MASTERS_B5_DESIGN.md + docs/MASTERS_B5_SOURCE_REGISTER.md + data/masters-source-scores.json + masters-core.js; B4 Academy and B3 engine authority preserved. B0–B4 excerpts below are historical QA checkpoints, not claims of current production release.
 
 Date: 2026-11-21
 Branch: game/chess-odyssey-v0.1
@@ -180,3 +180,55 @@ B4 browser acceptance explicitly exercised: four-track selector, incorrect-but-l
 - Downloadable GitHub Actions artifact **ID 14673682316**, `ChessOdyssey-v0.4.0-Academy-Stockfish-PREVIEW`; artifact-wrapper SHA256 **0207531a8df00165befbf73150bf848902d5f57daea066ef9a98f0f91df0647d**, expires **2026-12-20 UTC**.
 - **Current full package + QA:** https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44825370339. Previous #166 package and SHA above remain immutable historical evidence, not current package hash. Source content and v0.4.0 standalone in the game branch remain durable.
 - No main merge, no production deployment; B5/B6/B7 and independent language/editorial review remain open.
+
+
+## B5 — complete Masters & Legends historical learning package (2026-11-21)
+
+**Implemented:** 31 fully linked historical chess move scores, **1,923 actual legal half-moves** spanning **1834–2013**, **116 original RU/EN/AZ critical SAN annotations**. New separate Masters & Legends browser tab: custom independent 8×8 historical board, complete SAN timeline/slider/first-prev-autoplay-next-last, keyboard navigation, all-game replay, theme/player/year search, authentic recorded 1-0/0-1 results with end-position checkmate calculation, original stage explanation, strictly chess.js-legal historical-move quiz, personal bookmarks/reload, full-source PGN download and 390px mobile view. Existing 33 Academy lessons, Coach and Stockfish unaffected.
+
+### Source evidence, freshness and conflicts
+
+- Canonical factual source register: `data/masters-source-scores.json`, exact source URL per game, unannotated score only. Source links, version, provenance, move counts, rights limitations and six second-source checks documented in `docs/MASTERS_B5_SOURCE_REGISTER.md`.
+- Six external secondary historical comparison pages examined at https://chessdna.app/games/; **4/6 independently match the complete full move score** (Opera Game, Immortal Game, Evergreen Game, Deep Blue 1997); **2/6 match only a documented partial initial segment** (Game of the Century 1956, Kasparov–Topalov 1999). Other 25 full scores: primary source + full chess.js legality QA, **not** falsely certified as second-source-verified. No internet-wide historical archive or "every game ever" claims.
+- **Source attribution QA conflict** early in intake: source URLs for Byrne–Fischer 1963 and McDonnell–La Bourdonnais 1834 were initially mismatched to 1986/2013 data. The year/suffix consistency validator detected it; replaced using the exact full correct primary source URLs and rereplayed every move, commit `d95d0c863fd89970aec0ec160cbb225426e91248`. History preserved; current scores correct per registered source.
+- No source website's editorial prose, articles, media, code, evaluations or game-analysis conclusions copied; Chess Odyssey explanatory material independently authored and versioned in `masters-notes-a/b/c.js`. External page links are reference-only: runtime works offline with no network request.
+- **6/31 actual on-board checkmate results**, verified chess.js; the rest must not be labelled checkmate merely from a recorded win. `masters-core.js` calculates/checks this for all positions. Recorded resignation reasons may vary by archive.
+
+### Unlazy red/green and exact CI evidence
+
+| GitHub Actions | Outcome | Root cause and corrective action |
+| --- | --- | --- |
+| **#197**, run **44828862449** | **FAIL** in existing B0/B1 test | Existing smoke test banned every http(s) string in HTML; B5 now links to vetted historical score source. Replaced assertion with **no external scripts/styles** plus permission for explicit source hyperlinks. Commit `8c2e4d0003b62a71c8e61ac49225c1cbafc253d1` |
+| **#199**, run **44828977562** | **FAIL** in legacy Chrome test | Adding the independent master chessboard made an old unscoped `button[aria-label^=e2]` match two boards. Scoped all practice/Academy/masters E2E clicks to `#board`, preserving semantic independence; commits `49733d67fa80b248ce8a0de9d2f9c9fb03f83721`, `672eed489b5d0c5515bd4eb12d3c4f13dd8a9bb4`, `d3abcfdb60db4295a027be98178e1d05c01cc677` |
+| **#204**, run **44829168151** | **FAIL** in new B5 E2E script | Test tried to click First when current ply 0, where the button is correctly disabled. Corrected test to advance then return to start and asserted proper disabled behavior; commit `91e4145ce65a10ba77368abd9baae0efa94d198c` |
+| **#206**, run **44829450536** | **PASS** | Unit, legal history, 116 notes, valid multiple choices, three languages, real Chrome old/new tests, genuine Stockfish, standalone rebuild and 31-file ZIP all green |
+
+### Final verified B5 automated QA — 135/135
+
+| Gate | Checks | Result |
+| --- | ---: | --- |
+| B0/B1 chess rules and smoke | 12/12 | PASS |
+| B2 Coach 2-ply logic | 8/8 | PASS |
+| B3 UCI bridge and levels | 7/7 | PASS |
+| B4 all 33 Academy lesson chess truth | 8/8 | PASS |
+| **B5 31 full source scores, 1,923 chess.js replays, 116 annotation anchors, RU/EN/AZ, legal quiz and parseable PGN** | **10/10** | **PASS** |
+| Actual native Stockfish UCI/checkmate | 2/2 | PASS |
+| B2 postgame | 5/5 | PASS |
+| Synthetic DOM regressions | 9/9 | PASS |
+| B0–B4 real browser UI regressions | 21/21 | PASS |
+| Genuine browser Stockfish UCI+WASM | 11/11 | PASS |
+| B4 Academy real Chrome E2E | 16/16 | PASS |
+| **B5 Masters real Chrome E2E** | **26/26** | **PASS** |
+| **Total** | **135/135** | **PASS** |
+
+**Browser evidence:** verified 31 games, 64 historical squares, exact Morphy move Qb8+, legal wrong/correct quiz branch, player search and filtering, source link, PGN export with source and result, persistent bookmarks across reload, full replay navigation, RU/EN/AZ switching, keyboard controls, independent Practice/Academy PGN and user settings, full `dist/ChessOdyssey_v0.5.0_PREVIEW.html`, mobile 390px no horizontal overflow. No external runtime chess API or authentication.
+
+**Archive evidence — #206:** the versioned `ChessOdyssey_v0.5.0_Stockfish_Preview.zip` was actually built and CRC-checked with **31 files** (including original Stockfish GPL full licence, binary and exact SHA). Internal ZIP size **1,460,523 bytes** and SHA256 **0bf4606b428cf476ed01394bc0e3a35811865c382b9ef6c8289cad5fb153fa14**. GitHub Actions artifact **14674983982**, `ChessOdyssey-v0.5.0-Masters-Stockfish-PREVIEW`, wrapper SHA256 `1908440d6bfcfab4c78080ca8acd939ab2f7bbc1bd0c3a86bb3b167ffebac662`, retained through **2026-12-20 UTC**. [Download and full logs](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44829450536).
+
+### Remaining release barriers — NOT PASS
+
+- B5 development functionality plus automated QA **PASS**, but this is **not** a claim that 31 historical event identities, dates or tournament rounds were independently certified from official archival records. Non-primary full cross-source verification for 25 games and full secondary verification of two partial matches is **OPEN**.
+- Independent human editorial correctness review of RU/EN/AZ, and deep Stockfish validation of whether all 116 explanations are strategically optimal, **NOT TESTED**. Explanations are human-readable instructional context, not engine certification.
+- Real physical Windows `START_WINDOWS.cmd` double-click and cross-OS install E2E **NOT TESTED**; local Chrome and licensed localhost Stockfish proved earlier.
+- B6 independent Player Progress, Academy Reputation and unrated/rated separation **NOT IMPLEMENTED**. B7 complete games, full accessibility, promotion/draw paths, production deployment gates **OPEN**.
+- **v1.0 production remains BLOCKED. No merge to `main`, no deployment, no edits to other games or CBA platform.**
