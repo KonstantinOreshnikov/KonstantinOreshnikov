@@ -6,6 +6,7 @@ const vm=require("node:vm");
 const assert=require("node:assert/strict");
 const {Chess}=require("../vendor/chess.js");
 const Coach=require("../coach-engine.js");
+const Engine=require("../engine-bridge.js");
 const script=fs.readFileSync(path.join(__dirname,"../app.js"),"utf8");
 class Element {
  constructor(id){
@@ -28,7 +29,7 @@ const localStorage={getItem:(k)=>storage.get(k)||null,setItem:(k,v)=>storage.set
 const timers=[];
 const setTimeout=(f)=>{timers.push(f);return timers.length;};
 const clearTimeout=()=>{};
-const window={ChessCoachEngine:Coach};
+const window={ChessCoachEngine:Coach,ChessEngineBridge:Engine};
 vm.runInNewContext(script,{Chess,document,localStorage,window,setTimeout,clearTimeout,console},{timeout:5000});
 function square(s){return el("board").children.find(x=>(x.attrs["aria-label"]||"").startsWith(s+" "));}
 let pass=0;
