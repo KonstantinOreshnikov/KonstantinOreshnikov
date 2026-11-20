@@ -487,23 +487,26 @@ function hint(){
   function refreshLabels(){
     document.documentElement.lang=language;
     for(const node of document.querySelectorAll("[data-i18n]")){
-      const name=node.getAttribute("data-i18n");node.textContent=LABELS[language][name]||LABELS.ru[name]||name;
+      const name=node.getAttribute("data-i18n");
+      node.textContent=LABELS[language][name]||LABELS.ru[name]||name;
     }
-    const lessonOptions=$("lesson").options;
-    lessonOptions[0].textContent=LABELS[language].chooseLesson;
-    LESSONS.forEach((task,i)=>{lessonOptions[i+1].textContent=task.title[language];});
-    if(lesson) {const task=LESSONS.find(x=>x.id===lesson);learnMessage(task.title[language]);message(task.description[language]);}
-    else if(hintState&&hintState.fen===game.fen())message(ct("hintIntro"));
-    else if(game.game_over())message(status()+" — "+tr("notRated"));
-    else if(notes.length)message(assessmentMessage(notes[notes.length-1]));
-    else message(tr("select"));
-    showHints();renderReview();render();
+    const task=lessonTask();
+    if(task){learnMessage(lessonPrompt(task));message(task.intro[language]);}
+    else if(lastLessonId&&parked)learnMessage(at("completed"));
+    else learnMessage("");
+    if(!task){
+      if(hintState&&hintState.fen===game.fen())message(ct("hintIntro"));
+      else if(game.game_over())message(status()+" — "+tr("notRated"));
+      else if(notes.length)message(assessmentMessage(notes[notes.length-1]));
+      else message(tr("select"));
+    }
+    renderAcademy();showHints();renderReview();render();
     showEngineStatus(lastEngineKind);
   }
-  const LABELS={
-    ru:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Учимся играя",newGame:"Новая партия",undo:"Отменить ход",hint:"Подсказка",game:"Тренировочная партия",level:"Сложность AI",side:"Мои фигуры",language:"Язык",flip:"Повернуть доску",lessons:"Академия",chooseLesson:"Выбрать урок…",resume:"Вернуться к партии",reviewButton:"Разобрать ходы",reviewTitle:"Ключевые моменты",record:"Победы / поражения / ничьи",done:"Пройдено уроков",moves:"История ходов",about:"Рейтинг отключён в тренировке; без таймера",white:"Белые",black:"Чёрные",beginner:"Начинающий",novice:"Любитель",intermediate:"Средний",advanced:"Продвинутый",expert:"Эксперт",grandmaster:"Гроссмейстерский вызов"},
-    en:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Learn by playing",newGame:"New game",undo:"Undo move",hint:"Hint",game:"Practice game",level:"AI difficulty",side:"My pieces",language:"Language",flip:"Flip board",lessons:"Academy",chooseLesson:"Choose a lesson…",resume:"Return to game",reviewButton:"Review moves",reviewTitle:"Key moments",record:"Wins / losses / draws",done:"Lessons completed",moves:"Move history",about:"No rating in practice; no chess clock",white:"White",black:"Black",beginner:"Beginner",novice:"Novice",intermediate:"Intermediate",advanced:"Advanced",expert:"Expert",grandmaster:"Grandmaster Challenge"},
-    az:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Oynayaraq öyrənin",newGame:"Yeni oyun",undo:"Gedişi ləğv et",hint:"İpucu",game:"Məşq oyunu",level:"AI çətinliyi",side:"Mənim fiqurlarım",language:"Dil",flip:"Taxtanı çevir",lessons:"Akademiya",chooseLesson:"Dərs seçin…",resume:"Oyuna qayıt",reviewButton:"Gedişləri təhlil et",reviewTitle:"Əsas məqamlar",record:"Qələbə / məğlubiyyət / heç-heçə",done:"Tamamlanmış dərslər",moves:"Gedişlərin tarixçəsi",about:"Məşqdə reytinq yoxdur; vaxt limiti yoxdur",white:"Ağlar",black:"Qaralar",beginner:"Başlanğıc",novice:"Həvəskar",intermediate:"Orta",advanced:"İrəliləmiş",expert:"Ekspert",grandmaster:"Qrossmeyster sınağı"}
+    const LABELS={
+    ru:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Учимся играя",newGame:"Новая партия",undo:"Отменить ход",hint:"Подсказка",game:"Тренировочная партия",level:"Сложность AI",side:"Мои фигуры",language:"Язык",flip:"Повернуть доску",lessons:"Академия",chooseLesson:"Выбрать урок…",resume:"Вернуться к партии",academyTrack:"Раздел обучения",allTracks:"Все разделы",trackBasics:"Основы и правила",trackTactics:"Тактика и комбинации",trackOpenings:"Дебютные идеи",trackEndgames:"Эндшпиль",academyLesson:"Урок или задача",nextLesson:"Следующий урок",reviewButton:"Разобрать ходы",reviewTitle:"Ключевые моменты",record:"Победы / поражения / ничьи",done:"Пройдено уроков",moves:"История ходов",about:"Рейтинг отключён в тренировке; без таймера",white:"Белые",black:"Чёрные",beginner:"Начинающий",novice:"Любитель",intermediate:"Средний",advanced:"Продвинутый",expert:"Эксперт",grandmaster:"Гроссмейстерский вызов"},
+    en:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Learn by playing",newGame:"New game",undo:"Undo move",hint:"Hint",game:"Practice game",level:"AI difficulty",side:"My pieces",language:"Language",flip:"Flip board",lessons:"Academy",chooseLesson:"Choose a lesson…",resume:"Return to game",academyTrack:"Learning track",allTracks:"All tracks",trackBasics:"Rules and essentials",trackTactics:"Tactics and combinations",trackOpenings:"Opening ideas",trackEndgames:"Endgame",academyLesson:"Lesson or challenge",nextLesson:"Next lesson",reviewButton:"Review moves",reviewTitle:"Key moments",record:"Wins / losses / draws",done:"Lessons completed",moves:"Move history",about:"No rating in practice; no chess clock",white:"White",black:"Black",beginner:"Beginner",novice:"Novice",intermediate:"Intermediate",advanced:"Advanced",expert:"Expert",grandmaster:"Grandmaster Challenge"},
+    az:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Oynayaraq öyrənin",newGame:"Yeni oyun",undo:"Gedişi ləğv et",hint:"İpucu",game:"Məşq oyunu",level:"AI çətinliyi",side:"Mənim fiqurlarım",language:"Dil",flip:"Taxtanı çevir",lessons:"Akademiya",chooseLesson:"Dərs seçin…",resume:"Oyuna qayıt",academyTrack:"Təlim bölməsi",allTracks:"Bütün bölmələr",trackBasics:"Qaydalar və əsaslar",trackTactics:"Taktika və kombinasiyalar",trackOpenings:"Debüt ideyaları",trackEndgames:"Endşpil",academyLesson:"Dərs və ya tapşırıq",nextLesson:"Növbəti dərs",reviewButton:"Gedişləri təhlil et",reviewTitle:"Əsas məqamlar",record:"Qələbə / məğlubiyyət / heç-heçə",done:"Tamamlanmış dərslər",moves:"Gedişlərin tarixçəsi",about:"Məşqdə reytinq yoxdur; vaxt limiti yoxdur",white:"Ağlar",black:"Qaralar",beginner:"Başlanğıc",novice:"Həvəskar",intermediate:"Orta",advanced:"İrəliləmiş",expert:"Ekspert",grandmaster:"Qrossmeyster sınağı"}
   };
   function init(){
     if(typeof Chess!=="function")throw new Error("Rules Engine missing");
@@ -513,6 +516,8 @@ function hint(){
     $("new-game").addEventListener("click",newGame);
     $("undo").addEventListener("click",undo);
     $("resume-game").addEventListener("click",resumeGame);
+    $("next-lesson").addEventListener("click",nextLesson);
+    $("academy-track").addEventListener("change",()=>{academyTrack=$("academy-track").value;renderAcademy();});
     $("hint").addEventListener("click",hint);
     $("review-button").addEventListener("click",()=>{showReview=!showReview;renderReview();});
     $("flip").addEventListener("change",()=>{render();persist();});
@@ -529,5 +534,5 @@ function hint(){
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init); else init();
   // Stable test surface without providing a user-facing debug console.
-  window.ChessOdysseyQA={levels:()=>ENGINE.ids.slice(),engineStatus:()=>lastEngineKind,legalUci:(fen,uci)=>{const c=new Chess(fen);return ENGINE.legalUci(c,uci);},legalCount:(fen)=>{const c=new Chess();if(fen&&!c.load(fen))throw new Error("invalid FEN");return c.moves().length;},lessonIds:()=>LESSONS.map(x=>x.id),evaluate:()=>scorePosition(),coach:()=>COACH.version,notes:()=>notes.length};
+  window.ChessOdysseyQA={academy:()=>({total:LESSONS.length,tracks:ACADEMY.tracks.map(x=>x.id),active:lesson,step:lessonStep}),levels:()=>ENGINE.ids.slice(),engineStatus:()=>lastEngineKind,legalUci:(fen,uci)=>{const c=new Chess(fen);return ENGINE.legalUci(c,uci);},legalCount:(fen)=>{const c=new Chess();if(fen&&!c.load(fen))throw new Error("invalid FEN");return c.moves().length;},lessonIds:()=>LESSONS.map(x=>x.id),evaluate:()=>scorePosition(),coach:()=>COACH.version,notes:()=>notes.length};
 })();
