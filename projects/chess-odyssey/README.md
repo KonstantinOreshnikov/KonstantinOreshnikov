@@ -1,90 +1,51 @@
 # Chess Odyssey — Academy & Arena
 
-**Working title:** Chess Odyssey — Академия и Арена  
-**Status:** OWNER IDEA / PRODUCT CONCEPT ONLY · 20 November 2026 · No implementation, no engine integration and no QA.  
-**Separate scope:** distinct from Caribbean Merchant, Kingdoms of Ember and Lord of Ultima.
+**Status:** v0.1 DEVELOPMENT PREVIEW — NOT production-ready  
+**Branch:** game/chess-odyssey-v0.1  
+**Project isolation:** separate from all other games.  
+**Last updated:** 2026-11-21.
 
-## Mission
+A local-first browser game designed to teach chess while playing. No chess clock, account, payment, advertisement or external API call.
 
-A welcoming, beautifully designed **play-and-learn chess game** for a returning player who knows that chess exists but wants to **restart at beginner level** without books, pressure or clocks. Instruction must happen **while actually playing on a board**, in context, with visual highlights and plain-language explanations of **why** a move is sensible or dangerous.
+## Run
 
-The first lesson should never assume familiarity with algebraic notation or opening jargon. No mandatory reading or book-based progression.
+1. Open index.html in a modern browser. Keep vendor/chess.js, app.js and styles.css in their relative positions.
+2. Choose Beginner (1-ply) or Novice (2-ply), and White or Black.
+3. Click a piece, then a highlighted legal square. Ask AI Coach for 2–3 legal options.
+4. Choose an Academy lesson: pawn development, knight development or a verified mate-in-one.
+5. Use Undo in free practice, choose RU / EN / AZ, flip the board and restore an automatically saved game after reload.
 
-## First experience: zero-to-confident novice
+**Honest limitation:** This is a deliberately weak shallow-search opponent, not Stockfish. Its coaching is introductory, not a grandmaster analysis service. No FIDE or independent online rating is claimed.
 
-- No time control, no chess clocks. User can pause, explore and undo a practice line.
-- Interactive refresher: board, squares, piece movement, capturing, castling, promotion, en passant, check, mate, stalemate and common draws. One concept at a time, directly on the board.
-- Move-by-move guided opening instruction both **as White and as Black**. Example: if White begins with **1.e4**, show several legal, mainstream replies with visually explained differences (e.g. **...e5**, **...c5** or **...e6**); clarify *purpose*, not memorized forced moves. If White begins **1.d4**, explain another family of replies. User chooses and tries the consequences on the board.
-- Warn about concrete threats: free piece capture, mate-in-one, hanging queen, pinned defender, weak king, tactical fork or overloaded defender. Offer **why** plus **safer alternatives**, not just opaque engine evaluations.
-- Hints for beginner can show candidate destination squares, highlight attacked squares, and compare 2–3 candidate moves. A "Why not this move?" preview shows the opponent's likely best reply and teaches the pattern.
-- Short, replayable interactive mini-lessons for forks, pins, skewers, discovered attacks, double attacks, back-rank mate, pawn structure, exchanges, king safety and common endgames.
-- Start with wins and understandable mistakes; after each game show **three learning moments**, avoiding a wall of raw engine centipawns.
+## Source map
 
-## Adaptive ladder (proposed labels, not FIDE titles)
+| Path | Purpose |
+| --- | --- |
+| index.html | Board and semantic controls |
+| styles.css | Responsive design and focus |
+| vendor/chess.js | Legal rules, moves, checks and draws |
+| app.js | AI, coach, lessons, languages, local persistence |
+| tests/chess-smoke.cjs | Offline regression |
+| tests/browser.cjs | Real Chromium E2E script |
+| docs/DEVELOPMENT_PROTOCOL.md | Quality process |
+| docs/ROADMAP.md | Blocks and release gates |
+| docs/QA_LOG.md | Verified checks and blockers |
+| docs/ORIGINAL_CONCEPT_2026-11-20.md | Untouched original concept |
 
-| Learning stage | Coach behavior | Opponent |
-|---|---|---|
-| **Beginner / Возвращение** | Full explanation on request, severe-threat warnings, legal-move preview, unlimited practice undo | Gentle opponent; intentionally low complexity |
-| **Novice / Основы** | Opening purpose, tactics prompts and post-move explanations | Basic opponent with clear plans |
-| **Intermediate / Средний** | Warn primarily before critical blunders, explain strategic alternatives after a move | More consistent positional play |
-| **Advanced / Выше среднего** | Limited warnings for genuinely decisive danger; analysis mainly post-game | Deeper tactics and opening repertoire |
-| **Expert / Эксперт** | User moves unassisted by default; detailed post-game analysis | Strong chess engine |
-| **Master / Grandmaster challenge** | Training/analysis tools available on request, no move hints by default | Maximum available engine strength, **not** a claim of certified FIDE GM skill |
+## Source provenance and legal
 
-The player can switch between **Coached**, **Practice** and **Rating** sessions. Rating games must not allow live assistance if the score is meant to reflect independent strength. No coaching penalty in learning games.
+Rules: upstream jhlywa/chess.js v0.10.3, BSD-2-Clause, copyright notice retained; [original source](https://github.com/jhlywa/chess.js/blob/v0.10.3/chess.js). Git blob SHA: 120494d6ace6c522cc71aa4f0a764938b196f94c.
 
-## Opening study, tactics and legends
+AI: custom short-depth search. Stockfish is not integrated. Future Stockfish browser builds must observe GPLv3 and complete corresponding source requirements.
 
-- First learn **opening principles** (center, development, king safety, tempi, avoiding premature queen attacks), then recognize named openings using a maintained opening-position library, with exact move-sequence validation.
-- Interactive opening explorer: White initiative and plausible Black counterplay, choices and likely plans for both players, not a memorization-only database.
-- Explore famous historical ideas **through verified, appropriately sourced master games** (e.g. Mikhail Tal's sacrifices and initiative, classical positional play, modern dynamic defense), with original educational commentary and clickable variations. Do not invent historical quotations or misattribute game moves.
-- Each lesson is connected to a playable board position. Never make reading a separate long book mandatory.
-- Future feature: spaced repetition of the user's *own* recurring mistakes, generated from actual recorded games and validated legal FEN positions.
+Practice progress is stored locally in the browser. No external accounts or telemetry.
 
-## Ratings and progression: avoid fake Elo
+## QA status
 
-Separate **two signals**:
+15 / 15 isolated V8 runtime checks PASSED against the actual GitHub vendor and application code on 2026-11-21, including perft 20/400/8902, illegal move rejection, checkmate, castling, en passant, promotion/underpromotion, threefold, stalemate, insufficient material, the authored lesson mate, PGN round trip and app API smoke.
 
-1. **Internal playing-strength rating:** adjusts upward/downward after serious unassisted games; initially provisional with high uncertainty. Must be explicitly labeled **local estimated bot-match rating, not official FIDE/Elo, not comparable to online player ratings without calibration**.
-2. **Adventure reputation / achievements:** cumulative records for completing lessons, mastering tactics, reviewing games and beating opponents at each tier; **never purchasable**.
+Browser E2E is NOT VERIFIED, and release QA remains BLOCKED until a real Chromium execution record, full responsive testing and translation consistency validation exist. GitHub Actions workflow is committed, but its successful execution was not yet confirmed.
 
-An 0/10 streak should not permanently punish learning. A user can always go back to beginner lessons, and coaching practice should not distort their independent rating.
+To run from this project directory: node tests/chess-smoke.cjs. The separate browser script requires Playwright and Chromium.
 
-## Honest engine design (proposal, not integrated)
-
-A chess engine such as **Stockfish** may evaluate positions and power configurable-strength opponents, with a legal-rules library and a separate educational explanation layer. **Engine score is not the explanation**: a proposed move must be justified in actual chess terms and confirmed legal. Reject hallucinated "mate" assertions with engine validation.
-
-Tool options **already exposed in the conversation environment**, suitable for research or interactive exploration (not our custom game's source):
-- **Chessy:** playable conversation chess with an AI.
-- **Chess Position Analyzer:** interactive position setup/analysis from FEN.
-- **Smart Chess — Train & Learn to Win:** Stockfish-backed board and workshop/lesson mode.
-These integrations do not mean our own game has an embedded engine or that their proprietary implementations may be copied.
-
-Respect the actual engine/library licenses and offline bundling rights if implementation is later authorized.
-
-## Product UX and potential future scope
-
-- Chessboard should dominate the screen, with elegant classic wood/stone choices and readable legal/attack highlights.
-- Compact right-side **Coach**: What happened? Why is this move strong? Alternative? Threat? Recommended practice.
-- Begin in Russian; possible full RU/EN/AZ UI to align with game portfolio, but translation is not part of the current idea-only task.
-- Save personal preferences and progress locally first. No login, books, paywalls, ads or mandatory timing in initial plan.
-- Later: opening explorer, endgame challenges, game replays, personal statistics, puzzles adapted to mistakes, styled opponent personalities and optional human-vs-human.
-- **Ethics of difficulty:** bots should differ via constrained search/strength or explainable styles, not by secretly changing chess rules; “grandmaster” is an aspirational difficulty label, not a performance guarantee.
-
-## Proposed first milestone, only when development is requested
-
-A standalone browser chessboard with correct rules, one weak AI, **untimed** play, per-move optional coach, beginner walkthrough, explanations for concrete mistakes, automatic save and a simple personal learning profile. Then evaluate UX/learning with actual manual play before expanding to advanced engines.
-
-## QA gates before any release claim
-
-- Every rule, legal move, check, mate, draw, en passant, castling and promotion validated on known FEN/perft/reference positions.
-- Opponent cannot make illegal moves; hints are tied to actual legal moves and observed engine variations.
-- Opening names mapped to verified positions; not invented.
-- Coaching versus rating game separation enforced; no fake FIDE/Elo labels.
-- Save/restore preserves legal game history and position.
-- Time-free mode has no hidden countdown; mobile and desktop interaction have no drag/drop blockers.
-- Tests and actual playable app **not yet created**.
-
-**Next action:** keep as backlog. Do not start implementation, engine downloads or expensive research until the owner chooses to activate the chess project.
-
-[All four game projects](../game-studio/README.md)
+**No production deploy or merge to main.**
