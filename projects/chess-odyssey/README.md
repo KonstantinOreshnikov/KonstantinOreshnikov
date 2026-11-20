@@ -1,11 +1,27 @@
 # Chess Odyssey — Academy & Arena
 
-**Development Preview v0.4.0 · B4 complete Academy and six-level chess opponent. NOT production-ready.**  
-**Game-only branch:** `game/chess-odyssey-v0.1`. No changes to Kingdoms of Ember, Caribbean Merchant or Lord of Ultima.
+**Development Preview v0.5.0 · B5 Masters & Legends fully implemented and automated-QA PASS.**  
+**Not a production v1.0 release.** Dedicated game branch: `game/chess-odyssey-v0.1`. Does not alter Kingdoms of Ember, Caribbean Merchant, Lord of Ultima or CBA examination platform.
 
-## Start playing
+## Play and learn — two separate tabs
 
-**Full Stockfish + Academy:** open the passing [GitHub Actions B4 run #166](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44825370339), find the **Artifacts** section and download `ChessOdyssey-v0.4.0-Academy-Stockfish-PREVIEW`. Extract the ZIP (22 files), then double-click `START_WINDOWS.cmd` on Windows. Python 3 or Node.js must be on PATH. It hosts the game **only on 127.0.0.1** and opens your local browser. Alternatively, in the project directory run:
+**Practice & Academy** preserves the six AI difficulty settings, actual Stockfish 19 Lite Worker+WASM (when served through HTTP), B2 AI Coach and **33 complete RU/EN/AZ interactive Academy lessons** across rules, tactics, opening ideas and endgames. Practice scores, saved PGN, Undo, board promotion and lesson progress remain unchanged.
+
+**Masters & Legends (NEW B5)** offers **31 full historically sourced chess game scores, 1,923 legal recorded half-moves, 116 original annotated key moments**, with instructional **Russian / English / Azerbaijani** commentary. Games span **1834–2013**, across attacks, positional play, defence, gambits, pawn endings, zugzwang, king hunts and human-versus-computer play.
+
+For each historic game:
+- Replay **every actual move** on its independent 8×8 chessboard, by clicking the score, using the slider, First/Prev/Next/Last, keyboard arrows or autoplay.
+- Filter by theme or search player/title/year. Display player names, event/year, original recorded outcome and a direct link to the historical score source.
+- Read hand-written thematic introduction and **3–4 historically move-bound critical-moment explanations in all three languages**, anchored to the exact chess.js position. Non-highlighted moves receive modest factual "capture/check" context, not fabricated deep analysis.
+- Choose **Guess the Master's Move** to select among strictly chess.js-legal options. Success means identifying what was **actually played historically**, **not** proving the other legal choices are objectively inferior.
+- Save private **bookmarks** and resume at the last game/ply across reloads. Download complete parseable **PGN with exact source URL** and recorded result. Neither practice PGN nor rating is modified by replay/quiz.
+- A game won on resignation is shown as a recorded result, **not falsely called checkmate**. True on-board checkmate is derived from the chess.js final position.
+
+## Launch
+
+**Full game + genuine Stockfish:** open the verified [GitHub Actions B5 v0.5.0 run #206](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44829450536), find **Artifacts** and download `ChessOdyssey-v0.5.0-Masters-Stockfish-PREVIEW`. Unpack the ZIP and, on Windows, double-click `START_WINDOWS.cmd`. A locally installed Python 3 or Node.js is required. The helper runs a small server bound **only to localhost** `127.0.0.1`.
+
+Manual alternatives, from the unpacked game folder:
 
 ```sh
 python -m http.server 8765 --bind 127.0.0.1
@@ -13,59 +29,49 @@ python -m http.server 8765 --bind 127.0.0.1
 node scripts/serve-local.cjs
 ```
 
-Visit http://127.0.0.1:8765/index.html. Nothing is deployed to a public server.
+Open **http://127.0.0.1:8765/index.html**. No account, paid features, server-side login, telemetry, public deployment or external chess API.
 
-**One-file, no-server option:** download `dist/ChessOdyssey_v0.4.0_PREVIEW.html` and open it locally. All 33 lessons and practice controls work offline, but intermediate and stronger levels fall back to an **explicitly labelled weaker local AI** due to file:// Worker restrictions. To use the real Stockfish WASM engine, use the full ZIP and localhost.
+**Offline one-file option:** download and open `dist/ChessOdyssey_v0.5.0_PREVIEW.html`. The complete Academy and all 31 historical master games work with no installation or internet, but intermediate-to-Grandmaster difficulty falls back to an **explicitly labelled weaker local AI**; real Stockfish Web Worker needs HTTP delivery of the licensed companion WASM.
 
-## Four complete Academy tracks — 33 exercises / 49 learner moves
+## Six game levels
 
-| Track | Count | What is taught |
-| --- | ---: | --- |
-| **Rules and essentials** | 9 | Pawn, knight, bishop, rook, queen, castling, en passant, promotion, check |
-| **Tactics and combinations** | 8 | Mate on f7, knight/pawn forks, absolute pin, protected skewer, discovered check, back-rank mate, capturing a loose rook |
-| **Opening ideas** | 8 | Italian, Ruy Lopez, Queen's Gambit, London **as White**; Sicilian, King's Indian, French, Caro–Kann **as Black**; each has three correctly sequenced board moves with scripted opponent replies |
-| **Endgame** | 8 | Queen+king/rook+king mates, opposition, underpromotion, passed pawn and square rule, rook behind passed pawn and active king |
-
-Select a track, then an exercise. Make legal moves on the chessboard. Wrong moves do not advance or alter the lesson; **Hint** highlights the starting square and shows the expected SAN. Opening exercises follow staged moves with a legal scripted reply. A **Next lesson** button supports continuous learning. Completed lesson IDs and an in-progress multi-step lesson survive a reload; an existing practice game is safely parked and restored.
-
-Russian, English and Azerbaijani lesson intros, instructions and step counters are all available. The training data are original constructed learning positions, **not claimed to be historical grandmaster games**; those belong to B5.
-
-## Six difficulty levels
-
-| Level | Opponent implementation |
+| Level | AI in the complete locally served package |
 | --- | --- |
-| Beginner | Gentle local 1-ply search |
-| Novice | Local 2-ply search |
-| Intermediate | Real Stockfish 19 Lite, Skill Level 2, 180 ms |
-| Advanced | Real Stockfish 19 Lite, Skill Level 8, 350 ms |
-| Expert | Real Stockfish 19 Lite, Skill Level 15, 750 ms |
-| Grandmaster Challenge | Real Stockfish 19 Lite, Skill Level 20, 1450 ms |
+| Beginner | Gentle one-ply local search |
+| Novice | Local two-ply search |
+| Intermediate | Stockfish.js 19 Lite, UCI Skill 2, 180 ms |
+| Advanced | Stockfish.js 19 Lite, UCI Skill 8, 350 ms |
+| Expert | Stockfish.js 19 Lite, UCI Skill 15, 750 ms |
+| Grandmaster Challenge | Stockfish.js 19 Lite, UCI Skill 20, 1450 ms |
 
-The names indicate **game difficulty presets**, not calibrated FIDE Elo or titles. Real Stockfish requires the full ZIP served via HTTP. The B2 AI Coach remains independent: three legal candidate moves, possible opponent replies and quick two-ply teaching feedback, not deep certified Stockfish analysis. Practice games do not change any rating.
+These are **game challenge tiers**, not calibrated FIDE Elo ratings or certification of master strength. The B2 two-ply educational coach remains independent of Stockfish and never pretends its heuristic ideas are deep engine principal variations.
 
-## Code structure
+## Sources and licensing — quality-first, no false provenance
 
-| Path | Purpose |
+- **Historical game move facts, player/year/event/result:** exact source URL for each game in `data/masters-source-scores.json` and `docs/MASTERS_B5_SOURCE_REGISTER.md`; the main factual scores were curated from https://chessgator.com/games/. Their entire SAN sequences were **independently replayed and validated against chess.js**.
+- **Secondary cross-check:** selected scores were compared to independent ChessDNA pages. Four have exact full-score matches; two have only prefix matches; **25 others have not been independently matched across a second full archival score**. No claim is made to have imported "every game on the internet".
+- **Educational text:** all 31 original RU/EN/AZ summaries and **116 original move-specific explanatory notes** in `masters-notes-a.js`, `masters-notes-b.js`, `masters-notes-c.js`. **No source website's editorial prose, screenshots or engine evaluations were copied.**
+- **Chess legality:** pinned `chess.js` v0.10.3 (BSD-2-Clause, original notice retained). **Real Stockfish.js** 19.0.1 Lite is GPLv3, unmodified WASM and JS, with full `engine/Copying.txt`, exact SHA256 in `engine/MANIFEST.md`, corresponding upstream source https://github.com/nmrugg/stockfish.js/tree/v19.0.1. Attribution and obligations are in `THIRD_PARTY_NOTICES.md`.
+- **More references:** `docs/MASTERS_B5_SOURCE_REGISTER.md` records secondary archives and factual uncertainty. Historical score legality is **not** automatic authoritative resolution of every disputed game date/event. Independent editorial/historical and human RU/EN/AZ proofread remain required for production v1.0.
+
+## Technical structure
+
+| File | Role |
 | --- | --- |
-| `vendor/chess.js` | Chess legality, special rules, FEN and PGN, pinned BSD-2-Clause |
-| `coach-engine.js` | B2 explainable two-ply tutor |
-| `engine-bridge.js` | B3 real Stockfish UCI Worker bridge, six tiers, safe cancellation |
-| `academy.js` | B4 33 source-backed executable RU/EN/AZ lessons, validated FEN/SAN/steps |
-| `app.js` | Interactive board, lesson orchestration, persistence, local AI and translation |
-| `index.html`, `styles.css` | Responsive accessible controls and four learning tracks |
-| `engine/` | Unmodified Stockfish 19.0.1 Lite JS/WASM, GPLv3 license and SHA256 manifest |
-| `tests/*.cjs` | Legality/perft, UCI, coach, content, DOM, real Chromium/Chrome, persistence, promotion |
-| `scripts/`, `START_WINDOWS.cmd` | Offline HTML, verified ZIP and localhost launcher |
-| `docs/ACADEMY_B4_DESIGN.md` | B4 method and acceptance criteria |
-| `docs/ENGINE_B3_DESIGN.md` | Engine integration and GPL provenance |
-| `docs/QA_LOG.md`, `docs/ROADMAP.md`, `CHANGELOG.md` | Current checkpoint, prior failures and next blocks |
+| `index.html`, `styles.css` | Tabbed, mobile-responsive game, Academy, Masters UI |
+| `app.js`, `academy.js`, `coach-engine.js` | Practice gameplay, 33 verified lessons, heuristic educational Coach |
+| `engine-bridge.js`, `engine/*` | Six-level AI interface and genuine licensed Stockfish UCI worker |
+| `data/masters-source-scores.json` | 31 original source links and canonical factual move scores |
+| `masters-library.js` | Offline bundled historical full move corpus |
+| `masters-notes-a.js` / `b.js` / `c.js` | Original RU/EN/AZ historical-game teaching |
+| `masters-core.js` | Full chess.js score/FEN replay and verification, note anchors, legal quizzes, PGN export |
+| `masters-ui.js` | Separate board, move history, UI, search, bookmarks, quiz and language |
+| `tests/*.cjs` | Chess truth, sources, coach, Stockfish, all 31 masters, all 116 quizzes, Browser E2E |
+| `docs/MASTERS_B5_DESIGN.md`, `docs/MASTERS_B5_SOURCE_REGISTER.md` | Architecture/QA and source authority |
+| `docs/QA_LOG.md`, `docs/ROADMAP.md`, `CHANGELOG.md` | Reproducible checkpoint, unresolved release gates, history |
 
-Third-party licenses: chess.js v0.10.3 (BSD-2-Clause) and genuine [Stockfish.js v19.0.1](https://github.com/nmrugg/stockfish.js/tree/v19.0.1) (GPLv3). See `THIRD_PARTY_NOTICES.md`, `engine/Copying.txt` and `engine/MANIFEST.md` for exact attribution and source/build pointers.
+## Verified QA and release boundary
 
-## Evidence and what remains
+The first full passing B5 [GitHub Actions run **#206**](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44829450536) achieved **135/135 actual executable PASS**: all B0–B4 regressions, 31 complete source scores, 1,923 legal SAN, 116 original notes, PGN round-trips and browser replay/quiz/bookmark/localization, plus genuine Stockfish and a CRC-verified GPL-containing ZIP.
 
-- **B4 full green CI #170:** [99/99 functional tests and verified ZIP integrity](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44825370339), covering all 33 lesson positions, both-colour multi-step openings, reload, wrong moves, correct queen/knight promotions, RU/EN/AZ switching and mobile overflow, plus retained Stockfish E2E.
-- The 22-file ZIP integrity and GPL inclusion are verified. Independent *editorial* RU/EN/AZ semantic proofreading and physical Windows CMD testing remain **NOT TESTED** and are not falsely counted as PASS.
-- Previous build failures and repairs remain in `docs/QA_LOG.md`; B0/B1/B2/B3 source and standalone files are kept for rollback.
-- **Next B5:** source-verified historical master PGNs with chess teaching commentary. Then B6 playing progress/reputation, and B7 full release gates (complete games, usability, promotion/draw outcomes, accessibility, independent translations, versioned deployment).
-- **v1.0 production BLOCKED. No merge to main and no deployment.**
+**B5 development preview is feature-complete and passes automated QA.** It is NOT v1.0 release-ready: B6 separate progress/Academy Reputation/rating logic, B7 full-game/multi-device/desktop/mobile/accessibility/independent language QA, physical Windows launcher and production acceptance remain OPEN. No merge to main and no deployment.
