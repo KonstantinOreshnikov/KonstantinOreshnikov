@@ -17,7 +17,7 @@ class Element {
  setAttribute(k,v){this.attrs[k]=v;}
  addEventListener(k,f){this.listeners[k]=f;}
  appendChild(x){this.children.push(x);}
- replaceChildren(x){this.children=[...x.children];}
+ replaceChildren(x){this.children=x?(x.id==="fragment"?[...x.children]:[x]):[];}
 }
 const elements={};
 function el(k){return elements[k]||(elements[k]=new Element(k));}
