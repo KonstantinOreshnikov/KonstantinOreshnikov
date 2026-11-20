@@ -16,7 +16,7 @@ on:
 jobs:
   unit:
     name: Offline rules + app smoke
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
@@ -38,7 +38,7 @@ jobs:
   browser:
     name: Chromium real UI E2E
     needs: unit
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
