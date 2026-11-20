@@ -1,7 +1,7 @@
 # Chess Odyssey QA Ledger
 
-**CURRENT VERIFIED CHECKPOINT (2026-11-21): B5 v0.5.0 Preview, GitHub Actions run #206 — 135/135 executable tests PASS + verified 31-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
-Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44829450536  
+**CURRENT VERIFIED CHECKPOINT (2026-11-21): B5 v0.5.0 Preview, GitHub Actions run #213 — 135/135 executable tests PASS + documentation-synchronized 31-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
+Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44830022599  
 Current authority: docs/MASTERS_B5_DESIGN.md + docs/MASTERS_B5_SOURCE_REGISTER.md + data/masters-source-scores.json + masters-core.js; B4 Academy and B3 engine authority preserved. B0–B4 excerpts below are historical QA checkpoints, not claims of current production release.
 
 Date: 2026-11-21
@@ -232,3 +232,11 @@ B4 browser acceptance explicitly exercised: four-track selector, incorrect-but-l
 - Real physical Windows `START_WINDOWS.cmd` double-click and cross-OS install E2E **NOT TESTED**; local Chrome and licensed localhost Stockfish proved earlier.
 - B6 independent Player Progress, Academy Reputation and unrated/rated separation **NOT IMPLEMENTED**. B7 complete games, full accessibility, promotion/draw paths, production deployment gates **OPEN**.
 - **v1.0 production remains BLOCKED. No merge to `main`, no deployment, no edits to other games or CBA platform.**
+
+### Final documented-source package rerun — #213 (2026-11-21)
+
+- Full **GitHub Actions run #213**, ID **44830022599**, both jobs **success** after the latest README, ROADMAP, B5 source authority/register, CHANGELOG and third-party legal notice updates. **All 135/135 executable checks still PASS**, including all 31 historical games, 116 anchored explanations, old B0–B4 browser and Stockfish, and new Masters Chrome browser **26/26**.
+- Complete ZIP **31 files**, **1,464,906 bytes**, SHA256 **cf59914bfb1c68ad54e274d853c08fd1c5c6ea78a7f2a4caf9e177422483d03a**, verified by actual build+CRC re-open.
+- GitHub Actions artifact **ID 14676340023**, `ChessOdyssey-v0.5.0-Masters-Stockfish-PREVIEW`, artifact ZIP wrapper SHA256 **53232468e0bef88f83f77537d7ae20d737e1a530ed36bd23f350b1ac55efcdb8**, expires **2026-12-20 UTC**. Current download and QA: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44830022599.
+- Artifact #206 and its SHA above are retained as immutable earlier proof. The #213 snapshot includes the substantive B5 docs and source register; this final log entry records #213 **after** that build, so this added line cannot appear retroactively inside the archived ZIP.
+- Nothing changed in `main` or deployed production. All B5 source/QA rules and limitations in docs/MASTERS_B5_SOURCE_REGISTER.md remain authoritative; **B6/B7 still open**.
