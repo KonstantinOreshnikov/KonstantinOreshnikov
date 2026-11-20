@@ -1,6 +1,6 @@
 # Play Caribbean Merchant
 
-**Latest candidate: [CaribbeanMerchant_v1.1.html](CaribbeanMerchant_v1.1.html)** (contract offer repair, priority orders, all-city auto-sale controls, clearer palace unlock)  
+**Latest available version: [CaribbeanMerchant_v1.1.html](CaribbeanMerchant_v1.1.html)** (contract offer repair, priority orders, all-city auto-sale controls, clearer palace unlock)  
 **Previous release: [CaribbeanMerchant_v1.0.html](CaribbeanMerchant_v1.0.html)** (unchanged) · [Project overview](../README.md)
 
 1. Open the v1.1 HTML file link, click **Download raw file**, and save the file as `CaribbeanMerchant_v1.1.html`.

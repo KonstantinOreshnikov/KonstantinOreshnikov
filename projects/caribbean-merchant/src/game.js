@@ -417,7 +417,7 @@ render=function(){ensureEmpire();legacyRender()};
 const legacyRenderTab=renderTab;
 renderTab=function(){if(activeTab==='adventure'){document.querySelectorAll('.tab').forEach(el=>{const a=el.dataset.tab==='adventure';el.classList.toggle('active',a);el.setAttribute('aria-selected',String(a))});$('#tabContent').innerHTML=empireAdventure();return}legacyRenderTab()};
 const oldRenderChrome=renderChrome;
-renderChrome=function(){oldRenderChrome();document.title='Caribbean Merchant v1.0';const tab=document.querySelector('[data-tab="adventure"]');if(tab)tab.textContent=ET('adventure');$('#footerLeft').textContent='Caribbean Merchant v1.0 · '+(uiLang==='ru'?'игровая стратегия':uiLang==='en'?'independent strategy':'müstəqil strategiya')};
+renderChrome=function(){oldRenderChrome();document.title='Caribbean Merchant v1.1';const tab=document.querySelector('[data-tab="adventure"]');if(tab)tab.textContent=ET('adventure');$('#footerLeft').textContent='Caribbean Merchant v1.1 · '+(uiLang==='ru'?'игровая стратегия':uiLang==='en'?'independent strategy':'müstəqil strategiya')};
 renderTrade=empireTrade;
 renderEstate=empireEstate;
 renderContracts=empireContracts;
