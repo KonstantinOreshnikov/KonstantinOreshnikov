@@ -21,3 +21,6 @@
 - GitHub Actions red/green: #17 failed due to DOM test counting coordinates; fixed test. #19 passed Unit/DOM but failed browser installation on Ubuntu 26.04; pinned Ubuntu 24.04.
 - **Run #21 PASS:** Node rules 12/12, synthetic DOM 7/7, real Chromium 10/10.
 - Remaining v1.0 gates explicitly incomplete; production untouched.
+
+- QA enhancement: isolated 64-square and legal e2-e4 Chromium checks on the actual single-file distribution; run #35 PASS (Node 12/12, DOM 7/7, browser 12/12).
+- CI efficiency: skip documentation-only changes and cancel obsolete same-branch runs.
