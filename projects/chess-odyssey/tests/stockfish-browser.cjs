@@ -45,13 +45,20 @@ function startServer(){
   assert.equal(await page.evaluate(()=>window.ChessOdysseyQA.engineStatus()),"stockfish");tests++;
   const pgn=await page.evaluate(()=>JSON.parse(localStorage.getItem("chess-odyssey-v01")).pgn);
   assert.ok(pgn&&pgn.length>2);tests++;
+  // Both intermediate and advanced use actual UCI moves, not the fallback.
+  await page.selectOption("#level","advanced");
+  await page.waitForFunction("document.querySelector('#engine-status').dataset.kind==='stockfish'",null,{timeout:35000});
+  assert.ok((await page.locator("#moves").innerText()).includes("1."));tests++;
   // New difficulty must recreate the worker and apply its UCI skill profile.
   await page.selectOption("#level","expert");
   await page.waitForFunction("document.querySelector('#engine-status').dataset.kind==='stockfish'",null,{timeout:35000});
   assert.ok((await page.locator("#moves").innerText()).includes("1."));tests++;
+  await page.selectOption("#level","grandmaster");
+  await page.waitForFunction("document.querySelector('#engine-status').dataset.kind==='stockfish'",null,{timeout:35000});
+  assert.ok((await page.locator("#moves").innerText()).includes("1."));tests++;
   await page.reload();
   await page.waitForFunction("window.ChessOdysseyQA");
-  assert.equal(await page.locator("#level").inputValue(),"expert");tests++;
+  assert.equal(await page.locator("#level").inputValue(),"grandmaster");tests++;
   // Rapidly switching levels must not apply a stale engine move after reset.
   await page.selectOption("#level","grandmaster");
   await page.selectOption("#level","beginner");
