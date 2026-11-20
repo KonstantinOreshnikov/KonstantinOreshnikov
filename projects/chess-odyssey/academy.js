@@ -146,7 +146,7 @@
       ["24. Французская защита (чёрные)","24. French Defence (Black)","24. Fransız müdafiəsi (qaralar)"],
       ["Ответ ...e6 на 1.e4 готовит ...d5. Чёрные спорят с центром пешками, а затем развивают коня.","Reply ...e6 to 1.e4, preparing ...d5. Black challenges the pawn centre and then develops a knight.","1.e4-ə ...e6 cavabı ...d5-i hazırlayır. Qaralar mərkəzə piyadalarla təzyiq edir, sonra atı inkişaf etdirir."],
       {pre:["e4"]},[
-        S("e6","Подготовьте продвижение d-пешки.","Prepare ...d5.","...d5-i hazırlayın.","d4"),
+        S("e6","Подготовьте продвижение d-пешки.","Prepare the central ...d5 pawn advance.","...d5-i hazırlayın.","d4"),
         S("d5","Атакуйте центральную пешку e4.","Challenge White's e4 pawn.","Ağların e4 piyadasına təzyiq edin.","Nc3"),
         S("Nf6","Развивайте коня и усиливайте давление.","Develop the knight and add pressure.","Atı inkişaf etdirib təzyiqi artırın.")
       ],"opening"),
