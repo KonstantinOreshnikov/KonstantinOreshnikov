@@ -7,6 +7,7 @@ const vm=require("node:vm");
 const {Chess}=require("../vendor/chess.js");
 const Coach=require("../coach-engine.js");
 const Engine=require("../engine-bridge.js");
+const Academy=require("../academy.js");
 const app=fs.readFileSync(path.join(__dirname,"../app.js"),"utf8");
 const prefix=["e4","e5","Bc4","Nc6","Qh5","Nf6"];
 class TacticalChess extends Chess{
@@ -29,9 +30,10 @@ const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k
 function mount(){
  const elements={};const el=k=>elements[k]||(elements[k]=new Element(k));
  el("side").value="w";el("level").value="beginner";el("lang").value="ru";
+ el("lesson").options=Array.from({length:Academy.lessons.length+1},()=>({textContent:"",hidden:false,disabled:false}));
  const document={readyState:"complete",documentElement:{lang:"ru"},getElementById:el,
   createElement:tag=>new Element(tag),createDocumentFragment:()=>new Element("fragment"),querySelectorAll:()=>[]};
- const window={ChessCoachEngine:Coach,ChessEngineBridge:Engine};
+ const window={ChessCoachEngine:Coach,ChessEngineBridge:Engine,ChessAcademy:Academy};
  const timers=[],setTimeout=fn=>{timers.push(fn);return timers.length;};
  vm.runInNewContext(app,{Chess:TacticalChess,window,document,localStorage,setTimeout,clearTimeout:()=>{},console},{timeout:5000});
  return {el,square:s=>el("board").children.find(x=>(x.attrs["aria-label"]||"").startsWith(s+" "))};
