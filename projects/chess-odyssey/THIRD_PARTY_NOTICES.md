@@ -9,9 +9,17 @@
 - Copyright (c) 2020, Jeff Hlywa. Full license and disclaimer retained in vendor/chess.js.
 - Project uses this third-party library for legal chess move generation and PGN/FEN support. The independent AI/trainer/UI are not part of chess.js.
 
-## Stockfish — NOT included
-- Official source: https://github.com/official-stockfish/Stockfish
-- License: GPLv3 or later. Its browser integration requires a conscious legal and technical review of binaries, corresponding source and distribution terms.
-- No bundled Stockfish binary, server or remote Stockfish API is claimed by this preview.
+## Stockfish 19 Lite single-threaded — INCLUDED AS AN OPTIONAL BROWSER ENGINE
+- Stockfish.js port and exact tagged corresponding source: https://github.com/nmrugg/stockfish.js/tree/v19.0.1
+- Original engine source: https://github.com/official-stockfish/Stockfish
+- Distributed unmodified prebuilt package version: stockfish@19.0.1 (npm), GPL-3.0.
+- Package source: https://www.npmjs.com/package/stockfish/v/19.0.1
+- Distributed files: engine/stockfish-19-lite-single.js and engine/stockfish-19-lite-single.wasm.
+- Full GNU GPLv3 license: engine/Copying.txt.
+- Exact SHA256 and binary sizes: engine/MANIFEST.md.
+- Automated provenance and real UCI validation: scripts/vendor-stockfish.cjs, tests/stockfish-uci.cjs.
+- License applies to the covered Stockfish engine. Chess Odyssey does not claim to author that engine.
+- Stockfish is loaded from a separate local Web Worker in HTTP-served mode; no external API or engine server.
+- A bare file:// standalone HTML uses a visibly labeled built-in weaker AI rather than misrepresenting it as Stockfish.
 
 Other text, code and learning content authored for Chess Odyssey, unless otherwise stated.
