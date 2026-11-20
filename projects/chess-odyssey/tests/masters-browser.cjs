@@ -105,8 +105,8 @@ const {chromium}=require("playwright");
   // Practice remains independent and retains played PGN on return.
   await page.locator("#nav-play").click();
   await page.selectOption("#side","w");await page.locator("#new-game").click();
-  await page.locator('button[aria-label^="e2 "]').click();
-  await page.locator('button[aria-label^="e4 "]').click();
+  await page.locator('#board button[aria-label^="e2 "]').click();
+  await page.locator('#board button[aria-label^="e4 "]').click();
   assert.match(await page.locator("#moves").innerText(),/e4/);
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem("chess-odyssey-v01")).pgn);
   await page.locator("#nav-masters").click();
