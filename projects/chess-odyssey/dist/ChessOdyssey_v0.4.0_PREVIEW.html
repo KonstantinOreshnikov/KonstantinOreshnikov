@@ -2587,7 +2587,7 @@ function hint(){
       const expected=game.moves({verbose:true}).find(x=>x.san===task.steps[lessonStep].san);
       if(!expected)throw new Error("Academy answer not legal: "+task.id);
       if(from!==expected.from||to!==expected.to||(candidate.promotion||"")!==(expected.promotion||"")){
-        learnMessage(at("wrong"));return;
+        selected=null;learnMessage(at("wrong"));render();return;
       }
     }
     const assessment=lesson?null:COACH.grade(game,candidate.san);
