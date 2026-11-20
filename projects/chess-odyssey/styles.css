@@ -17,3 +17,13 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
 @media(max-width:920px){.workspace{grid-template-columns:minmax(0,1fr)}.sidebar{grid-template-columns:repeat(2,minmax(0,1fr))}.coach-panel{grid-column:1/-1}.board-frame{margin:auto}.shell{max-width:780px}}
 @media(max-width:570px){.shell{padding:16px 11px 24px}.masthead{margin-bottom:19px}.brand-mark{width:45px;height:45px;font-size:29px}.brand h1{font-size:23px}.brand p{font-size:9px;letter-spacing:.18em}.version{font-size:9px}.board-topline h2{font-size:17px}.board-frame{padding:8px}.piece{font-size:clamp(24px,9.2vw,49px)}.square small{font-size:9px}.board-controls{gap:6px}.action{font-size:11px;padding:6px;min-height:44px}.sidebar{grid-template-columns:1fr}.panel{padding:17px}.flip-control{font-size:10px}.workspace{gap:19px}}
 @media(prefers-reduced-motion:reduce){.square,.action{transition:none}}
+
+/* B2: quiet, context-on-demand coach rather than a permanent wall of analysis. */
+.coach-variations,.coach-review ol{padding-left:22px;margin:14px 0;display:grid;gap:10px}
+.coach-variations li,.coach-review li{padding:10px 11px;border:1px solid #354858;border-radius:9px;background:#111e29;color:#c8d6df;font-size:12px;line-height:1.55;list-style-position:inside;overflow-wrap:anywhere}
+.coach-variations strong,.coach-review strong{display:block;color:#eed098;font-size:13px;margin-bottom:4px}
+.coach-variations p,.coach-review p{margin:0}
+.review-button{width:100%;border:1px solid #62778a;color:#ebc98e;border-radius:9px;background:#233444;padding:11px 12px;font-size:12px;font-weight:650;margin:0 0 13px;min-height:43px}
+.review-button:hover{background:#304659}.coach-review{border-top:1px solid #3b4a57;margin:2px 0 13px;padding-top:14px}
+.coach-review h3{font-size:14px;color:#eacb98;margin:0 0 9px}
+@media(max-width:570px){.coach-variations li,.coach-review li{font-size:12px;padding:9px}}
