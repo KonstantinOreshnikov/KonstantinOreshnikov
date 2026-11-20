@@ -127,7 +127,6 @@
   }
 
   function boardSquares(){const squares=[]; for(let rank=8;rank>=1;rank--) for(const file of FILES) squares.push(file+rank); return squares;}
-  function fileRank(s){return [FILES.indexOf(s[0]),Number(s[1])-1];}
   function scorePosition(){
     if(game.in_checkmate()) return game.turn()==="w" ? -100000:100000;
     if(game.in_draw()) return 0;
@@ -202,13 +201,7 @@
     if(move.piece==="p") return tr("pawn");
     return tr("quiet");
   }
-  function dangerAfter(move){
-    game.move(move);
-    const reply=game.moves({verbose:true}).find(x=>x.to===move.to && (x.flags.includes("c")||x.flags.includes("e")));
-    game.undo();
-    return reply || null;
-  }
-  function hint(){
+function hint(){
     if(game.game_over())return message(tr("gameOver"));
     if(!lesson&&game.turn()!==side)return;
     if(lesson){
@@ -329,7 +322,8 @@
       stats=data.stats&&["wins","losses","draws"].every(k=>Number.isInteger(data.stats[k])&&data.stats[k]>=0)?data.stats:stats;
       if(typeof data.pgn==="string"&&data.pgn.trim()){const test=new Chess();if(test.load_pgn(data.pgn))game=test;}
       finalized=Boolean(data.finalized);
-      notes=Array.isArray(data.notes)?data.notes.filter(x=>x&&Number.isInteger(x.ply)&&x.ply>0&&typeof x.san==="string"&&typeof x.best==="string"&&Number.isFinite(x.drop)&&["fine","warning","major"].includes(x.severity)).slice(-160):[];
+      const savedHistory=game.history();
+      notes=Array.isArray(data.notes)?data.notes.filter(x=>x&&Number.isInteger(x.ply)&&x.ply>0&&x.ply<=savedHistory.length&&savedHistory[x.ply-1]===x.san&&typeof x.best==="string"&&Number.isFinite(x.drop)&&["fine","warning","major"].includes(x.severity)).slice(-160):[];
       showReview=finalized&&game.game_over()&&notes.length>0;
       $("flip").checked=Boolean(data.flipped);
       $("lang").value=language;$("side").value=side;$("level").value=difficulty;
@@ -385,6 +379,10 @@
     lessonOptions[0].textContent=LABELS[language].chooseLesson;
     LESSONS.forEach((task,i)=>{lessonOptions[i+1].textContent=task.title[language];});
     if(lesson) {const task=LESSONS.find(x=>x.id===lesson);learnMessage(task.title[language]);message(task.description[language]);}
+    else if(hintState&&hintState.fen===game.fen())message(ct("hintIntro"));
+    else if(game.game_over())message(status()+" — "+tr("notRated"));
+    else if(notes.length)message(assessmentMessage(notes[notes.length-1]));
+    else message(tr("select"));
     showHints();renderReview();render();
   }
   const LABELS={
