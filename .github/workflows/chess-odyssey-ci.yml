@@ -11,6 +11,9 @@ on:
       - "projects/chess-odyssey/engine-bridge.js"
       - "projects/chess-odyssey/engine/**"
       - "projects/chess-odyssey/scripts/build-standalone.cjs"
+      - "projects/chess-odyssey/scripts/package-preview.py"
+      - "projects/chess-odyssey/scripts/serve-local.cjs"
+      - "projects/chess-odyssey/START_WINDOWS.cmd"
       - "projects/chess-odyssey/vendor/**"
       - "projects/chess-odyssey/tests/**"
       - ".github/workflows/chess-odyssey-ci.yml"
@@ -25,6 +28,9 @@ on:
       - "projects/chess-odyssey/engine-bridge.js"
       - "projects/chess-odyssey/engine/**"
       - "projects/chess-odyssey/scripts/build-standalone.cjs"
+      - "projects/chess-odyssey/scripts/package-preview.py"
+      - "projects/chess-odyssey/scripts/serve-local.cjs"
+      - "projects/chess-odyssey/START_WINDOWS.cmd"
       - "projects/chess-odyssey/vendor/**"
       - "projects/chess-odyssey/tests/**"
       - ".github/workflows/chess-odyssey-ci.yml"
@@ -49,6 +55,8 @@ jobs:
           node --check projects/chess-odyssey/coach-engine.js
           node --check projects/chess-odyssey/engine-bridge.js
           node --check projects/chess-odyssey/scripts/build-standalone.cjs
+          node --check projects/chess-odyssey/scripts/serve-local.cjs
+          python3 -m py_compile projects/chess-odyssey/scripts/package-preview.py
           node --check projects/chess-odyssey/tests/engine-bridge.cjs
           node --check projects/chess-odyssey/tests/stockfish-uci.cjs
           node --check projects/chess-odyssey/tests/stockfish-browser.cjs
@@ -88,3 +96,12 @@ jobs:
           node scripts/build-standalone.cjs 0.3.0
           node tests/browser.cjs
           node tests/stockfish-browser.cjs
+      - name: Build and verify Stockfish preview ZIP with full GPL license
+        working-directory: projects/chess-odyssey
+        run: python3 scripts/package-preview.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ChessOdyssey-v0.3.0-Stockfish-PREVIEW
+          path: projects/chess-odyssey/dist/ChessOdyssey_v0.3.0_Stockfish_Preview.zip
+          if-no-files-found: error
+          retention-days: 30
