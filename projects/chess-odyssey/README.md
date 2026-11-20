@@ -19,7 +19,7 @@ For each historic game:
 
 ## Launch
 
-**Full game + genuine Stockfish:** open the verified [GitHub Actions B5 v0.5.0 run #206](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44829450536), find **Artifacts** and download `ChessOdyssey-v0.5.0-Masters-Stockfish-PREVIEW`. Unpack the ZIP and, on Windows, double-click `START_WINDOWS.cmd`. A locally installed Python 3 or Node.js is required. The helper runs a small server bound **only to localhost** `127.0.0.1`.
+**Full game + genuine Stockfish:** open the verified [GitHub Actions B5 v0.5.0 run #213](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44830022599), find **Artifacts** and download `ChessOdyssey-v0.5.0-Masters-Stockfish-PREVIEW`. Unpack the ZIP and, on Windows, double-click `START_WINDOWS.cmd`. A locally installed Python 3 or Node.js is required. The helper runs a small server bound **only to localhost** `127.0.0.1`.
 
 Manual alternatives, from the unpacked game folder:
 
@@ -72,6 +72,6 @@ These are **game challenge tiers**, not calibrated FIDE Elo ratings or certifica
 
 ## Verified QA and release boundary
 
-The first full passing B5 [GitHub Actions run **#206**](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44829450536) achieved **135/135 actual executable PASS**: all B0–B4 regressions, 31 complete source scores, 1,923 legal SAN, 116 original notes, PGN round-trips and browser replay/quiz/bookmark/localization, plus genuine Stockfish and a CRC-verified GPL-containing ZIP.
+The first full passing B5 [GitHub Actions run **#213**](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44830022599) achieved **135/135 actual executable PASS**: all B0–B4 regressions, 31 complete source scores, 1,923 legal SAN, 116 original notes, PGN round-trips and browser replay/quiz/bookmark/localization, plus genuine Stockfish and a CRC-verified GPL-containing ZIP.
 
 **B5 development preview is feature-complete and passes automated QA.** It is NOT v1.0 release-ready: B6 separate progress/Academy Reputation/rating logic, B7 full-game/multi-device/desktop/mobile/accessibility/independent language QA, physical Windows launcher and production acceptance remain OPEN. No merge to main and no deployment.
