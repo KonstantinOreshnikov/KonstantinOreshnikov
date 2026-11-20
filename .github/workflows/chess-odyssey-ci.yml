@@ -4,15 +4,26 @@ on:
     branches:
       - "game/chess-odyssey-v0.1"
     paths:
-      - "projects/chess-odyssey/**"
+      - "projects/chess-odyssey/index.html"
+      - "projects/chess-odyssey/styles.css"
+      - "projects/chess-odyssey/app.js"
+      - "projects/chess-odyssey/vendor/**"
+      - "projects/chess-odyssey/tests/**"
       - ".github/workflows/chess-odyssey-ci.yml"
   pull_request:
     branches:
       - "docs/retro-strategy-ux-aeii-foundation-20261119"
     paths:
-      - "projects/chess-odyssey/**"
+      - "projects/chess-odyssey/index.html"
+      - "projects/chess-odyssey/styles.css"
+      - "projects/chess-odyssey/app.js"
+      - "projects/chess-odyssey/vendor/**"
+      - "projects/chess-odyssey/tests/**"
       - ".github/workflows/chess-odyssey-ci.yml"
   workflow_dispatch:
+concurrency:
+  group: chess-odyssey-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   unit:
     name: Offline rules + app smoke
