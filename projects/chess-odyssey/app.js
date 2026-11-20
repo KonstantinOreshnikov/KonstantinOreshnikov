@@ -431,10 +431,11 @@ function hint(){
     }catch(e){message("Saved state is invalid; a fresh game was started.");}
   }
   function newGame(){
-    clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();lesson=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
+    clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();lesson=null;lessonStep=0;lastLessonId=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
+    $("lesson").value="";
     side=$("side").value;difficulty=$("level").value;language=$("lang").value;
     updateEngineAvailability();
-    learnMessage("");message(tr("newGame")+" "+tr("notRated"));render();persist();
+    learnMessage("");message(tr("newGame")+" "+tr("notRated"));render();renderAcademy();persist();
     if(side==="b")scheduleBot();
   }
   function undo(){
@@ -452,23 +453,35 @@ function hint(){
     if(game.turn()!==side)scheduleBot();
   }
   function startLesson(id){
-    const task=LESSONS.find(x=>x.id===id);if(!task)return;
+    const task=ACADEMY.byId[id];if(!task)return;
     if(!parked)parked={pgn:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized,notes:notes.slice()};
     clearHints();showReview=false;renderReview();
-    clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();lesson=id;side="w";selected=null;last=null;finalized=false;
-    for(const san of task.pre){if(!game.move(san))throw new Error("Invalid verified lesson sequence "+san);}
-    $("side").value="w";render();message(task.description[language]);learnMessage(task.title[language]);persist();
+    clearTimeout(aiTimer);++epoch;engine.cancel();
+    game=ACADEMY.createPosition(task,Chess);
+    lesson=id;lessonStep=0;lastLessonId=null;side=game.turn();selected=null;last=null;finalized=false;
+    $("side").value=side;$("lesson").value=id;
+    render();renderAcademy();
+    message(task.intro[language]);learnMessage(lessonPrompt(task));
+    persist();
   }
-  function resumeGame(){
+  function nextLesson(){
+    if(!lastLessonId||!parked)return;
+    const i=LESSONS.findIndex(x=>x.id===lastLessonId);
+    if(i<0)return;
+    const next=LESSONS[(i+1)%LESSONS.length];
+    academyTrack=next.track;$("academy-track").value=academyTrack;
+    startLesson(next.id);
+  }
+    function resumeGame(){
     if(!parked)return;
     const previous=parked, restored=new Chess();
     if(previous.pgn && !restored.load_pgn(previous.pgn))return message("Cannot restore saved PGN.");
-    clearTimeout(aiTimer);++epoch;engine.cancel();game=restored;parked=null;lesson=null;selected=null;
+    clearTimeout(aiTimer);++epoch;engine.cancel();game=restored;parked=null;lesson=null;lessonStep=0;lastLessonId=null;selected=null;
     side=previous.side;difficulty=previous.difficulty;finalized=previous.finalized;notes=previous.notes||[];
     clearHints();showReview=finalized&&game.game_over();renderReview();
     $("side").value=side;$("level").value=difficulty;$("flip").checked=previous.flipped;$("lesson").value="";
     updateEngineAvailability();
-    learnMessage("");message(tr("restored"));render();persist();
+    learnMessage("");message(tr("restored"));render();renderAcademy();persist();
     if(!finalized&&!game.game_over()&&game.turn()!==side)scheduleBot();
   }
   function refreshLabels(){
