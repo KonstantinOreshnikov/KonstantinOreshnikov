@@ -40,6 +40,15 @@ const path=require("node:path");
     assert.equal(await page.locator("#board .square").count(),64);
     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+2);
     assert.equal(overflow,false);cases++;
+    // Validate the distributed standalone HTML in a real browser.
+    await page.goto("file://"+path.resolve(__dirname,"../dist/ChessOdyssey_v0.1.1_PREVIEW.html"));
+    await page.waitForFunction("window.ChessOdysseyQA && document.querySelectorAll('#board .square').length===64");
+    assert.equal(await page.locator("#board .square").count(),64);cases++;
+    await page.selectOption("#side","w");
+    await page.locator("#new-game").click();
+    await page.locator('button[aria-label^="e2 "]').click();
+    await page.locator('button[aria-label^="e4 "]').click();
+    assert.match(await page.locator("#moves").innerText(),/e4/);cases++;
     console.log("PASS browser E2E "+cases+" / "+cases);
   }finally{await browser.close();}
 })().catch(e=>{console.error("FAIL browser E2E",e);process.exitCode=1;});
