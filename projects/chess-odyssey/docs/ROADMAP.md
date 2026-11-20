@@ -5,8 +5,8 @@ Each block: reuse precheck -> minimal implementation -> targeted unit/perft -> b
 
 | Block | Scope | State | Acceptance |
 | --- | --- | --- | --- |
-| B0: Chess foundation | Offline legal rules engine, standard 8×8 board, valid moves, no time control | CODE COMMITTED; UNIT PASS; browser unknown | perft, special moves, PGN, click board |
-| B1: Gentle practice | Beginner and Novice AI with legal search, move history, undo, hints, auto save, black/white, 3 board lessons, RU/EN/AZ UI | CODE COMMITTED; PARTIAL QA | Real Chromium full-game runs and content review |
+| B0: Chess foundation | Offline legal rules engine, standard 8×8 board, valid moves, no time control | CODE COMMITTED; CI UNIT PASS + first Chromium E2E PASS | perft, special moves, PGN, click board |
+| B1: Gentle practice | Beginner and Novice AI with legal search, move history, undo, hints, auto save, black/white, 3 board lessons, RU/EN/AZ UI | CODE COMMITTED; unit + synthetic DOM + first Chromium E2E PASS; deeper review pending | Real Chromium full-game runs and content review |
 | B2: Trainer upgrade | Actual 2–3 candidate comparison with search-aware counterplay, blunder classification and post-game review | BACKLOG | Legal PV and verifiable explanation for every claim |
 | B3: Engine strength | Configurable 6 levels, optional Stockfish separate-worker WASM integration and GPL source compliance | BACKLOG | Search strength/speed baseline, no invented Elo |
 | B4: Academy expansion | Castling, en passant, tactical motifs, annotated openings both colors, endgame mini-drills | BACKLOG | Legal FENs, meaningful exercises, independent teaching QA |
