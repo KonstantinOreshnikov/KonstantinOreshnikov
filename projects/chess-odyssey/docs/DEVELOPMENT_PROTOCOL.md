@@ -16,7 +16,7 @@
 
 ## Decision workflow
 - **Grill Me** is opt-in only for new product concepts with genuine owner-facing tradeoffs; NOT for executing an approved project.
-- References in CBA_AGENT_SKILLS_PROTOCOL and native CBA repo are precedents and not proof of globally installed ChatGPT/Codex/Claude skill bundles in this repository.
+- These are Chess Odyssey project-scoped practices, not proof of host-level installed upstream skill bundles or paid service access.
 - Source of truth: verified executable code/test > this game's current README/QA LOG > historical concept/ideas.
 
 ## Hard release gates
