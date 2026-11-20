@@ -4,7 +4,7 @@ const assert=require("node:assert/strict");
 const path=require("node:path");
 const {chromium}=require("playwright");
 (async()=>{
- const browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
+ const browser=await chromium.launch({headless:true,channel:process.env.CHESS_CHROME_CHANNEL||undefined,args:["--no-sandbox"]});
  const page=await browser.newPage({viewport:{width:1300,height:880}});
  const errors=[];page.on("pageerror",e=>errors.push(e.message));
  let tests=0;
