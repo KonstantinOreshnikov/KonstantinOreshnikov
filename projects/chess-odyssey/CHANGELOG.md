@@ -44,3 +44,5 @@
 - Added stockfish UCI and mock-protocol regressions, real Chromium Stockfish WASM E2E, local localhost server, Windows launcher and reproducible single-HTML/ZIP scripts.
 - Added docs/ENGINE_B3_DESIGN.md, changed obsolete third-party notes and retained previous versions for rollback. v1.0 remains blocked pending B4–B7.
 - Initial B3 CI run #98: rules 12/12, coach 8/8, bridge 7/7, real Stockfish native UCI 1 test, postgame 5/5, synthetic DOM 9/9, Chromium 21/21 and actual Stockfish HTTP-browser 9/9 PASS. Later expanded mate-in-one, all-four-tier and ZIP checks are recorded in QA_LOG.md after verification.
+
+- **B3 QA closure — CI #112 PASS:** rules 12/12 + B2 coach 8/8 + B3 adapter 7/7 + native Stockfish UCI 2/2 (legal opening and Qxf7# mate) + postgame 5/5 + DOM 9/9 + real Chromium prior 21/21 + Stockfish HTTP levels 11/11 = **75/75**. Packaged full GPL engine ZIP, 20 files, SHA256 recorded in QA_LOG; Actions artifact ID 14671266705 (retained until 2026-12-20). Full release remains BLOCKED on B4–B7.
