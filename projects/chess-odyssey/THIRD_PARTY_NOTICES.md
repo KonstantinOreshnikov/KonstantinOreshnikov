@@ -22,4 +22,12 @@
 - Stockfish is loaded from a separate local Web Worker in HTTP-served mode; no external API or engine server.
 - A bare file:// standalone HTML uses a visibly labeled built-in weaker AI rather than misrepresenting it as Stockfish.
 
-Other text, code and learning content authored for Chess Odyssey, unless otherwise stated.
+## B5 factual historical game score sources
+- The `masters-library.js` and `data/masters-source-scores.json` datasets contain **historical factual moves and basic metadata**, with the exact independent primary source hyperlink recorded for each of 31 selected games.
+- Source directory: https://chessgator.com/games/; exact 31 page URLs, dates, source checking and known uncertainty: `docs/MASTERS_B5_SOURCE_REGISTER.md`.
+- Select secondary game transcriptions were compared with https://chessdna.app/games/; full independent parity is not claimed for the whole collection.
+- No third-party site commentary, prose explanations, engine evaluation labels, artwork, stylesheet or website code is redistributed from these game sources. We do not claim ownership of external websites. Their historical move data are treated as facts, not as a copied editorial database.
+- All original explanatory RU/EN/AZ teaching text is separately authored and preserved in `masters-notes-a.js`, `masters-notes-b.js` and `masters-notes-c.js`.
+- If a source score's factual accuracy or rights becomes contested, exclude and verify the affected record, retaining provenance/error history. Do not treat public web availability as a blanket redistribution license.
+
+Other original code, commentary and learning content authored for Chess Odyssey, unless otherwise stated.
