@@ -10,6 +10,7 @@
   <script defer src="vendor/chess.js"></script>
   <script defer src="coach-engine.js"></script>
   <script defer src="engine-bridge.js"></script>
+  <script defer src="academy.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
@@ -18,7 +19,7 @@
       <div class="brand"><span class="brand-mark" aria-hidden="true">♞</span><div>
         <h1 data-i18n="title">Chess Odyssey</h1><p data-i18n="subtitle">ACADEMY & ARENA</p>
       </div></div>
-      <div class="version">PREVIEW <span>v0.3.0 · B3</span> · UNTIMED</div>
+      <div class="version">PREVIEW <span>v0.4.0 · B4</span> · UNTIMED</div>
     </header>
     <section class="workspace" aria-label="Chess game and coach">
       <div class="play-section">
@@ -56,16 +57,63 @@
         </section>
         <section class="panel academy-panel">
           <h2 data-i18n="lessons">Академия</h2>
-          <select id="lesson" aria-label="Choose lesson">
-            <option value="" data-i18n="chooseLesson">Выбрать урок…</option>
-            <option value="pawn">1. Пешка берёт пространство</option>
-            <option value="knight">2. Развиваем коня</option>
-            <option value="mate">3. Находим мат в один</option>
-          </select>
+          <label class="academy-filter-label"><span data-i18n="academyTrack">Раздел обучения</span>
+            <select id="academy-track" aria-label="Academy track">
+              <option value="all" data-i18n="allTracks">Все разделы</option>
+              <option value="basics" data-i18n="trackBasics">Основы и правила</option>
+              <option value="tactics" data-i18n="trackTactics">Тактика и комбинации</option>
+              <option value="openings" data-i18n="trackOpenings">Дебютные идеи</option>
+              <option value="endgames" data-i18n="trackEndgames">Эндшпиль</option>
+            </select>
+          </label>
+          <p id="academy-track-status" class="academy-track-status" aria-live="polite"></p>
+          <label class="academy-lesson-label"><span data-i18n="academyLesson">Урок или задача</span>
+            <select id="lesson" aria-label="Choose lesson">
+              <option value="" data-i18n="chooseLesson">Выбрать урок…</option>
+            <option value="pawn">1. Пешка занимает центр</option>
+            <option value="knight">2. Конь перепрыгивает фигуры</option>
+            <option value="bishop">3. Слон на длинной диагонали</option>
+            <option value="rook">4. Ладья идёт по прямой</option>
+            <option value="queen">5. Ферзь соединяет ходы слона и ладьи</option>
+            <option value="castle">6. Короткая рокировка</option>
+            <option value="enpassant">7. Взятие на проходе</option>
+            <option value="promotion">8. Превращение пешки</option>
+            <option value="check">9. Шах: король под ударом</option>
+            <option value="mate">10. Мат на f7</option>
+            <option value="fork">11. Вилка конём</option>
+            <option value="pin">12. Абсолютная связка</option>
+            <option value="skewer">13. Линейный удар: сквозная атака</option>
+            <option value="discovery">14. Вскрытый шах</option>
+            <option value="pawnfork">15. Пешечная вилка</option>
+            <option value="backrank">16. Мат по последней горизонтали</option>
+            <option value="winrook">17. Бесплатная фигура? Сначала проверьте</option>
+            <option value="italian">18. Итальянская партия (белые)</option>
+            <option value="spanish">19. Испанская партия (белые)</option>
+            <option value="queens">20. Ферзевый гамбит (белые)</option>
+            <option value="london">21. Лондонская система (белые)</option>
+            <option value="sicilian">22. Сицилианская защита (чёрные)</option>
+            <option value="kingsIndian">23. Староиндийская защита (чёрные)</option>
+            <option value="french">24. Французская защита (чёрные)</option>
+            <option value="caro">25. Защита Каро–Канн (чёрные)</option>
+            <option value="end-queenmate">26. Мат ферзём и королём</option>
+            <option value="end-rookmate">27. Мат ладьёй</option>
+            <option value="end-opposition">28. Оппозиция королей</option>
+            <option value="end-underpromotion">29. Превращение не только в ферзя</option>
+            <option value="end-rookbehind">30. Ладья позади проходной пешки</option>
+            <option value="end-king">31. Король активен в окончании</option>
+            <option value="end-race">32. Проходная пешка и правило квадрата</option>
+            <option value="end-escort">33. Сопровождаем проходную пешку</option>
+            </select>
+          </label>
+          <p id="academy-intro" class="academy-intro" aria-live="polite" hidden></p>
+          <p id="academy-step" class="academy-step" aria-live="polite" hidden></p>
           <p id="lesson-status" aria-live="polite"></p>
-          <button id="resume-game" class="resume-action" data-i18n="resume" hidden>Вернуться к партии</button>
+          <div class="academy-actions">
+            <button id="resume-game" class="resume-action" data-i18n="resume" hidden>Вернуться к партии</button>
+            <button id="next-lesson" class="resume-action next-lesson" data-i18n="nextLesson" hidden>Следующий урок</button>
+          </div>
           <div class="stats-grid">
-            <div><strong id="completed">0/3</strong><small data-i18n="done">Пройдено уроков</small></div>
+            <div><strong id="completed">0/33</strong><small data-i18n="done">Пройдено уроков</small></div>
             <div><strong id="record">0 / 0 / 0</strong><small data-i18n="record">Победы / поражения / ничьи</small></div>
           </div>
         </section>
