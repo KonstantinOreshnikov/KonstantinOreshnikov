@@ -18,7 +18,7 @@
   ];
   let game = new Chess();
   let language = "ru", side = "w", difficulty = "beginner", selected = null, last = null, lesson = null;
-  let completed = [], stats = {wins:0,losses:0,draws:0}, epoch = 0, aiTimer = null, finalized = false, pendingPromotion = null;
+  let completed = [], stats = {wins:0,losses:0,draws:0}, epoch = 0, aiTimer = null, finalized = false, pendingPromotion = null, parked = null;
   function tr(k) {return (I18N[language] || I18N.ru)[k] || k;}
   function text(k, val){return $(k) && ($(k).textContent=val);}
   function message(str){text("coach-message",str);}
@@ -145,7 +145,7 @@
       if(!completed.includes(solved)) completed.push(solved);
       learnMessage(tr("lessonDone"));
       message(tr("lessonGood")+" "+explain(move));
-      lesson=null; finalized=true;
+      lesson=null; finalized=true; $("lesson").value="";
     } else {
       message(atRisk?tr("risk").replace("{square}",to):explain(move));
     }
@@ -203,7 +203,8 @@
     text("game-status",status());showMoves();
     text("record",stats.wins+" / "+stats.losses+" / "+stats.draws);
     text("completed",completed.length+"/"+LESSONS.length);
-    $("undo").disabled=!game.history().length;
+    $("undo").disabled=!!parked || !game.history().length;
+    $("resume-game").hidden=!parked;
   }
   function finish(){
     if(finalized || lesson || !game.game_over()) return;
@@ -215,7 +216,9 @@
     message(status()+" — "+tr("notRated"));
   }
   function persist(){
-    try{localStorage.setItem(KEY,JSON.stringify({pgn:lesson?null:game.pgn(),side,difficulty,language,completed,stats,flipped:$("flip").checked,finalized:finalized && !lesson}));}catch(e){message("Storage unavailable; progress cannot be saved.");}
+    const session=parked||{pgn:lesson?null:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized:finalized&&!lesson};
+    try{localStorage.setItem(KEY,JSON.stringify({pgn:session.pgn,side:session.side,difficulty:session.difficulty,language,completed,stats,flipped:session.flipped,finalized:session.finalized}));}
+    catch(e){message("Storage unavailable; progress cannot be saved.");}
   }
   function restore(){
     try {
@@ -235,14 +238,18 @@
     }catch(e){message("Saved state is invalid; a fresh game was started.");}
   }
   function newGame(){
-    clearTimeout(aiTimer);++epoch;game=new Chess();lesson=null;selected=null;last=null;finalized=false;
+    clearTimeout(aiTimer);++epoch;game=new Chess();lesson=null;parked=null;selected=null;last=null;finalized=false;
     side=$("side").value;difficulty=$("level").value;language=$("lang").value;
     learnMessage("");message(tr("newGame")+" "+tr("notRated"));render();persist();
     if(side==="b")scheduleBot();
   }
   function undo(){
+    if(lesson||parked||!game.history().length)return message(tr("noUndo"));
     clearTimeout(aiTimer);++epoch;
-    if(lesson||!game.history().length)return message(tr("noUndo"));
+    if(finalized&&game.game_over()){
+      const outcome=game.in_checkmate()?(game.turn()===side?"losses":"wins"):"draws";
+      stats[outcome]=Math.max(0,stats[outcome]-1);
+    }
     game.undo();
     if(game.history().length&&game.turn()!==side) game.undo();
     selected=null;last=null;finalized=false;
@@ -251,9 +258,20 @@
   }
   function startLesson(id){
     const task=LESSONS.find(x=>x.id===id);if(!task)return;
+    if(!parked)parked={pgn:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized};
     clearTimeout(aiTimer);++epoch;game=new Chess();lesson=id;side="w";selected=null;last=null;finalized=false;
     for(const san of task.pre){if(!game.move(san))throw new Error("Invalid verified lesson sequence "+san);}
     $("side").value="w";render();message(task.description[language]);learnMessage(task.title[language]);persist();
+  }
+  function resumeGame(){
+    if(!parked)return;
+    const previous=parked, restored=new Chess();
+    if(previous.pgn && !restored.load_pgn(previous.pgn))return message("Cannot restore saved PGN.");
+    clearTimeout(aiTimer);++epoch;game=restored;parked=null;lesson=null;selected=null;last=null;
+    side=previous.side;difficulty=previous.difficulty;finalized=previous.finalized;
+    $("side").value=side;$("level").value=difficulty;$("flip").checked=previous.flipped;$("lesson").value="";
+    learnMessage("");message(tr("restored"));render();persist();
+    if(!finalized&&!game.game_over()&&game.turn()!==side)scheduleBot();
   }
   function refreshLabels(){
     document.documentElement.lang=language;
@@ -267,15 +285,16 @@
     render();
   }
   const LABELS={
-    ru:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Учимся играя",newGame:"Новая партия",undo:"Отменить ход",hint:"Подсказка",game:"Тренировочная партия",level:"Сложность AI",side:"Мои фигуры",language:"Язык",flip:"Повернуть доску",lessons:"Академия",chooseLesson:"Выбрать урок…",record:"Победы / поражения / ничьи",done:"Пройдено уроков",moves:"История ходов",about:"Рейтинг отключён в тренировке; без таймера",white:"Белые",black:"Чёрные",beginner:"Начинающий",novice:"Любитель"},
-    en:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Learn by playing",newGame:"New game",undo:"Undo move",hint:"Hint",game:"Practice game",level:"AI difficulty",side:"My pieces",language:"Language",flip:"Flip board",lessons:"Academy",chooseLesson:"Choose a lesson…",record:"Wins / losses / draws",done:"Lessons completed",moves:"Move history",about:"No rating in practice; no chess clock",white:"White",black:"Black",beginner:"Beginner",novice:"Novice"},
-    az:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Oynayaraq öyrənin",newGame:"Yeni oyun",undo:"Gedişi ləğv et",hint:"İpucu",game:"Məşq oyunu",level:"AI çətinliyi",side:"Mənim fiqurlarım",language:"Dil",flip:"Taxtanı çevir",lessons:"Akademiya",chooseLesson:"Dərs seçin…",record:"Qələbə / məğlubiyyət / heç-heçə",done:"Tamamlanmış dərslər",moves:"Gedişlərin tarixçəsi",about:"Məşqdə reytinq yoxdur; vaxt limiti yoxdur",white:"Ağlar",black:"Qaralar",beginner:"Başlanğıc",novice:"Həvəskar"}
+    ru:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Учимся играя",newGame:"Новая партия",undo:"Отменить ход",hint:"Подсказка",game:"Тренировочная партия",level:"Сложность AI",side:"Мои фигуры",language:"Язык",flip:"Повернуть доску",lessons:"Академия",chooseLesson:"Выбрать урок…",resume:"Вернуться к партии",record:"Победы / поражения / ничьи",done:"Пройдено уроков",moves:"История ходов",about:"Рейтинг отключён в тренировке; без таймера",white:"Белые",black:"Чёрные",beginner:"Начинающий",novice:"Любитель"},
+    en:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Learn by playing",newGame:"New game",undo:"Undo move",hint:"Hint",game:"Practice game",level:"AI difficulty",side:"My pieces",language:"Language",flip:"Flip board",lessons:"Academy",chooseLesson:"Choose a lesson…",resume:"Return to game",record:"Wins / losses / draws",done:"Lessons completed",moves:"Move history",about:"No rating in practice; no chess clock",white:"White",black:"Black",beginner:"Beginner",novice:"Novice"},
+    az:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Oynayaraq öyrənin",newGame:"Yeni oyun",undo:"Gedişi ləğv et",hint:"İpucu",game:"Məşq oyunu",level:"AI çətinliyi",side:"Mənim fiqurlarım",language:"Dil",flip:"Taxtanı çevir",lessons:"Akademiya",chooseLesson:"Dərs seçin…",resume:"Oyuna qayıt",record:"Qələbə / məğlubiyyət / heç-heçə",done:"Tamamlanmış dərslər",moves:"Gedişlərin tarixçəsi",about:"Məşqdə reytinq yoxdur; vaxt limiti yoxdur",white:"Ağlar",black:"Qaralar",beginner:"Başlanğıc",novice:"Həvəskar"}
   };
   function init(){
     if(typeof Chess!=="function")throw new Error("Rules Engine missing");
     restore();
     $("new-game").addEventListener("click",newGame);
     $("undo").addEventListener("click",undo);
+    $("resume-game").addEventListener("click",resumeGame);
     $("hint").addEventListener("click",hint);
     $("flip").addEventListener("change",()=>{render();persist();});
     $("lang").addEventListener("change",()=>{language=$("lang").value;refreshLabels();persist();});
