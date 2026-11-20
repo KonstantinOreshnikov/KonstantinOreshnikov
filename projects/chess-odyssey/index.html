@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="styles.css">
   <script defer src="vendor/chess.js"></script>
   <script defer src="coach-engine.js"></script>
+  <script defer src="engine-bridge.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
@@ -17,7 +18,7 @@
       <div class="brand"><span class="brand-mark" aria-hidden="true">♞</span><div>
         <h1 data-i18n="title">Chess Odyssey</h1><p data-i18n="subtitle">ACADEMY & ARENA</p>
       </div></div>
-      <div class="version">PREVIEW <span>v0.2.1 · B2</span> · UNTIMED</div>
+      <div class="version">PREVIEW <span>v0.3.0 · B3</span> · UNTIMED</div>
     </header>
     <section class="workspace" aria-label="Chess game and coach">
       <div class="play-section">
@@ -47,9 +48,10 @@
         </section>
         <section class="panel settings-panel">
           <div class="two-fields">
-            <label><span data-i18n="level">Сложность AI</span><select id="level"><option value="beginner" data-i18n="beginner">Начинающий</option><option value="novice" data-i18n="novice">Любитель</option></select></label>
+            <label><span data-i18n="level">Сложность AI</span><select id="level"><option value="beginner" data-i18n="beginner">Начинающий</option><option value="novice" data-i18n="novice">Любитель</option><option value="intermediate" data-i18n="intermediate">Intermediate</option><option value="advanced" data-i18n="advanced">Advanced</option><option value="expert" data-i18n="expert">Expert</option><option value="grandmaster" data-i18n="grandmaster">Grandmaster Challenge</option></select></label>
             <label><span data-i18n="side">Мои фигуры</span><select id="side"><option value="w" data-i18n="white">Белые</option><option value="b" data-i18n="black">Чёрные</option></select></label>
           </div>
+          <p id="engine-status" class="engine-status" role="status" aria-live="polite">Локальный AI для обучения</p>
           <label><span data-i18n="language">Язык</span><select id="lang"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label>
         </section>
         <section class="panel academy-panel">
