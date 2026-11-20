@@ -5,6 +5,9 @@ const fs=require("node:fs");
 const path=require("node:path");
 const vm=require("node:vm");
 const {Chess}=require("../vendor/chess.js");
+const Academy=require("../academy.js");
+const Engine=require("../engine-bridge.js");
+const Coach=require("../coach-engine.js");
 let passed=0;
 function test(name,fn){fn();passed++;process.stdout.write("PASS "+name+"\n");}
 function perft(c,d){if(d===0)return 1;let n=0;for(const m of c.moves()){c.move(m);n+=perft(c,d-1);c.undo();}return n;}
@@ -54,16 +57,17 @@ test("practice save/load PGN round trip",()=>{
 });
 test("own app parses and exposes safe basic test API",()=>{
  const js=fs.readFileSync(path.join(__dirname,"../app.js"),"utf8");
- const ctx={Chess,document:{readyState:"loading",addEventListener:()=>{}},window:{},console};
+ const ctx={Chess,document:{readyState:"loading",addEventListener:()=>{}},window:{ChessAcademy:Academy,ChessEngineBridge:Engine,ChessCoachEngine:Coach},console};
  vm.runInNewContext(js,ctx,{timeout:1000});
  assert.equal(ctx.window.ChessOdysseyQA.legalCount(),20);
- assert.deepEqual(Array.from(ctx.window.ChessOdysseyQA.lessonIds()),["pawn","knight","mate"]);
+ assert.equal(ctx.window.ChessOdysseyQA.lessonIds().length,33);
+ assert.deepEqual(Array.from(ctx.window.ChessOdysseyQA.academy().tracks),["basics","tactics","openings","endgames"]);
  assert.equal(ctx.window.ChessOdysseyQA.evaluate(),0);
 });
 test("HTML routes JS, offline vendor, coach and promotion",()=>{
  const h=fs.readFileSync(path.join(__dirname,"../index.html"),"utf8");
- for(const id of ["board","coach-message","promotion","lesson","lang","level","side","undo"])assert.ok(h.includes('id="'+id+'"'));
- assert.ok(h.includes('src="vendor/chess.js"'));assert.ok(h.includes('src="app.js"'));
+ for(const id of ["board","coach-message","promotion","lesson","academy-track","academy-intro","academy-step","next-lesson","lang","level","side","undo"])assert.ok(h.includes('id="'+id+'"'));
+ assert.ok(h.includes('src="vendor/chess.js"'));assert.ok(h.includes('src="academy.js"'));assert.ok(h.includes('src="app.js"'));
  assert.ok(!h.includes("http://")&&!h.includes("https://"));
 });
 console.log("PASS total "+passed+" / "+passed);
