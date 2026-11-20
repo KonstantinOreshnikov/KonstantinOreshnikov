@@ -1,7 +1,7 @@
 # Chess Odyssey QA Ledger
 
-**CURRENT VERIFIED CHECKPOINT (2026-11-21): B4 v0.4.0 Preview, run #166 — 99/99 executable tests PASS + verified 22-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
-Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44824986016  
+**CURRENT VERIFIED CHECKPOINT (2026-11-21): B4 v0.4.0 Preview, run #170 — 99/99 executable tests PASS + documentation-synchronized 22-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
+Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44825370339  
 Current authority: docs/ACADEMY_B4_DESIGN.md + academy.js + docs/ENGINE_B3_DESIGN.md + engine/MANIFEST.md. B0–B3 statements below are historical release checkpoints, not current production status.
 
 Date: 2026-11-21
@@ -172,3 +172,11 @@ B4 browser acceptance explicitly exercised: four-track selector, incorrect-but-l
 - The 33 exercises are a bounded introductory full four-track package, not an unlimited/accredited chess textbook, certified coach or verified master history.
 - B5 verified historical grandmaster PGNs, B6 separate Academy Reputation / provisional unrated-game separation and B7 production gates remain NOT IMPLEMENTED / BLOCKED.
 - Full-length win/loss/draw games in UI, all promotion paths, standalone accessibility review, independent RU/EN/AZ teaching correctness and production deployment remain release gates. Do not merge `main`; no production deploy. **Next block: B5 Masters & Legends**.
+
+### Final documentation-synchronized packaging checkpoint — run #170 (2026-11-21)
+
+- **GitHub Actions run #170, ID 44825370339: PASS both Offline rules + app smoke and real Chromium-family browser jobs.** All B4 99/99 checks remain green; B0–B3 regression preserved. Documentation README/ROADMAP/QA_LOG/CHANGELOG changes included in the runtime ZIP from this run.
+- Built and CRC-verified ZIP: `ChessOdyssey_v0.4.0_Stockfish_Preview.zip`, **22 files**, **1,349,477 bytes**, internal ZIP SHA256 **474c4b7af011b2498408151e886ab1c0c25626a5b972aa6d49a5b0739715f28a**.
+- Downloadable GitHub Actions artifact **ID 14673682316**, `ChessOdyssey-v0.4.0-Academy-Stockfish-PREVIEW`; artifact-wrapper SHA256 **0207531a8df00165befbf73150bf848902d5f57daea066ef9a98f0f91df0647d**, expires **2026-12-20 UTC**.
+- **Current full package + QA:** https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44825370339. Previous #166 package and SHA above remain immutable historical evidence, not current package hash. Source content and v0.4.0 standalone in the game branch remain durable.
+- No main merge, no production deployment; B5/B6/B7 and independent language/editorial review remain open.
