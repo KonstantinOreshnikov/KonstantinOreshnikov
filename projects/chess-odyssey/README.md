@@ -1,53 +1,67 @@
 # Chess Odyssey — Academy & Arena
 
-**Current build:** v0.2.1 B2 development preview; NOT production-ready.  
-**Branch:** game/chess-odyssey-v0.1 (separate from all other games).  
-**Scope:** chess training directly on the board, no timer or paid features.
+**Development Preview v0.3.0 · B3: six AI levels and real Stockfish 19 Lite**  
+**NOT production-ready — game-only branch `game/chess-odyssey-v0.1`.**  
+The goal remains learning chess by playing on a real board, with an AI Coach that explains *why*. No clocks, ads, payment, account or external API.
 
-## Play
+## 1. Play on Windows with a real chess engine
 
-**Fastest:** download dist/ChessOdyssey_v0.2.1_PREVIEW.html and open it in a modern desktop/mobile browser. The single HTML contains all source scripts and styles and does not require an internet connection. Keep older v0.1.1/v0.2.0 previews as rollback versions.
+The complete source/engine distribution is available as the `ChessOdyssey-v0.3.0-Stockfish-PREVIEW` **GitHub Actions artifact** after a successful CI package job. Download and unzip the package, then **double-click `START_WINDOWS.cmd`**. This requires Python 3 or Node.js already installed. It serves the files locally at `http://127.0.0.1:8765/index.html` — not on a public server.
 
-**For development:** open index.html from this directory; it requires styles.css, vendor/chess.js, coach-engine.js and app.js alongside it.
+For developers, open a terminal in this project directory and run one of:
 
-- Choose Beginner or Novice weak AI, White or Black, and click a piece then a highlighted legal square.
-- Hint now shows up to **three legal SAN candidate moves**, the strategic idea and a **legal immediate opponent reply**.
-- Concrete immediate captures and major short-horizon score drops appear as context-aware feedback. They do not mean an objectively forced material loss.
-- Select Academy to solve three interactive mini-lessons, including a verified mate in one. Return to the parked practice session afterwards.
-- Open **Review moves** to revisit up to three notable student moves. The review opens automatically at the end of a practice game.
-- All review notes are stored locally with PGN. Undo removes superseded notes and reverses terminal game statistics; local saves survive reload.
-- RU / EN / AZ UI and coaching, board flip, touch/mouse controls; no clock, login, paywall, advertisement, online rating or network telemetry.
+```sh
+python -m http.server 8765 --bind 127.0.0.1
+# or
+node scripts/serve-local.cjs
+```
 
-## Implementation map
+Then visit `http://127.0.0.1:8765/index.html`. The project contains the unmodified pinned `engine/stockfish-19-lite-single.js`, matching `.wasm`, GPL `Copying.txt` and SHA-256 manifest. The interface explicitly reports **Stockfish 19 Lite** when a real UCI move is received.
 
-| File | Responsibility |
+**Standalone one-file option:** download `dist/ChessOdyssey_v0.3.0_PREVIEW.html` and open it without a server or internet. Every game feature still works, but stronger levels switch to a visibly labelled **weaker local fallback AI**. This is due to browser restrictions for `file://` workers and WASM, not a claimed Stockfish engine in the HTML. Do not confuse the one-file and full-engine distributions.
+
+## 2. Levels and coaching
+
+| Level | AI in served full-engine version | Strength interpretation |
+| --- | --- | --- |
+| Beginner | Local one-ply gentle search | forgiving training |
+| Novice | Local two-ply search | introductory opponent |
+| Intermediate | Stockfish Lite Skill 2, 180ms | entry Stockfish |
+| Advanced | Stockfish Lite Skill 8, 350ms | progressively stronger |
+| Expert | Stockfish Lite Skill 15, 750ms | high difficulty |
+| Grandmaster Challenge | Stockfish Lite Skill 20, 1450ms | strongest configured lite engine |
+
+The names are **game levels**, not actual Elo/FIDE chess titles or calibrated win rates. Intermediate–Grandmaster require HTTP(s) Worker+WASM; without it the UI clearly indicates fallback, and the levels do not imply their nominal strength.
+
+- Chess rules and legal turns come from pinned `chess.js` (BSD-2-Clause), including special moves and draw conditions.
+- B2 AI Coach continues to show **2–3 legal candidate moves**, an opponent reply, immediate captures and limited material-based feedback. It is a separate, intentionally *shallow two-ply tutor*; it does not misrepresent its commentary as a deep Stockfish variation.
+- Three interactive Academy lessons (pawn, knight and checkmate), practice session return, hints, PGN autosave/reload, Undo, move history, top-three postgame review, RU/EN/AZ localization, desktop/mobile board and no timer.
+
+## 3. Technical files
+
+| Path | Responsibility |
 | --- | --- |
-| index.html / styles.css | Responsive game surface and compact contextual teaching |
-| vendor/chess.js | Chess legality, FEN/PGN, check, mate, draw and special rules |
-| app.js | Practice game, gentle AI, interactive lessons, UI, translation, storage, statistics |
-| coach-engine.js | Deterministic two-ply legal candidates/replies, immediate threats, shallow grading |
-| tests/chess-smoke.cjs | Chess legality and app smoke |
-| tests/coach-engine.cjs | Legal SAN branches, mate, threats, non-mutation and grades |
-| tests/dom-smoke.cjs / tests/postgame-smoke.cjs | Synthetic UI state and real-rule endgame/review |
-| tests/browser.cjs | Actual Chromium interactions and standalone distribution |
-| docs/COACH_B2_DESIGN.md | Coach math, meaning, limits, testing contract |
-| docs/ROADMAP.md / docs/QA_LOG.md | Blocks, evidence, issues and release blockers |
-| docs/ORIGINAL_CONCEPT_2026-11-20.md | Original concept preserved |
-| AGENTS.md / docs/DEVELOPMENT_PROTOCOL.md | Unlazy QA, Reuse First, Humanizer, Translation QA and opt-in Grill Me |
+| `vendor/chess.js` | Legal moves, checkmate/draw, FEN/PGN |
+| `coach-engine.js` | Lightweight explainable tutor |
+| `engine-bridge.js` | Stockfish UCI Worker lifecycle, six profiles, cancellation, validated bestmove |
+| `engine/*` | Pinned unmodified real Stockfish WASM engine, GPL and checksums |
+| `app.js` | Game, AI dispatch, local practice fallback, lessons, persistence, RU/EN/AZ |
+| `index.html` / `styles.css` | UI and clear engine status |
+| `scripts/serve-local.cjs` / `START_WINDOWS.cmd` | Local-only full-engine launch |
+| `scripts/build-standalone.cjs` / `scripts/package-preview.py` | Reproducible builds |
+| `tests/*.cjs` | Chess, Coach, UCI, postgame, DOM and Chromium regression |
+| `docs/ENGINE_B3_DESIGN.md` | B3 architecture, license and QA gates |
+| `docs/QA_LOG.md` / `docs/ROADMAP.md` | Verified checkpoints and next stages |
+| `AGENTS.md` / `docs/DEVELOPMENT_PROTOCOL.md` | Reuse First, Unlazy, Humanizer, translation/browser QA, opt-in Grill Me |
 
-## Third-party and accuracy limits
+## 4. Licensing and source provenance
 
-Rules: original jhlywa/chess.js v0.10.3, BSD-2-Clause with retained copyright. Upstream source: https://github.com/jhlywa/chess.js/blob/v0.10.3/chess.js. Git blob SHA: 120494d6ace6c522cc71aa4f0a764938b196f94c.
+- `chess.js` v0.10.3 — BSD-2-Clause; upstream copyright notice retained in the file.
+- Stockfish.js **19.0.1 Lite single-threaded** — GPLv3, port https://github.com/nmrugg/stockfish.js/tree/v19.0.1, original engine https://github.com/official-stockfish/Stockfish. Corresponding source/build scripts available at the pinned port source tree; full licence in `engine/Copying.txt`. Exact binary SHA256 in `engine/MANIFEST.md`. This project does **not** claim to author Stockfish.
+- See `THIRD_PARTY_NOTICES.md` and `docs/ENGINE_B3_DESIGN.md` for the exact distribution contract.
 
-The gentle chess opponent (one or two plies) and Coach B2 (candidate + one reply) are independent simple heuristics, **not Stockfish**, deep engine analysis, official Elo or verified grandmaster performance. Candidate evaluations are provisional. Future Stockfish work requires GPLv3 source compliance and strength benchmarking.
+## 5. QA and release boundary
 
-## Verified development QA
+Verified before the new B3 expansion: GitHub Actions #73 established B2.1 PASS. The first B3 true-engine run [#98](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44817996084) passed rules, coach, adapter, native Stockfish UCI and real Chromium HTTP worker tests. The extended four-tier/mate/package acceptance is reported separately in `docs/QA_LOG.md` after actual CI evidence.
 
-- GitHub Actions #56: rules 12/12, B2 coach 8/8, synthetic DOM 9/9, real Chromium 18/18 PASS.
-- GitHub Actions #60: adds five postgame tests PASS while retaining the above gates.
-- B2.1 locale and storage-integrity patch: see latest executed run and failure history in docs/QA_LOG.md.
-- Production **v1.0 BLOCKED**: requires stronger engine, complete Academy, source-backed master games, rating/reputation separation, broader full-game/UI/promotion QA, independent RU/EN/AZ review and release gates.
-
-Run development tests from this directory with Node 22: node tests/chess-smoke.cjs; node tests/coach-engine.cjs; node tests/postgame-smoke.cjs; node tests/dom-smoke.cjs. Browser tests need Playwright 1.57 and compatible Chromium.
-
-**No merge to main. No production deployment.**
+**Not yet v1.0:** complete Academy, historical grandmaster PGNs with authoritative provenance, internal rating/reputation, all-outcome full-game UI E2E, complete promotion UI/accessibility, independently reviewed RU/EN/AZ teaching accuracy, and final production acceptance. No merge into `main` and no deployment.
