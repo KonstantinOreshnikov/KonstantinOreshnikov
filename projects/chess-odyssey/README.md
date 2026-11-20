@@ -44,7 +44,7 @@ Practice progress is stored locally in the browser. No external accounts or tele
 
 15 / 15 isolated V8 runtime checks PASSED against the actual GitHub vendor and application code on 2026-11-21, including perft 20/400/8902, illegal move rejection, checkmate, castling, en passant, promotion/underpromotion, threefold, stalemate, insufficient material, the authored lesson mate, PGN round trip and app API smoke.
 
-Browser E2E is NOT VERIFIED, and release QA remains BLOCKED until a real Chromium execution record, full responsive testing and translation consistency validation exist. GitHub Actions workflow is committed, but its successful execution was not yet confirmed.
+Real Chromium E2E is now **10/10 PASS** in GitHub Actions run #21; Node rules 12/12 and synthetic DOM 7/7 also PASS. This validates the preview path, **not** production readiness. Full games, promotion dialog UX, stronger AI and independent RU/EN/AZ semantic QA remain release blockers.
 
 To run from this project directory: node tests/chess-smoke.cjs. The separate browser script requires Playwright and Chromium.
 
