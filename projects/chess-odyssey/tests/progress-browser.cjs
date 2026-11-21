@@ -91,14 +91,14 @@ const {chromium}=require("playwright");
   await check("RU EN AZ achievement translations preserve counts and state",async()=>{
    await page.locator("#nav-progress").click();
    const c=await page.locator("#progress-rep").innerText();
-   await page.selectOption("#lang","en");
+   await page.selectOption("#progress-lang","en");
    assert.match(await page.locator("#progress-title").innerText(),/chess journey/i);
    assert.match(await page.locator("#progress-index-method").innerText(),/not a calibrated chess Elo/i);
-   await page.selectOption("#lang","az");
+   await page.selectOption("#progress-lang","az");
    assert.match(await page.locator("#progress-title").innerText(),/Şahmat/);
    assert.match(await page.locator("#progress-index-method").innerText(),/Elo/);
    assert.equal(await page.locator("#progress-rep").innerText(),c);
-   await page.selectOption("#lang","ru");
+   await page.selectOption("#progress-lang","ru");
   });
   await check("coached practice remains default and index untouched",async()=>{
    await page.locator("#nav-play").click();
