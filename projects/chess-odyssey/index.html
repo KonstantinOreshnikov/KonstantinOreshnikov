@@ -40,7 +40,8 @@
           <div><p class="eyebrow" data-i18n="game">Тренировочная партия</p><h2 id="game-status" aria-live="polite">Ваш ход</h2></div>
           <label class="flip-control"><input type="checkbox" id="flip"><span data-i18n="flip">Повернуть доску</span></label>
         </div>
-        <div class="board-frame"><div id="board" class="board" aria-label="Chessboard"></div></div>
+        <div class="board-frame"><div id="board" class="board" role="group" aria-label="Chessboard" aria-describedby="board-keyboard-hint"></div></div>
+        <p id="board-keyboard-hint" class="chess-keyboard-help" data-i18n="boardHelp">Клавиши ← ↑ → ↓ — перемещение по доске; Enter или пробел — выбрать клетку.</p>
         <div class="board-controls">
           <button id="new-game" class="action primary" data-i18n="newGame">Новая партия</button>
           <button id="undo" class="action" data-i18n="undo">Отменить ход</button>
@@ -150,7 +151,7 @@
           <label class="masters-flip"><input id="m-flip" type="checkbox"><span data-master-label="flip">Повернуть доску</span></label>
         </div>
         <div class="board-frame masters-board-frame">
-          <div id="m-board" class="board masters-board" aria-label="Historical chess game board"></div>
+          <div id="m-board" class="board masters-board" role="img" aria-label="Historical chess game board"></div>
         </div>
         <div class="masters-navigation" role="group" aria-label="Historical game move controls">
           <button type="button" id="m-first" aria-label="First move">|◀</button>
@@ -276,8 +277,9 @@
   </main>
   <div id="promotion" class="promotion-backdrop" hidden>
     <div class="promotion-box" role="dialog" aria-modal="true" aria-labelledby="promotion-label">
-      <button id="promotion-close" class="close" aria-label="Close">×</button>
+      <button id="promotion-close" class="close" aria-label="Закрыть">×</button>
       <h2 id="promotion-label">Выберите превращение пешки</h2>
+        <p id="promotion-help" class="promotion-help" data-i18n="promotionHelp">Выберите фигуру, в которую превратится пешка. Escape — отменить.</p>
       <div class="promotion-choices">
         <button data-promote="q" title="Queen">♛</button>
         <button data-promote="r" title="Rook">♜</button>
