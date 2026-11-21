@@ -20,7 +20,7 @@
  const STORAGE="chess-odyssey-masters-v1";
  const PIECES={w:{k:"♔",q:"♕",r:"♖",b:"♗",n:"♘",p:"♙"},b:{k:"♚",q:"♛",r:"♜",b:"♝",n:"♞",p:"♟"}};
  const dict={
-  ru:{practiceTab:"Практика и Академия",mastersTab:"Мастера и легенды",mastersHeading:"ИСТОРИЯ ШАХМАТ · ОБУЧЕНИЕ",
+  ru:{practiceTab:"Практика и Академия",mastersTab:"Мастера и легенды",progressTab:"Мой прогресс",mastersHeading:"ИСТОРИЯ ШАХМАТ · ОБУЧЕНИЕ",
    flip:"Повернуть доску",guessMove:"Угадать ход мастера",bookmark:"Закладка",bookmarked:"Закладка сохранена",
    downloadPGN:"Скачать PGN",scoreTitle:"Полная запись — нажмите на любой ход",libraryTitle:"Библиотека исторических партий",
    filterTitle:"Тема",all:"Все темы",attack:"Атаки и комбинации",strategy:"Стратегия и защита",
@@ -38,7 +38,7 @@
    wrong:"{san} — допустимый ход, но в этой партии был сыгран другой. Попробуйте снова.",
    quizEmpty:"Нет подходящего учебного момента.",noteAt:"После {move}",play:"Воспроизводить",pause:"Пауза",
    noBook:"Пока нет закладок.",start:"Начало партии"},
-  en:{practiceTab:"Practice & Academy",mastersTab:"Masters & Legends",mastersHeading:"CHESS HISTORY · LEARN BY REPLAYING",
+  en:{practiceTab:"Practice & Academy",mastersTab:"Masters & Legends",progressTab:"My progress",mastersHeading:"CHESS HISTORY · LEARN BY REPLAYING",
    flip:"Flip board",guessMove:"Guess the master's move",bookmark:"Bookmark",bookmarked:"Bookmarked",
    downloadPGN:"Download PGN",scoreTitle:"Complete score — select any move",libraryTitle:"Historical games library",
    filterTitle:"Theme",all:"All themes",attack:"Attacks and combinations",strategy:"Strategy and defence",
@@ -56,7 +56,7 @@
    wrong:"{san} is legal, but another move was played in this game. Try again.",
    quizEmpty:"No suitable teaching moment.",noteAt:"After {move}",play:"Autoplay",pause:"Pause",
    noBook:"No bookmarks yet.",start:"Starting position"},
-  az:{practiceTab:"Məşq və Akademiya",mastersTab:"Ustadlar və Əfsanələr",mastersHeading:"ŞAHMAT TARİXİ · OYNAYARAQ ÖYRƏNİN",
+  az:{practiceTab:"Məşq və Akademiya",mastersTab:"Ustadlar və Əfsanələr",progressTab:"Mənim inkişafım",mastersHeading:"ŞAHMAT TARİXİ · OYNAYARAQ ÖYRƏNİN",
    flip:"Taxtanı çevir",guessMove:"Ustadın gedişini tap",bookmark:"Əlfəcin",bookmarked:"Əlfəcin saxlanıb",
    downloadPGN:"PGN yüklə",scoreTitle:"Bütün gedişlər — istənilən gedişi seçin",libraryTitle:"Tarixi partiyalar kitabxanası",
    filterTitle:"Mövzu",all:"Bütün mövzular",attack:"Hücumlar və kombinasiyalar",strategy:"Strategiya və müdafiə",
@@ -206,12 +206,14 @@
    state.ply=Math.max(0,Math.min(Number(ply)||0,game.totalPlies));
    state.quiz=null;state.feedback="";$("m-quiz-panel").hidden=true;
    save();render();
+   root.ChessProgress?.study?.(state.id,state.ply);
  }
  function select(id,ply=0){
    if(!verified.byId[id])return;
    stop();state.id=id;state.ply=Math.max(0,Math.min(Number(ply)||0,current().totalPlies));
    state.quiz=null;state.feedback="";$("m-quiz-panel").hidden=true;
    save();render();catalogue(false);
+   root.ChessProgress?.study?.(state.id,state.ply);
  }
  function catalogue(shouldSelect){
    const words=state.search.trim().toLocaleLowerCase("ru");
@@ -243,15 +245,16 @@
    }
  }
  function showTab(name){
-   state.view=name==="masters"?"masters":"practice";
-   $("practice-view").hidden=state.view==="masters";
+   state.view=["practice","masters","progress"].includes(name)?name:"practice";
+   $("practice-view").hidden=state.view!=="practice";
    $("masters-view").hidden=state.view!=="masters";
-   $("nav-play").setAttribute("aria-selected",String(state.view==="practice"));
-   $("nav-masters").setAttribute("aria-selected",String(state.view==="masters"));
-   $("nav-play").classList.toggle("active",state.view==="practice");
-   $("nav-masters").classList.toggle("active",state.view==="masters");
+   $("progress-view").hidden=state.view!=="progress";
+   for(const [tab,view] of [["nav-play","practice"],["nav-masters","masters"],["nav-progress","progress"]]){
+     $(tab).setAttribute("aria-selected",String(state.view===view));
+     $(tab).classList.toggle("active",state.view===view);
+   }
    if(state.view==="masters"){language($("lang").value,false);catalogue(false);}
-   else stop();
+   else {stop();if(state.view==="progress")root.ChessProgress?.refresh?.();}
  }
  function quiz(){
    stop();
@@ -273,6 +276,7 @@
        const movePlayed=state.quiz.san;
        state.quiz=null;state.ply=m.ply;state.feedback=tr("correct",{san:movePlayed});
        $("m-quiz-panel").hidden=true;save();render();
+       root.ChessProgress?.quiz?.(state.id,state.ply);
      });
      frag.appendChild(btn);
    }
@@ -302,6 +306,7 @@
    state.timer=setInterval(()=>{
      if(state.view!=="masters"||state.ply>=current().totalPlies){stop();return;}
      state.ply++;state.quiz=null;$("m-quiz-panel").hidden=true;save();render();
+     root.ChessProgress?.study?.(state.id,state.ply);
      if(state.ply>=current().totalPlies)stop();
    },1000);
  }
@@ -312,6 +317,7 @@
    $("m-filter").value=state.filter;
    $("nav-play").addEventListener("click",()=>showTab("practice"));
    $("nav-masters").addEventListener("click",()=>showTab("masters"));
+   $("nav-progress").addEventListener("click",()=>showTab("progress"));
    $("m-first").addEventListener("click",()=>go(0));
    $("m-prev").addEventListener("click",()=>go(state.ply-1));
    $("m-next").addEventListener("click",()=>go(state.ply+1));
