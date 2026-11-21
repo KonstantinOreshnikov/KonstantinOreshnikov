@@ -48,6 +48,7 @@ A standalone independently authored browser chess learning platform: **learn che
 - [Changelog](../CHANGELOG.md) — chronological version evolution
 - [Historical original idea (20 Nov 2026)](ORIGINAL_CONCEPT_2026-11-20.md) — **archived, superseded as current status**
 - [Historical B7 release QA](RELEASE_B7_QA.md), [B5 source register](MASTERS_B5_SOURCE_REGISTER.md)
-- [Draft PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7) — **not merged; current public `main` portfolio may still show the prior idea until a separately approved merge**.
+- [Draft source/game PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7) — chess code and technical docs, NOT merged.
+- [Docs-only public portfolio PR #8](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/8) — fixes stale “idea only” descriptions on `README.md`, `projects/README.md`, `projects/game-studio/README.md` **without publishing chess runtime**. Open, NOT merged. Default-branch `main` will continue to show the old description until the owner explicitly approves merge.
 
 **Privacy/security boundary:** project contains no real user accounts or live game records as of verified checkpoint; never publish database URLs, server keys, auth secrets, private identity data or synthetic security-bypass fixtures as production.
