@@ -88,7 +88,13 @@
   if(!isString(record.pgn)||!record.pgn.trim()||record.pgn.length>50000)return {ok:false,reason:"missing-pgn"};
   const chess=new Chess();
   if(!chess.load_pgn(record.pgn))return {ok:false,reason:"invalid-pgn"};
-  if(chess.history().length<4||!chess.game_over())return {ok:false,reason:"not-finished"};
+  // Strict anti-inflation gate: no custom FEN / composed late-game starts can
+  // enter the independent ladder. Reconstruct EVERY ply from the real initial
+  // position, then reconcile the exact terminal board and ply count.
+  const full=new Chess(),moves=chess.history();
+  for(const san of moves){if(!full.move(san))return {ok:false,reason:"not-full-standard-start"};}
+  if(full.fen()!==chess.fen())return {ok:false,reason:"not-full-standard-start"};
+  if(moves.length<4||!chess.game_over())return {ok:false,reason:"not-finished"};
   const result=chess.in_checkmate()?(chess.turn()===record.side?"loss":"win"):"draw";
   if(record.result!==result)return {ok:false,reason:"outcome-inconsistent"};
   return {ok:true,entry:{id:record.id,level:record.level,side:record.side,result,plies:chess.history().length,engine:record.engine,date:typeof record.date==="string"?record.date.slice(0,60):"local"}};
