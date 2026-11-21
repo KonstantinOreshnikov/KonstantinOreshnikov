@@ -147,6 +147,12 @@ const {chromium}=require("playwright");
    assert.equal(await page.locator("#undo").isDisabled(),true);
    assert.equal(await page.evaluate(()=>window.ChessProgressQA.snapshot().summary.rated.eligible),1);
   });
+  await check("postgame review is unlocked only after rating and never alters the index",async()=>{
+   await page.locator("#review-button").click();
+   assert.equal(await page.locator("#coach-review").isVisible(),true);
+   assert.ok(await page.locator("#review-list li").count()>=3);
+   assert.equal(await page.evaluate(()=>window.ChessProgressQA.snapshot().summary.rated.eligible),1);
+  });
   await check("reload terminal independent match never double-counts",async()=>{
    await page.reload();await page.waitForFunction("window.ChessProgressQA && window.ChessOdysseyQA");
    assert.equal(await page.evaluate(()=>window.ChessProgressQA.snapshot().summary.rated.eligible),1);
