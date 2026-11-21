@@ -19,7 +19,7 @@ if not errorlevel 1 (
 )
 echo Python and Node.js were not found. Stockfish browser Worker needs a local HTTP server.
 echo The single-file HTML works offline with an explicitly weaker local AI.
-start "" "%CD%\dist\ChessOdyssey_v0.5.0_PREVIEW.html"
+start "" "%CD%\dist\ChessOdyssey_v0.6.0_PREVIEW.html"
 pause
 exit /b 1
 :open
