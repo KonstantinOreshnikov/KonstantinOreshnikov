@@ -112,6 +112,7 @@
        if(last&&(last.from===square||last.to===square))button.classList.add("last");
        button.setAttribute("aria-label",square+" "+(p?(p.color==="w"?"white ":"black ")+p.type:"empty"));
        button.setAttribute("tabindex","-1");
+       button.setAttribute("aria-hidden","true");
        if(p){
          button.classList.add(p.color==="w"?"white-piece":"black-piece");
          const icon=document.createElement("span");icon.className="piece";icon.textContent=PIECES[p.color][p.type];button.appendChild(icon);
@@ -120,6 +121,9 @@
      }
    }
    $("m-board").replaceChildren(fragment);
+   const intro={ru:"Историческая позиция",en:"Historical position",az:"Tarixi mövqe"};
+   const move=state.ply?game.moves[state.ply-1].san:"0";
+   $("m-board").setAttribute("aria-label",(intro[state.lang]||intro.ru)+": "+game.white+" — "+game.black+", "+state.ply+"/"+game.totalPlies+", "+move);
  }
  function score(){
    const game=current(),holder=$("m-moves"),fragment=document.createDocumentFragment();
@@ -251,6 +255,7 @@
    $("progress-view").hidden=state.view!=="progress";
    for(const [tab,view] of [["nav-play","practice"],["nav-masters","masters"],["nav-progress","progress"]]){
      $(tab).setAttribute("aria-selected",String(state.view===view));
+     $(tab).setAttribute("tabindex",state.view===view?"0":"-1");
      $(tab).classList.toggle("active",state.view===view);
    }
    if(state.view==="masters"){language($("lang").value,false);catalogue(false);}
@@ -318,6 +323,19 @@
    $("nav-play").addEventListener("click",()=>showTab("practice"));
    $("nav-masters").addEventListener("click",()=>showTab("masters"));
    $("nav-progress").addEventListener("click",()=>showTab("progress"));
+   const tabs=[["nav-play","practice"],["nav-masters","masters"],["nav-progress","progress"]];
+   for(let index=0;index<tabs.length;index++){
+     $(tabs[index][0]).addEventListener("keydown",event=>{
+       let target=-1;
+       if(event.key==="ArrowRight")target=(index+1)%tabs.length;
+       else if(event.key==="ArrowLeft")target=(index+tabs.length-1)%tabs.length;
+       else if(event.key==="Home")target=0;
+       else if(event.key==="End")target=tabs.length-1;
+       if(target<0)return;
+       event.preventDefault();showTab(tabs[target][1]);
+       $(tabs[target][0]).focus();
+     });
+   }
    $("m-first").addEventListener("click",()=>go(0));
    $("m-prev").addEventListener("click",()=>go(state.ply-1));
    $("m-next").addEventListener("click",()=>go(state.ply+1));
