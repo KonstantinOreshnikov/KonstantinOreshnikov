@@ -6,6 +6,12 @@
   const PIECES = {wk:"♔",wq:"♕",wr:"♖",wb:"♗",wn:"♘",wp:"♙",bk:"♚",bq:"♛",br:"♜",bb:"♝",bn:"♞",bp:"♟"};
   const VALUES = {p:100,n:320,b:330,r:500,q:900,k:0};
   const FILES = "abcdefgh";
+  const BOARD_NAMES={
+    ru:{empty:"пустая клетка",wk:"белый король",wq:"белый ферзь",wr:"белая ладья",wb:"белый слон",wn:"белый конь",wp:"белая пешка",bk:"чёрный король",bq:"чёрный ферзь",br:"чёрная ладья",bb:"чёрный слон",bn:"чёрный конь",bp:"чёрная пешка"},
+    en:{empty:"empty square",wk:"white king",wq:"white queen",wr:"white rook",wb:"white bishop",wn:"white knight",wp:"white pawn",bk:"black king",bq:"black queen",br:"black rook",bb:"black bishop",bn:"black knight",bp:"black pawn"},
+    az:{empty:"boş xana",wk:"ağ şah",wq:"ağ vəzir",wr:"ağ top",wb:"ağ fil",wn:"ağ at",wp:"ağ piyada",bk:"qara şah",bq:"qara vəzir",br:"qara top",bb:"qara fil",bn:"qara at",bp:"qara piyada"}
+  };
+  const PROMOTE_NAMES={ru:{q:"Ферзь",r:"Ладья",b:"Слон",n:"Конь",close:"Отменить"},en:{q:"Queen",r:"Rook",b:"Bishop",n:"Knight",close:"Cancel"},az:{q:"Vəzir",r:"Top",b:"Fil",n:"At",close:"Ləğv et"}};
   const COACH = window.ChessCoachEngine;
   const ENGINE = window.ChessEngineBridge;
   const PROGRESS = window.ChessProgressCore;
@@ -24,6 +30,7 @@
   let completed = [], stats = {wins:0,losses:0,draws:0}, epoch = 0, aiTimer = null, finalized = false, pendingPromotion = null, parked = null;
   let notes = [], hintState = null, showReview = false;
   let lessonStep=0,academyTrack="all",lastLessonId=null;
+  let keyboardSquare="e2";
   let matchMode="practice",matchSession=null;
   const engine = ENGINE && new ENGINE.Bridge();
   let lastEngineKind="local";
@@ -325,11 +332,24 @@ function hint(){
     hintState={fen:analysis.fen,lines:analysis.lines};
     message(ct("hintIntro"));showHints();
   }
+  function boardFocus(square){
+    keyboardSquare=square;
+    const board=$("board"),button=Array.from(board.children).find(x=>x.dataset?.square===square);
+    if(button&&typeof button.focus==="function"){for(const x of board.children)x.tabIndex=x===button?0:-1;button.focus();}
+  }
+  function closePromotion(){
+    const original=pendingPromotion;
+    pendingPromotion=null;$("promotion").hidden=true;
+    if(original)boardFocus(original.from);
+  }
   function doMove(from,to,promotion){
     const matches=game.moves({square:from,verbose:true}).filter(x=>x.to===to);
     if(!matches.length) return message(tr("illegal"));
     if(matches.some(m=>m.promotion) && !promotion) {
-      pendingPromotion={from,to}; $("promotion").hidden=false; text("promotion-label",tr("promo")); return;
+      pendingPromotion={from,to}; $("promotion").hidden=false; text("promotion-label",tr("promo"));
+      const first=typeof document.querySelector==="function"?document.querySelector("#promotion [data-promote=q]"):null;
+      if(first&&typeof first.focus==="function")first.focus();
+      return;
     }
     const candidate=matches.find(x=>!x.promotion||x.promotion===promotion);
     if(!candidate) return message(tr("illegal"));
@@ -342,6 +362,7 @@ function hint(){
       }
     }
     const assessment=lesson||currentMatch()?null:COACH.grade(game,candidate.san);
+    const fromPromotion=Boolean(pendingPromotion&&promotion);
     const move=game.move({from,to,promotion:promotion||"q"});
     if(!move) return message(tr("illegal"));
     last=[from,to]; selected=null;
@@ -371,11 +392,12 @@ function hint(){
       message(assessmentMessage(assessment));
     }else message(prog("loading"));
     render();persist();
+    if(fromPromotion)boardFocus(to);
     if(game.game_over()) finish();
     else if(!lesson && !finalized && game.turn()!==side) scheduleBot();
   }
   function clickSquare(square){
-    if(game.game_over() || finalized || (!lesson && game.turn()!==side)) return;
+    if(pendingPromotion||game.game_over() || finalized || (!lesson && game.turn()!==side)) return;
     const piece=game.get(square);
     if(selected){
       if(square===selected){selected=null;render();return;}
@@ -399,6 +421,8 @@ function hint(){
     return lesson?tr("lesson"):game.turn()===side?tr("turn"):tr("thinking");
   }
   function render(){
+    const boardElement=$("board");
+    const wasFocused=Boolean(document.activeElement&&typeof boardElement.contains==="function"&&boardElement.contains(document.activeElement));
     // Independent games do not reveal candidate destinations before the move.
     const legal=selected&&!(currentMatch()&&!finalized)?game.moves({square:selected,verbose:true}).map(m=>m.to):[];
     const flipped=$("flip").checked; const order=boardSquares();
@@ -413,15 +437,31 @@ function hint(){
       if(legal.includes(square))b.classList.add("legal");
       if(last&&last.includes(square))b.classList.add("last");
       if(p && p.type==="k" && p.color===game.turn() && game.in_check())b.classList.add("checked");
-      b.setAttribute("aria-label",square+" "+(p?p.color+" "+p.type:"empty"));
+      b.dataset.square=square;
+      b.tabIndex=square===keyboardSquare?0:-1;
+      b.setAttribute("aria-label",square+" — "+(BOARD_NAMES[language]||BOARD_NAMES.ru)[p?p.color+p.type:"empty"]);
       b.setAttribute("aria-pressed",selected===square?"true":"false");
       const mark=document.createElement("span");mark.className="piece";mark.textContent=p?PIECES[p.color+p.type]:"";b.appendChild(mark);
       if((flipped?r===7:r===0)) {const c=document.createElement("small");c.className="file";c.textContent=square[0];b.appendChild(c);}
       if((flipped?f===7:f===0)) {const c=document.createElement("small");c.className="rank";c.textContent=square[1];b.appendChild(c);}
-      b.addEventListener("click",()=>clickSquare(square));
+      b.addEventListener("focus",()=>{keyboardSquare=square;});
+      b.addEventListener("click",()=>{keyboardSquare=square;clickSquare(square);});
+      b.addEventListener("keydown",e=>{
+        const steps={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,1],ArrowDown:[0,-1]};
+        if(steps[e.key]){
+          e.preventDefault();
+          const [df,dr]=steps[e.key],direction=flipped?-1:1;
+          const file=FILES.indexOf(square[0])+df*direction;
+          const rank=Number(square[1])+dr*direction;
+          if(file>=0&&file<8&&rank>=1&&rank<=8)boardFocus(FILES[file]+rank);
+        }else if(e.key==="Enter"||e.key===" "){
+          e.preventDefault();keyboardSquare=square;clickSquare(square);
+        }
+      });
       frag.appendChild(b);
     }
-    $("board").replaceChildren(frag);
+    boardElement.replaceChildren(frag);
+    if(wasFocused)boardFocus(keyboardSquare);
     text("game-status",status());showMoves();
     text("record",stats.wins+" / "+stats.losses+" / "+stats.draws);
     text("completed",completed.length+"/"+LESSONS.length);
@@ -579,12 +619,19 @@ function hint(){
       else message(tr("select"));
     }
     renderAcademy();showHints();renderReview();render();
+    const names=PROMOTE_NAMES[language]||PROMOTE_NAMES.ru;
+    for(const button of document.querySelectorAll("[data-promote]")){
+      button.setAttribute("aria-label",names[button.dataset.promote]);
+      button.title=names[button.dataset.promote];
+    }
+    $("promotion-close").setAttribute("aria-label",names.close);
+    if(pendingPromotion)text("promotion-label",tr("promo"));
     showEngineStatus(lastEngineKind);restoreMatchNotice();
   }
     const LABELS={
-    ru:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Учимся играя",newGame:"Новая партия",undo:"Отменить ход",hint:"Подсказка",game:"Тренировочная партия",level:"Сложность AI",side:"Мои фигуры",language:"Язык",flip:"Повернуть доску",lessons:"Академия",chooseLesson:"Выбрать урок…",resume:"Вернуться к партии",academyTrack:"Раздел обучения",allTracks:"Все разделы",trackBasics:"Основы и правила",trackTactics:"Тактика и комбинации",trackOpenings:"Дебютные идеи",trackEndgames:"Эндшпиль",academyLesson:"Урок или задача",nextLesson:"Следующий урок",reviewButton:"Разобрать ходы",reviewTitle:"Ключевые моменты",record:"Победы / поражения / ничьи",done:"Пройдено уроков",moves:"История ходов",about:"Рейтинг отключён в тренировке; без таймера",white:"Белые",black:"Чёрные",beginner:"Начинающий",novice:"Любитель",intermediate:"Средний",advanced:"Продвинутый",expert:"Эксперт",grandmaster:"Гроссмейстерский вызов"},
-    en:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Learn by playing",newGame:"New game",undo:"Undo move",hint:"Hint",game:"Practice game",level:"AI difficulty",side:"My pieces",language:"Language",flip:"Flip board",lessons:"Academy",chooseLesson:"Choose a lesson…",resume:"Return to game",academyTrack:"Learning track",allTracks:"All tracks",trackBasics:"Rules and essentials",trackTactics:"Tactics and combinations",trackOpenings:"Opening ideas",trackEndgames:"Endgame",academyLesson:"Lesson or challenge",nextLesson:"Next lesson",reviewButton:"Review moves",reviewTitle:"Key moments",record:"Wins / losses / draws",done:"Lessons completed",moves:"Move history",about:"No rating in practice; no chess clock",white:"White",black:"Black",beginner:"Beginner",novice:"Novice",intermediate:"Intermediate",advanced:"Advanced",expert:"Expert",grandmaster:"Grandmaster Challenge"},
-    az:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Oynayaraq öyrənin",newGame:"Yeni oyun",undo:"Gedişi ləğv et",hint:"İpucu",game:"Məşq oyunu",level:"AI çətinliyi",side:"Mənim fiqurlarım",language:"Dil",flip:"Taxtanı çevir",lessons:"Akademiya",chooseLesson:"Dərs seçin…",resume:"Oyuna qayıt",academyTrack:"Təlim bölməsi",allTracks:"Bütün bölmələr",trackBasics:"Qaydalar və əsaslar",trackTactics:"Taktika və kombinasiyalar",trackOpenings:"Debüt ideyaları",trackEndgames:"Endşpil",academyLesson:"Dərs və ya tapşırıq",nextLesson:"Növbəti dərs",reviewButton:"Gedişləri təhlil et",reviewTitle:"Əsas məqamlar",record:"Qələbə / məğlubiyyət / heç-heçə",done:"Tamamlanmış dərslər",moves:"Gedişlərin tarixçəsi",about:"Məşqdə reytinq yoxdur; vaxt limiti yoxdur",white:"Ağlar",black:"Qaralar",beginner:"Başlanğıc",novice:"Həvəskar",intermediate:"Orta",advanced:"İrəliləmiş",expert:"Ekspert",grandmaster:"Qrossmeyster sınağı"}
+    ru:{title:"Chess Odyssey",boardHelp:"Клавиши со стрелками — перемещение по доске; Enter или пробел — выбрать клетку.",promotionHelp:"Выберите фигуру для превращения пешки. Escape — отменить.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Учимся играя",newGame:"Новая партия",undo:"Отменить ход",hint:"Подсказка",game:"Тренировочная партия",level:"Сложность AI",side:"Мои фигуры",language:"Язык",flip:"Повернуть доску",lessons:"Академия",chooseLesson:"Выбрать урок…",resume:"Вернуться к партии",academyTrack:"Раздел обучения",allTracks:"Все разделы",trackBasics:"Основы и правила",trackTactics:"Тактика и комбинации",trackOpenings:"Дебютные идеи",trackEndgames:"Эндшпиль",academyLesson:"Урок или задача",nextLesson:"Следующий урок",reviewButton:"Разобрать ходы",reviewTitle:"Ключевые моменты",record:"Победы / поражения / ничьи",done:"Пройдено уроков",moves:"История ходов",about:"Рейтинг отключён в тренировке; без таймера",white:"Белые",black:"Чёрные",beginner:"Начинающий",novice:"Любитель",intermediate:"Средний",advanced:"Продвинутый",expert:"Эксперт",grandmaster:"Гроссмейстерский вызов"},
+    en:{title:"Chess Odyssey",boardHelp:"Use arrow keys to move focus across the board. Enter or Space selects a square.",promotionHelp:"Choose the new piece for the pawn. Press Escape to cancel.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Learn by playing",newGame:"New game",undo:"Undo move",hint:"Hint",game:"Practice game",level:"AI difficulty",side:"My pieces",language:"Language",flip:"Flip board",lessons:"Academy",chooseLesson:"Choose a lesson…",resume:"Return to game",academyTrack:"Learning track",allTracks:"All tracks",trackBasics:"Rules and essentials",trackTactics:"Tactics and combinations",trackOpenings:"Opening ideas",trackEndgames:"Endgame",academyLesson:"Lesson or challenge",nextLesson:"Next lesson",reviewButton:"Review moves",reviewTitle:"Key moments",record:"Wins / losses / draws",done:"Lessons completed",moves:"Move history",about:"No rating in practice; no chess clock",white:"White",black:"Black",beginner:"Beginner",novice:"Novice",intermediate:"Intermediate",advanced:"Advanced",expert:"Expert",grandmaster:"Grandmaster Challenge"},
+    az:{title:"Chess Odyssey",boardHelp:"Ox düymələri ilə taxtada hərəkət edin. Xanəni seçmək üçün Enter və ya boşluq basın.",promotionHelp:"Piyadanın çevriləcəyi fiquru seçin. Ləğv etmək üçün Escape basın.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Oynayaraq öyrənin",newGame:"Yeni oyun",undo:"Gedişi ləğv et",hint:"İpucu",game:"Məşq oyunu",level:"AI çətinliyi",side:"Mənim fiqurlarım",language:"Dil",flip:"Taxtanı çevir",lessons:"Akademiya",chooseLesson:"Dərs seçin…",resume:"Oyuna qayıt",academyTrack:"Təlim bölməsi",allTracks:"Bütün bölmələr",trackBasics:"Qaydalar və əsaslar",trackTactics:"Taktika və kombinasiyalar",trackOpenings:"Debüt ideyaları",trackEndgames:"Endşpil",academyLesson:"Dərs və ya tapşırıq",nextLesson:"Növbəti dərs",reviewButton:"Gedişləri təhlil et",reviewTitle:"Əsas məqamlar",record:"Qələbə / məğlubiyyət / heç-heçə",done:"Tamamlanmış dərslər",moves:"Gedişlərin tarixçəsi",about:"Məşqdə reytinq yoxdur; vaxt limiti yoxdur",white:"Ağlar",black:"Qaralar",beginner:"Başlanğıc",novice:"Həvəskar",intermediate:"Orta",advanced:"İrəliləmiş",expert:"Ekspert",grandmaster:"Qrossmeyster sınağı"}
   };
   function init(){
     if(typeof Chess!=="function")throw new Error("Rules Engine missing");
@@ -609,7 +656,18 @@ function hint(){
     $("match-mode").addEventListener("change",newGame);
     $("lesson").addEventListener("change",()=>{if($("lesson").value)startLesson($("lesson").value);});
     for(const btn of document.querySelectorAll("[data-promote]"))btn.addEventListener("click",()=>{if(pendingPromotion)doMove(pendingPromotion.from,pendingPromotion.to,btn.dataset.promote);});
-    $("promotion-close").addEventListener("click",()=>{pendingPromotion=null;$("promotion").hidden=true;});
+    $("promotion-close").addEventListener("click",closePromotion);
+    $("promotion").addEventListener("keydown",event=>{
+      if($("promotion").hidden)return;
+      if(event.key==="Escape"){event.preventDefault();closePromotion();return;}
+      if(event.key!=="Tab")return;
+      const focusable=[$("promotion-close"),...document.querySelectorAll("#promotion [data-promote]")];
+      const first=focusable[0],last=focusable[focusable.length-1];
+      if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+      else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+    });
+    $("nav-masters").addEventListener("click",()=>{if(pendingPromotion)closePromotion();});
+    $("nav-progress").addEventListener("click",()=>{if(pendingPromotion)closePromotion();});
     updateEngineAvailability();
     refreshLabels();restoreMatchNotice();
     if(showReview)renderReview();
