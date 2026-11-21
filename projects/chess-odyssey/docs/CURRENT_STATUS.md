@@ -1,0 +1,53 @@
+# Chess Odyssey — CURRENT STATUS / project entrypoint
+
+**As verified 2026-11-21 | CURRENT DEVELOPMENT PHASE: B9 / v0.9 (in progress). NOT an idea. NOT production v1.0.**  
+**Last packaged playable preview:** **v0.8.0** from [GitHub Actions #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) (all three jobs SUCCESS). **No separately shipped v0.9 HTML/ZIP has been verified**, so v0.9 is the *development phase*, not a published binary.
+
+> This is the **primary navigation and current-state entrypoint**. Historical `ORIGINAL_CONCEPT_2026-11-20.md`, B0–B7 documents and prior CI results remain evidence of earlier phases, not today's project status. Source code + actual current CI, Neon staging readback and `QA_LOG.md` outrank descriptive summaries. All links below refer to branch `game/chess-odyssey-v0.1` unless explicitly historical.
+
+## Product (owner-approved)
+A standalone independently authored browser chess learning platform: **learn chess from zero → play against AI / Stockfish → play timed or untimed human-vs-human games with 5–10 friends/colleagues → review mistakes**. PvP is required in v1.0, not a speculative future feature. RU/EN/AZ educational content; offline AI/Academy experience remains supported. Separate from the CBA platform and other game workstreams.
+
+## Development stage versus actual acceptance
+
+| Block | Delivered or agreed | Verified status / remaining |
+| --- | --- | --- |
+| B0–B2 | Legal chess; beginner bots, move assistance, coach/review | Code complete; regression PASS |
+| B3 | Six levels including real licensed Stockfish 19 Lite JS Worker/WASM; safe weaker offline fallback | Code complete; regression PASS |
+| B4 | 33 complete RU/EN/AZ Academy exercises: Rules 9, Tactics 8, Openings 8, Endgames 8 | Structural/game-rule QA PASS; independent human language semantics still OPEN |
+| B5 | 31 sourced complete historic master games, 1,923 legal plies, 116 authored annotations | Primary-source game parity PASS; secondary archive corroboration incomplete, see source register |
+| B6 | 16 achievements, separated Academy reputation and uncalibrated local AI Ladder Index 0–100 (NOT FIDE/Elo) | Automated QA PASS; no false human competitive rating |
+| B7 | v0.7.0 release candidate technical QA, actual organic full AI game, Windows, browser accessibility | [#339](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44883137898) **238/238 PASS**, historic immutable baseline; NOT v1.0 signoff |
+| B8 | Dual accurate clocks with 1+0, 3+0, 5+0, 10+0, 15+0, 15+10, 20+0, 30+0, custom and Untimed; electronic/hourglass presentation; resign/rematch; optional alerts | **32/32 clock unit + 12/12 Chrome B8 PASS in #403**. Human PC/phone acceptance, independent tri-language editing, edge-case review and possible extra openings remain OPEN |
+| **B9 — CURRENT** | Small-group friends PvP: server-side legal-move enforcement, invites, timeouts, draw/resignation/rematch; Neon staging Postgres + Better Auth | **Local synthetic PvP 27/27 domain + 15/15 HTTP + 11/11 dual Chrome PASS in #403**; actual live authenticated Neon PvP NOT yet integrated or tested. Neon staging schema/Auth provisioned, readback PASS |
+| B10 | Independent final QA, authentic dual-user cloud E2E, accessibility and source review, owner UAT, deployment, domain/hosting choice and release | **BLOCKED / NOT STARTED** as a release; production NOT deployed |
+
+**CI evidence:** [run #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) on the Chess Odyssey branch: **3/3 jobs PASS** (unit/integration, real Chromium, actual Windows launcher). This does not verify live Neon HTTP calls or real-user login.
+
+## B9 Neon infrastructure — verified staging state (NOT public production)
+- Connected organization: `Konstantin` (Free). Isolated project **Chess Odyssey — Staging**, PostgreSQL 17, region Frankfurt; ID `wild-hall-05832800`, branch `staging` ID `br-still-credit-b9voxawu`; database `chess_odyssey`.
+- Four application tables created: `games`, `moves`, `invites`, `user_progress`. All four **RLS ON + FORCE RLS ON; zero permissive policies**. The API must not use browser-visible privileged database credentials.
+- Neon **Better Auth ENABLED**, nine `neon_auth` tables verified. Email/password with **mandatory email OTP verification** in staging, signup enabled for staging, password-reset session revocation, localhost allowed, **no trusted production origins**. Neon shared email sender does not support verification links; OTP is the verified supported alternative.
+- Last direct DB readback: **0 actual auth users, 0 games**, and **0 app RLS policies**. Signup/email-delivery, real token/JWKS, two authenticated users, trusted persistent API, RLS grants and production security NOT YET verified.
+- `pvp/match-service.cjs` and `pvp/dev-server.cjs` are **in-memory / localhost-only synthetic fixtures**. The latter uses spoofable `X-Demo-User` and **must never be exposed or deployed**. Two-browser E2E #403 was synthetic, not Neon live PvP.
+- [Neon staging evidence](B9_NEON_STAGING_CHECKPOINT_2026-11-21.md) and [technical design / API security contract](B9_NEON_INTEGRATION.md).
+
+## Exact next acceptance gates
+1. Build a **trusted, authenticated, durable Neon-backed move service**: verify Better Auth identity using signature/issuer/audience/expiry and server-side account lookup; per-game permissions, atomic SQL transaction/revision/idempotency, server-time adjudication and safe reconnect. No direct browser SQL role or exposed secrets.
+2. Connect genuine signup + received OTP + session verification, then test **two different real users** with database-backed private invites/games, disconnections and simultaneous move attempts; prove outsider denial and data isolation. Until then cloud PvP is BLOCKED.
+3. Resolve B8 owner manual PC/mobile review, independent human RU/EN/AZ pedagogy, remaining B5 historical second-source cases and opening enhancements (bounded, only if verified).
+4. Stage a proper HTTPS frontend preview, decide friends-only signup/access model, data retention/backups, hosted endpoints and domain; run security/accessibility/real-device QA.
+5. Explicit owner **merge and production deploy** approval, followed by live smoke; no automatic merge, public release or other project's changes.
+
+## Canonical navigation
+- [Game README](../README.md) — how to run the current last *playable* preview and current feature inventory
+- [Roadmap](ROADMAP.md) — B0→B10 stage contracts and owner scope
+- [QA ledger](QA_LOG.md) — factual tests and failures/retests, not marketing claims
+- [B9 Neon Staging evidence](B9_NEON_STAGING_CHECKPOINT_2026-11-21.md)
+- [B9 technical integration contract](B9_NEON_INTEGRATION.md)
+- [Changelog](../CHANGELOG.md) — chronological version evolution
+- [Historical original idea (20 Nov 2026)](ORIGINAL_CONCEPT_2026-11-20.md) — **archived, superseded as current status**
+- [Historical B7 release QA](RELEASE_B7_QA.md), [B5 source register](MASTERS_B5_SOURCE_REGISTER.md)
+- [Draft PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7) — **not merged; current public `main` portfolio may still show the prior idea until a separately approved merge**.
+
+**Privacy/security boundary:** project contains no real user accounts or live game records as of verified checkpoint; never publish database URLs, server keys, auth secrets, private identity data or synthetic security-bypass fixtures as production.
