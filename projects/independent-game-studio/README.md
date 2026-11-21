@@ -9,6 +9,10 @@ Independent, AI-assisted game projects by Konstantin Oreshnikov. This directory 
 | [Lord of Ultima-inspired strategy](games/lord-of-ultima/README.md) | Calm solo economy, city, army and continental strategy | Research/specification only; no build |
 | [Chess Odyssey — Academy & Arena](games/chess-odyssey/README.md) | Chess education, AI and friend PvP development | B9/v0.9 source development; v0.8.0 playable CI ZIP; authentic cloud PvP open |
 
+## Nostalgic game concepts (ideas only)
+
+[**Browse 10 future game ideas →**](IDEAS_BACKLOG.md) — Iron Bastion, Worms, Dr. Mario, Mega Bomberman, Lode Runner, Block Breaker Deluxe 2, Asphalt: Urban GT, Tower Bloxx, a **Townsmen 1–5 best-of** and a separate **City Builder + SimCity** hybrid. These are concepts inspired by 1990s/2000s console and Java-mobile classics; **no source code, release, or active development is implied**. The four active game projects and QA statuses above are unchanged.
+
 Each game README has a **How the project changed** section with linked milestone evidence: [Caribbean Merchant](games/caribbean-merchant/README.md#how-the-project-changed) · [Kingdoms of Ember](games/kingdoms-of-ember/README.md#how-the-project-changed) · [Chess Odyssey](games/chess-odyssey/README.md#how-the-project-changed) · [Lord of Ultima-inspired strategy](games/lord-of-ultima/README.md#how-the-project-changed). The latter is a research/design history because there is no game build yet.
 
 **Before starting work in a new chat:** read [GAME_REGISTRY.md](GAME_REGISTRY.md), the selected game's `STATUS.md`, its technical authority and QA. Check current branch HEAD and actual artifact. Log discrepancies rather than guessing the latest version. On a significant release update registry and status together, verify file and hash, then read back. GitHub does not automatically synchronize chat context.
