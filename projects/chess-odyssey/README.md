@@ -1,6 +1,6 @@
 # Chess Odyssey — Academy, Arena & Legends
 
-**CURRENT: B9 / v0.9 DEVELOPMENT (2026-11-21) — ACTIVE, IMPLEMENTED PROJECT, NOT IDEA.** Last packaged playable preview is **v0.8.0**, NOT a shipped v0.9 build. [Canonical current status](docs/CURRENT_STATUS.md) · [verified full CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) · [merged PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7). **Production v1.0 not released.**  
+**CURRENT: B9 / v0.9 DEVELOPMENT (2026-11-21) — ACTIVE, IMPLEMENTED PROJECT, NOT IDEA.** Last packaged playable preview is **v0.8.0**, NOT a shipped v0.9 build. [Canonical current status](docs/CURRENT_STATUS.md) · [verified MAIN CI #407](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865) · [merged PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7). **Production v1.0 not released.**  
 **Preserved baseline:** B7 v0.7.0 RC 238/238 PASS (#339).  
 **Development branch:** `game/chess-odyssey-v0.1`. The game is independent of the CBA Examinations Platform and the other three game projects.
 
@@ -18,7 +18,7 @@
 - **Clock presets:** Untimed (default); Bullet 1+0; Blitz 3+0 and 5+0; Rapid 10+0, 15+0, 15+10, 20+0 and 30+0; Custom. Clocks run separately and include AI thinking time. Each completed move earns the chosen increment. Clock flags and resignation conclude the game without inventing checkmate in the PGN.
 - **Display:** optional hourglass animation beside exact digital numbers, optional local synthesized sounds, rematch/resign actions and RU/EN/AZ time controls. B2 postgame analysis remains available.
 - **Integrity:** timed AI matches do not enter the existing uncalibrated AI Ladder Index; existing untimed no-assistance verification remains unchanged. Offline standalone still plays against the local weaker AI when file:// lacks Stockfish Worker support.
-- **Current QA evidence:** [CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027), **32/32 B8 clock units + 12/12 B8 real Chromium browser**, plus 27/27 B9 domain, 15/15 local HTTP, 11/11 dual-Chrome, legacy B0–B7 regression and actual Windows smoke, all **3/3 CI jobs SUCCESS**. Last packaged v0.8.0 preview ZIP SHA256 `3aa43053b4b395df415431fa099c2f8b5a084b9a416d638c8bebc246408d79c2` from run #403; historical B8-only SHA from run #372 is preserved in CHANGELOG/QA.
+- **Current post-merge main QA:** [CI #407](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865), **3/3 jobs SUCCESS** on `main`: 32/32 B8 clock, 12/12 B8 real Chrome, 27/27 B9 domain, 15/15 B9 synthetic HTTP, 11/11 B9 two-Chrome, historical B0–B7 and native Windows launcher. Playable **v0.8.0** 42-file ZIP from #407 SHA256 `3bac88d0d34bcf41fdaedb4b63e482398e6f850c5ba183f2d15bf0e07fcb3395` ([GitHub artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865/artifacts/14705809423)). Prior developer-branch #403 and B8-only #372 hashes remain historical.
 - **Open:** independent human RU/EN/AZ educational semantics, physical PC/phone testing, historical second-source verification and bounded extra openings; B9 persistent authenticated Neon multiplayer and real E2E; B10 final release. Neon Auth provisioned is NOT equal to an integrated live game.
 
 ## What is playable
@@ -59,7 +59,7 @@ The index is **hidden until at least 5 eligible independent games** exist. From 
 
 **Complete package with Stockfish:**
 
-1. Open the [latest verified B9/v0.9 source QA run #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027); the downloadable playable binary in its Artifacts section is still **v0.8.0**, not v0.9.
+1. Open [verified main-branch CI #407](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865); the downloadable playable binary in Artifacts is still **v0.8.0**, not v0.9.
 2. In the **green, successful v0.8.0** run, open *Artifacts*, download `ChessOdyssey-v0.8.0-B8-Development-Stockfish-PREVIEW`, and extract the ZIP.
 3. On Windows double-click `START_WINDOWS.cmd` (Python 3 or Node.js required) to open the locally hosted game at `http://127.0.0.1:8765/index.html`. A physical Windows host test remains a v1.0 gate.
 
@@ -71,7 +71,7 @@ python -m http.server 8765 --bind 127.0.0.1
 node scripts/serve-local.cjs
 ```
 
-**Offline one-file in the latest #403 ZIP:** `dist/ChessOdyssey_v0.8.0_PREVIEW.html` contains *all* Practice, Academy, Masters and Progress features without a server or internet. The four stronger Stockfish tiers fall back visibly to a weaker local engine because a file://-loaded HTML cannot run the licensed WASM Worker correctly. **Such fallback games are ineligible for the independent AI index.**
+**Offline one-file in the latest #407 ZIP:** `dist/ChessOdyssey_v0.8.0_PREVIEW.html` contains *all* Practice, Academy, Masters and Progress features without a server or internet. The four stronger Stockfish tiers fall back visibly to a weaker local engine because a file://-loaded HTML cannot run the licensed WASM Worker correctly. **Such fallback games are ineligible for the independent AI index.**
 
 ## Historical B7 Release Candidate — automated gates and honest constraints (not current development phase)
 
