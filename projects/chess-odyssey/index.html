@@ -12,6 +12,7 @@
   <script defer src="engine-bridge.js"></script>
   <script defer src="academy.js"></script>
   <script defer src="progress-core.js"></script>
+  <script defer src="clock-core.js"></script>
   <script defer src="app.js"></script>
   <script defer src="masters-library.js"></script>
   <script defer src="masters-notes-a.js"></script>
@@ -27,7 +28,7 @@
       <div class="brand"><span class="brand-mark" aria-hidden="true">♞</span><div>
         <h1 data-i18n="title">Chess Odyssey</h1><p data-i18n="subtitle">ACADEMY & ARENA</p>
       </div></div>
-      <div class="version">PREVIEW <span>v0.7.0 · B6</span> · UNTIMED</div>
+      <div class="version">B8 DEVELOPMENT <span>v0.8.0</span> · NOT RELEASED</div>
     </header>
     <nav class="game-tabs" role="tablist" aria-label="Chess Odyssey sections">
       <button type="button" id="nav-play" role="tab" aria-selected="true" aria-controls="practice-view" data-master-label="practiceTab">Практика и Академия</button>
@@ -40,6 +41,10 @@
           <div><p class="eyebrow" data-i18n="game">Тренировочная партия</p><h2 id="game-status" aria-live="polite">Ваш ход</h2></div>
           <label class="flip-control"><input type="checkbox" id="flip"><span data-i18n="flip">Повернуть доску</span></label>
         </div>
+        <div id="clock-panel" class="clock-panel" role="group" aria-label="Chess game clocks" hidden>
+          <div class="clock-card" id="clock-black"><span class="clock-player" data-i18n="blackClock">Чёрные</span><span class="sandglass" aria-hidden="true">⌛</span><strong id="clock-black-time" class="clock-time" aria-label="Black time remaining">00:00</strong></div>
+          <div class="clock-card" id="clock-white"><span class="clock-player" data-i18n="whiteClock">Белые</span><span class="sandglass" aria-hidden="true">⌛</span><strong id="clock-white-time" class="clock-time" aria-label="White time remaining">00:00</strong></div>
+        </div>
         <div class="board-frame"><div id="board" class="board" role="group" aria-label="Chessboard" aria-describedby="board-keyboard-hint"></div></div>
         <p id="board-keyboard-hint" class="chess-keyboard-help" data-i18n="boardHelp">Клавиши ← ↑ → ↓ — перемещение по доске; Enter или пробел — выбрать клетку.</p>
         <div class="board-controls">
@@ -47,6 +52,7 @@
           <button id="undo" class="action" data-i18n="undo">Отменить ход</button>
           <button id="hint" class="action accent" data-i18n="hint">Подсказка</button>
         </div>
+        <div class="b8-controls"><button id="resign" type="button" class="action" data-i18n="resign">Сдаться</button><button id="rematch" type="button" class="action" data-i18n="rematch">Реванш</button></div>
         <div class="moves-panel"><h3 data-i18n="moves">История ходов</h3><p id="moves" aria-live="polite">—</p></div>
       </div>
       <aside class="sidebar">
@@ -73,6 +79,18 @@
               <option value="independent">Самостоятельный матч без помощи</option>
             </select>
           </label>
+          <div class="time-settings">
+            <label><span data-i18n="timeControl">Контроль времени</span><select id="time-control">
+              <option value="none" data-i18n="untimed">Без времени</option>
+              <option value="bullet1">Bullet · 1+0</option><option value="blitz3">Blitz · 3+0</option><option value="blitz5">Blitz · 5+0</option>
+              <option value="rapid10">Rapid · 10+0</option><option value="rapid15">Rapid · 15+0</option><option value="rapid1510">Rapid · 15+10</option><option value="rapid20">Rapid · 20+0</option><option value="rapid30">Rapid · 30+0</option>
+              <option value="custom" data-i18n="customTime">Своё время</option>
+            </select></label>
+            <div id="custom-clock" class="custom-clock" hidden><label><span data-i18n="customMinutes">Минуты</span><input id="custom-minutes" type="number" min="1" max="180" step="1" value="10"></label><label><span data-i18n="customIncrement">Добавление, секунд</span><input id="custom-increment" type="number" min="0" max="120" step="1" value="0"></label></div>
+            <label><span data-i18n="clockTheme">Вид часов</span><select id="clock-style"><option value="digital" data-i18n="digitalClock">Электронные</option><option value="hourglass" data-i18n="hourglassClock">Песочные + цифры</option></select></label>
+            <label class="sound-toggle"><input type="checkbox" id="sound-enabled"><span data-i18n="sounds">Звуки партии</span></label>
+            <p id="clock-policy" class="footnote" aria-live="polite"></p>
+          </div>
           <p id="match-integrity" class="match-integrity" aria-live="polite">В тренировке рейтинг не меняется.</p>
           <label><span data-i18n="language">Язык</span><select id="lang"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label>
         </section>
