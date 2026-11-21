@@ -1,8 +1,8 @@
 # Chess Odyssey QA Ledger
 
-**CURRENT VERIFIED CHECKPOINT (2026-11-21): B5 v0.5.0 Preview, GitHub Actions run #213 — 135/135 executable tests PASS + documentation-synchronized 31-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
-Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44830022599  
-Current authority: docs/MASTERS_B5_DESIGN.md + docs/MASTERS_B5_SOURCE_REGISTER.md + data/masters-source-scores.json + masters-core.js; B4 Academy and B3 engine authority preserved. B0–B4 excerpts below are historical QA checkpoints, not claims of current production release.
+**CURRENT VERIFIED CHECKPOINT (2026-11-21): B6 v0.6.0 Preview, GitHub Actions run #268 — 180/180 executable tests PASS + verified 34-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
+Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44845023609  
+Current technical authority: docs/PROGRESS_B6_DESIGN.md + progress-core.js + progress-ui.js, on top of B5 source register, B4 Academy and B3 Stockfish. Earlier B0–B5 ledger entries remain historical evidence and are not claims of production release.
 
 Date: 2026-11-21
 Branch: game/chess-odyssey-v0.1
@@ -240,3 +240,54 @@ B4 browser acceptance explicitly exercised: four-track selector, incorrect-but-l
 - GitHub Actions artifact **ID 14676340023**, `ChessOdyssey-v0.5.0-Masters-Stockfish-PREVIEW`, artifact ZIP wrapper SHA256 **53232468e0bef88f83f77537d7ae20d737e1a530ed36bd23f350b1ac55efcdb8**, expires **2026-12-20 UTC**. Current download and QA: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44830022599.
 - Artifact #206 and its SHA above are retained as immutable earlier proof. The #213 snapshot includes the substantive B5 docs and source register; this final log entry records #213 **after** that build, so this added line cannot appear retroactively inside the archived ZIP.
 - Nothing changed in `main` or deployed production. All B5 source/QA rules and limitations in docs/MASTERS_B5_SOURCE_REGISTER.md remain authoritative; **B6/B7 still open**.
+
+
+## B6 — Player Progress & Reputation · development preview v0.6.0 (2026-11-21)
+
+**New working product:** third Progress tab (RU/EN/AZ), 33/33 existing Academy lesson IDs with 4 track denominators, 31 historical game study statuses, 116 existing historical critical-move markers, 16 distinct named achievements, local unique-event Academy Reputation, and separate independently scored no-hint AI match outcomes. Live on-screen study progress is backed by the exact saved facts and cannot accumulate duplicate rewards for repeated Academy lessons, source moments or identical historical quizzes.
+
+**Rating integrity and exclusions:** opt-in `independent` match creates a fresh game and a new local match ID. UI disables hints, candidate legal-square markers, live B2 Coach, Undo, Academy entry and live review until the game ends. The score is accepted only after replay of a real completed chess.js PGN, correct recorded side/outcome and level/engine, with no admitted assistance or Stockfish fallback. Repeated match IDs ignored; changing mode/side/tier aborts the current game without counting. The client does not offer a fake FIDE Elo: **AI Ladder Index 0–100**, visible only after **5 eligible games**, provisional until 20, recent denominator `min(eligible_game_count,20)`, formula fully disclosed in `docs/PROGRESS_B6_DESIGN.md`. After result acceptance, B2 lightweight review is available without changing the recorded independent score.
+
+**Durable migration:** existing `chess-odyssey-v01` practice PGN/notes/lesson progress/stats and `chess-odyssey-masters-v1` bookmarks stay intact; new derived study and validated match metadata stored separately in `chess-odyssey-progress-v1`. Old coaching games are never retroactively counted as independent. Invalid B6 payload safely resets B6 state without replacing old course or practice state.
+
+### Red/green QA history
+
+| GitHub Actions run | Observed failure and repair |
+| --- | --- |
+| **#244**, ID `44844240544` | **FAIL** new pure B6 test: expected zero fully studied master games after visiting all annotated moves; several true final moves are themselves annotated, so those *do* satisfy the final-position criterion. Test repaired against actual full-game source truth. |
+| **#246**, ID `44844332581` | **FAIL** one additional assertion in the new B6 test: expected only visit+quiz points after studying all annotated moments, forgetting already-earned complete-game points. Corrected transparent denominator/reputation reconciliation. |
+| **#248**, ID `44844437906` | **FAIL** B6 Chrome E2E: attempted to use Practice's language selector while the Progress tab hid that section. Product UX genuinely lacked a visible Progress language switch. Added a first-class synchronized RU/EN/AZ selector and retargeted the test. |
+| **#257**, ID `44844743962` | **CANCELLED** by subsequent implementation and test commits before final verdict; not recorded as PASS. Added independent **post-game** two-ply Coach review, guarded against midgame leakage, plus a browser acceptance test. |
+| **#268**, ID `44845023609` | **PASS BOTH JOBS**: exactly 180/180 execution checks; complete source tests, real Chrome app/Stockfish, Studio/Arena, 26 new B6 browser cases, offline HTML and GPL ZIP. |
+
+### Executed final feature and regression totals — run #268
+
+| Executed QA gate | Pass | Fail |
+| --- | ---: | ---: |
+| B0/B1 chess legality and UI smoke | 12 | 0 |
+| B2 candidate/reply Coach unit | 8 | 0 |
+| B3 genuine engine UCI bridge | 7 | 0 |
+| B4 33-lesson legal/content checks | 8 | 0 |
+| B5 historic 31-game/1,923 SAN/116 note QA | 10 | 0 |
+| **B6 progress rules, methodology, migration and eligibility** | **19** | **0** |
+| Actual Stockfish native UCI and mate proof | 2 | 0 |
+| B2 postgame accounting and persisted note regressions | 5 | 0 |
+| Synthetic DOM legacy smoke | 9 | 0 |
+| Legacy real browser E2E | 21 | 0 |
+| Real Stockfish Worker+WASM browser E2E | 11 | 0 |
+| B4 real Chrome Academy | 16 | 0 |
+| B5 real Chrome Masters & Legends | 26 | 0 |
+| **B6 real Chrome Player Progress/Elo-exclusion and mobile** | **26** | **0** |
+| **TOTAL** | **180** | **0** |
+
+B6 real-browser gates include: no initial fake index, all three tabs, real B4 lesson completion and persisted ID, B5 true key-move visit/quiz/complete study and anti-farming, synchronized RU/EN/AZ, independent no-help/Undo/Coach+legal-destination blocking, match identity recovery after reload, practice isolation, a **deterministic fully legal six-ply Scholar Mate prefix** followed by the real browser UI click **Qxf7#** to complete an independent terminal game, postgame analysis after recording, deduplication across reloads, five separate fixture games giving 17/100 provisional Beginner index, invalid/incomplete PGN rejection, Stockfish fallback exclusion from file://, full offline `dist/ChessOdyssey_v0.6.0_PREVIEW.html`, 390px viewport and zero browser page errors. **Those seeded fixtures are deterministic functional QA, not a claim of five organic full-length live bot games**; B7 separately gates that.
+
+**Artifact #268:** actual `ChessOdyssey_v0.6.0_Stockfish_Preview.zip` built and CRC re-opened, **34 files**, **1,497,333 bytes**, internal SHA256 `bd3df6b169680442c3f30f09b7a94c9f8476e4197eb27d45d4d11676cf9f383b`. Download artifact `ChessOdyssey-v0.6.0-Progress-Stockfish-PREVIEW` (ID **14682112804**) has outer wrapper digest `19ccc9eaf541b2eb07b4bfbd82bceae9c8d63319acd8856f219aa685e1a82577`, retained through **2026-12-21 UTC**. Full evidence: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44845023609.
+
+### B6 accepted limitations and explicit B7 blockers
+
+- **Functional and automated QA: PASS**. This does **not** establish statistical Elo calibration or an official competitive rating. Bot's six strength presets have no human-rated calibration dataset, and localStorage entries are user-mutable. No leaderboard/identity verification/secure anti-cheat is claimed.
+- History capped at latest **500** local match entries (storage bound); very old games beyond that cap are not maintained in an audited lifetime ledger. Index uses only last 20 for denominator even before storage cap.
+- B6 browser test used a seeded legal terminal chess position and an actually clicked decisive move; independent long-game end-to-end/tournament sampling from ordinary new game through final position with human-like strategy is **NOT TESTED** here, and remains in B7.
+- Independent historical B5 source verification of every date/event, human RU/EN/AZ editorial audit, WCAG keyboard/contrast/assistive-technology validation, and physical Windows launcher E2E remain **NOT FULLY TESTED**.
+- B7 full production acceptance, deployment site and explicit owner-approved release boundary **BLOCKED**; `main` and production untouched.
