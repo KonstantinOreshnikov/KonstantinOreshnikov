@@ -43,7 +43,7 @@
       return {ok:false,state:current};
     const next={...current,remaining:{...current.remaining,
       [color]:current.remaining[color]+current.incrementMs},
-      active:color==="w"?"b":"w",at:now};
+      active:color==="w"?"b":"w",at:Math.max(now,current.at)};
     return {ok:true,state:next};
   }
   function pause(s,now){
@@ -52,7 +52,7 @@
   }
   function resume(s,now){
     if(!validNow(now))throw new Error("Invalid resume time");
-    return {...s,remaining:{...s.remaining},paused:false,at:now};
+    return {...s,remaining:{...s.remaining},paused:false,at:Math.max(now,s.at)};
   }
   function stop(s,now){
     const current=settle(s,now);
@@ -72,10 +72,30 @@
       return settle({...saved,remaining:{w:saved.remaining.w,b:saved.remaining.b}},now);
     }catch{return null;}
   }
+  function cannotMate(winner,position){
+    if(!["w","b"].includes(winner)||!position||!Array.isArray(position)||position.length!==8||position.some(r=>!Array.isArray(r)||r.length!==8))throw new Error("Invalid material position");
+    const pieces=position.flat().filter(Boolean);
+    const own=pieces.filter(p=>p.color===winner&&p.type!=="k");
+    const enemy=pieces.filter(p=>p.color!==winner&&p.type!=="k");
+    // Provable zero-mating material only; having a defender's blocking piece
+    // can enable otherwise impossible mates. Never award a false flag draw.
+    if(!own.length)return true;
+    if(enemy.length)return false;
+    if(own.length===1&&["n","b"].includes(own[0].type))return true;
+    if(own.every(p=>p.type==="b")){
+      const bishops=[];
+      for(let rank=0;rank<8;rank++)for(let file=0;file<8;file++){
+        const p=position[rank][file];
+        if(p&&p.color===winner&&p.type==="b")bishops.push((rank+file)%2);
+      }
+      if(bishops.length&&bishops.every(x=>x===bishops[0]))return true;
+    }
+    return false;
+  }
   function format(ms){
     const sec=Math.max(0,Math.ceil(ms/1000));
     const hours=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;
     return (hours?hours+":"+String(m).padStart(2,"0"):String(m).padStart(2,"0"))+":"+String(s).padStart(2,"0");
   }
-  return Object.freeze({PRESETS,config,start,settle,move,pause,resume,stop,restore,format});
+  return Object.freeze({PRESETS,config,start,settle,move,pause,resume,stop,restore,format,cannotMate});
 });
