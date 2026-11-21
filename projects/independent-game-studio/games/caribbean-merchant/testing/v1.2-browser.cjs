@@ -73,7 +73,7 @@ const loadState = (page, key) => page.evaluate(k => JSON.parse(localStorage.getI
     assert.equal((await snapshot(page)).current, selectedBefore, 'remote raid must not teleport ship');
     record('outpost spawns and remote attack cannot teleport the ship');
 
-    await page.locator('#portPicker').selectOption(target.city);
+    await page.locator(`.living-outpost [data-target-route="${target.city}"]`).click();
     await page.evaluate(() => {Math.random = () => 0.99;}); // deterministic safe route, no state injection
     await page.locator('#sailBtn').click();
     assert.equal((await snapshot(page)).current, target.city);
@@ -105,7 +105,7 @@ const loadState = (page, key) => page.evaluate(k => JSON.parse(localStorage.getI
     const beforeTravel = after.current;
     await page.locator('[data-tab="adventure"]').click();
     assert.equal(await page.locator('[data-living-defend="havana"]').isDisabled(), true);
-    await page.locator('#portPicker').selectOption('havana');
+    await page.locator('.living-city [data-target-route="havana"]').click();
     await page.evaluate(() => {Math.random = () => 0.99;});
     await page.locator('#sailBtn').click();
     assert.notEqual(beforeTravel, 'havana');
