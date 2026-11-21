@@ -168,9 +168,9 @@
    if(select){
      for(const option of select.options)option.textContent=format(option.value==="independent"?"independentMode":"practiceMode");
    }
-   // Actual integrity status is controlled by app.js while a game runs.
-   if(!document.getElementById("match-integrity")?.dataset?.reason)
-     setText("match-integrity",format(mode==="independent"?"independentIntegrity":"practiceIntegrity"));
+   // Keep the app-reported eligibility reason, translate on language changes.
+   const reason=$("match-integrity")?.dataset?.reason||(mode==="independent"?"independentIntegrity":"practiceIntegrity");
+   setText("match-integrity",format(reason));
  }
  function recordStudy(id,ply){
    const game=verified.byId[id];
