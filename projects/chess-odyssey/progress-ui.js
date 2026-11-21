@@ -13,7 +13,7 @@
  const KEY="chess-odyssey-progress-v1",PRACTICE_KEY="chess-odyssey-v01";
  const $=(x)=>document.getElementById(x);
  const translations={
-  ru:{progressTab:"Мой прогресс",eyebrow:"ВАШ ПУТЬ В ШАХМАТАХ",title:"Путь шахматиста",
+  ru:{progressTab:"Мой прогресс",progressLangLabel:"Язык",eyebrow:"ВАШ ПУТЬ В ШАХМАТАХ",title:"Путь шахматиста",
     lead:"Прогресс обучения и результаты самостоятельных партий учитываются отдельно.",
     reputation:"Репутация Академии",repNote:"За уникальные уроки, реальные исторические задачи и достижения. Повторы не накручивают очки.",
     academy:"Академия",lessons:"Пройдено интерактивных уроков",masters:"Мастера и легенды",mastersNote:"Изучены все ключевые моменты и финал партии",
@@ -38,7 +38,7 @@
     invalidRating:"Матч не подходит для индекса. Прогресс обучения не пострадал.",assistBlocked:"В самостоятельной партии помощь отключена.",
     loading:"Идёт самостоятельная партия: живые подсказки скрыты."
   },
-  en:{progressTab:"My progress",eyebrow:"YOUR CHESS LEARNING JOURNEY",title:"Your chess journey",
+  en:{progressTab:"My progress",progressLangLabel:"Language",eyebrow:"YOUR CHESS LEARNING JOURNEY",title:"Your chess journey",
     lead:"Learning progress and truly unassisted game results are tracked separately.",
     reputation:"Academy Reputation",repNote:"Unique lessons, historical puzzles and achievements; repeated work cannot farm points.",
     academy:"Academy",lessons:"Interactive lessons completed",masters:"Masters & Legends",mastersNote:"Every highlighted moment and the game ending studied",
@@ -63,7 +63,7 @@
     invalidRating:"Game is not eligible for the local index. Learning progress is unaffected.",assistBlocked:"Assistance is disabled in independent games.",
     loading:"Independent game in progress: live help is hidden."
   },
-  az:{progressTab:"Mənim inkişafım",eyebrow:"ŞAHMAT ÖYRƏNMƏ YOLUNUZ",title:"Şahmat inkişafınız",
+  az:{progressTab:"Mənim inkişafım",progressLangLabel:"Dil",eyebrow:"ŞAHMAT ÖYRƏNMƏ YOLUNUZ",title:"Şahmat inkişafınız",
     lead:"Təlim nəticələri və tam müstəqil oyunlar ayrıca hesablanır.",
     reputation:"Akademiya nüfuzu",repNote:"Təkrar xal toplamadan unikal dərslər, tarixi tapşırıqlar və nailiyyətlər üçün.",
     academy:"Akademiya",lessons:"Tamamlanmış interaktiv dərslər",masters:"Ustadlar və Əfsanələr",mastersNote:"Partiyanın bütün əsas məqamları və sonluğu öyrənilib",
@@ -108,7 +108,9 @@
    lang=["ru","en","az"].includes($("lang")?.value)?$("lang").value:lang;
    const sum=model(),matches=state.matches;
    setText("progress-eyebrow",format("eyebrow"));setText("progress-title",format("title"));
-   setText("progress-lead",format("lead"));setText("progress-rep-label",format("reputation"));
+   setText("progress-lead",format("lead"));setText("progress-lang-label",format("progressLangLabel"));
+   if($("progress-lang"))$("progress-lang").value=lang;
+   setText("progress-rep-label",format("reputation"));
    setText("progress-rep",sum.reputation);
    setText("progress-rep-note",format("repNote"));
    setText("progress-lessons-label",format("academy"));
@@ -207,6 +209,12 @@
    load();ready=true;refresh();
    $("lang").addEventListener("change",()=>{lang=$("lang").value;refresh();});
    $("m-lang").addEventListener("change",()=>{lang=$("m-lang").value;refresh();});
+   $("progress-lang").addEventListener("change",()=>{
+     lang=$("progress-lang").value;
+     $("m-lang").value=lang;
+     $("m-lang").dispatchEvent(new Event("change",{bubbles:true}));
+     refresh();
+   });
    document.addEventListener("chess-progress-change",refresh);
  }
  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});
