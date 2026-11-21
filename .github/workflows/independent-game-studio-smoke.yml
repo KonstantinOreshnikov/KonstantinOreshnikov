@@ -26,3 +26,5 @@ jobs:
           fi
       - name: Browser startup and persistence smoke
         run: node projects/independent-game-studio/qa/smoke.cjs
+      - name: Caribbean Merchant v1.2 gameplay regression
+        run: node projects/independent-game-studio/games/caribbean-merchant/testing/v1.2-browser.cjs
