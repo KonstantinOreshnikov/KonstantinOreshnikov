@@ -97,3 +97,30 @@ node scripts/serve-local.cjs
 - Follow Reuse First, Unlazy QA, Humanizer and Translation QA; historical source provenance and RU/EN/AZ semantic parity are held to explicit gates, never certified without evidence.
 
 **Release boundary:** the historical B7 v0.7.0 candidate passed automated QA, B8 clock feature QA and B9 local PvP QA have since passed separately. **Current stage is B9/v0.9 development, NOT a v0.9 shipped binary.** Owner signoff, authenticated Neon cloud PvP, production hostname/deploy and independent human editorial/accessibility certification remain **BLOCKED / NOT TESTED**. **Source code merged into `main` under explicit owner authorization (PR #7); no production deployment or v1.0 release.**
+
+## How the project changed
+
+```mermaid
+flowchart TB
+ A[B0–B2 legal chess and coaching] --> B[B3 real Stockfish and six levels]
+ B --> C[B4 Academy: 33 lessons]
+ C --> D[B5 Legends: 31 games]
+ D --> E[B6 private progress and 16 achievements]
+ E --> F[B7 release-candidate QA]
+ F --> G[B8 clocks and v0.8.0 preview]
+ G --> H[B9 local PvP and Neon staging]
+ H --> I[Real authenticated cloud PvP still open]
+```
+
+| Stage | Preserved artifact / evidence | What it means now |
+| --- | --- | --- |
+| **B0–B2 · v0.1, v0.1.1, v0.2.0, v0.2.1** | [Archived preview HTML builds](dist/) · [full change history](CHANGELOG.md) | Legal chess, beginner practice, coaching and postgame review; historical development previews. |
+| **B3 · v0.3.0** | [Stockfish preview](dist/ChessOdyssey_v0.3.0_PREVIEW.html) · [QA log](docs/QA_LOG.md) | Genuine Stockfish Worker/WASM at four stronger levels, with explicit offline fallback. |
+| **B4 · v0.4.0** | [Academy preview](dist/ChessOdyssey_v0.4.0_PREVIEW.html) · [roadmap](docs/ROADMAP.md) | 33 RU/EN/AZ lessons across rules, tactics, openings and endgames. |
+| **B5 · v0.5.0** | [Masters preview](dist/ChessOdyssey_v0.5.0_PREVIEW.html) · [source register](docs/MASTERS_B5_SOURCE_REGISTER.md) | 31 replayable historical games and 116 original key moments. |
+| **B6 · v0.6.0** | [Progress preview](dist/ChessOdyssey_v0.6.0_PREVIEW.html) · [design](docs/PROGRESS_B6_DESIGN.md) | 16 achievements, learning progress and private AI Ladder Index. |
+| **B7 · v0.7.0 RC** | [Candidate preview](dist/ChessOdyssey_v0.7.0_PREVIEW.html) · [238/238 historic QA](docs/RELEASE_B7_QA.md) | Automated release-candidate gates passed; independent human acceptance remained open. |
+| **B8 · v0.8.0 preview** | [Last packaged playable ZIP](releases/ChessOdyssey_v0.8.0_Stockfish_Preview.zip) · [main CI #407](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865) | Playable clocks and Stockfish; 3/3 CI jobs PASS, manual/device review open. |
+| **B9 · v0.9 development** | [Current source and staging status](docs/CURRENT_STATUS.md) · [Neon checkpoint](docs/B9_NEON_STAGING_CHECKPOINT_2026-11-21.md) | Local synthetic PvP and isolated Auth/database staging. **No v0.9 packaged release; no real authenticated cloud match verified.** |
+
+The earlier previews are retained as development history. The B9 stage is source development, while v0.8.0 remains the last packaged playable preview; [v1.0 gates](docs/ROADMAP.md) are still open.
