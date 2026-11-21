@@ -1,6 +1,6 @@
 # Chess Odyssey — Agent Instructions
 
-Application/runtime scope is ONLY `projects/chess-odyssey/`. Documentation-only synchronization of the top-level public portfolio README, `projects/README.md` and `projects/game-studio/README.md` is allowed on the chess development branch to correct project navigation/status. Never alter Kingdoms of Ember, Caribbean Merchant, Lord of Ultima runtime, their branches, their data or any production deployment.
+Application/runtime scope is ONLY `projects/chess-odyssey/`. Documentation-only synchronization of the top-level public portfolio README, `projects/README.md` and `projects/game-studio/README.md` is permitted via reviewed project PRs, but unrelated gameplay/source must stay isolated. Never alter Kingdoms of Ember, Caribbean Merchant, Lord of Ultima runtime, their branches, their data or any production deployment.
 
 **Current phase:** B9 / v0.9 DEVELOPMENT, not an idea; last packaged playable preview remains v0.8.0; no v0.9 release, no online PvP production. **Read first:** docs/CURRENT_STATUS.md -> docs/B9_NEON_STAGING_CHECKPOINT_2026-11-21.md -> docs/B9_NEON_INTEGRATION.md -> docs/QA_LOG.md -> docs/ROADMAP.md -> README.md -> docs/DEVELOPMENT_PROTOCOL.md -> CHANGELOG.md. Archived original idea: docs/ORIGINAL_CONCEPT_2026-11-20.md (**historical**, not current). Always verify actual CI and live Neon state before changing status.
 
@@ -20,10 +20,10 @@ These are repository-local agent operating instructions, not a claim that upstre
 - Neon Staging `wild-hall-05832800`, PostgreSQL 17 Frankfurt, Better Auth email+OTP configured with owner authorization. Four application tables have RLS+FORCE RLS and **zero** allow policies. Zero genuine users/games verified. Live authenticated PvP, issuer/signature checks, transactional durable adapter, real OTP and negative security QA are NOT TESTED.
 - `pvp/dev-server.cjs` uses spoofable `X-Demo-User`, limited to loopback. This fixture MUST NEVER be publicly served or re-used as production authentication; do not claim live PvP based on it.
 - In production protect data and credentials, perform authenticated two-real-user tests, preserve opt-in migration and distinct AI Ladder Index/PvP scores. Keep B8 independent RU/EN/AZ manual review and B5 second-archive checks OPEN.
-- Owner-approved staging Auth changes are not permission for production, main merges or public deployment.
+- Owner explicitly authorized GitHub source and docs merges into `main` on 2026-11-21 (PR #7/#8, both merged). That does **not** authorize future unreviewed source merges, production DB changes or a public deployment.
 
 ## Release barrier
 
-Do not merge main or deploy a production site unless version-specific gates in docs/DEVELOPMENT_PROTOCOL.md are PASS and release scope/destination approved. Retain failed CI run IDs and fixes in docs/QA_LOG.md; no silent edits to QA history.
+GitHub code was **already merged to `main` with explicit owner approval** (development source publication). For future merges require explicit scope authorization and green relevant source CI. **Never declare a v1.0 production release or deploy a public site until all release gates PASS and the owner specifically approves destination/deploy.** Retain failed CI run IDs and fixes in docs/QA_LOG.md; no silent edits to QA history.
 
 Commit coherent increments to the dedicated game branch; preserve standalone preview versions for rollback. Keep docs/ROADMAP.md and CHANGELOG.md current.
