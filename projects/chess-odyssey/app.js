@@ -659,6 +659,7 @@ function hint(){
     if(matchSession&&(!PROGRESS||!window.ChessProgress?.recordGame||Boolean(clockState?.baseMs)))matchSession.assisted=true;
     if(matchSession&&ENGINE.profile(difficulty).mode!=="local"&&!canRunStockfish())matchSession.fallback=true;
     updateEngineAvailability();restoreMatchNotice();
+    text("clock-policy",clockState?.baseMs?tr("clockPolicy"):"");
     learnMessage("");message(tr("newGame")+" "+(currentMatch()?prog("loading"):tr("notRated")));render();renderAcademy();persist();
     if(side==="b")scheduleBot();
   }
