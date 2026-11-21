@@ -11,6 +11,7 @@ on:
       - "projects/chess-odyssey/engine-bridge.js"
       - "projects/chess-odyssey/academy.js"
       - "projects/chess-odyssey/masters-*.js"
+      - "projects/chess-odyssey/progress-*.js"
       - "projects/chess-odyssey/data/masters-source-scores.json"
       - "projects/chess-odyssey/README.md"
       - "projects/chess-odyssey/CHANGELOG.md"
@@ -35,6 +36,7 @@ on:
       - "projects/chess-odyssey/engine-bridge.js"
       - "projects/chess-odyssey/academy.js"
       - "projects/chess-odyssey/masters-*.js"
+      - "projects/chess-odyssey/progress-*.js"
       - "projects/chess-odyssey/data/masters-source-scores.json"
       - "projects/chess-odyssey/README.md"
       - "projects/chess-odyssey/CHANGELOG.md"
@@ -75,6 +77,10 @@ jobs:
           node --check projects/chess-odyssey/masters-notes-c.js
           node --check projects/chess-odyssey/masters-core.js
           node --check projects/chess-odyssey/masters-ui.js
+          node --check projects/chess-odyssey/progress-core.js
+          node --check projects/chess-odyssey/progress-ui.js
+          node --check projects/chess-odyssey/tests/progress-content.cjs
+          node --check projects/chess-odyssey/tests/progress-browser.cjs
           node --check projects/chess-odyssey/tests/masters-content.cjs
           node --check projects/chess-odyssey/tests/masters-browser.cjs
           node --check projects/chess-odyssey/tests/academy-content.cjs
@@ -98,6 +104,7 @@ jobs:
           node tests/engine-bridge.cjs
           node tests/academy-content.cjs
           node tests/masters-content.cjs
+          node tests/progress-content.cjs
           node tests/stockfish-uci.cjs
           node tests/postgame-smoke.cjs
           node tests/dom-smoke.cjs
@@ -127,17 +134,18 @@ jobs:
       - name: Run browser regression
         working-directory: projects/chess-odyssey
         run: |
-          node scripts/build-standalone.cjs 0.5.0
+          node scripts/build-standalone.cjs 0.6.0
           node tests/browser.cjs
           node tests/stockfish-browser.cjs
           node tests/academy-browser.cjs
           node tests/masters-browser.cjs
+          node tests/progress-browser.cjs
       - name: Build and verify Stockfish preview ZIP with full GPL license
         working-directory: projects/chess-odyssey
         run: python3 scripts/package-preview.py
       - uses: actions/upload-artifact@v4
         with:
-          name: ChessOdyssey-v0.5.0-Masters-Stockfish-PREVIEW
-          path: projects/chess-odyssey/dist/ChessOdyssey_v0.5.0_Stockfish_Preview.zip
+          name: ChessOdyssey-v0.6.0-Progress-Stockfish-PREVIEW
+          path: projects/chess-odyssey/dist/ChessOdyssey_v0.6.0_Stockfish_Preview.zip
           if-no-files-found: error
           retention-days: 30
