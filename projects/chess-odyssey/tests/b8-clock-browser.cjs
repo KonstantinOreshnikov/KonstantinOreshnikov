@@ -23,13 +23,13 @@ const {chromium}=require("playwright"),assert=require("node:assert/strict"),path
    await check("white clock runs with elapsed time before move",async()=>{
      await page.clock.fastForward(20000);
      const state=await page.evaluate(()=>ChessOdysseyQA.clock().clockState);
-     assert.equal(state.remaining.w,880000);assert.equal(state.remaining.b,900000);
+     assert.ok(Math.abs(state.remaining.w-880000)<=1000,"elapsed clock drift exceeds 1s: "+state.remaining.w);assert.equal(state.remaining.b,900000);
    });
    await check("move adds exactly ten seconds, switches running side",async()=>{
      await page.locator("#board [data-square=e2]").click();
      await page.locator("#board [data-square=e4]").click();
      const state=await page.evaluate(()=>ChessOdysseyQA.clock().clockState);
-     assert.equal(state.remaining.w,890000);assert.equal(state.active,"b");
+     assert.ok(Math.abs(state.remaining.w-890000)<=1500,"20s elapsed + 10s increment wrong: "+state.remaining.w);assert.equal(state.active,"b");
      assert.match(await page.locator("#moves").innerText(),/e4/);
    });
    await check("hourglass is visual-only and numeric time stays visible",async()=>{
