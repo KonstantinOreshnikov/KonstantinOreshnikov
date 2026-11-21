@@ -72,6 +72,7 @@ jobs:
           node --check projects/chess-odyssey/app.js
           node --check projects/chess-odyssey/clock-core.js
           node --check projects/chess-odyssey/tests/clock-core.cjs
+          node --check projects/chess-odyssey/tests/b8-clock-browser.cjs
           node --check projects/chess-odyssey/coach-engine.js
           node --check projects/chess-odyssey/engine-bridge.js
           node --check projects/chess-odyssey/academy.js
@@ -154,6 +155,7 @@ jobs:
           node tests/release-browser.cjs
           node tests/release-live-match-browser.cjs
           node tests/release-accessibility.cjs
+          node tests/b8-clock-browser.cjs
       - name: Build and verify Stockfish preview ZIP with full GPL license
         working-directory: projects/chess-odyssey
         run: python3 scripts/package-preview.py
