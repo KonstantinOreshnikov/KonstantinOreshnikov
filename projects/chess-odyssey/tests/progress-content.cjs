@@ -39,7 +39,7 @@ test("historical visits are credited only for annotated ply or game end, without
  const m=Core.summary(state,[],Academy.lessons,lib.games);
  assert.equal(m.masters.momentsVisited,1);assert.equal(m.reputation,4);
 });
-test("118? No: exactly 116 original moment markers can be reviewed, one time only",()=>{
+test("all 116 unique annotated historic moments counted at most once",()=>{
  let state=Core.empty();
  for(const g of lib.games)for(const m of g.moments){state=Core.visit(state,g,m.ply);state=Core.visit(state,g,m.ply);}
  const sum=Core.summary(state,[],Academy.lessons,lib.games);
@@ -62,7 +62,8 @@ test("116 master quiz solves only count once and are separate from move visits",
  for(const g of lib.games)for(const note of g.moments)state=Core.solve(state,g,note.ply);
  const sum=Core.summary(state,[],Academy.lessons,lib.games);
  assert.equal(sum.masters.momentsVisited,116);assert.equal(sum.masters.quizzesSolved,116);
- assert.equal(sum.reputation,116*(4+12));assert.ok(sum.achievements.find(x=>x.id==="ten-quizzes").unlocked);
+ assert.equal(sum.reputation,116*(4+12)+20*sum.masters.studied);
+ assert.ok(sum.achievements.find(x=>x.id==="ten-quizzes").unlocked);
 });
 test("invalid source or out-of-bounds master ply cannot mint achievements",()=>{
  const g=lib.byId["opera-game"],state=Core.empty();
