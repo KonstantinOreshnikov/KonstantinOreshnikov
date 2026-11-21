@@ -1,6 +1,6 @@
 # Chess Odyssey B7 — v0.7.0 Release-Candidate QA Protocol
 
-**Status:** Acceptance execution pending (do not declare PASS before CI).  
+**Status:** **B7 functional and automated RC acceptance PASS** — [actual three-job GitHub Actions #328](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44882567499); **v1.0 production still BLOCKED** on remaining human/owner gates.  
 **Branch:** `game/chess-odyssey-v0.1`; **release policy:** no `main` merge or deployment without explicit owner authorization.  
 **Baseline:** B6 v0.6.0 successful GitHub Actions #275, 180/180 automated checks plus 34-file GPL source-inclusive ZIP.
 
@@ -12,14 +12,14 @@ Rebuild from the complete source with no new backend, subscription, ads, remote 
 
 | Gate | Required evidence | Status at design |
 | --- | --- | --- |
-| A — Legal chess | Known perft 20/400/8902/197281, both castles, en passant expiry, Q/N promotion, checkmate, stalemate, insufficient material and threefold exercise draw | **PENDING** full B7 run |
-| B — AI and Coach | Stockfish legal UCI and mate proof; no stale Worker reply; historical 31 complete games, original 116 teaching SAN positions; 33 valid lessons | **PENDING** full B7 regression |
-| C — Practice/rated separation | B6 strict no live help, duplicate-result/Undo/fallback exclusions, full standard-start PGN proof, multi-reload integrity | **PENDING** full B7 run |
-| D — Distribution/licensing | Versioned full GPL ZIP with unmodified Stockfish binary, manifest/source link, third-party notices, CRC and SHA256, no external runtime scripts | **PENDING** built artifact |
-| E — Desktop/mobile | Real Chrome keyboard/pointer moves; castling, en passant, modal promotions, repetition draw and re-undo, checkmate, full source-game replay, autosave, 320/390/768/1024px, standalone | **PENDING** B7 Chromium |
-| F — RU/EN/AZ | Coverage and semantic key assertions of all 33 lessons/116 notes/16 achievements, keyboard instructions, names, promotion; independent human professional proofreading | **AUTOMATED COVERAGE PENDING; HUMAN NOT TESTED** |
-| G — Accessibility | Real axe-core WCAG 2.2 A/AA scans 3 tabs at 1280/390, modal, keyboard arrows/roving Tab/focus trap, accessible speech labels; screen-reader manual audit | **AUTOMATED PENDING; SCREEN READER NOT TESTED** |
-| H — Regression & rollback | B0–B6 180 checks + B7 new tests green, all critical defects resolved or individually tracked; old v0.6.0 artifacts retained, reproducible v0.7.0 package, actual Windows runner | **PENDING** full CI + Windows |
+| A — Legal chess | Known perft 20/400/8902/197281, both castles, en passant expiry, Q/N promotion, checkmate, stalemate, insufficient material and threefold exercise draw | **PASS — 22/22 added B7 Unit QA plus baseline** |
+| B — AI and Coach | Stockfish legal UCI and mate proof; no stale Worker reply; historical 31 complete games, original 116 teaching SAN positions; 33 valid lessons | **PASS — all B0–B6 regressions + real Stockfish** |
+| C — Practice/rated separation | B6 strict no live help, duplicate-result/Undo/fallback exclusions, full standard-start PGN proof, multi-reload integrity | **PASS — organic independent game and protected PGN** |
+| D — Distribution/licensing | Versioned full GPL ZIP with unmodified Stockfish binary, manifest/source link, third-party notices, CRC and SHA256, no external runtime scripts | **PASS — 40-file GPL ZIP and SHA/CRC validated** |
+| E — Desktop/mobile | Real Chrome keyboard/pointer moves; castling, en passant, modal promotions, repetition draw and re-undo, checkmate, full source-game replay, autosave, 320/390/768/1024px, standalone | **PASS — 27/27 Browser + 1/1 full unseeded game** |
+| F — RU/EN/AZ | Coverage and semantic key assertions of all 33 lessons/116 notes/16 achievements, keyboard instructions, names, promotion; independent human professional proofreading | **AUTOMATED COVERAGE PASS; HUMAN EDITORIAL NOT TESTED** |
+| G — Accessibility | Real axe-core WCAG 2.2 A/AA scans 3 tabs at 1280/390, modal, keyboard arrows/roving Tab/focus trap, accessible speech labels; screen-reader manual audit | **AXE 7/7 PASS, zero violations; HUMAN SCREEN READER NOT TESTED** |
+| H — Regression & rollback | B0–B6 180 checks + B7 new tests green, all critical defects resolved or individually tracked; old v0.6.0 artifacts retained, reproducible v0.7.0 package, actual Windows runner | **PASS — 237/237 Node+Chrome checks and Windows 1/1** |
 | I — Production owner | Approved production hostname/hosting, user acceptance of external historical/editorial limitations, authorized merge and verified release | **BLOCKED — requires explicit owner approval** |
 
 **Do not call `v1.0 ready` while Gate I is blocked or material high-impact defects remain.** A green v0.7.0 release candidate is a **development milestone**, not a public deployment.
@@ -40,6 +40,31 @@ Rebuild from the complete source with no new backend, subscription, ads, remote 
 - B7 primary score re-fetch: `docs/SOURCE_B7_REFRESH.md` records **31/31 full primary-page matches / 1,923 SAN** and all metadata. This **does not independently double-source** the 25 remaining historic score records; B5 register owns second-archive provenance limitations.
 - Last 500 local independently recorded bot matches are retained; not a lifetime audited total and not a secure human skill estimate. AI Ladder Index 0–100 is not Elo.
 - A correct UI checkmate reached from a seeded **legal, standard-start PGN prefix** is a deterministic E2E check, not a claim of many organic, fully independent games played by people.
+
+## Executed B7 checkpoint — GitHub Actions #328
+
+**Three jobs SUCCESS:** Offline rules+app, genuine Chromium E2E and actual packaged Windows .cmd launcher/loopback/Stockfish assets.
+
+| Gate family | Executed checks | Result |
+| --- | ---: | --- |
+| B0–B6 existing complete baseline | 180 | PASS |
+| New B7 perft/special chess rules/PGN provenance/source/legal translation | 22 | PASS |
+| B7 real Chrome desktop/mobile/practice special moves, keyboard/ARIA | 27 | PASS |
+| **Organic unseeded actual Stockfish-as-user vs Beginner bot full match** | **1** | **PASS — 21 plies, 11 user turns, checkmate** |
+| B7 axe-core WCAG 2.2 A/AA on 3 tabs × 2 viewports + actual promotion modal | 7 | PASS — 0 automated violations |
+| **Subtotal Node + Chromium** | **237** | **PASS** |
+| Real Windows 2022 .cmd packaged local server, loopback binding, GPL, WASM | 1 | PASS |
+| **Total executable gates** | **238** | **238 PASS / 0 FAIL** |
+
+**Real organic game evidence:** Browser opened `index.html` via localhost, selected Independent/Beginner; a **second genuine Stockfish 19 Lite Worker** calculated user moves, clicked each on the actual chessboard, and the real Beginner AI replied through app.js. **No PGN was seeded and no bot move was mocked.** Normal starting position to real **21-ply checkmate**. The terminal result was counted once as an independent match and remained once after reload; the AI Index stayed hidden because only one independent match existed. This verifies **complete gameplay**, but is **not** human skill calibration or proof of every potential opening.
+
+**Source reconciliation:** all 31 historical primary game pages freshly re-fetched, 1,923 full SAN moves matched and all recorded players/years/results consistent; independent secondary archive gaps disclosed in `docs/SOURCE_B7_REFRESH.md`.
+
+**Executed B7 package in #328:** 40 files, 1,522,339 bytes, SHA256 `282ce29786d345d3416f3f2f9083265575659b768f0d48b3ebc48d3ac6b56928`. Note that this is the **#328 snapshot**, and a later documentation-synchronized repack can have a new deterministic SHA; the current SHA and artifact are tracked in QA_LOG.md. [Complete CI #328](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44882567499).
+
+### Truthful v1.0 gate summary
+
+**Automated functional QA A–E and technical parts of F–H PASS.** There is **no claim of full WCAG certification** from axe, nor human editorial RU/AZ/EN sign-off, nor independent historical double-source proof for every score. Gate I remains **BLOCKED** until an explicit owner-approved destination, merge, production deploy and post-deploy smoke. No authorization to do any of those actions has been received in this turn.
 
 ## Verification and handoff
 
