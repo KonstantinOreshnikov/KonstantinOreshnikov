@@ -1,6 +1,6 @@
 # Chess Odyssey — CURRENT STATUS / project entrypoint
 
-**As verified 2026-11-21 | CURRENT DEVELOPMENT PHASE: B9 / v0.9 (in progress). NOT an idea. NOT production v1.0.**  
+**VERIFIED 2026-11-21 | B9 / v0.9 DEVELOPMENT ON GITHUB MAIN (SOURCE MERGED). Main-branch GitHub Actions [#407](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865) **3/3 JOBS PASS**. NOT a v0.9 binary release, NOT production v1.0.**  
 **Last packaged playable preview:** **v0.8.0** from [GitHub Actions #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) (all three jobs SUCCESS). **No separately shipped v0.9 HTML/ZIP has been verified**, so v0.9 is the *development phase*, not a published binary.
 
 > This is the **primary navigation and current-state entrypoint**. Historical `ORIGINAL_CONCEPT_2026-11-20.md`, B0–B7 documents and prior CI results remain evidence of earlier phases, not today's project status. Source code + actual current CI, Neon staging readback and `QA_LOG.md` outrank descriptive summaries. Chess Odyssey source and docs were merged to **`main`** by the owner's explicit instruction (PR #7); the older development branch remains historical. PR #8 merged the public portfolio statuses. Future runtime development should use a separate reviewed branch; production remains undeployed.
@@ -22,7 +22,7 @@ A standalone independently authored browser chess learning platform: **learn che
 | **B9 — CURRENT** | Small-group friends PvP: server-side legal-move enforcement, invites, timeouts, draw/resignation/rematch; Neon staging Postgres + Better Auth | **Local synthetic PvP 27/27 domain + 15/15 HTTP + 11/11 dual Chrome PASS in #403**; actual live authenticated Neon PvP NOT yet integrated or tested. Neon staging schema/Auth provisioned, readback PASS |
 | B10 | Independent final QA, authentic dual-user cloud E2E, accessibility and source review, owner UAT, deployment, domain/hosting choice and release | **BLOCKED / NOT STARTED** as a release; production NOT deployed |
 
-**CI evidence:** [run #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) on the Chess Odyssey branch: **3/3 jobs PASS** (unit/integration, real Chromium, actual Windows launcher). This does not verify live Neon HTTP calls or real-user login.
+**Current post-merge CI evidence:** [run #407](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865) on **`main`**, 3/3 jobs PASS (unit/integration, real Chromium and native Windows launcher). Prior developer-branch [#403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) preserved. Neither run includes real Neon HTTP sessions or genuine cloud user login.
 
 ## B9 Neon infrastructure — verified staging state (NOT public production)
 - Connected organization: `Konstantin` (Free). Isolated project **Chess Odyssey — Staging**, PostgreSQL 17, region Frankfurt; ID `wild-hall-05832800`, branch `staging` ID `br-still-credit-b9voxawu`; database `chess_odyssey`.
@@ -42,7 +42,7 @@ A standalone independently authored browser chess learning platform: **learn che
 ## GitHub source publication checkpoint — 2026-11-21
 - Owner explicitly authorized both GitHub merges: **PR #8** portfolio docs (squash commit `56d6c8406989c9887164c526c275e248de690f66`) then **PR #7** chess source and CI (merge commit `cc3934d4fdefd0635339ef146cb760e43bb2553d`).
 - All 86 Chess Odyssey source/workflow blobs reconciled against current `main` with zero unrelated modifications, missing assets or deleted main files. Main branch contains the game, licensed Stockfish WASM, tests and documentation. This is **source publication**, NOT an online game deployment or a v0.9 release.
-- GitHub Actions last verified before source merge: #403 all 3 jobs green. Main-branch CI monitoring is enabled by follow-up docs/CI PR; **a distinct post-merge main CI PASS must be measured separately** before claiming it.
+- **POST-MERGE MAIN QA VERIFIED:** owner-approved docs/CI PR #9 merged as commit `4a425823206c806df671c0abc9b69f02770067b7`. The subsequent [main push workflow #407](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865) completed **3/3 jobs SUCCESS**: Node/unit/integration (B8 clock 32/32, B9 domain 27/27, HTTP 15/15), real Chrome (B8 12/12, two-browser B9 11/11, original regression), and real Windows launcher 1/1 with Stockfish WASM/GPL. New playable **v0.8.0** artifact contains 42 files, inner ZIP SHA256 `3bac88d0d34bcf41fdaedb4b63e482398e6f850c5ba183f2d15bf0e07fcb3395`; downloadable [Artifact #14705809423](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865/artifacts/14705809423). Previous #403 developer-branch results retained as historical. **Real Neon-user cloud E2E remains NOT DONE.**
 
 ## Canonical navigation
 - [Game README](../README.md) — how to run the current last *playable* preview and current feature inventory
