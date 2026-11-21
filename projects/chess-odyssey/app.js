@@ -718,7 +718,7 @@ function hint(){
     document.documentElement.lang=language;
     for(const node of document.querySelectorAll("[data-i18n]")){
       const name=node.getAttribute("data-i18n");
-      node.textContent=LABELS[language][name]||LABELS.ru[name]||name;
+      node.textContent=LABELS[language][name]||(B8_TEXT[language]||B8_TEXT.ru)[name]||LABELS.ru[name]||B8_TEXT.ru[name]||name;
     }
     const task=lessonTask();
     if(task){learnMessage(lessonPrompt(task));message(task.intro[language]);}
@@ -732,6 +732,8 @@ function hint(){
       else message(tr("select"));
     }
     renderAcademy();showHints();renderReview();render();
+    if($("clock-policy"))text("clock-policy",clockState?.baseMs?tr("clockPolicy"):"");
+    if($("sound-enabled"))$("sound-enabled").checked=soundEnabled;
     const names=PROMOTE_NAMES[language]||PROMOTE_NAMES.ru;
     for(const button of document.querySelectorAll("[data-promote]")){
       button.setAttribute("aria-label",names[button.dataset.promote]);
@@ -742,9 +744,9 @@ function hint(){
     showEngineStatus(lastEngineKind);restoreMatchNotice();
   }
     const LABELS={
-    ru:{title:"Chess Odyssey",boardHelp:"Клавиши со стрелками — перемещение по доске; Enter или пробел — выбрать клетку.",promotionHelp:"Выберите фигуру для превращения пешки. Escape — отменить.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Учимся играя",newGame:"Новая партия",undo:"Отменить ход",hint:"Подсказка",game:"Тренировочная партия",level:"Сложность AI",side:"Мои фигуры",language:"Язык",flip:"Повернуть доску",lessons:"Академия",chooseLesson:"Выбрать урок…",resume:"Вернуться к партии",academyTrack:"Раздел обучения",allTracks:"Все разделы",trackBasics:"Основы и правила",trackTactics:"Тактика и комбинации",trackOpenings:"Дебютные идеи",trackEndgames:"Эндшпиль",academyLesson:"Урок или задача",nextLesson:"Следующий урок",reviewButton:"Разобрать ходы",reviewTitle:"Ключевые моменты",record:"Победы / поражения / ничьи",done:"Пройдено уроков",moves:"История ходов",about:"Рейтинг отключён в тренировке; без таймера",white:"Белые",black:"Чёрные",beginner:"Начинающий",novice:"Любитель",intermediate:"Средний",advanced:"Продвинутый",expert:"Эксперт",grandmaster:"Гроссмейстерский вызов"},
-    en:{title:"Chess Odyssey",boardHelp:"Use arrow keys to move focus across the board. Enter or Space selects a square.",promotionHelp:"Choose the new piece for the pawn. Press Escape to cancel.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Learn by playing",newGame:"New game",undo:"Undo move",hint:"Hint",game:"Practice game",level:"AI difficulty",side:"My pieces",language:"Language",flip:"Flip board",lessons:"Academy",chooseLesson:"Choose a lesson…",resume:"Return to game",academyTrack:"Learning track",allTracks:"All tracks",trackBasics:"Rules and essentials",trackTactics:"Tactics and combinations",trackOpenings:"Opening ideas",trackEndgames:"Endgame",academyLesson:"Lesson or challenge",nextLesson:"Next lesson",reviewButton:"Review moves",reviewTitle:"Key moments",record:"Wins / losses / draws",done:"Lessons completed",moves:"Move history",about:"No rating in practice; no chess clock",white:"White",black:"Black",beginner:"Beginner",novice:"Novice",intermediate:"Intermediate",advanced:"Advanced",expert:"Expert",grandmaster:"Grandmaster Challenge"},
-    az:{title:"Chess Odyssey",boardHelp:"Ox düymələri ilə taxtada hərəkət edin. Xanəni seçmək üçün Enter və ya boşluq basın.",promotionHelp:"Piyadanın çevriləcəyi fiquru seçin. Ləğv etmək üçün Escape basın.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Oynayaraq öyrənin",newGame:"Yeni oyun",undo:"Gedişi ləğv et",hint:"İpucu",game:"Məşq oyunu",level:"AI çətinliyi",side:"Mənim fiqurlarım",language:"Dil",flip:"Taxtanı çevir",lessons:"Akademiya",chooseLesson:"Dərs seçin…",resume:"Oyuna qayıt",academyTrack:"Təlim bölməsi",allTracks:"Bütün bölmələr",trackBasics:"Qaydalar və əsaslar",trackTactics:"Taktika və kombinasiyalar",trackOpenings:"Debüt ideyaları",trackEndgames:"Endşpil",academyLesson:"Dərs və ya tapşırıq",nextLesson:"Növbəti dərs",reviewButton:"Gedişləri təhlil et",reviewTitle:"Əsas məqamlar",record:"Qələbə / məğlubiyyət / heç-heçə",done:"Tamamlanmış dərslər",moves:"Gedişlərin tarixçəsi",about:"Məşqdə reytinq yoxdur; vaxt limiti yoxdur",white:"Ağlar",black:"Qaralar",beginner:"Başlanğıc",novice:"Həvəskar",intermediate:"Orta",advanced:"İrəliləmiş",expert:"Ekspert",grandmaster:"Qrossmeyster sınağı"}
+    ru:{title:"Chess Odyssey",boardHelp:"Клавиши со стрелками — перемещение по доске; Enter или пробел — выбрать клетку.",promotionHelp:"Выберите фигуру для превращения пешки. Escape — отменить.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Учимся играя",newGame:"Новая партия",undo:"Отменить ход",hint:"Подсказка",game:"Тренировочная партия",level:"Сложность AI",side:"Мои фигуры",language:"Язык",flip:"Повернуть доску",lessons:"Академия",chooseLesson:"Выбрать урок…",resume:"Вернуться к партии",academyTrack:"Раздел обучения",allTracks:"Все разделы",trackBasics:"Основы и правила",trackTactics:"Тактика и комбинации",trackOpenings:"Дебютные идеи",trackEndgames:"Эндшпиль",academyLesson:"Урок или задача",nextLesson:"Следующий урок",reviewButton:"Разобрать ходы",reviewTitle:"Ключевые моменты",record:"Победы / поражения / ничьи",done:"Пройдено уроков",moves:"История ходов",about:"В тренировке рейтинг не меняется; часы настраиваются перед партией",white:"Белые",black:"Чёрные",beginner:"Начинающий",novice:"Любитель",intermediate:"Средний",advanced:"Продвинутый",expert:"Эксперт",grandmaster:"Гроссмейстерский вызов"},
+    en:{title:"Chess Odyssey",boardHelp:"Use arrow keys to move focus across the board. Enter or Space selects a square.",promotionHelp:"Choose the new piece for the pawn. Press Escape to cancel.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Learn by playing",newGame:"New game",undo:"Undo move",hint:"Hint",game:"Practice game",level:"AI difficulty",side:"My pieces",language:"Language",flip:"Flip board",lessons:"Academy",chooseLesson:"Choose a lesson…",resume:"Return to game",academyTrack:"Learning track",allTracks:"All tracks",trackBasics:"Rules and essentials",trackTactics:"Tactics and combinations",trackOpenings:"Opening ideas",trackEndgames:"Endgame",academyLesson:"Lesson or challenge",nextLesson:"Next lesson",reviewButton:"Review moves",reviewTitle:"Key moments",record:"Wins / losses / draws",done:"Lessons completed",moves:"Move history",about:"Practice does not affect rating; set clocks before playing",white:"White",black:"Black",beginner:"Beginner",novice:"Novice",intermediate:"Intermediate",advanced:"Advanced",expert:"Expert",grandmaster:"Grandmaster Challenge"},
+    az:{title:"Chess Odyssey",boardHelp:"Ox düymələri ilə taxtada hərəkət edin. Xanəni seçmək üçün Enter və ya boşluq basın.",promotionHelp:"Piyadanın çevriləcəyi fiquru seçin. Ləğv etmək üçün Escape basın.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Oynayaraq öyrənin",newGame:"Yeni oyun",undo:"Gedişi ləğv et",hint:"İpucu",game:"Məşq oyunu",level:"AI çətinliyi",side:"Mənim fiqurlarım",language:"Dil",flip:"Taxtanı çevir",lessons:"Akademiya",chooseLesson:"Dərs seçin…",resume:"Oyuna qayıt",academyTrack:"Təlim bölməsi",allTracks:"Bütün bölmələr",trackBasics:"Qaydalar və əsaslar",trackTactics:"Taktika və kombinasiyalar",trackOpenings:"Debüt ideyaları",trackEndgames:"Endşpil",academyLesson:"Dərs və ya tapşırıq",nextLesson:"Növbəti dərs",reviewButton:"Gedişləri təhlil et",reviewTitle:"Əsas məqamlar",record:"Qələbə / məğlubiyyət / heç-heçə",done:"Tamamlanmış dərslər",moves:"Gedişlərin tarixçəsi",about:"Məşq reytinqə təsir etmir; saatı oyundan əvvəl seçin",white:"Ağlar",black:"Qaralar",beginner:"Başlanğıc",novice:"Həvəskar",intermediate:"Orta",advanced:"İrəliləmiş",expert:"Ekspert",grandmaster:"Qrossmeyster sınağı"}
   };
   function init(){
     if(typeof Chess!=="function")throw new Error("Rules Engine missing");
@@ -752,6 +754,20 @@ function hint(){
     if(!ENGINE||typeof ENGINE.legalUci!=="function")throw new Error("Chess Engine Bridge missing");
     restore();
     $("new-game").addEventListener("click",newGame);
+    if($("rematch"))$("rematch").addEventListener("click",newGame);
+    if($("resign"))$("resign").addEventListener("click",()=>{
+      if(finalized||lesson||parked||game.game_over())return;
+      if(typeof window.confirm==="function"&&!window.confirm(tr("confirmResign")))return;
+      endedBy={type:"resign",loser:side,draw:false};clearTimeout(aiTimer);++epoch;engine.cancel();finish();
+    });
+    if(CLOCK){
+      $("time-control").addEventListener("change",newGame);
+      $("custom-minutes").addEventListener("change",()=>{if($("time-control").value==="custom")newGame();});
+      $("custom-increment").addEventListener("change",()=>{if($("time-control").value==="custom")newGame();});
+      $("clock-style").addEventListener("change",()=>{clockTheme=$("clock-style").value;clockTick();persist();});
+      $("sound-enabled").addEventListener("change",()=>{soundEnabled=$("sound-enabled").checked;persist();});
+      if(typeof setInterval==="function")setInterval(clockTick,250);
+    }
     $("undo").addEventListener("click",undo);
     $("resume-game").addEventListener("click",resumeGame);
     $("next-lesson").addEventListener("click",nextLesson);
@@ -785,8 +801,9 @@ function hint(){
     refreshLabels();restoreMatchNotice();
     if(showReview)renderReview();
     if(game.turn()!==side && !game.game_over() && !finalized)scheduleBot();
+    clockTick();
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init); else init();
   // Stable test surface without providing a user-facing debug console.
-  window.ChessOdysseyQA={academy:()=>({total:LESSONS.length,tracks:ACADEMY.tracks.map(x=>x.id),active:lesson,step:lessonStep}),levels:()=>ENGINE.ids.slice(),engineStatus:()=>lastEngineKind,legalUci:(fen,uci)=>{const c=new Chess(fen);return ENGINE.legalUci(c,uci);},legalCount:(fen)=>{const c=new Chess();if(fen&&!c.load(fen))throw new Error("invalid FEN");return c.moves().length;},lessonIds:()=>LESSONS.map(x=>x.id),evaluate:()=>scorePosition(),coach:()=>COACH.version,notes:()=>notes.length,match:()=>({mode:matchMode,session:matchSession&&{...matchSession},finalized}),progress:()=>window.ChessProgress.snapshot().summary};
+  window.ChessOdysseyQA={academy:()=>({total:LESSONS.length,tracks:ACADEMY.tracks.map(x=>x.id),active:lesson,step:lessonStep}),levels:()=>ENGINE.ids.slice(),engineStatus:()=>lastEngineKind,legalUci:(fen,uci)=>{const c=new Chess(fen);return ENGINE.legalUci(c,uci);},legalCount:(fen)=>{const c=new Chess();if(fen&&!c.load(fen))throw new Error("invalid FEN");return c.moves().length;},lessonIds:()=>LESSONS.map(x=>x.id),evaluate:()=>scorePosition(),coach:()=>COACH.version,notes:()=>notes.length,clock:()=>({clockState,endedBy}),match:()=>({mode:matchMode,session:matchSession&&{...matchSession},finalized}),progress:()=>window.ChessProgress.snapshot().summary};
 })();
