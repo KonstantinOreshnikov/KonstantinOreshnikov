@@ -49,6 +49,14 @@ const {chromium}=require("playwright"),assert=require("node:assert/strict"),path
      await page.selectOption("#lang","az");
      assert.equal(await page.locator('[data-i18n="timeControl"]').innerText(),"Vaxt nəzarəti");
    });
+   await check("AZ clock screen-reader labels and mobile fit",async()=>{
+     assert.match(await page.locator("#clock-panel").getAttribute("aria-label"),/Şahmat saatları/);
+     assert.match(await page.locator("#clock-white-time").getAttribute("aria-label"),/Ağların/);
+     await page.setViewportSize({width:390,height:844});
+     const {scroll,view}=await page.evaluate(()=>({scroll:document.documentElement.scrollWidth,view:window.innerWidth}));
+     assert.ok(scroll<=view+2,"timed board overflows phone "+scroll+" > "+view);
+     assert.equal(await page.locator("#clock-white-time").isVisible(),true);
+   });
    await check("rematch resets both clocks and position",async()=>{
      await page.locator("#rematch").click();
      assert.equal(await page.locator("#clock-white-time").innerText(),"15:00");
