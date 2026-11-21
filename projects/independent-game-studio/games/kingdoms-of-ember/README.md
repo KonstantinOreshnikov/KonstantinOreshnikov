@@ -23,3 +23,13 @@ The v1.1 QA report refers to a downloadable v1.1 source archive containing tests
 **BLOCKED:** sandbox Chromium prohibited direct `file://` and localhost navigation, so Playwright used `page.set_content` and test-only in-memory storage. Do not treat real offline first-launch/browser-restart persistent-save E2E as verified. The original v1.0 sources ZIP is now available and passed ZIP integrity checking during this migration. That does not retroactively complete v1.1 offline-browser QA.
 
 The v1.1 build originated on `game/kingdoms-of-ember-v1.1-20261120` and is included in this migration branch as a development candidate. It is **not a public tagged release**. [Original v1.0 artifact and source archive](history/v1.0/) are preserved. Read [STATUS.md](STATUS.md) before claiming release readiness.
+
+## How the project changed
+
+| Stage | Actual change | Evidence and state |
+| --- | --- | --- |
+| **v1.0 · 19 Nov 2026** | First standalone turn-based strategy HTML and preserved source archive. | [Original HTML and source ZIP](history/v1.0/) · historical QA claims, not a fresh v1.1 test. |
+| **v1.1 · 20 Nov 2026** | Combat retaliation/prediction, ally pathfinding, AI movement/recruitment, economy guards, save validation, threat overlay and RU/EN/AZ labels. | [Change details](docs/CHANGELOG.md) · [v1.1 HTML](dist/KingdomsOfEmber_v1.1.html) · 41/41 checks and 12/12 simulated matches in the [historical QA report](docs/QA_REPORT.md). This is a **candidate**, not a tagged release. |
+| **Next gate** | Open the actual downloaded file in a browser, restart it and verify persisted saves; repeat on intended devices. | Direct offline first-launch/browser-restart E2E was blocked; [current status](STATUS.md). |
+
+The table describes two preserved builds; it does not imply intervening versions or release tags.
