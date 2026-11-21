@@ -22,7 +22,27 @@ Each block: reuse precheck -> minimal implementation -> targeted unit/perft -> b
 - Do not silently change other three games.
 - Do not auto-merge into main or deploy until verified v1.0 acceptance.
 
-## Next release decision (NOT an implementation request)
+
+## Owner scope update — 2026-11-21: timed games REQUIRED before v1.0
+
+**Decision (planned, not implemented or tested):** Preserve **Unlimited / No clock as the default** for normal play and teaching, and add a pre-game time-control chooser for playable matches **before v1.0 release**. This is new scope after B7's 238/238 PASS and does not retroactively change the B7 QA baseline.
+
+| Block | Scope | State | Acceptance |
+| --- | --- | --- | --- |
+| B8: Time controls and pre-game setup | Choice of Untimed (default), Bullet 1+0, Blitz 3+0/5+0, Rapid 10+0/15+0/15+10/20+0/30+0 and Custom minutes+increment. Labels are user-friendly; FIDE, Chess.com and Lichess classification boundaries can differ. | **REQUIRED / NOT STARTED; no code changes or QA claim** | Two actual clocks, only side to move runs, AI think time counts, proper per-move increment, timeout adjudication incl. insufficient mating material, clock pause policy for assisted practice, reload/background resilience, no exploitable saved independent matches, mobile/desktop, RU/EN/AZ and real browser regression |
+| Release acceptance and v1.0 launch | Human RU/EN/AZ editorial, screen-reader/real-device testing, historic archival second-source reconciliation or disclosed owner acceptance, full B0–B8 regression, owner-approved hosting / merge / deploy / rollback | **BLOCKED / NOT STARTED** | Independent acceptance + explicit owner authorization + post-deployment smoke |
+
+**Scope boundaries:** Academy exercises stay untimed; timed and untimed play coexist. All existing no-assistance criteria and 0–100 private AI Ladder Index honesty must be preserved; don't silently mix time controls in any skill-strength signal without an explicit method decision. No matchmaking/network multiplayer in the timed-game requirement. No runtime implementation or production authorization is implied by documenting this decision.
+
+**External timing references:** [FIDE Laws of Chess](https://handbook.fide.com/chapter/E012023), [Chess.com time controls](https://support.chess.com/en/articles/8584509-how-do-time-controls-work-on-chess-com), [Lichess classification FAQ](https://lichess.org/faq).
+
+### Focused v1.0 usability review (recommendations, not approved scope)
+- Verify first-run mode/side/difficulty/time selection is intuitive and preserves saved user settings.
+- Verify visible last move, clear check/checkmate/draw/flag-fall result, accessible time alerts and a practical rematch flow; implement only missing items after precheck.
+- Keep engine legally consistent on timeout and clock persistence; test long AI thinking, promotion dialogs, background tabs, reload, Undo/coach conflicts, and small mobile viewports.
+- Defer adaptive puzzles, opening explorer, styled bot personalities and human-versus-human to post-v1.0 unless separately approved.
+
+## Historical release decision (pre-B8; superseded by 2026-11-21 time-control scope)
 
 **Owner signoff for v1.0 release** remains the next substantive gate, not a new engineering block. Technical B7 v0.7.0 RC passed the complete actual GitHub QA #328: 237 Node/Chrome tests and one native Windows launcher smoke; includes a non-seeded **55-ply complete checkmate** from the standard start. Full evidence, problems and SHA in `docs/QA_LOG.md` and `docs/RELEASE_B7_QA.md`.
 
