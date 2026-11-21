@@ -7,7 +7,7 @@ import zipfile
 import hashlib
 
 ROOT = Path(__file__).resolve().parent.parent
-VERSION = "0.6.0"
+VERSION = "0.7.0"
 NAME = f"ChessOdyssey_v{VERSION}_Stockfish_Preview.zip"
 OUTPUT = ROOT / "dist" / NAME
 FILES = [
@@ -25,10 +25,12 @@ FILES = [
     "docs/ENGINE_B3_DESIGN.md",
     "docs/ACADEMY_B4_DESIGN.md",
     "docs/MASTERS_B5_DESIGN.md", "docs/MASTERS_B5_SOURCE_REGISTER.md", "docs/PROGRESS_B6_DESIGN.md",
+    "docs/RELEASE_B7_QA.md", "docs/SOURCE_B7_REFRESH.md",
     "docs/COACH_B2_DESIGN.md",
     "docs/DEVELOPMENT_PROTOCOL.md",
     "docs/QA_LOG.md", "docs/ROADMAP.md",
-    "dist/ChessOdyssey_v0.6.0_PREVIEW.html",
+    "tests/release-rules.cjs", "tests/release-browser.cjs", "tests/release-accessibility.cjs",
+    "dist/ChessOdyssey_v0.7.0_PREVIEW.html",
 ]
 for rel in FILES:
     target = ROOT / rel
