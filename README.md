@@ -53,15 +53,15 @@ A multilingual professional learning and assessment platform: structured content
 
 ### [Caribbean Merchant — Nostalgia to Playable Browser Game](projects/caribbean-merchant/README.md)
 
-A personal, AI-assisted revival of the *experience* of a mid-2000s Caribbean trading game: user-led playtesting, UI redesign, economic rules, game testing and a downloadable independent v1.0. Includes genuine archived milestones v0.1–v1.0, not a reconstructed fake commit history.
+A personal, AI-assisted revival of the *experience* of a mid-2000s Caribbean trading game: user-led playtesting, UI redesign, economic rules, game testing and a downloadable independent v1.1 with improved contracts and empire-wide auto-sale. Earlier v0.1–v1.0 milestones are preserved, not reconstructed as a fake commit history.
 
 ### [Chess Odyssey — Academy & Arena · v0.9 Development](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/blob/game/chess-odyssey-v0.1/projects/chess-odyssey/README.md)
 
-Independent chess learning game **already implemented**, not an idea: 33 interactive RU/EN/AZ Academy lessons, real Stockfish-powered AI, 31 historical master games, player progress and clock controls. Last tested playable package **v0.8.0**. Current **B9 / v0.9 development**: local two-player PvP tests PASS; Neon PostgreSQL staging and Better Auth with email OTP configured; **live authenticated cloud PvP is not yet complete**. [Current project status](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/blob/game/chess-odyssey-v0.1/projects/chess-odyssey/docs/CURRENT_STATUS.md) · [actual CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) · [draft PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7).
+Independently built trilingual chess learning platform — **not an idea**. 33 interactive RU/EN/AZ exercises, real Stockfish AI, 31 sourced historical games, player progress and chess clocks. Latest playable ZIP **v0.8.0**; current B9/v0.9 phase has working **synthetic local PvP tests** plus configured Neon staging Postgres/Better Auth OTP, but **real authenticated cloud PvP is NOT finished**. [Current technical status](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/blob/game/chess-odyssey-v0.1/projects/chess-odyssey/docs/CURRENT_STATUS.md) · [CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) · [draft PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7).
 
 ### [Independent Game Studio — Four Game Directions](projects/game-studio/README.md)
 
-Four separately versioned game directions: Caribbean Merchant (published), Kingdoms of Ember (working development branch), Lord of Ultima-inspired strategy (research), and **Chess Odyssey (B9/v0.9 development; PvP cloud release still pending)**. Each has its own verified evidence and release boundary.
+Four separate workstreams: Caribbean Merchant (latest standalone **v1.1** on main), Kingdoms of Ember (v1.1 on branch), Lord of Ultima-inspired project (research), and **Chess Odyssey (B9/v0.9 Development)**. Links distinguish code/tested branches from production releases.
 
 ### [Secret Santa 2026 — Private Gift Exchange](projects/secret-santa-2026/README.md)
 
