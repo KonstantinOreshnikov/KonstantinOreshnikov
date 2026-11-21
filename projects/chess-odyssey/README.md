@@ -57,7 +57,7 @@ node scripts/serve-local.cjs
 
 ## Executed QA — B6 v0.6.0
 
-**[GitHub Actions #268](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44845023609): 180/180 PASS**, covering B0–B5 regression, 19 independent Progress methodology/PGN/denominator cases, 26 new real Chrome desktop/mobile cases, genuine Stockfish and 34-file ZIP integrity. Detailed chronology of earlier failed/cancelled runs and explicit B7 limitations is in `docs/QA_LOG.md`. The current passing build and final distribution link should be checked against the latest run in the branch before sharing the ZIP.
+**[GitHub Actions #275](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44845418646): 180/180 PASS**, covering B0–B5 regression, 19 independent Progress methodology/PGN/denominator cases, 26 new real Chrome desktop/mobile cases, genuine Stockfish and 34-file ZIP integrity. Detailed chronology of earlier failed/cancelled runs and explicit B7 limitations is in `docs/QA_LOG.md`. The current passing build and final distribution link should be checked against the latest run in the branch before sharing the ZIP.
 
 ## Evidence, source and licensing
 
