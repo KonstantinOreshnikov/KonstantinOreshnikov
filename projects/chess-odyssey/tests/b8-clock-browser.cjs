@@ -35,7 +35,7 @@ const {chromium}=require("playwright"),assert=require("node:assert/strict"),path
    await check("hourglass is visual-only and numeric time stays visible",async()=>{
      await page.selectOption("#clock-style","hourglass");
      assert.equal(await page.locator("#clock-panel").evaluate(e=>e.classList.contains("hourglass-mode")),true);
-     assert.match(await page.locator("#clock-black-time").innerText(),/\\d{2}:\\d{2}/);
+     assert.match(await page.locator("#clock-black-time").innerText(),/\d{2}:\d{2}/);
    });
    await check("time and skin survive reload",async()=>{
      await page.reload();
