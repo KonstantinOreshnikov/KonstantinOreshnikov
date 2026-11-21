@@ -1,0 +1,236 @@
+{
+  "cutoff": "2026-11-21T16:57:00+04:00",
+  "note": "Git commit date is repository import/change date, not necessarily original build date. Historical QA is documented in game-specific docs.",
+  "html_artifacts": [
+    {
+      "game_id": "caribbean-merchant",
+      "version": "v1.1",
+      "file": "projects/independent-game-studio/games/caribbean-merchant/play/CaribbeanMerchant_v1.1.html",
+      "sha256": "55838c8e92680f5114f30b4c9e934822c43ee53038bb19b02d21c17b8d26ec79",
+      "bytes": 468173,
+      "origin_ref": "main",
+      "origin_path": "projects/caribbean-merchant/play/CaribbeanMerchant_v1.1.html",
+      "github_commit": "01b266abc8d7ab4cad7ad1c27957027e3935f9ab",
+      "github_commit_date": "2026-11-20T21:55:55+04:00"
+    },
+    {
+      "game_id": "caribbean-merchant",
+      "version": "v1.0",
+      "file": "projects/independent-game-studio/games/caribbean-merchant/play/CaribbeanMerchant_v1.0.html",
+      "sha256": "eb933b596f374c4310155f54aa271587423e5ac9ff3b21e98d8451d624d551c0",
+      "bytes": 462826,
+      "origin_ref": "main",
+      "origin_path": "projects/caribbean-merchant/play/CaribbeanMerchant_v1.0.html",
+      "github_commit": "444c6d4a6ec5631442509f0042a0b1537b2604a2",
+      "github_commit_date": "2026-11-19T10:09:51+04:00"
+    },
+    {
+      "game_id": "caribbean-merchant",
+      "version": "v1.2",
+      "file": "projects/independent-game-studio/games/caribbean-merchant/releases/CaribbeanMerchant_v1.2.html",
+      "sha256": "e70f0c6a91177dd630a81e695adc2475f81e4a23152e7b381e8528a77efd4b1e",
+      "bytes": 506270,
+      "origin_ref": "Library",
+      "origin_path": "libfile_bb53bec3a7a081918c6e4949f5638718",
+      "source_created_at": "2026-11-20T12:01:08Z",
+      "github_commit": null
+    },
+    {
+      "game_id": "caribbean-merchant",
+      "version": "v0.1",
+      "file": "projects/independent-game-studio/games/caribbean-merchant/history/releases/CaribbeanMerchant_v0.1.html",
+      "sha256": "1b9e67c49c25afccb73c6c72db596b7371e2dd3656ba3a104c35cf0ccb7b5511",
+      "bytes": 64196,
+      "origin_ref": "main",
+      "origin_path": "projects/caribbean-merchant/history/releases/CaribbeanMerchant_v0.1.html",
+      "github_commit": "444c6d4a6ec5631442509f0042a0b1537b2604a2",
+      "github_commit_date": "2026-11-19T10:09:51+04:00"
+    },
+    {
+      "game_id": "caribbean-merchant",
+      "version": "v0.5",
+      "file": "projects/independent-game-studio/games/caribbean-merchant/history/releases/CaribbeanMerchant_v0.5.html",
+      "sha256": "040b02bcb1936f2d375c4ac6c1d398c1dc9cf35bb9003b4355249d8e87892208",
+      "bytes": 362426,
+      "origin_ref": "main",
+      "origin_path": "projects/caribbean-merchant/history/releases/CaribbeanMerchant_v0.5.html",
+      "github_commit": "444c6d4a6ec5631442509f0042a0b1537b2604a2",
+      "github_commit_date": "2026-11-19T10:09:51+04:00"
+    },
+    {
+      "game_id": "caribbean-merchant",
+      "version": "v0.2",
+      "file": "projects/independent-game-studio/games/caribbean-merchant/history/releases/CaribbeanMerchant_v0.2.html",
+      "sha256": "21931378c54fe8644af186334ca51d2528d97c69509d66c1d14b1bb493341059",
+      "bytes": 99061,
+      "origin_ref": "main",
+      "origin_path": "projects/caribbean-merchant/history/releases/CaribbeanMerchant_v0.2.html",
+      "github_commit": "444c6d4a6ec5631442509f0042a0b1537b2604a2",
+      "github_commit_date": "2026-11-19T10:09:51+04:00"
+    },
+    {
+      "game_id": "caribbean-merchant",
+      "version": "v0.3",
+      "file": "projects/independent-game-studio/games/caribbean-merchant/history/releases/CaribbeanMerchant_v0.3.html",
+      "sha256": "dd7479cb3d4ddddaafbff58c5bc3290e3a56cc47ad29e54bce2ce95e04fc5a42",
+      "bytes": 105730,
+      "origin_ref": "main",
+      "origin_path": "projects/caribbean-merchant/history/releases/CaribbeanMerchant_v0.3.html",
+      "github_commit": "444c6d4a6ec5631442509f0042a0b1537b2604a2",
+      "github_commit_date": "2026-11-19T10:09:51+04:00"
+    },
+    {
+      "game_id": "caribbean-merchant",
+      "version": "v0.4",
+      "file": "projects/independent-game-studio/games/caribbean-merchant/history/releases/CaribbeanMerchant_v0.4.html",
+      "sha256": "0f33bf33a7e756f6f2c68ab341343360a0b39a91ec9794ba35f67f08a96c7147",
+      "bytes": 341967,
+      "origin_ref": "main",
+      "origin_path": "projects/caribbean-merchant/history/releases/CaribbeanMerchant_v0.4.html",
+      "github_commit": "444c6d4a6ec5631442509f0042a0b1537b2604a2",
+      "github_commit_date": "2026-11-19T10:09:51+04:00"
+    },
+    {
+      "game_id": "caribbean-merchant",
+      "version": "v0.6",
+      "file": "projects/independent-game-studio/games/caribbean-merchant/history/releases/CaribbeanMerchant_v0.6.html",
+      "sha256": "8e242287ad6f488cb08aaa82845905fec76e4face45893090daa3a76ab0c6f80",
+      "bytes": 393984,
+      "origin_ref": "main",
+      "origin_path": "projects/caribbean-merchant/history/releases/CaribbeanMerchant_v0.6.html",
+      "github_commit": "444c6d4a6ec5631442509f0042a0b1537b2604a2",
+      "github_commit_date": "2026-11-19T10:09:51+04:00"
+    },
+    {
+      "game_id": "chess-odyssey",
+      "version": "v0.6.0",
+      "file": "projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v0.6.0_PREVIEW.html",
+      "sha256": "d94c2713d0caeaae9e8b9ea3afb93cd3ff8a4d1050dc588607e8bed2ffed3a3c",
+      "bytes": 339078,
+      "origin_ref": "main",
+      "origin_path": "projects/chess-odyssey/dist/ChessOdyssey_v0.6.0_PREVIEW.html",
+      "github_commit": "be43f14fef43f5c363aca34a686eb5913f043dca",
+      "github_commit_date": "2026-11-21T04:37:06+04:00"
+    },
+    {
+      "game_id": "chess-odyssey",
+      "version": "v0.3.0",
+      "file": "projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v0.3.0_PREVIEW.html",
+      "sha256": "a9087e2678dace272c166bd928ccba4dcbc2cfee45434e2ce3dcc77b8a79265e",
+      "bytes": 109541,
+      "origin_ref": "main",
+      "origin_path": "projects/chess-odyssey/dist/ChessOdyssey_v0.3.0_PREVIEW.html",
+      "github_commit": "d838d9e8afb43f2194afad294586c82634c47c99",
+      "github_commit_date": "2026-11-21T01:10:45+04:00"
+    },
+    {
+      "game_id": "chess-odyssey",
+      "version": "v0.7.0",
+      "file": "projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v0.7.0_PREVIEW.html",
+      "sha256": "0d6d3f76a65576eb42b8537b60ae655e7a3076c67da9c65fac76f3c8f0a0ca8b",
+      "bytes": 346719,
+      "origin_ref": "main",
+      "origin_path": "projects/chess-odyssey/dist/ChessOdyssey_v0.7.0_PREVIEW.html",
+      "github_commit": "3470374ba245df164d97971ee8cbf663982aac16",
+      "github_commit_date": "2026-11-21T12:01:17+04:00"
+    },
+    {
+      "game_id": "chess-odyssey",
+      "version": "v0.4.0",
+      "file": "projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v0.4.0_PREVIEW.html",
+      "sha256": "84ce8c32e35aa45c106c3993ccaf5e27da30a5320352ddedb2d2915ee96834e2",
+      "bytes": 153310,
+      "origin_ref": "main",
+      "origin_path": "projects/chess-odyssey/dist/ChessOdyssey_v0.4.0_PREVIEW.html",
+      "github_commit": "0f8bcaa673840f6448f33adf8f72b30eb69e6218",
+      "github_commit_date": "2026-11-21T01:51:27+04:00"
+    },
+    {
+      "game_id": "chess-odyssey",
+      "version": "v0.1",
+      "file": "projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v0.1_PREVIEW.html",
+      "sha256": "9248cac9df1fb7e427e51ed7d703873cc382f1ec6a1dd826eeedcc2a41c56c11",
+      "bytes": 81301,
+      "origin_ref": "main",
+      "origin_path": "projects/chess-odyssey/dist/ChessOdyssey_v0.1_PREVIEW.html",
+      "github_commit": "723d3fba24950f0d95d3a6255dbe07727826ac9c",
+      "github_commit_date": "2026-11-21T00:20:21+04:00"
+    },
+    {
+      "game_id": "chess-odyssey",
+      "version": "v0.5.0",
+      "file": "projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v0.5.0_PREVIEW.html",
+      "sha256": "cc8f2a0a5e100091cfa9dff73a07169ffb13a010bed71bc9f1ba5d91418191d7",
+      "bytes": 293927,
+      "origin_ref": "main",
+      "origin_path": "projects/chess-odyssey/dist/ChessOdyssey_v0.5.0_PREVIEW.html",
+      "github_commit": "6d754bb1a64d5a1636d5271bd8826719277f563b",
+      "github_commit_date": "2026-11-21T02:25:33+04:00"
+    },
+    {
+      "game_id": "chess-odyssey",
+      "version": "v0.2.1",
+      "file": "projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v0.2.1_PREVIEW.html",
+      "sha256": "65263c65e1db42a8b5e48c238bf2739a750ef35b231fc58641e64b171624444f",
+      "bytes": 98297,
+      "origin_ref": "main",
+      "origin_path": "projects/chess-odyssey/dist/ChessOdyssey_v0.2.1_PREVIEW.html",
+      "github_commit": "e0b9998a49870a7a242a7027a0ac3ef4d7b607de",
+      "github_commit_date": "2026-11-21T00:52:23+04:00"
+    },
+    {
+      "game_id": "chess-odyssey",
+      "version": "v0.8.0",
+      "file": "projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v0.8.0_PREVIEW.html",
+      "sha256": "3290026e0a139a25ed3ed7efc325bddf941adc62019d1ac66319e09891912b91",
+      "bytes": 367560,
+      "origin_ref": "GitHub Actions CI #407",
+      "origin_path": "artifact 14705809423 / ChessOdyssey_v0.8.0_Stockfish_Preview.zip",
+      "source_archive_sha256": "3bac88d0d34bcf41fdaedb4b63e482398e6f850c5ba183f2d15bf0e07fcb3395",
+      "github_commit": null
+    },
+    {
+      "game_id": "chess-odyssey",
+      "version": "v0.1.1",
+      "file": "projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v0.1.1_PREVIEW.html",
+      "sha256": "4b9e7224c535e29e0fe824030920eeab8b37fa28a768a7dfc77b49f237207f3c",
+      "bytes": 82940,
+      "origin_ref": "main",
+      "origin_path": "projects/chess-odyssey/dist/ChessOdyssey_v0.1.1_PREVIEW.html",
+      "github_commit": "6ef2244302d70f4f913de3cd3915ed75af8d7877",
+      "github_commit_date": "2026-11-21T00:22:43+04:00"
+    },
+    {
+      "game_id": "chess-odyssey",
+      "version": "v0.2.0",
+      "file": "projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v0.2.0_PREVIEW.html",
+      "sha256": "c39adf238c386d26011dbd932a5218df66c8f2c3a46e8caf02c1051d9fd0bc83",
+      "bytes": 98183,
+      "origin_ref": "main",
+      "origin_path": "projects/chess-odyssey/dist/ChessOdyssey_v0.2.0_PREVIEW.html",
+      "github_commit": "5c7057a68363f2925f8e1d6cd6f4b91ef0578af7",
+      "github_commit_date": "2026-11-21T00:46:42+04:00"
+    },
+    {
+      "game_id": "kingdoms-of-ember",
+      "version": "v1.1",
+      "file": "projects/independent-game-studio/games/kingdoms-of-ember/dist/KingdomsOfEmber_v1.1.html",
+      "sha256": "7fb760eafdc23c5ce21eb80fb1fea529822e25bc66b3d6f90fc586aaeb33887e",
+      "bytes": 64275,
+      "origin_ref": "origin/game/kingdoms-of-ember-v1.1-20261120",
+      "origin_path": "projects/kingdoms-of-ember/dist/KingdomsOfEmber_v1.1.html",
+      "github_commit": "828370173a254bd41fa58441d6b220ed7f228ec2",
+      "github_commit_date": "2026-11-20T17:11:21+04:00"
+    },
+    {
+      "game_id": "kingdoms-of-ember",
+      "version": "v1.0",
+      "file": "projects/independent-game-studio/games/kingdoms-of-ember/history/v1.0/KingdomsOfEmber_v1.0.html",
+      "sha256": "6623a83bfece70ae4958a12946ffcfd7fa0d21ffe3a5a92b555620a65c94b1c0",
+      "bytes": 58891,
+      "origin_ref": "Library",
+      "origin_path": "libfile_4cb35f5a27408191b98291763ea3f883",
+      "source_created_at": "2026-11-19T21:20:42Z"
+    }
+  ]
+}

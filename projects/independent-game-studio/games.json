@@ -1,0 +1,64 @@
+{
+  "cutoff": "2026-11-21T16:57:00+04:00",
+  "baseline_main": "5bc3496152e2dd49db2cb60e2e0216926cbd9d91",
+  "games": [
+    {
+      "id": "caribbean-merchant",
+      "canonical_path": "projects/independent-game-studio/games/caribbean-merchant",
+      "current_verified_release": "v1.1",
+      "latest_development_candidate": "v1.2",
+      "latest_verified_artifact": "projects/independent-game-studio/games/caribbean-merchant/releases/CaribbeanMerchant_v1.2.html",
+      "source_path": "projects/independent-game-studio/games/caribbean-merchant/releases/CaribbeanMerchant_v1.2.html",
+      "sha256": "e70f0c6a91177dd630a81e695adc2475f81e4a23152e7b381e8528a77efd4b1e",
+      "qa_status": "v1.2 independent gameplay QA NOT TESTED",
+      "known_blockers": "v1.2 source split and acceptance QA",
+      "last_verified": "2026-11-21 16:57 Asia/Baku (source cutoff)",
+      "origin_branch": "main",
+      "origin_commit": "5bc3496152e2dd49db2cb60e2e0216926cbd9d91",
+      "library_provenance": "libfile_bb53bec3a7a081918c6e4949f5638718"
+    },
+    {
+      "id": "kingdoms-of-ember",
+      "canonical_path": "projects/independent-game-studio/games/kingdoms-of-ember",
+      "current_verified_release": null,
+      "latest_development_candidate": "v1.1",
+      "latest_verified_artifact": "projects/independent-game-studio/games/kingdoms-of-ember/dist/KingdomsOfEmber_v1.1.html",
+      "source_path": "projects/independent-game-studio/games/kingdoms-of-ember/src",
+      "sha256": "7fb760eafdc23c5ce21eb80fb1fea529822e25bc66b3d6f90fc586aaeb33887e",
+      "qa_status": "historical 41/41, 12/12; direct file E2E BLOCKED",
+      "known_blockers": "v1.1 source ZIP missing; offline save E2E",
+      "last_verified": "2026-11-21 16:57 Asia/Baku (source cutoff)",
+      "origin_branch": "game/kingdoms-of-ember-v1.1-20261120",
+      "origin_commit": "ba3a6adcece3951a2ee406f9360be21636f4832e"
+    },
+    {
+      "id": "lord-of-ultima",
+      "canonical_path": "projects/independent-game-studio/games/lord-of-ultima",
+      "current_verified_release": null,
+      "latest_development_candidate": null,
+      "latest_verified_artifact": null,
+      "source_path": "projects/independent-game-studio/games/lord-of-ultima",
+      "sha256": null,
+      "qa_status": "NOT TESTED — design only",
+      "known_blockers": "no playable build",
+      "last_verified": "2026-11-21 16:57 Asia/Baku (source cutoff)",
+      "origin_branch": "main + docs/retro-strategy-ux-aeii-foundation-20261119"
+    },
+    {
+      "id": "chess-odyssey",
+      "canonical_path": "projects/independent-game-studio/games/chess-odyssey",
+      "current_verified_release": "v0.8.0",
+      "latest_development_candidate": "B9/v0.9 development",
+      "latest_verified_artifact": "projects/independent-game-studio/games/chess-odyssey/releases/ChessOdyssey_v0.8.0_Stockfish_Preview.zip",
+      "source_path": "projects/independent-game-studio/games/chess-odyssey",
+      "sha256": "3bac88d0d34bcf41fdaedb4b63e482398e6f850c5ba183f2d15bf0e07fcb3395",
+      "qa_status": "historical main CI #407 3/3; cloud E2E BLOCKED",
+      "known_blockers": "real Neon authenticated two-user E2E and owner acceptance",
+      "last_verified": "2026-11-21 16:57 Asia/Baku (source cutoff)",
+      "origin_branch": "main",
+      "origin_commit": "5bc3496152e2dd49db2cb60e2e0216926cbd9d91",
+      "release_artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865/artifacts/14705809423",
+      "artifact_provenance": "GitHub Actions run 44901266865 artifact 14705809423"
+    }
+  ]
+}

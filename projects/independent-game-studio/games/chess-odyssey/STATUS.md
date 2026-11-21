@@ -1,0 +1,6 @@
+# Chess Odyssey — studio status (2026-11-21 16:57 Asia/Baku cutoff)
+
+- [Current technical authority](docs/CURRENT_STATUS.md): B9 / v0.9 development source merged on main. **No v0.9 release or production multiplayer.**
+- Latest documented playable v0.8.0 42-file ZIP: [main CI #407 artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865/artifacts/14705809423), internal ZIP SHA-256 `3bac88d0d34bcf41fdaedb4b63e482398e6f850c5ba183f2d15bf0e07fcb3395` per current technical report; the original artifact was downloaded, ZIP integrity checked and SHA-256 confirmed during migration. The extracted standalone HTML matches the same HTML rebuilt from main source (SHA-256 `3290026e0a139a25ed3ed7efc325bddf941adc62019e09891912b91`).
+- Repository `dist/` now includes the original v0.8.0 HTML extracted from the CI ZIP, and `releases/` preserves the original inner ZIP. Current source includes B8 clocks and B9 local synthetic PvP. Historical main CI #407 3/3 jobs success, but actual authenticated Neon two-user cloud E2E remains OPEN.
+- Next: maintain CI on migrated path, implement trusted durable authenticated service and real-user negative security E2E in a separately authorized implementation task.
