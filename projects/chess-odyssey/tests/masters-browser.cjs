@@ -99,7 +99,7 @@ const {chromium}=require("playwright");
   await page.locator("#m-next").click();
   await page.locator("#m-first").click();
   await page.locator("#m-flip").check();
-  assert.equal(await page.locator("#m-board button").first().getAttribute("aria-label").then(x=>x.slice(0,2)),"h1");total++;
+  assert.equal(await page.locator("#m-board .square").first().getAttribute("aria-label").then(x=>x.slice(0,2)),"h1");total++;
   await page.locator("#m-next").focus();
   await page.keyboard.press("ArrowRight");
   assert.equal(await page.evaluate(()=>window.ChessMastersQA.snapshot().ply),1);total++;
