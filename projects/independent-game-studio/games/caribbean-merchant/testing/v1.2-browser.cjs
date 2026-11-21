@@ -9,7 +9,7 @@ const {chromium} = require('playwright');
 
 const game = path.resolve(__dirname, '..');
 const oldHtml = path.join(game, 'play/CaribbeanMerchant_v1.1.html');
-const newHtml = path.join(game, 'releases/CaribbeanMerchant_v1.2.html');
+const newHtml = path.join(game, 'releases/CaribbeanMerchant_v1.2.1_QA.html');
 const server = http.createServer((req, res) => {
   const file = new URL(req.url, 'http://localhost').pathname === '/v1.1' ? oldHtml : newHtml;
   res.setHeader('content-type', 'text/html; charset=utf-8');
@@ -30,7 +30,7 @@ const loadState = (page, key) => page.evaluate(k => JSON.parse(localStorage.getI
     const filePage = await local.newPage();
     filePage.on('pageerror', e => errors.push(`file: ${e.message}`));
     await filePage.goto(pathToFileURL(newHtml).href);
-    assert.match(await filePage.title(), /v1\.2/);
+    assert.match(await filePage.title(), /v1\.2\.1/);
     const fileKey = await filePage.evaluate(() => CaribbeanGame.getSaveKey());
     await filePage.locator('[data-tab="adventure"]').click();
     assert.match(await filePage.locator('#tabContent').innerText(), /Живой мир/);
@@ -39,7 +39,7 @@ const loadState = (page, key) => page.evaluate(k => JSON.parse(localStorage.getI
     await filePage.reload();
     assert.equal((await loadState(filePage, fileKey)).day, 2);
     assert.equal((await snapshot(filePage)).day, 2);
-    record('real file:// launch, adventure UI and saved day survive reload');
+    record('real file:// launch, v1.2.1 title, adventure UI and saved day survive reload');
     await local.close();
 
     const ctx = await browser.newContext();
@@ -60,7 +60,7 @@ const loadState = (page, key) => page.evaluate(k => JSON.parse(localStorage.getI
     for (const field of ['day', 'gold', 'current', 'ship', 'reputation', 'winCount']) assert.deepEqual(migrated[field], before[field], field);
     assert.deepEqual(migrated.empire.industries.havana, before.empire.industries.havana);
     assert.equal(migrated.empire.living.version, 1);
-    record('v1.1 save migration preserves economy, ship, progress and factory');
+    record('v1.1 save migration to repaired v1.2.1 preserves economy, ship, progress and factory');
 
     await page.locator('[data-tab="adventure"]').click();
     for (let i = 0; i < 2; i++) await page.locator('#waitBtn').click();
