@@ -1,7 +1,7 @@
 # Chess Odyssey QA Ledger
 
-**CURRENT VERIFIED CHECKPOINT (2026-11-21): B7 v0.7.0 Release Candidate, GitHub Actions run #328 — 238/238 executable checks PASS (237 Node/Chrome + native Windows 1) and 40-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
-Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44882567499  
+**CURRENT VERIFIED CHECKPOINT (2026-11-21): B7 v0.7.0 Release Candidate, GitHub Actions run #339 — 238/238 executable checks PASS (237 Node/Chrome + native Windows 1) and documentation-synchronized 40-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
+Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44883137898  
 Current technical authority: docs/RELEASE_B7_QA.md + docs/SOURCE_B7_REFRESH.md + B7 release tests, on top of B6, B5 source register and verified Stockfish/Academy. Earlier B0–B6 entries are historical checkpoints, not production-release claims.
 
 Date: 2026-11-21
@@ -353,3 +353,16 @@ B6 real-browser gates include: no initial fake index, all three tabs, real B4 le
 - LocalStorage scores remain private and not anti-cheat secure; the AI Ladder Index is not Elo/FIDE.
 
 **Final technical authority:** `docs/RELEASE_B7_QA.md`, `docs/SOURCE_B7_REFRESH.md`, `docs/PROGRESS_B6_DESIGN.md`, B5 primary source register, full CI #328, exact SHA. No autodeploy or project mixing.
+
+
+### Final documentation-synchronized release-candidate package — #339
+
+**GitHub Actions run #339**, ID **44883137898**, is **SUCCESS for all three actual jobs** after the substantive B7 README, QA, release-gate/source authority and changelog documentation was saved. It independently reran **238/238 tests PASS** (237 Node/Chrome + native Windows 1) and rebuilt the packaged real Stockfish preview. B7 game code and tests are unchanged relative to the previous green #328.
+
+- An additional **fully organic**, no-seeded-PGN, standard-start end-to-end game was played: actual Stockfish 19 calculated user moves, the game executed them via Chrome, and the real Beginner bot answered. **55 SAN half-moves / 28 player turns / checkmate**, single independent result persisted after reload. This confirms independent end-to-end behavior under another non-deterministic AI line. Earlier #328 **21-ply checkmate** remains a valid separate historical test; the two run lengths are not contradictory.
+- B7 chess legal Unit checks **22/22**, UI Chrome **27/27**, axe WCAG scans **7/7 with zero detected violations**, existing B0–B6 **180/180**, actual Windows .cmd+loopback+GPL/WASM smoke **1/1** all PASS.
+- Final actual inner `ChessOdyssey_v0.7.0_Stockfish_Preview.zip`: **40 files**, **1,527,860 bytes**, SHA256 **`bb9fa7b525f320ce50fdc0465ca63c5eac2d91807cc234f914bb9f5fafa37d94`**. The CI build reopened the zip with CRC validation.
+- GitHub downloadable artifact name **`ChessOdyssey-v0.7.0-Release-Candidate-Stockfish-PREVIEW`**, ID **14697794883**; GitHub wrapper SHA256 **`2d5df0f05146e92bd7270dd947e696fe069750dca1ced3b648bde272f07ef18f`**, expires **2026-12-21 UTC**. [Final tested package and logs](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44883137898).
+- The older #328 package ID, size and SHA above remain immutable historical audit evidence, **not** the latest distribution.
+- This final pointer was written **after** the #339 package, using a **documentation-only [skip ci] commit**. As expected, the #339 ZIP contains the full B7 substantive documentation used for the run but cannot retroactively contain this final checkpoint paragraph.
+- No move to `main`, no merge or production deployment was requested or performed. **Release Gate I remains BLOCKED**; independent human RU/EN/AZ teaching editorial signoff, manual screen-reader audit and comprehensive second-archive verification have not been executed. All older red-to-green failure history is preserved above.
