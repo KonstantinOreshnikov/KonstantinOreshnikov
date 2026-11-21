@@ -126,6 +126,6 @@ test("RU/EN/AZ coverage and exact key count across verified Academy and Masters"
  for(const a of Academy.lessons){for(const lang of ["ru","en","az"]){assert.ok(a.title[lang]?.length>5);assert.ok(a.intro[lang]?.length>25);for(const st of a.steps)assert.ok(st.prompt[lang]?.length>8);}}
  const b=MasterCore.compile(Chess,Source,Notes);assert.equal(b.moments,116);
  for(const g of b.games){for(const lang of ["ru","en","az"])assert.ok(g.title[lang]?.length>5);
-  for(const m of g.moments)for(const lang of ["ru","en","az"])assert.ok(m.note[lang]?.length>20,g.id+" "+m.ply+" "+lang);}
+  for(const m of g.moments)for(const lang of ["ru","en","az"])assert.ok(m.explain[lang]?.length>=40,g.id+" "+m.ply+" "+lang);}
 });
 console.log("PASS B7 release rules "+count+" / "+count);
