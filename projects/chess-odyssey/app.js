@@ -578,7 +578,7 @@ function hint(){
   }
   function persist(){
     const session=parked||{pgn:lesson?null:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized:finalized&&!lesson,notes};
-    try{localStorage.setItem(KEY,JSON.stringify({pgn:session.pgn,side:session.side,difficulty:session.difficulty,language,completed,stats,flipped:session.flipped,finalized:session.finalized,notes:session.notes||[],academy:lesson?{id:lesson,step:lessonStep}:null,academyTrack,matchMode,matchSession}));}
+    try{localStorage.setItem(KEY,JSON.stringify({pgn:session.pgn,side:session.side,difficulty:session.difficulty,language,completed,stats,flipped:session.flipped,finalized:session.finalized,notes:session.notes||[],academy:lesson?{id:lesson,step:lessonStep}:null,academyTrack,matchMode,matchSession,clockState,clockTheme,soundEnabled,endedBy}));}
     catch(e){message("Storage unavailable; progress cannot be saved.");}
   }
   function restore(){
@@ -588,10 +588,17 @@ function hint(){
       language=["ru","en","az"].includes(data.language)?data.language:"ru";
       side=["w","b"].includes(data.side)?data.side:"w";
       difficulty=ENGINE.ids.includes(data.difficulty)?data.difficulty:"beginner";
+      if(CLOCK){
+        clockState=CLOCK.restore(data.clockState,Date.now())||CLOCK.start(CLOCK.config("none"),Date.now());
+        clockTheme=data.clockTheme==="hourglass"?"hourglass":"digital";
+      }
+      soundEnabled=data.soundEnabled===true;
+      endedBy=data.endedBy&&["timeout","resign"].includes(data.endedBy.type)&&["w","b"].includes(data.endedBy.loser)
+        ?{type:data.endedBy.type,loser:data.endedBy.loser,draw:data.endedBy.draw===true}:null;
       const m=data.matchSession;
       const matchValid=data.matchMode==="independent"&&m&&typeof m.id==="string"&&/^g-[a-z0-9-]{6,60}$/.test(m.id)&&m.mode==="independent"&&m.side===side&&m.level===difficulty;
       matchMode=matchValid?"independent":"practice";
-      matchSession=matchValid?{id:m.id,mode:"independent",side,level:difficulty,assisted:Boolean(m.assisted),undone:Boolean(m.undone),restarted:Boolean(m.restarted),fallback:Boolean(m.fallback)}:null;
+      matchSession=matchValid?{id:m.id,mode:"independent",side,level:difficulty,assisted:Boolean(m.assisted)||Boolean(clockState?.baseMs),undone:Boolean(m.undone),restarted:Boolean(m.restarted),fallback:Boolean(m.fallback)}:null;
       completed=Array.isArray(data.completed)?[...new Set(data.completed.filter(x=>Boolean(ACADEMY.byId[x])))]:[];
       academyTrack=data.academyTrack==="all"||ACADEMY.tracks.some(x=>x.id===data.academyTrack)?data.academyTrack:"all";
       stats=data.stats&&["wins","losses","draws"].every(k=>Number.isInteger(data.stats[k])&&data.stats[k]>=0)?data.stats:stats;
@@ -599,7 +606,7 @@ function hint(){
       finalized=Boolean(data.finalized);
       const savedHistory=game.history();
       notes=Array.isArray(data.notes)?data.notes.filter(x=>x&&Number.isInteger(x.ply)&&x.ply>0&&x.ply<=savedHistory.length&&savedHistory[x.ply-1]===x.san&&typeof x.best==="string"&&Number.isFinite(x.drop)&&["fine","warning","major"].includes(x.severity)).slice(-160):[];
-      showReview=finalized&&game.game_over()&&notes.length>0;
+      showReview=finalized&&(game.game_over()||Boolean(endedBy))&&notes.length>0;
       // A lesson may be continued across reload, while the original practice PGN stays parked.
       if(data.academy&&ACADEMY.byId[data.academy.id]){
         const task=ACADEMY.byId[data.academy.id],step=data.academy.step;
@@ -621,18 +628,35 @@ function hint(){
       $("lang").value=language;$("side").value=side;$("level").value=difficulty;
       $("academy-track").value=academyTrack;$("lesson").value=lesson||"";
       $("match-mode").value=matchMode;
-      if(lesson){matchMode="practice";matchSession=null;$("match-mode").value="practice";}
+      if(CLOCK){
+        $("time-control").value=clockState.preset||"none";
+        $("clock-style").value=clockTheme;
+        $("sound-enabled").checked=soundEnabled;
+        if(clockState.preset==="custom"){
+          $("custom-minutes").value=String(clockState.baseMs/60000);
+          $("custom-increment").value=String(clockState.incrementMs/1000);
+        }
+        $("custom-clock").hidden=clockState.preset!=="custom";
+      }
+      if(lesson){matchMode="practice";matchSession=null;$("match-mode").value="practice";if(CLOCK&&clockState?.baseMs&&!clockState.paused)clockState=CLOCK.pause(clockState,Date.now());}
       if(game.history().length)last=game.history({verbose:true}).slice(-1).map(x=>[x.from,x.to])[0]||null;
       restoreMatchNotice();message(tr("restored"));
     }catch(e){message("Saved state is invalid; a fresh game was started.");}
   }
   function newGame(){
-    clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();lesson=null;lessonStep=0;lastLessonId=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
+    clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();endedBy=null;lowAlerted=null;lesson=null;lessonStep=0;lastLessonId=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
     $("lesson").value="";
     side=$("side").value;difficulty=$("level").value;language=$("lang").value;
     matchMode=$("match-mode").value==="independent"?"independent":"practice";
+    if(CLOCK){
+      try{clockState=CLOCK.start(CLOCK.config($("time-control").value,$("custom-minutes").value,$("custom-increment").value),Date.now());}
+      catch{clockState=CLOCK.start(CLOCK.config("none"),Date.now());$("time-control").value="none";}
+      $("custom-clock").hidden=$("time-control").value!=="custom";
+      clockTheme=$("clock-style").value==="hourglass"?"hourglass":"digital";
+      soundEnabled=$("sound-enabled").checked;
+    }
     matchSession=matchMode==="independent"?{id:matchId(),mode:"independent",side,level:difficulty,assisted:false,undone:false,restarted:false,fallback:false}:null;
-    if(matchSession&&(!PROGRESS||!window.ChessProgress?.recordGame))matchSession.assisted=true;
+    if(matchSession&&(!PROGRESS||!window.ChessProgress?.recordGame||Boolean(clockState?.baseMs)))matchSession.assisted=true;
     if(matchSession&&ENGINE.profile(difficulty).mode!=="local"&&!canRunStockfish())matchSession.fallback=true;
     updateEngineAvailability();restoreMatchNotice();
     learnMessage("");message(tr("newGame")+" "+(currentMatch()?prog("loading"):tr("notRated")));render();renderAcademy();persist();
@@ -640,6 +664,7 @@ function hint(){
   }
   function undo(){
     if(currentMatch())return message(prog("assistBlocked"));
+    if(endedBy)return message(tr("gameOver"));
     if(lesson||parked||!game.history().length)return message(tr("noUndo"));
     clearTimeout(aiTimer);++epoch;engine.cancel();
     if(finalized&&game.game_over()){
@@ -650,6 +675,7 @@ function hint(){
     if(game.history().length&&game.turn()!==side) game.undo();
     notes=notes.filter(x=>x.ply<=game.history().length);showReview=false;clearHints();renderReview();
     selected=null;last=null;finalized=false;
+    if(CLOCK&&clockState?.baseMs)clockState={...clockState,remaining:{...clockState.remaining},active:game.turn(),at:Date.now(),done:false,paused:false,flagged:null};
     message(tr("undo"));render();persist();
     if(game.turn()!==side)scheduleBot();
   }
@@ -657,6 +683,7 @@ function hint(){
     if(currentMatch()&&!finalized){$("lesson").value="";return message(prog("assistBlocked"));}
     const task=ACADEMY.byId[id];if(!task)return;
     if(!parked)parked={pgn:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized,notes:notes.slice()};
+    if(CLOCK&&clockState?.baseMs&&!clockState.done)clockState=CLOCK.pause(clockState,Date.now());
     clearHints();showReview=false;renderReview();
     clearTimeout(aiTimer);++epoch;engine.cancel();
     game=ACADEMY.createPosition(task,Chess);
@@ -680,7 +707,8 @@ function hint(){
     if(previous.pgn && !restored.load_pgn(previous.pgn))return message("Cannot restore saved PGN.");
     clearTimeout(aiTimer);++epoch;engine.cancel();game=restored;parked=null;lesson=null;lessonStep=0;lastLessonId=null;selected=null;
     side=previous.side;difficulty=previous.difficulty;finalized=previous.finalized;notes=previous.notes||[];
-    clearHints();showReview=finalized&&game.game_over();renderReview();
+    clearHints();showReview=finalized&&(game.game_over()||Boolean(endedBy));renderReview();
+    if(CLOCK&&clockState?.baseMs&&clockState.paused)clockState=CLOCK.resume(clockState,Date.now());
     $("side").value=side;$("level").value=difficulty;$("flip").checked=previous.flipped;$("lesson").value="";
     updateEngineAvailability();
     learnMessage("");message(tr("restored"));render();renderAcademy();persist();
