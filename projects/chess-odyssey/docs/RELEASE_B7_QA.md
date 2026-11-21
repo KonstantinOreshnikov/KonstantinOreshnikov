@@ -1,6 +1,6 @@
 # Chess Odyssey B7 — v0.7.0 Release-Candidate QA Protocol
 
-**Status:** **B7 functional and automated RC acceptance PASS** — [actual three-job GitHub Actions #328](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44882567499); **v1.0 production still BLOCKED** on remaining human/owner gates.  
+**Status:** **B7 functional and automated RC acceptance PASS** — [final documentation-synchronized three-job GitHub Actions #339](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44883137898): 238/238 automated checks PASS, 40-file licensed ZIP. **v1.0 production still BLOCKED** on remaining human/owner gates.  
 **Branch:** `game/chess-odyssey-v0.1`; **release policy:** no `main` merge or deployment without explicit owner authorization.  
 **Baseline:** B6 v0.6.0 successful GitHub Actions #275, 180/180 automated checks plus 34-file GPL source-inclusive ZIP.
 
@@ -65,6 +65,12 @@ Rebuild from the complete source with no new backend, subscription, ads, remote 
 ### Truthful v1.0 gate summary
 
 **Automated functional QA A–E and technical parts of F–H PASS.** There is **no claim of full WCAG certification** from axe, nor human editorial RU/AZ/EN sign-off, nor independent historical double-source proof for every score. Gate I remains **BLOCKED** until an explicit owner-approved destination, merge, production deploy and post-deploy smoke. No authorization to do any of those actions has been received in this turn.
+
+### Final reread — CI #339 and independently played second full game
+
+Final three-job CI #339 (`44883137898`) **SUCCESS** after packaging the substantive source/register and release documentation. B0–B7 tests still **238/238 PASS**, including genuine Windows launcher and zero automated WCAG A/AA violations. A new non-seeded, standard-start real Stockfish-user-vs-Beginner-AI game ended in **55 legal half-moves (28 user turns), checkmate**; the independent record remained single-counted after reload. This differs from the previous #328 **21-ply checkmate** only because the AI chooses variable legal lines. Source and historical limitations remain unchanged.
+
+Latest CRC-verified inner **40-file ZIP**: 1,527,860 bytes, SHA256 `bb9fa7b525f320ce50fdc0465ca63c5eac2d91807cc234f914bb9f5fafa37d94`; GitHub Actions artifact `ChessOdyssey-v0.7.0-Release-Candidate-Stockfish-PREVIEW`, ID **14697794883**, retains full GPL notices, source/register docs and the standalone. Exact [final evidence and file](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44883137898). No `main` merge or deployment, no change to open independent human/owner gates.
 
 ## Verification and handoff
 
