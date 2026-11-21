@@ -1,8 +1,8 @@
 # Chess Odyssey QA Ledger
 
-**CURRENT VERIFIED CHECKPOINT (2026-11-21): B6 v0.6.0 Preview, GitHub Actions run #275 — 180/180 executable tests PASS + documentation-synchronized 34-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
-Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44845418646  
-Current technical authority: docs/PROGRESS_B6_DESIGN.md + progress-core.js + progress-ui.js, on top of B5 source register, B4 Academy and B3 Stockfish. Earlier B0–B5 ledger entries remain historical evidence and are not claims of production release.
+**CURRENT VERIFIED CHECKPOINT (2026-11-21): B7 v0.7.0 Release Candidate, GitHub Actions run #328 — 238/238 executable checks PASS (237 Node/Chrome + native Windows 1) and 40-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
+Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44882567499  
+Current technical authority: docs/RELEASE_B7_QA.md + docs/SOURCE_B7_REFRESH.md + B7 release tests, on top of B6, B5 source register and verified Stockfish/Academy. Earlier B0–B6 entries are historical checkpoints, not production-release claims.
 
 Date: 2026-11-21
 Branch: game/chess-odyssey-v0.1
@@ -299,3 +299,57 @@ B6 real-browser gates include: no initial fake index, all three tabs, real B4 le
 - New downloadable artifact **ID 14682882393**, `ChessOdyssey-v0.6.0-Progress-Stockfish-PREVIEW`, outer GitHub archive digest `c82ee8d82dfe5c7650e3d8f59d39c493308a856205e419d6119f5c2e181deeab`, retained through **2026-12-21 UTC**. [Final full QA + downloadable ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44845418646).
 - Prior #268 ZIP SHA/size above is *historical evidence*, not the current full artifact's SHA. This final QA pointer was committed after #275 via `[skip ci]`; as always, the artifact cannot retroactively contain its own final recording.
 - B6 baseline **accepted only as green development preview**. B7 production still gated. No merge/main/deploy and no other-game change.
+
+
+## B7 — full-game release-candidate QA v0.7.0 (2026-11-21)
+
+**Development baseline:** all B0–B6 functionality preserved, including 33 Academy lessons, 31 historic linked games with 1,923 SAN half-moves/116 original notes, original Coach, real Stockfish, 16 achievements and transparent, non-Elo independent AI Ladder Index. Dedicated branch `game/chess-odyssey-v0.1`; draft PR #7. No main merge or production deployment.
+
+### B7 PRECHECK and technical fixes
+
+- `docs/DEVELOPMENT_PROTOCOL.md` hard gates A–I, `AGENTS.md`, existing #275 180/180 passed suite, `ROADMAP.md` and source register read live. No direct production changes.
+- Hardened `progress-core.validateMatch`: every claimed independent match is **replayed entirely from standard initial chess position**; a post-setup custom-FEN checkmate PGN must not be credited. Still rejects coaching/hint/Undo/invalid opponent level/fallback/duplicate ID.
+- Full practice chessboard **roving keyboard focus**; arrows respect actual orientation, Enter/Space selects/moves, controls preserve focus after rerender. All 64 squares have Russian, English or Azerbaijani accessible *semantic* labels, not opaque “w q”.
+- Promotion dialog opens with keyboard focus, Tab wraps, Escape cancels/reverts pending selection, focus returns to origin, no phantom selected pawn preventing second try; all 4 promotions accessible and correctly named.
+- Read-only Masters replay board switched from 64 ineffective HTML buttons to **64 static div cells** under a localized spoken `role=img` position summary, eliminating an actual serious nested-interactive WCAG issue.
+- Tablist ArrowLeft/ArrowRight/Home/End keyboard navigation and responsive 320/390/768/1024px controls.
+- Independent source refresh `docs/SOURCE_B7_REFRESH.md`: live 2026-11-21 re-fetch of **31/31 primary historical game URLs**, match **1,923/1,923 SAN half-moves**, 31 white/black players, 31 years and 31 recorded results against registered primary pages. Crucial: this is **primary-source freshness**, not an independent secondary archive; B5 second-source parity status remains **4 full / 2 partial / 25 not independently double-verified**.
+
+### Red→green failure history — never silently discard
+
+| Run | Exact result | Investigation, repair and retest |
+| --- | --- | --- |
+| **#312** `44881519499` | Unit successful, Browser **FAIL** in existing B4 test | New accessible square names changed `aria-label` from machine-coded `a8 w q` to `a8 — белый ферзь`. Updated B4 test to assert the **exact semantic accessible queen/knight**, not to weaken promotion QA; `tests/academy-browser.cjs`. |
+| **#314** `44881735089` | Old B0–B6 browser PASSED, B7 Chrome **FAIL** on second promotion attempt | Escape closed dialog but preserved selected pawn. Next click deselected it, so a second promotion wasn't offered. Updated `closePromotion` to clear pending state and selection, rerender and restore focus; B7 retest 27/27. |
+| **#316** `44881941979` | B7 Chrome **27/27 PASS**, axe 1280px Practice PASS, Masters **FAIL** serious `nested-interactive` | Masters visual board used 64 HTML buttons inside `role=img`. Removed bogus buttons: static non-interactive squares, localized position/ply summary. Adjusted original B5 and B7 browser tests to assert real display behavior. |
+| **#322** `44882203445` | **Three jobs SUCCESS**: B0–B7 unit, browser+axe, Windows real .cmd launcher | First green B7 236/236 Node+Chrome + Windows 1/1. Historical source, WCAG and legal QA all PASS. Preserved as earlier passing candidate artifact, not overwritten. |
+| **#328** `44882567499` | **Three jobs SUCCESS** after adding a full **organic game** test | 237/237 Node+Chrome and Windows 1/1: 238/238; actual Stockfish-generated human moves versus real Beginner bot on the standard board, checkmate at **21 legal half-moves / 11 user turns**; score once + reload once. |
+
+### Executed release candidate QA #328 — 238 / 238 PASS
+
+| Gate | Checks | Result |
+| --- | ---: | --- |
+| Original B0–B6 exact suite | 180 | PASS |
+| B7 chess perft(4)=197,281, special moves, FIDE claim caveat, full-start PGN, sources and RU/EN/AZ checks | 22 | PASS |
+| B7 real desktop/mobile full game controls, castling/en passant, Q/N promotion, Escape/retry, tab/board keyboard, 320–1024px, local save and full Morphy historical replay | 27 | PASS |
+| B7 **non-seeded complete independent game** with actual Stockfish/real local AI | 1 | PASS; **21 plies, checkmate**, no game-result double count |
+| B7 **axe-core WCAG 2.2 A/AA** real Chrome scans: all 3 tabs × 1280/390 and actual modal | 7 | PASS; **zero automated rule violations** |
+| **Node + Chrome subtotal** | **237** | **PASS** |
+| Actual **Windows Server 2022** runner: extracted complete GPL ZIP, `START_WINDOWS.cmd` execution, loopback-only bind, real Stockfish WASM HTTP and progress module | 1 | PASS |
+| **TOTAL EXECUTED** | **238** | **238 PASS, 0 FAIL** |
+
+**Important evidence granularity:** The organic match starts from a fresh standard board and has no seeded PGN. Stockfish 19 chooses user moves via real UCI and actual browser clicks; app's original Beginner bot replies, and actual chess.js checkmate completes the game. This proves a full end-to-end game, **not human Elo calibration**, nor a claim that every possible full game has been explored. Detailed automated navigation and explicit limitations in `docs/RELEASE_B7_QA.md`.
+
+**Artifact #328:** 40 files, full source and GPL with unmodified Stockfish JS/WASM. `ChessOdyssey_v0.7.0_Stockfish_Preview.zip` **1,522,339 bytes**, built and CRC reopened SHA256 **`282ce29786d345d3416f3f2f9083265575659b768f0d48b3ebc48d3ac6b56928`**. GitHub Actions artifact `ChessOdyssey-v0.7.0-Release-Candidate-Stockfish-PREVIEW` ID **14699065412**, outer wrapper SHA256 `b70348c9448052c6834fdd0d5d1b4088584d94f5f81657dc9f531ecae2dd7f83`, expires **2026-12-21 UTC**. [Full CI, Windows and download](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44882567499).
+
+### Release blockers and accepted scope boundaries
+
+- **B7 automated functional QA PASS**, but `v1.0 production` remains BLOCKED by **Gate I**: owner has not specified/approved production destination, merge or deployment. Nothing has been deployed and `main` remains untouched.
+- Gate F **human independent RU/EN/AZ educational and historical proofreading NOT TESTED** (automation checks coverage and representative meaning, not independent expert semantic certification).
+- Gate G **human screen reader/assistive-device certification NOT TESTED**; axe found zero automatic A/AA rules violations but that alone is **not full WCAG conformance**.
+- B5 historical archive second-source full verification is incomplete for 25 games, and partial for 2; 31 fresh primary-source matches must not be misrepresented as 31 independent second-source corroborations.
+- Practice chess.js v0.10.3 **automatically adjudicates threefold repetition** rather than waiting for a player's FIDE claim (official 2023 FIDE Article 9.2); acceptable training simplification is disclosed, but **not an official tournament procedure**.
+- Real Windows GitHub Actions virtual machine ran the .cmd launcher and verified loopback/Stockfish assets; **manual owner double-click and proprietary browser setups NOT TESTED**.
+- LocalStorage scores remain private and not anti-cheat secure; the AI Ladder Index is not Elo/FIDE.
+
+**Final technical authority:** `docs/RELEASE_B7_QA.md`, `docs/SOURCE_B7_REFRESH.md`, `docs/PROGRESS_B6_DESIGN.md`, B5 primary source register, full CI #328, exact SHA. No autodeploy or project mixing.
