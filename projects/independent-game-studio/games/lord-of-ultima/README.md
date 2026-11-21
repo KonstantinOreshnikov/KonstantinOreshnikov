@@ -23,3 +23,14 @@ The owner described first-hand gameplay memories of continents, building one set
 **Important distinction:** mechanic research is authorized; implementing the prototype, copying third-party code/graphics, deploying or representing EA's official game is not authorized by this research request.
 
 [Back to Independent Game Studio](../../README.md) · [Caribbean Merchant](../caribbean-merchant/README.md)
+
+## How the project changed
+
+| Stage | What was established | Evidence / boundary |
+| --- | --- | --- |
+| **Research · 19 Nov 2026** | Recalled the original city/economy/army loop and compared original Lord of Ultima mechanics with possible successors. | [Original versus successors](original-vs-successors.md) · [source register](sources.md). Some successor identity remains unconfirmed. |
+| **Single-player v0.1 design** | Scoped a 10×10 continent, one human and one equal-rule bot; specified economy, agents, anti-P2W, visual gates and owner-requested planning UX. | [Executable design specification](singleplayer-v0.1-spec.md) · [economy](economy-and-agents.md) · [visual QA](visual-qa.md) · [planning UX](smart-planning-ux.md). **v0.1 names a document, not a game release.** |
+| **Future expansion** | Documented continents, alliances and bot commands beyond the initial slice. | [Expansion roadmap](expansion-roadmap.md) is proposed scope, not implemented functionality. |
+| **Next gate** | Implement the first playable prototype and run actual gameplay QA after owner authorization. | [Current status](STATUS.md): no source build, tagged release or executed game QA. |
+
+There is no playable-version timeline yet; adding v0.2 or later game milestones now would invent work that has not happened.

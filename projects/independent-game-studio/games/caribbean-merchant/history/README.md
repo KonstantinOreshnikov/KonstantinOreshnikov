@@ -1,8 +1,8 @@
-# Development history: memory → prototype → v1.1
+# Development history: memory → prototype → v1.2 artifact
 
 This is a **retrospective written after development**, grounded in the preserved files and documented playtest feedback. Earlier versions were created as downloadable HTML builds; they were **not** originally maintained as a seven-commit Git history. Publishing them now must not imply otherwise.
 
-- [Milestone timeline](milestones.md): feature-by-feature growth from v0.1 to v1.1.
+- [Milestone timeline](milestones.md): feature-by-feature growth from v0.1 to the v1.2 artifact (QA pending).
 - [Feedback-to-fix trace](feedback-loop.md): what the human playtester found and what changed.
 - [Archived builds](releases/README.md): inspect the actual evolving HTML.
 - [Quality evidence](../testing/README.md): what was and was not verified.
@@ -14,7 +14,7 @@ This is a **retrospective written after development**, grounded in the preserved
 2. Build a minimal, playable browser economy and combat loop.
 3. Run the build, play several routes, notice practical issues and give direct feedback.
 4. Implement incremental changes and check the interface and transactions again.
-5. Iterate through v1.0 and the follow-up v1.1 contract and empire management repairs.
+5. Iterate through v1.0, v1.1 contract and empire management repairs, then preserve the later v1.2 standalone HTML with recurring encounters; its gameplay QA is still pending.
 
 **Human role:** playtest observations, constraints, priorities and acceptance feedback. **AI assistance:** coding, visual iteration, research, documentation and scripted verification.
 

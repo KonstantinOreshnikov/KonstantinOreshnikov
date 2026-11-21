@@ -9,6 +9,8 @@ Independent, AI-assisted game projects by Konstantin Oreshnikov. This directory 
 | [Lord of Ultima-inspired strategy](games/lord-of-ultima/README.md) | Calm solo economy, city, army and continental strategy | Research/specification only; no build |
 | [Chess Odyssey — Academy & Arena](games/chess-odyssey/README.md) | Chess education, AI and friend PvP development | B9/v0.9 source development; v0.8.0 playable CI ZIP; authentic cloud PvP open |
 
+Each game README has a **How the project changed** section with linked milestone evidence: [Caribbean Merchant](games/caribbean-merchant/README.md#how-the-project-changed) · [Kingdoms of Ember](games/kingdoms-of-ember/README.md#how-the-project-changed) · [Chess Odyssey](games/chess-odyssey/README.md#how-the-project-changed) · [Lord of Ultima-inspired strategy](games/lord-of-ultima/README.md#how-the-project-changed). The latter is a research/design history because there is no game build yet.
+
 **Before starting work in a new chat:** read [GAME_REGISTRY.md](GAME_REGISTRY.md), the selected game's `STATUS.md`, its technical authority and QA. Check current branch HEAD and actual artifact. Log discrepancies rather than guessing the latest version. On a significant release update registry and status together, verify file and hash, then read back. GitHub does not automatically synchronize chat context.
 
 [Migration provenance and conflicts](MIGRATION_REPORT.md) · [History](CHANGELOG.md) · [Machine-readable registry](games.json).

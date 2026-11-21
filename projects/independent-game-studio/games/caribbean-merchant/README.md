@@ -67,19 +67,20 @@ The game is **self-contained HTML**. Download it and open it locally. No install
 ## How the project changed
 
 ```mermaid
-flowchart LR
+flowchart TB
  M[Remembered mobile game] --> P[v0.1 playable prototype]
- P --> L[v0.2–0.3 localization and piracy]
- L --> C[v0.4 geographic map redesign]
+ P --> L[v0.2 localization and route forecasts]
+ L --> Z[v0.3 piracy zones and encounters]
+ Z --> C[v0.4 geographic map redesign]
  C --> U[v0.5 usable commerce]
  U --> G[v0.6 career and achievements]
  G --> R[v1.0 automated economy and richer world]
  R --> S[v1.1 repaired contracts and global auto-sale]
- S --> T[Ongoing real-player testing]
- T -.feedback.-> R
+ S --> T[v1.2 recurring raids and faction outposts]
+ T --> Q[v1.2 independent gameplay QA pending]
 ```
 
-[**Browse every preserved HTML milestone**](history/releases/README.md) (historical builds are preserved, while v1.1 is the latest available standalone).
+[**Browse every preserved HTML milestone**](history/releases/README.md) and the [feature-by-feature history](history/milestones.md). **v1.2 is the latest identified standalone HTML; v1.1 is the current documented playable version with historical synthetic QA.** v1.2 gameplay/browser acceptance remains untested; see [status](STATUS.md).
 
 ## Links to the wider portfolio
 

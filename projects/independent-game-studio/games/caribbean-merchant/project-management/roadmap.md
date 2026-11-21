@@ -1,6 +1,6 @@
 # Post-v1.1 roadmap and current limits
 
-v1.1 is the latest playable standalone, **not the end of quality work**. The previous contract-offer expiry blocker and factory-wide auto-sale request are addressed, as documented in [v1.1 synthetic QA](../testing/v1.1-contracts-autosale.md).
+v1.1 is the current documented playable standalone with historical synthetic QA; a newer v1.2 HTML artifact exists with independent gameplay QA pending. The previous contract-offer expiry blocker and factory-wide auto-sale request are addressed, as documented in [v1.1 synthetic QA](../testing/v1.1-contracts-autosale.md).
 
 ## Next acceptance gates
 
