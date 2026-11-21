@@ -1,0 +1,44 @@
+name: Chess Odyssey — vendor pinned Stockfish 19 Lite
+on:
+  push:
+    branches: ["game/chess-odyssey-v0.1"]
+    paths:
+      - "projects/chess-odyssey/scripts/vendor-stockfish.cjs"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  stage-stockfish:
+    if: github.ref == 'refs/heads/game/chess-odyssey-v0.1'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: game/chess-odyssey-v0.1
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install exact upstream version (never run package lifecycle scripts)
+        run: |
+          mkdir -p "$RUNNER_TEMP/chess-engine"
+          npm install --prefix "$RUNNER_TEMP/chess-engine" --ignore-scripts --no-audit --no-fund --no-package-lock stockfish@19.0.1
+      - name: Copy pinned browser assets, license and SHA256 manifest
+        env:
+          CHESS_STOCKFISH_PKG: ${{ runner.temp }}/chess-engine/node_modules/stockfish
+        run: node projects/chess-odyssey/scripts/vendor-stockfish.cjs
+      - name: Verify distribution is a valid UCI engine
+        working-directory: projects/chess-odyssey
+        run: node tests/stockfish-uci.cjs
+      - name: Commit only the verified engine artifacts to this game branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- projects/chess-odyssey/engine/
+          if git diff --cached --quiet; then
+            echo "Engine already at verified pinned version"
+          else
+            git commit -m "vendor(chess): pin Stockfish 19.0.1 Lite WASM and GPL license"
+            git push origin HEAD:refs/heads/game/chess-odyssey-v0.1
+          fi

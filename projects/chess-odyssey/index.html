@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Chess Odyssey: learn chess while playing with a gentle AI opponent.">
+  <title>Chess Odyssey — Academy & Arena</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="vendor/chess.js"></script>
+  <script defer src="coach-engine.js"></script>
+  <script defer src="engine-bridge.js"></script>
+  <script defer src="academy.js"></script>
+  <script defer src="progress-core.js"></script>
+  <script defer src="clock-core.js"></script>
+  <script defer src="app.js"></script>
+  <script defer src="masters-library.js"></script>
+  <script defer src="masters-notes-a.js"></script>
+  <script defer src="masters-notes-b.js"></script>
+  <script defer src="masters-notes-c.js"></script>
+  <script defer src="masters-core.js"></script>
+  <script defer src="masters-ui.js"></script>
+  <script defer src="progress-ui.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">♞</span><div>
+        <h1 data-i18n="title">Chess Odyssey</h1><p data-i18n="subtitle">ACADEMY & ARENA</p>
+      </div></div>
+      <div class="version">B8 DEVELOPMENT <span>v0.8.0</span> · NOT RELEASED</div>
+    </header>
+    <nav class="game-tabs" role="tablist" aria-label="Chess Odyssey sections">
+      <button type="button" id="nav-play" role="tab" aria-selected="true" aria-controls="practice-view" data-master-label="practiceTab">Практика и Академия</button>
+      <button type="button" id="nav-masters" role="tab" aria-selected="false" aria-controls="masters-view" data-master-label="mastersTab">Мастера и легенды</button>
+      <button type="button" id="nav-progress" role="tab" aria-selected="false" aria-controls="progress-view" data-master-label="progressTab">Мой прогресс</button>
+    </nav>
+    <section class="workspace" id="practice-view" role="tabpanel" aria-labelledby="nav-play" aria-label="Chess game and coach">
+      <div class="play-section">
+        <div class="board-topline">
+          <div><p class="eyebrow" data-i18n="game">Тренировочная партия</p><h2 id="game-status" aria-live="polite">Ваш ход</h2></div>
+          <label class="flip-control"><input type="checkbox" id="flip"><span data-i18n="flip">Повернуть доску</span></label>
+        </div>
+        <div id="clock-panel" class="clock-panel" role="group" aria-label="Chess game clocks" hidden>
+          <div class="clock-card" id="clock-black"><span class="clock-player" data-i18n="blackClock">Чёрные</span><span class="sandglass" aria-hidden="true">⌛</span><strong id="clock-black-time" class="clock-time" aria-label="Black time remaining">00:00</strong></div>
+          <div class="clock-card" id="clock-white"><span class="clock-player" data-i18n="whiteClock">Белые</span><span class="sandglass" aria-hidden="true">⌛</span><strong id="clock-white-time" class="clock-time" aria-label="White time remaining">00:00</strong></div>
+        </div>
+        <div class="board-frame"><div id="board" class="board" role="group" aria-label="Chessboard" aria-describedby="board-keyboard-hint"></div></div>
+        <p id="board-keyboard-hint" class="chess-keyboard-help" data-i18n="boardHelp">Клавиши ← ↑ → ↓ — перемещение по доске; Enter или пробел — выбрать клетку.</p>
+        <div class="board-controls">
+          <button id="new-game" class="action primary" data-i18n="newGame">Новая партия</button>
+          <button id="undo" class="action" data-i18n="undo">Отменить ход</button>
+          <button id="hint" class="action accent" data-i18n="hint">Подсказка</button>
+        </div>
+        <div class="b8-controls"><button id="resign" type="button" class="action" data-i18n="resign">Сдаться</button><button id="rematch" type="button" class="action" data-i18n="rematch">Реванш</button></div>
+        <div class="moves-panel"><h3 data-i18n="moves">История ходов</h3><p id="moves" aria-live="polite">—</p></div>
+      </div>
+      <aside class="sidebar">
+        <section class="panel coach-panel">
+          <div class="panel-head"><span class="coach-icon" aria-hidden="true">✦</span><h2 data-i18n="coach">AI Coach · Учимся играя</h2></div>
+          <p id="coach-message" class="coach-message" aria-live="polite">Выберите фигуру, затем доступную клетку.</p>
+          <ol id="coach-variations" class="coach-variations" aria-label="Legal move choices" hidden></ol>
+          <button id="review-button" class="review-button" data-i18n="reviewButton">Разбор ключевых ходов</button>
+          <div id="coach-review" class="coach-review" aria-live="polite" hidden>
+            <h3 data-i18n="reviewTitle">Ключевые моменты</h3>
+            <ol id="review-list"></ol>
+          </div>
+          <p class="footnote" data-i18n="about">Рейтинг отключён в тренировке; без таймера</p>
+        </section>
+        <section class="panel settings-panel">
+          <div class="two-fields">
+            <label><span data-i18n="level">Сложность AI</span><select id="level"><option value="beginner" data-i18n="beginner">Начинающий</option><option value="novice" data-i18n="novice">Любитель</option><option value="intermediate" data-i18n="intermediate">Intermediate</option><option value="advanced" data-i18n="advanced">Advanced</option><option value="expert" data-i18n="expert">Expert</option><option value="grandmaster" data-i18n="grandmaster">Grandmaster Challenge</option></select></label>
+            <label><span data-i18n="side">Мои фигуры</span><select id="side"><option value="w" data-i18n="white">Белые</option><option value="b" data-i18n="black">Чёрные</option></select></label>
+          </div>
+          <p id="engine-status" class="engine-status" role="status" aria-live="polite">Локальный AI для обучения</p>
+          <label class="match-mode-label"><span id="match-mode-label">Тип партии</span>
+            <select id="match-mode" aria-label="Match type">
+              <option value="practice">Тренировка с подсказками</option>
+              <option value="independent">Самостоятельный матч без помощи</option>
+            </select>
+          </label>
+          <div class="time-settings">
+            <label><span data-i18n="timeControl">Контроль времени</span><select id="time-control">
+              <option value="none" data-i18n="untimed">Без времени</option>
+              <option value="bullet1">Bullet · 1+0</option><option value="blitz3">Blitz · 3+0</option><option value="blitz5">Blitz · 5+0</option>
+              <option value="rapid10">Rapid · 10+0</option><option value="rapid15">Rapid · 15+0</option><option value="rapid1510">Rapid · 15+10</option><option value="rapid20">Rapid · 20+0</option><option value="rapid30">Rapid · 30+0</option>
+              <option value="custom" data-i18n="customTime">Своё время</option>
+            </select></label>
+            <div id="custom-clock" class="custom-clock" hidden><label><span data-i18n="customMinutes">Минуты</span><input id="custom-minutes" type="number" min="1" max="180" step="1" value="10"></label><label><span data-i18n="customIncrement">Добавление, секунд</span><input id="custom-increment" type="number" min="0" max="120" step="1" value="0"></label></div>
+            <label><span data-i18n="clockTheme">Вид часов</span><select id="clock-style"><option value="digital" data-i18n="digitalClock">Электронные</option><option value="hourglass" data-i18n="hourglassClock">Песочные + цифры</option></select></label>
+            <label class="sound-toggle"><input type="checkbox" id="sound-enabled"><span data-i18n="sounds">Звуки партии</span></label>
+            <p id="clock-policy" class="footnote" aria-live="polite"></p>
+          </div>
+          <p id="match-integrity" class="match-integrity" aria-live="polite">В тренировке рейтинг не меняется.</p>
+          <label><span data-i18n="language">Язык</span><select id="lang"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label>
+        </section>
+        <section class="panel academy-panel">
+          <h2 data-i18n="lessons">Академия</h2>
+          <label class="academy-filter-label"><span data-i18n="academyTrack">Раздел обучения</span>
+            <select id="academy-track" aria-label="Academy track">
+              <option value="all" data-i18n="allTracks">Все разделы</option>
+              <option value="basics" data-i18n="trackBasics">Основы и правила</option>
+              <option value="tactics" data-i18n="trackTactics">Тактика и комбинации</option>
+              <option value="openings" data-i18n="trackOpenings">Дебютные идеи</option>
+              <option value="endgames" data-i18n="trackEndgames">Эндшпиль</option>
+            </select>
+          </label>
+          <p id="academy-track-status" class="academy-track-status" aria-live="polite"></p>
+          <label class="academy-lesson-label"><span data-i18n="academyLesson">Урок или задача</span>
+            <select id="lesson" aria-label="Choose lesson">
+              <option value="" data-i18n="chooseLesson">Выбрать урок…</option>
+            <option value="pawn">1. Пешка занимает центр</option>
+            <option value="knight">2. Конь перепрыгивает фигуры</option>
+            <option value="bishop">3. Слон на длинной диагонали</option>
+            <option value="rook">4. Ладья идёт по прямой</option>
+            <option value="queen">5. Ферзь соединяет ходы слона и ладьи</option>
+            <option value="castle">6. Короткая рокировка</option>
+            <option value="enpassant">7. Взятие на проходе</option>
+            <option value="promotion">8. Превращение пешки</option>
+            <option value="check">9. Шах: король под ударом</option>
+            <option value="mate">10. Мат на f7</option>
+            <option value="fork">11. Вилка конём</option>
+            <option value="pin">12. Абсолютная связка</option>
+            <option value="skewer">13. Линейный удар: сквозная атака</option>
+            <option value="discovery">14. Вскрытый шах</option>
+            <option value="pawnfork">15. Пешечная вилка</option>
+            <option value="backrank">16. Мат по последней горизонтали</option>
+            <option value="winrook">17. Бесплатная фигура? Сначала проверьте</option>
+            <option value="italian">18. Итальянская партия (белые)</option>
+            <option value="spanish">19. Испанская партия (белые)</option>
+            <option value="queens">20. Ферзевый гамбит (белые)</option>
+            <option value="london">21. Лондонская система (белые)</option>
+            <option value="sicilian">22. Сицилианская защита (чёрные)</option>
+            <option value="kingsIndian">23. Староиндийская защита (чёрные)</option>
+            <option value="french">24. Французская защита (чёрные)</option>
+            <option value="caro">25. Защита Каро–Канн (чёрные)</option>
+            <option value="end-queenmate">26. Мат ферзём и королём</option>
+            <option value="end-rookmate">27. Мат ладьёй</option>
+            <option value="end-opposition">28. Оппозиция королей</option>
+            <option value="end-underpromotion">29. Превращение не только в ферзя</option>
+            <option value="end-rookbehind">30. Ладья позади проходной пешки</option>
+            <option value="end-king">31. Король активен в окончании</option>
+            <option value="end-race">32. Проходная пешка и правило квадрата</option>
+            <option value="end-escort">33. Сопровождаем проходную пешку</option>
+            </select>
+          </label>
+          <p id="academy-intro" class="academy-intro" aria-live="polite" hidden></p>
+          <p id="academy-step" class="academy-step" aria-live="polite" hidden></p>
+          <p id="lesson-status" aria-live="polite"></p>
+          <div class="academy-actions">
+            <button id="resume-game" class="resume-action" data-i18n="resume" hidden>Вернуться к партии</button>
+            <button id="next-lesson" class="resume-action next-lesson" data-i18n="nextLesson" hidden>Следующий урок</button>
+          </div>
+          <div class="stats-grid">
+            <div><strong id="completed">0/33</strong><small data-i18n="done">Пройдено уроков</small></div>
+            <div><strong id="record">0 / 0 / 0</strong><small data-i18n="record">Победы / поражения / ничьи</small></div>
+          </div>
+        </section>
+      </aside>
+    </section>
+    <section id="masters-view" role="tabpanel" aria-labelledby="nav-masters" class="masters-layout" hidden>
+      <div class="masters-main">
+        <div class="masters-heading">
+          <div>
+            <p class="eyebrow" data-master-label="mastersHeading">ИСТОРИЯ ШАХМАТ · ОБУЧЕНИЕ</p>
+            <h2 id="m-title" aria-live="polite">31 историческая партия</h2>
+            <p id="m-meta" class="masters-meta"></p>
+          </div>
+          <label class="masters-flip"><input id="m-flip" type="checkbox"><span data-master-label="flip">Повернуть доску</span></label>
+        </div>
+        <div class="board-frame masters-board-frame">
+          <div id="m-board" class="board masters-board" role="img" aria-label="Historical chess game board"></div>
+        </div>
+        <div class="masters-navigation" role="group" aria-label="Historical game move controls">
+          <button type="button" id="m-first" aria-label="First move">|◀</button>
+          <button type="button" id="m-prev" aria-label="Previous move">◀</button>
+          <button type="button" id="m-play" aria-label="Autoplay historical game">▶</button>
+          <button type="button" id="m-next" aria-label="Next move">▶</button>
+          <button type="button" id="m-last" aria-label="Last move">▶|</button>
+        </div>
+        <label class="masters-range-label">
+          <span id="m-progress" aria-live="polite">0 / 0</span>
+          <input id="m-slider" type="range" min="0" max="1" step="1" value="0" aria-label="Go to recorded move">
+        </label>
+        <div class="masters-toolbar">
+          <button type="button" id="m-quiz" class="action accent" data-master-label="guessMove">Найти ход мастера</button>
+          <button type="button" id="m-bookmark" class="action" data-master-label="bookmark">Закладка</button>
+          <button type="button" id="m-download" class="action" data-master-label="downloadPGN">Скачать PGN</button>
+        </div>
+        <div class="masters-move-panel">
+          <h3 data-master-label="scoreTitle">Полная запись партии · нажми на любой ход</h3>
+          <div id="m-moves" class="masters-moves" role="group" aria-label="Historical moves"></div>
+        </div>
+      </div>
+      <aside class="masters-sidebar">
+        <section class="panel masters-catalogue">
+          <h2 data-master-label="libraryTitle">Библиотека исторических партий</h2>
+          <label><span data-master-label="filterTitle">Тема</span>
+            <select id="m-filter">
+              <option value="all" data-master-label="all">Все темы</option>
+              <option value="attack" data-master-label="attack">Атаки и комбинации</option>
+              <option value="strategy" data-master-label="strategy">Стратегия и защита</option>
+              <option value="endgame" data-master-label="endgame">Эндшпиль и пешки</option>
+              <option value="machine" data-master-label="machine">Человек и машина</option>
+            </select>
+          </label>
+          <label><span data-master-label="searchTitle">Поиск по игроку, названию и году</span>
+            <input id="m-search" type="search" placeholder="Morphy, Fischer, Kasparov..." autocomplete="off" aria-label="Search master games">
+          </label>
+          <label><span data-master-label="chooseTitle">Историческая партия</span>
+            <select id="m-game" aria-label="Select historical master game"></select>
+          </label>
+          <p id="m-catalogue-count" class="masters-meta" aria-live="polite"></p>
+          <label><span data-master-label="language">Язык объяснений</span>
+            <select id="m-lang"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select>
+          </label>
+          <p id="m-summary" class="masters-summary"></p>
+          <p class="masters-source"><span data-master-label="source">Запись ходов</span>: <a id="m-source" href="https://chessgator.com/games/opera-game" rel="noopener noreferrer" target="_blank">Historical game source</a></p>
+        </section>
+        <section class="panel masters-teaching">
+          <h2 data-master-label="momentsTitle">Ключевые учебные моменты</h2>
+          <p id="m-explain" class="masters-explain" aria-live="polite"></p>
+          <div id="m-quiz-panel" class="masters-quiz" hidden>
+            <p id="m-question" class="masters-question"></p>
+            <div id="m-options" class="masters-options" role="group" aria-label="Legal historical move options"></div>
+            <p id="m-feedback" aria-live="polite"></p>
+          </div>
+          <ol id="m-moments" class="masters-moments" aria-label="Annotated key moments"></ol>
+          <p class="footnote" data-master-label="teachingNote">Задача — угадать исторический ход, не обязательно объективно лучший. Другие варианты могут быть допустимы.</p>
+        </section>
+        <section class="panel masters-bookmarks">
+          <h2 data-master-label="bookmarksTitle">Мои закладки</h2>
+          <div id="m-bookmarks" class="masters-bookmark-list"></div>
+        </section>
+      </aside>
+    </section>
+    <section id="progress-view" class="progress-layout" role="tabpanel" aria-labelledby="nav-progress" hidden>
+      <div class="progress-hero">
+        <p class="eyebrow" id="progress-eyebrow">ВАШ ПУТЬ В ШАХМАТАХ</p>
+        <h2 id="progress-title">Мой прогресс</h2>
+        <p id="progress-lead" class="progress-lead">Обучение и самостоятельная игра измеряются отдельно.</p>
+        <label class="progress-lang-control"><span id="progress-lang-label">Язык</span>
+          <select id="progress-lang" aria-label="Progress language"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select>
+        </label>
+      </div>
+      <div class="progress-metrics">
+        <article class="panel progress-metric">
+          <p id="progress-rep-label">Репутация Академии</p>
+          <strong id="progress-rep">0</strong>
+          <small id="progress-rep-note">Очки за уникальные достижения, без накрутки за повторы</small>
+        </article>
+        <article class="panel progress-metric">
+          <p id="progress-lessons-label">Академия</p>
+          <strong id="progress-lessons">0 / 33</strong>
+          <small id="progress-lessons-note">Завершённые уроки</small>
+        </article>
+        <article class="panel progress-metric">
+          <p id="progress-masters-label">Мастера и легенды</p>
+          <strong id="progress-masters">0 / 31</strong>
+          <small id="progress-masters-note">Полностью изученные партии</small>
+        </article>
+        <article class="panel progress-metric">
+          <p id="progress-index-label">Локальный AI Ladder Index</p>
+          <strong id="progress-index">—</strong>
+          <small id="progress-index-note">Нет пяти самостоятельных завершённых матчей</small>
+        </article>
+      </div>
+      <div class="progress-two-columns">
+        <section class="panel progress-academy">
+          <h3 id="progress-academy-title">Обучение по разделам</h3>
+          <div id="progress-tracks" class="progress-tracks"></div>
+          <p id="progress-moments-label" class="progress-note"></p>
+          <p id="progress-quiz-label" class="progress-note"></p>
+        </section>
+        <section class="panel progress-independent">
+          <h3 id="progress-independent-title">Самостоятельная игра</h3>
+          <p id="progress-integrity-note" class="progress-note"></p>
+          <p id="progress-match-count" class="progress-note"></p>
+          <p id="progress-results" class="progress-note"></p>
+          <div id="progress-tier-results" class="progress-tiers"></div>
+          <p id="progress-index-method" class="progress-index-method"></p>
+        </section>
+      </div>
+      <section class="panel progress-achievements">
+        <h3 id="progress-achievements-title">Достижения</h3>
+        <p id="progress-achievements-count" class="progress-note"></p>
+        <div id="progress-awards" class="progress-awards"></div>
+      </section>
+      <section class="panel progress-history">
+        <h3 id="progress-history-title">Последние самостоятельные матчи</h3>
+        <div id="progress-match-history" class="progress-match-history"></div>
+        <p id="progress-storage-note" class="progress-note"></p>
+      </section>
+    </section>
+  </main>
+  <div id="promotion" class="promotion-backdrop" hidden>
+    <div class="promotion-box" role="dialog" aria-modal="true" aria-labelledby="promotion-label">
+      <button id="promotion-close" class="close" aria-label="Закрыть">×</button>
+      <h2 id="promotion-label">Выберите превращение пешки</h2>
+        <p id="promotion-help" class="promotion-help" data-i18n="promotionHelp">Выберите фигуру, в которую превратится пешка. Escape — отменить.</p>
+      <div class="promotion-choices">
+        <button data-promote="q" title="Queen">♛</button>
+        <button data-promote="r" title="Rook">♜</button>
+        <button data-promote="b" title="Bishop">♝</button>
+        <button data-promote="n" title="Knight">♞</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

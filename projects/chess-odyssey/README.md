@@ -1,90 +1,97 @@
-# Chess Odyssey — Academy & Arena
+# Chess Odyssey — Academy, Arena & Legends
 
-**Working title:** Chess Odyssey — Академия и Арена  
-**Status:** OWNER IDEA / PRODUCT CONCEPT ONLY · 20 November 2026 · No implementation, no engine integration and no QA.  
-**Separate scope:** distinct from Caribbean Merchant, Kingdoms of Ember and Lord of Ultima.
+**CURRENT: B9 / v0.9 DEVELOPMENT (2026-11-21) — ACTIVE, IMPLEMENTED PROJECT, NOT IDEA.** Last packaged playable preview is **v0.8.0**, NOT a shipped v0.9 build. [Canonical current status](docs/CURRENT_STATUS.md) · [verified full CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) · [Draft PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7). **Production v1.0 not released.**  
+**Preserved baseline:** B7 v0.7.0 RC 238/238 PASS (#339).  
+**Development branch:** `game/chess-odyssey-v0.1`. The game is independent of the CBA Examinations Platform and the other three game projects.
 
-## Mission
+## B9 / v0.9 Development — local PvP + Neon staging (not a published online service)
 
-A welcoming, beautifully designed **play-and-learn chess game** for a returning player who knows that chess exists but wants to **restart at beginner level** without books, pressure or clocks. Instruction must happen **while actually playing on a board**, in context, with visual highlights and plain-language explanations of **why** a move is sensible or dangerous.
+**The product is built, not conceptual.** Working local application: chess from beginner through six AI levels with Stockfish, 33 interactive RU/EN/AZ Academy lessons, 31 fully replayable historic master games and private progression/achievements. **B8 clock feature set is implemented and automated QA PASS**, but independent human review is still open.
 
-The first lesson should never assume familiarity with algebraic notation or opening jargon. No mandatory reading or book-based progression.
+**B9 delivered in source:** separate local authoritative chess match module (`pvp/match-service.cjs`), synthetic loopback HTTP/API (`pvp/dev-server.cjs`) and demo UI, private invites, alternating legal moves, canonical PGN/FEN, two clocks, resign/draw/rematch/reload. **27/27 domain + 15/15 HTTP + 11/11 real two-context Chrome synthetic PvP PASS** in [CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027). **WARNING:** `X-Demo-User` in this local-only fixture is spoofable; never deploy it publicly. Cloud multiplayer is NOT tested.
 
-## First experience: zero-to-confident novice
+**Neon staging actual state:** connected Free organization; isolated project `Chess Odyssey — Staging`, PostgreSQL 17 Frankfurt; four application tables created with RLS+FORCE RLS and zero allow policies; Better Auth enabled with password + mandatory email OTP, password-reset session revocation; 9 auth tables, 0 actual users/games at last verification. **Real two-user signup/login, persisted game API, token validation, negative access/security E2E, host and production not ready.** See [live Neon staging checkpoint](docs/B9_NEON_STAGING_CHECKPOINT_2026-11-21.md) and [B9 technical contract](docs/B9_NEON_INTEGRATION.md).
 
-- No time control, no chess clocks. User can pause, explore and undo a practice line.
-- Interactive refresher: board, squares, piece movement, capturing, castling, promotion, en passant, check, mate, stalemate and common draws. One concept at a time, directly on the board.
-- Move-by-move guided opening instruction both **as White and as Black**. Example: if White begins with **1.e4**, show several legal, mainstream replies with visually explained differences (e.g. **...e5**, **...c5** or **...e6**); clarify *purpose*, not memorized forced moves. If White begins **1.d4**, explain another family of replies. User chooses and tries the consequences on the board.
-- Warn about concrete threats: free piece capture, mate-in-one, hanging queen, pinned defender, weak king, tactical fork or overloaded defender. Offer **why** plus **safer alternatives**, not just opaque engine evaluations.
-- Hints for beginner can show candidate destination squares, highlight attacked squares, and compare 2–3 candidate moves. A "Why not this move?" preview shows the opponent's likely best reply and teaches the pattern.
-- Short, replayable interactive mini-lessons for forks, pins, skewers, discovered attacks, double attacks, back-rank mate, pawn structure, exchanges, king safety and common endgames.
-- Start with wins and understandable mistakes; after each game show **three learning moments**, avoiding a wall of raw engine centipawns.
+**Status discipline:** phase `v0.9` != validated downloadable `v0.9` artifact. Continue using v0.8.0 preview to play locally. B8 human language/source and owner device checks remain open. PvP with real cloud accounts is a v1.0 blocker.
 
-## Adaptive ladder (proposed labels, not FIDE titles)
+## B8 playable clock preview (v0.8.0; included in B9 working branch)
+- **Clock presets:** Untimed (default); Bullet 1+0; Blitz 3+0 and 5+0; Rapid 10+0, 15+0, 15+10, 20+0 and 30+0; Custom. Clocks run separately and include AI thinking time. Each completed move earns the chosen increment. Clock flags and resignation conclude the game without inventing checkmate in the PGN.
+- **Display:** optional hourglass animation beside exact digital numbers, optional local synthesized sounds, rematch/resign actions and RU/EN/AZ time controls. B2 postgame analysis remains available.
+- **Integrity:** timed AI matches do not enter the existing uncalibrated AI Ladder Index; existing untimed no-assistance verification remains unchanged. Offline standalone still plays against the local weaker AI when file:// lacks Stockfish Worker support.
+- **Current QA evidence:** [CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027), **32/32 B8 clock units + 12/12 B8 real Chromium browser**, plus 27/27 B9 domain, 15/15 local HTTP, 11/11 dual-Chrome, legacy B0–B7 regression and actual Windows smoke, all **3/3 CI jobs SUCCESS**. Last packaged v0.8.0 preview ZIP SHA256 `3aa43053b4b395df415431fa099c2f8b5a084b9a416d638c8bebc246408d79c2` from run #403; historical B8-only SHA from run #372 is preserved in CHANGELOG/QA.
+- **Open:** independent human RU/EN/AZ educational semantics, physical PC/phone testing, historical second-source verification and bounded extra openings; B9 persistent authenticated Neon multiplayer and real E2E; B10 final release. Neon Auth provisioned is NOT equal to an integrated live game.
 
-| Learning stage | Coach behavior | Opponent |
-|---|---|---|
-| **Beginner / Возвращение** | Full explanation on request, severe-threat warnings, legal-move preview, unlimited practice undo | Gentle opponent; intentionally low complexity |
-| **Novice / Основы** | Opening purpose, tactics prompts and post-move explanations | Basic opponent with clear plans |
-| **Intermediate / Средний** | Warn primarily before critical blunders, explain strategic alternatives after a move | More consistent positional play |
-| **Advanced / Выше среднего** | Limited warnings for genuinely decisive danger; analysis mainly post-game | Deeper tactics and opening repertoire |
-| **Expert / Эксперт** | User moves unassisted by default; detailed post-game analysis | Strong chess engine |
-| **Master / Grandmaster challenge** | Training/analysis tools available on request, no move hints by default | Maximum available engine strength, **not** a claim of certified FIDE GM skill |
+## What is playable
 
-The player can switch between **Coached**, **Practice** and **Rating** sessions. Rating games must not allow live assistance if the score is meant to reflect independent strength. No coaching penalty in learning games.
+**Tab 1: Practice & Academy.** Play a full game with Beginner, Novice, Intermediate, Advanced, Expert, or Grandmaster Challenge AI presets. The four stronger settings use the **genuine Stockfish 19 Lite WASM** in a local HTTP-served package; if its Worker is unavailable the UI clearly labels a weaker fallback. B2 Coach gives shallow, legal two-ply hints in **Coached Practice**. The existing **33 original RU/EN/AZ chess exercises** across 9 Rules, 8 Tactics, 8 Openings (White and Black) and 8 Endgames are fully playable. Learned lessons, step position and parked practice session remain saved.
 
-## Opening study, tactics and legends
+**Tab 2: Masters & Legends.** Explore **31 complete historical move scores** (1834–2013, 1,923 verified legal half-moves) with **116 original RU/EN/AZ explanatory critical moments**. The independent historical chessboard has selectable SAN timeline, step/slider/autoplay controls, search/filter, legal "Guess the historical move" quizzes, source hyperlinks, PGN download and bookmarks. Winning by recorded resignation is **never incorrectly labelled a played checkmate**. The score source/cross-check provenance and limits are documented in `docs/MASTERS_B5_SOURCE_REGISTER.md`.
 
-- First learn **opening principles** (center, development, king safety, tempi, avoiding premature queen attacks), then recognize named openings using a maintained opening-position library, with exact move-sequence validation.
-- Interactive opening explorer: White initiative and plausible Black counterplay, choices and likely plans for both players, not a memorization-only database.
-- Explore famous historical ideas **through verified, appropriately sourced master games** (e.g. Mikhail Tal's sacrifices and initiative, classical positional play, modern dynamic defense), with original educational commentary and clickable variations. Do not invent historical quotations or misattribute game moves.
-- Each lesson is connected to a playable board position. Never make reading a separate long book mandatory.
-- Future feature: spaced repetition of the user's *own* recurring mistakes, generated from actual recorded games and validated legal FEN positions.
+**Tab 3: My Progress — NEW B6.** Real completion and learning achievements without fabricated chess strength:
 
-## Ratings and progression: avoid fake Elo
+| Measure | Data population and criterion |
+| --- | --- |
+| **Academy Reputation** | Unique completed lessons (20 points each), historical key positions actually studied (4 each), correctly solved unique master quizzes (12 each), complete source-game studies (20 each) and first eligible independent win per AI tier (15 each). No point-farming by repeats |
+| **Academy progress** | 33 stable task IDs; four exact topic denominators (9/8/8/8). Older B4/B5 completed IDs automatically count, never double count |
+| **Masters studies** | 31 games; complete study requires **all annotated moments + historical final position**; separate distinct count of correctly guessed moves |
+| **Achievements** | 16 original RU/EN/AZ milestones; unlocked from actual saved facts, not paid, manually selected, or sourced from fake Elo |
+| **AI Ladder Index** | Private 0–100 indication from actual independently played games **against these six bot tiers**, not a FIDE/Elo or externally calibrated player rating |
 
-Separate **two signals**:
+### How the independent AI index works
 
-1. **Internal playing-strength rating:** adjusts upward/downward after serious unassisted games; initially provisional with high uncertainty. Must be explicitly labeled **local estimated bot-match rating, not official FIDE/Elo, not comparable to online player ratings without calibration**.
-2. **Adventure reputation / achievements:** cumulative records for completing lessons, mastering tactics, reviewing games and beating opponents at each tier; **never purchasable**.
+By default the game is **Coached Practice**. You can explicitly select **Independent game · no assistance** in the game settings to start a completely new game. During that match, live hints, Coach grading, candidate destination highlights, undo, Academy selection and live review are disabled. **After a completed game**, you may open post-game review freely; the recorded result is already final.
 
-An 0/10 streak should not permanently punish learning. A user can always go back to beginner lessons, and coaching practice should not distort their independent rating.
+Only a genuinely **completed game played from the ordinary starting position** can enter the independent-match ledger: every move in its PGN is replayed through chess.js, game-over/checkmate or draw is checked, and the winner is determined from the chess position. Matches that used help, Undo, an unexpected weaker AI fallback at Stockfish tiers, invalid/corrupt PGN or a previously counted match ID are excluded. Abandoning or switching the difficulty begins another game and does not register a result. Academy lessons, master quizzes and prior coached wins never become rated.
 
-## Honest engine design (proposal, not integrated)
+**Internal index formula**, with full visibility:
 
-A chess engine such as **Stockfish** may evaluate positions and power configurable-strength opponents, with a legal-rules library and a separate educational explanation layer. **Engine score is not the explanation**: a proposed move must be justified in actual chess terms and confirmed legal. Reject hallucinated "mate" assertions with engine validation.
+```text
+score = 1 (win), 0.5 (draw), 0 (loss)
+tier  = 1 Beginner, 2 Novice, 3 Intermediate, 4 Advanced, 5 Expert, 6 GM Challenge
+AI Ladder Index = round( average(100 × tier/6 × score) over last 20 eligible games )
+```
 
-Tool options **already exposed in the conversation environment**, suitable for research or interactive exploration (not our custom game's source):
-- **Chessy:** playable conversation chess with an AI.
-- **Chess Position Analyzer:** interactive position setup/analysis from FEN.
-- **Smart Chess — Train & Learn to Win:** Stockfish-backed board and workshop/lesson mode.
-These integrations do not mean our own game has an embedded engine or that their proprietary implementations may be copied.
+The index is **hidden until at least 5 eligible independent games** exist. From 5–19 games, it is explicitly **provisional**; 20+ means more local data, **not certified confidence or skill calibration**. It is not comparable to Elo, FIDE, Lichess or Chess.com ratings. It measures a personal 0–100 in-game trend against fixed bot tier labels; changing AI builds could alter its meaning.
 
-Respect the actual engine/library licenses and offline bundling rights if implementation is later authorized.
+**Offline-version storage and privacy:** `chess-odyssey-progress-v1` is local to the browser, source-grain separated from old `chess-odyssey-v01` practice/Academy and `chess-odyssey-masters-v1` historic bookmarks. The current downloadable v0.8.0 game does **not** log in to Neon, has no payments or telemetry. Neon Auth staging exists separately but is not yet integrated with this playable client. Clearing browser data clears local scores. Local storage **is not anti-cheat-secure**; never treat the index as a global competitive rating. The retained independent game ledger holds at most 500 entries, and can no longer mean literal all-time beyond that cap.
 
-## Product UX and potential future scope
+## How to play
 
-- Chessboard should dominate the screen, with elegant classic wood/stone choices and readable legal/attack highlights.
-- Compact right-side **Coach**: What happened? Why is this move strong? Alternative? Threat? Recommended practice.
-- Begin in Russian; possible full RU/EN/AZ UI to align with game portfolio, but translation is not part of the current idea-only task.
-- Save personal preferences and progress locally first. No login, books, paywalls, ads or mandatory timing in initial plan.
-- Later: opening explorer, endgame challenges, game replays, personal statistics, puzzles adapted to mistakes, styled opponent personalities and optional human-vs-human.
-- **Ethics of difficulty:** bots should differ via constrained search/strength or explainable styles, not by secretly changing chess rules; “grandmaster” is an aspirational difficulty label, not a performance guarantee.
+**Complete package with Stockfish:**
 
-## Proposed first milestone, only when development is requested
+1. Open the [latest verified B9/v0.9 source QA run #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027); the downloadable playable binary in its Artifacts section is still **v0.8.0**, not v0.9.
+2. In the **green, successful v0.8.0** run, open *Artifacts*, download `ChessOdyssey-v0.8.0-B8-Development-Stockfish-PREVIEW`, and extract the ZIP.
+3. On Windows double-click `START_WINDOWS.cmd` (Python 3 or Node.js required) to open the locally hosted game at `http://127.0.0.1:8765/index.html`. A physical Windows host test remains a v1.0 gate.
 
-A standalone browser chessboard with correct rules, one weak AI, **untimed** play, per-move optional coach, beginner walkthrough, explanations for concrete mistakes, automatic save and a simple personal learning profile. Then evaluate UX/learning with actual manual play before expanding to advanced engines.
+Alternatively, from the extracted folder:
 
-## QA gates before any release claim
+```sh
+python -m http.server 8765 --bind 127.0.0.1
+# or
+node scripts/serve-local.cjs
+```
 
-- Every rule, legal move, check, mate, draw, en passant, castling and promotion validated on known FEN/perft/reference positions.
-- Opponent cannot make illegal moves; hints are tied to actual legal moves and observed engine variations.
-- Opening names mapped to verified positions; not invented.
-- Coaching versus rating game separation enforced; no fake FIDE/Elo labels.
-- Save/restore preserves legal game history and position.
-- Time-free mode has no hidden countdown; mobile and desktop interaction have no drag/drop blockers.
-- Tests and actual playable app **not yet created**.
+**Offline one-file in the latest #403 ZIP:** `dist/ChessOdyssey_v0.8.0_PREVIEW.html` contains *all* Practice, Academy, Masters and Progress features without a server or internet. The four stronger Stockfish tiers fall back visibly to a weaker local engine because a file://-loaded HTML cannot run the licensed WASM Worker correctly. **Such fallback games are ineligible for the independent AI index.**
 
-**Next action:** keep as backlog. Do not start implementation, engine downloads or expensive research until the owner chooses to activate the chess project.
+## Historical B7 Release Candidate — automated gates and honest constraints (not current development phase)
 
-[All four game projects](../game-studio/README.md)
+**[Final documentation-synchronized three-job GitHub Actions run #339](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44883137898)**:
+
+- **237/237 runnable Node and real Chrome automated cases PASS** (previous 180 from B0–B6, 22 B7 legal/rules/integrity cases, 27 B7 desktop/mobile/promotion/keyboard cases, one *genuinely played* full human-move-vs-AI match via real Stockfish UCI, and seven WCAG 2.2 axe scans). **Windows runner launcher + licensed Stockfish archive smoke 1/1 PASS**, so **238/238 including Windows gate**.
+- **Real full game:** separate real Stockfish computes user moves against the built-in actual Beginner bot, and the test clicks each move through the normal browser UI from the **standard starting position**, with no seeded PGN. Final #339 run ended after **55 real half-moves** in checkmate (earlier independent green #328 also ended at 21 plies), was recorded only once as an independent result, and survived reload without changing the score.
+- **Controls and UX:** all practice-board cells support arrow-key navigation, Enter/Space moves and localized piece speech labels in Russian, English and Azerbaijani; the pawn-promotion modal captures focus, cycles with Tab, cancels with Escape and returns focus to the actual square. Historical read-only board uses non-interactive visual cells rather than dozens of dead buttons. Tabs navigate by ArrowLeft/ArrowRight/Home/End.
+- **Accessibility:** six real Chrome axe checks (3 tabs × desktop/mobile) plus the real promotion modal detected **zero WCAG A/AA violations** under the automated rules. This does **not** assert fully independent human screen-reader or WCAG conformance certification.
+- **Source truth:** on 2026-11-21 all **31 exact historical source pages** were re-fetched and checked: **1,923/1,923 SAN moves, player names, years and results** match the registered primary pages. Independent cross-archive full proof remains limited and disclosed in `docs/SOURCE_B7_REFRESH.md`.
+- **Security/integrity:** independent AI matches are now only admitted if the exact final PGN can be replayed **in full from the normal initial position**. Composed custom-FEN terminal PGNs are excluded from the local AI index.
+- **Packaged:** full versioned **40-file** source-inclusive GPL Stockfish v0.7.0 ZIP (internal SHA256 **`bb9fa7b525f320ce50fdc0465ca63c5eac2d91807cc234f914bb9f5fafa37d94`** from #339), plus complete self-contained HTML. The original Stockfish WASM is included unmodified, and the offline file falls back to weak local AI, explicitly labelled.
+
+**Important release boundary:** A v0.7.0 **Release Candidate** passed real automated testing; `main` and production were not touched. FIDE official laws treat threefold repetition as a claimable draw; this coaching app auto-adjudicates it in accordance with the existing pinned chess.js simplification. Independent human RU/EN/AZ pedagogical proofreading, manual assistive-technology audit, historical second-source adjudication for remaining parties and the owner-approved deployment location are **NOT DONE / OPEN**, so **v1.0 remains BLOCKED**.
+
+## Evidence, source and licensing
+
+- **B6 technical and measurement authority:** `docs/PROGRESS_B6_DESIGN.md` and exact original executable `progress-core.js` (pure progress+match verification), `progress-ui.js` (three-language display and persistence). B6 Node methodology tests: `tests/progress-content.cjs`; real browser integration: `tests/progress-browser.cjs`.
+- **Full prior baseline:** B5 `docs/MASTERS_B5_DESIGN.md` + historical source register and factual scores, B4 `docs/ACADEMY_B4_DESIGN.md`, B3 `docs/ENGINE_B3_DESIGN.md`, B2 coach design and unchanged B0/B1 chess.js rules. `docs/QA_LOG.md` contains exact PASS/FAIL evidence, hashes, regression status and source conflicts.
+- chess.js **v0.10.3 BSD-2-Clause**, original license retained in `vendor/chess.js`. Genuine **Stockfish.js v19.0.1 Lite GPLv3** source https://github.com/nmrugg/stockfish.js/tree/v19.0.1, unmodified binary in `engine/*`, GNU GPLv3 text `engine/Copying.txt`, binary SHA256 in `engine/MANIFEST.md`; `THIRD_PARTY_NOTICES.md` attributes components. No proprietary third-party game commentary was copied.
+- Follow Reuse First, Unlazy QA, Humanizer and Translation QA; historical source provenance and RU/EN/AZ semantic parity are held to explicit gates, never certified without evidence.
+
+**Release boundary:** the historical B7 v0.7.0 candidate passed automated QA, B8 clock feature QA and B9 local PvP QA have since passed separately. **Current stage is B9/v0.9 development, NOT a v0.9 shipped binary.** Owner signoff, authenticated Neon cloud PvP, production hostname/deploy and independent human editorial/accessibility certification remain **BLOCKED / NOT TESTED**. **No merge to `main`, no production deployment.**
