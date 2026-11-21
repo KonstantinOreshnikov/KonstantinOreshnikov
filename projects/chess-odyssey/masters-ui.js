@@ -107,11 +107,12 @@
    for(let visualRank=0;visualRank<8;visualRank++){
      for(let visualFile=0;visualFile<8;visualFile++){
        const ri=state.flipped?7-visualRank:visualRank,fi=state.flipped?7-visualFile:visualFile;
-       const square=files[fi]+(8-ri),p=rows[ri][fi],button=document.createElement("button");
-       button.type="button";button.className="square "+((ri+fi)%2===0?"light":"dark");
+       const square=files[fi]+(8-ri),p=rows[ri][fi],button=document.createElement("div");
+       // This historic board is read-only: use static cells, not 64 fake buttons.
+       // The parent role="img" exposes a localized summary of the entire position.
+       button.className="square "+((ri+fi)%2===0?"light":"dark");
        if(last&&(last.from===square||last.to===square))button.classList.add("last");
        button.setAttribute("aria-label",square+" "+(p?(p.color==="w"?"white ":"black ")+p.type:"empty"));
-       button.setAttribute("tabindex","-1");
        button.setAttribute("aria-hidden","true");
        if(p){
          button.classList.add(p.color==="w"?"white-piece":"black-piece");
