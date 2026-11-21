@@ -43,10 +43,12 @@ test("118? No: exactly 116 original moment markers can be reviewed, one time onl
  let state=Core.empty();
  for(const g of lib.games)for(const m of g.moments){state=Core.visit(state,g,m.ply);state=Core.visit(state,g,m.ply);}
  const sum=Core.summary(state,[],Academy.lessons,lib.games);
- assert.equal(sum.masters.momentsVisited,116);assert.equal(sum.masters.studied,0);
+ assert.equal(sum.masters.momentsVisited,116);
+ assert.equal(sum.masters.studied,lib.games.filter(g=>g.moments.some(m=>m.ply===g.totalPlies)).length);
 });
 test("study completion requires all key moments AND reaching actual historical final position",()=>{
- const game=lib.byId["immortal-game"];
+ const game=lib.games.find(g=>!g.moments.some(m=>m.ply===g.totalPlies));
+ assert.ok(game,"Need a real game with an unannotated final ply for separate final-position test");
  let state=Core.empty();
  for(const m of game.moments)state=Core.visit(state,game,m.ply);
  assert.equal(Core.summary(state,[],Academy.lessons,lib.games).masters.studied,0);
