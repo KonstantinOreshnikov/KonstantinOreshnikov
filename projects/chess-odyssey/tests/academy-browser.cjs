@@ -75,7 +75,7 @@ const {chromium}=require("playwright");
   assert.equal(await page.locator("#completed").innerText(),"2/33");
   await page.locator('button[data-promote="q"]').click();
   assert.equal(await page.locator("#completed").innerText(),"3/33");
-  assert.equal(await page.locator('#board button[aria-label^="a8 w q"]').count(),1);
+  assert.equal(await page.locator('#board button[aria-label="a8 — белый ферзь"]').count(),1);
   tests++;
   // An explicitly taught underpromotion must accept the knight.
   await page.selectOption("#academy-track","endgames");
@@ -83,7 +83,7 @@ const {chromium}=require("playwright");
   await move("a7","a8");
   await page.locator('button[data-promote="n"]').click();
   assert.equal(await page.locator("#completed").innerText(),"4/33");
-  assert.equal(await page.locator('#board button[aria-label^="a8 w n"]').count(),1);
+  assert.equal(await page.locator('#board button[aria-label="a8 — белый конь"]').count(),1);
   tests++;
   // Three guided White moves with scripted Black replies.
   await page.selectOption("#academy-track","openings");
