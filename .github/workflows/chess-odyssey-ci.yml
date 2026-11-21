@@ -4,57 +4,58 @@ on:
     branches:
       - "game/chess-odyssey-v0.1"
       - "main"
+      - "chore/independent-game-studio-reconcile-20261121"
     paths:
-      - "projects/chess-odyssey/index.html"
-      - "projects/chess-odyssey/styles.css"
-      - "projects/chess-odyssey/app.js"
-      - "projects/chess-odyssey/clock-core.js"
-      - "projects/chess-odyssey/pvp/**"
-      - "projects/chess-odyssey/coach-engine.js"
-      - "projects/chess-odyssey/engine-bridge.js"
-      - "projects/chess-odyssey/academy.js"
-      - "projects/chess-odyssey/masters-*.js"
-      - "projects/chess-odyssey/progress-*.js"
-      - "projects/chess-odyssey/data/masters-source-scores.json"
-      - "projects/chess-odyssey/README.md"
-      - "projects/chess-odyssey/CHANGELOG.md"
-      - "projects/chess-odyssey/THIRD_PARTY_NOTICES.md"
-      - "projects/chess-odyssey/docs/**"
-      - "projects/chess-odyssey/engine/**"
-      - "projects/chess-odyssey/scripts/build-standalone.cjs"
-      - "projects/chess-odyssey/scripts/package-preview.py"
-      - "projects/chess-odyssey/scripts/serve-local.cjs"
-      - "projects/chess-odyssey/START_WINDOWS.cmd"
-      - "projects/chess-odyssey/vendor/**"
-      - "projects/chess-odyssey/tests/**"
+      - "projects/independent-game-studio/games/chess-odyssey/index.html"
+      - "projects/independent-game-studio/games/chess-odyssey/styles.css"
+      - "projects/independent-game-studio/games/chess-odyssey/app.js"
+      - "projects/independent-game-studio/games/chess-odyssey/clock-core.js"
+      - "projects/independent-game-studio/games/chess-odyssey/pvp/**"
+      - "projects/independent-game-studio/games/chess-odyssey/coach-engine.js"
+      - "projects/independent-game-studio/games/chess-odyssey/engine-bridge.js"
+      - "projects/independent-game-studio/games/chess-odyssey/academy.js"
+      - "projects/independent-game-studio/games/chess-odyssey/masters-*.js"
+      - "projects/independent-game-studio/games/chess-odyssey/progress-*.js"
+      - "projects/independent-game-studio/games/chess-odyssey/data/masters-source-scores.json"
+      - "projects/independent-game-studio/games/chess-odyssey/README.md"
+      - "projects/independent-game-studio/games/chess-odyssey/CHANGELOG.md"
+      - "projects/independent-game-studio/games/chess-odyssey/THIRD_PARTY_NOTICES.md"
+      - "projects/independent-game-studio/games/chess-odyssey/docs/**"
+      - "projects/independent-game-studio/games/chess-odyssey/engine/**"
+      - "projects/independent-game-studio/games/chess-odyssey/scripts/build-standalone.cjs"
+      - "projects/independent-game-studio/games/chess-odyssey/scripts/package-preview.py"
+      - "projects/independent-game-studio/games/chess-odyssey/scripts/serve-local.cjs"
+      - "projects/independent-game-studio/games/chess-odyssey/START_WINDOWS.cmd"
+      - "projects/independent-game-studio/games/chess-odyssey/vendor/**"
+      - "projects/independent-game-studio/games/chess-odyssey/tests/**"
       - ".github/workflows/chess-odyssey-ci.yml"
   pull_request:
     branches:
       - "main"
       - "docs/retro-strategy-ux-aeii-foundation-20261119"
     paths:
-      - "projects/chess-odyssey/index.html"
-      - "projects/chess-odyssey/styles.css"
-      - "projects/chess-odyssey/app.js"
-      - "projects/chess-odyssey/clock-core.js"
-      - "projects/chess-odyssey/pvp/**"
-      - "projects/chess-odyssey/coach-engine.js"
-      - "projects/chess-odyssey/engine-bridge.js"
-      - "projects/chess-odyssey/academy.js"
-      - "projects/chess-odyssey/masters-*.js"
-      - "projects/chess-odyssey/progress-*.js"
-      - "projects/chess-odyssey/data/masters-source-scores.json"
-      - "projects/chess-odyssey/README.md"
-      - "projects/chess-odyssey/CHANGELOG.md"
-      - "projects/chess-odyssey/THIRD_PARTY_NOTICES.md"
-      - "projects/chess-odyssey/docs/**"
-      - "projects/chess-odyssey/engine/**"
-      - "projects/chess-odyssey/scripts/build-standalone.cjs"
-      - "projects/chess-odyssey/scripts/package-preview.py"
-      - "projects/chess-odyssey/scripts/serve-local.cjs"
-      - "projects/chess-odyssey/START_WINDOWS.cmd"
-      - "projects/chess-odyssey/vendor/**"
-      - "projects/chess-odyssey/tests/**"
+      - "projects/independent-game-studio/games/chess-odyssey/index.html"
+      - "projects/independent-game-studio/games/chess-odyssey/styles.css"
+      - "projects/independent-game-studio/games/chess-odyssey/app.js"
+      - "projects/independent-game-studio/games/chess-odyssey/clock-core.js"
+      - "projects/independent-game-studio/games/chess-odyssey/pvp/**"
+      - "projects/independent-game-studio/games/chess-odyssey/coach-engine.js"
+      - "projects/independent-game-studio/games/chess-odyssey/engine-bridge.js"
+      - "projects/independent-game-studio/games/chess-odyssey/academy.js"
+      - "projects/independent-game-studio/games/chess-odyssey/masters-*.js"
+      - "projects/independent-game-studio/games/chess-odyssey/progress-*.js"
+      - "projects/independent-game-studio/games/chess-odyssey/data/masters-source-scores.json"
+      - "projects/independent-game-studio/games/chess-odyssey/README.md"
+      - "projects/independent-game-studio/games/chess-odyssey/CHANGELOG.md"
+      - "projects/independent-game-studio/games/chess-odyssey/THIRD_PARTY_NOTICES.md"
+      - "projects/independent-game-studio/games/chess-odyssey/docs/**"
+      - "projects/independent-game-studio/games/chess-odyssey/engine/**"
+      - "projects/independent-game-studio/games/chess-odyssey/scripts/build-standalone.cjs"
+      - "projects/independent-game-studio/games/chess-odyssey/scripts/package-preview.py"
+      - "projects/independent-game-studio/games/chess-odyssey/scripts/serve-local.cjs"
+      - "projects/independent-game-studio/games/chess-odyssey/START_WINDOWS.cmd"
+      - "projects/independent-game-studio/games/chess-odyssey/vendor/**"
+      - "projects/independent-game-studio/games/chess-odyssey/tests/**"
       - ".github/workflows/chess-odyssey-ci.yml"
   workflow_dispatch:
 concurrency:
@@ -72,52 +73,52 @@ jobs:
           node-version: '22'
       - name: Syntax
         run: |
-          node --check projects/chess-odyssey/vendor/chess.js
-          node --check projects/chess-odyssey/app.js
-          node --check projects/chess-odyssey/clock-core.js
-          node --check projects/chess-odyssey/tests/clock-core.cjs
-          node --check projects/chess-odyssey/pvp/match-service.cjs
-          node --check projects/chess-odyssey/pvp/dev-server.cjs
-          node --check projects/chess-odyssey/pvp/demo-client.js
-          node --check projects/chess-odyssey/tests/b9-http.cjs
-          node --check projects/chess-odyssey/tests/b9-browser.cjs
-          node --check projects/chess-odyssey/tests/b9-match-service.cjs
-          node --check projects/chess-odyssey/tests/b8-translation-structure.cjs
-          node --check projects/chess-odyssey/tests/b8-clock-browser.cjs
-          node --check projects/chess-odyssey/coach-engine.js
-          node --check projects/chess-odyssey/engine-bridge.js
-          node --check projects/chess-odyssey/academy.js
-          node --check projects/chess-odyssey/masters-library.js
-          node --check projects/chess-odyssey/masters-notes-a.js
-          node --check projects/chess-odyssey/masters-notes-b.js
-          node --check projects/chess-odyssey/masters-notes-c.js
-          node --check projects/chess-odyssey/masters-core.js
-          node --check projects/chess-odyssey/masters-ui.js
-          node --check projects/chess-odyssey/progress-core.js
-          node --check projects/chess-odyssey/progress-ui.js
-          node --check projects/chess-odyssey/tests/release-rules.cjs
-          node --check projects/chess-odyssey/tests/release-browser.cjs
-          node --check projects/chess-odyssey/tests/release-live-match-browser.cjs
-          node --check projects/chess-odyssey/tests/release-accessibility.cjs
-          node --check projects/chess-odyssey/tests/progress-content.cjs
-          node --check projects/chess-odyssey/tests/progress-browser.cjs
-          node --check projects/chess-odyssey/tests/masters-content.cjs
-          node --check projects/chess-odyssey/tests/masters-browser.cjs
-          node --check projects/chess-odyssey/tests/academy-content.cjs
-          node --check projects/chess-odyssey/tests/academy-browser.cjs
-          node --check projects/chess-odyssey/scripts/build-standalone.cjs
-          node --check projects/chess-odyssey/scripts/serve-local.cjs
-          python3 -m py_compile projects/chess-odyssey/scripts/package-preview.py
-          node --check projects/chess-odyssey/tests/engine-bridge.cjs
-          node --check projects/chess-odyssey/tests/stockfish-uci.cjs
-          node --check projects/chess-odyssey/tests/stockfish-browser.cjs
-          node --check projects/chess-odyssey/tests/coach-engine.cjs
-          node --check projects/chess-odyssey/tests/postgame-smoke.cjs
-          node --check projects/chess-odyssey/tests/chess-smoke.cjs
-          node --check projects/chess-odyssey/tests/dom-smoke.cjs
-          node --check projects/chess-odyssey/tests/browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/vendor/chess.js
+          node --check projects/independent-game-studio/games/chess-odyssey/app.js
+          node --check projects/independent-game-studio/games/chess-odyssey/clock-core.js
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/clock-core.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/pvp/match-service.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/pvp/dev-server.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/pvp/demo-client.js
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/b9-http.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/b9-browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/b9-match-service.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/b8-translation-structure.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/b8-clock-browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/coach-engine.js
+          node --check projects/independent-game-studio/games/chess-odyssey/engine-bridge.js
+          node --check projects/independent-game-studio/games/chess-odyssey/academy.js
+          node --check projects/independent-game-studio/games/chess-odyssey/masters-library.js
+          node --check projects/independent-game-studio/games/chess-odyssey/masters-notes-a.js
+          node --check projects/independent-game-studio/games/chess-odyssey/masters-notes-b.js
+          node --check projects/independent-game-studio/games/chess-odyssey/masters-notes-c.js
+          node --check projects/independent-game-studio/games/chess-odyssey/masters-core.js
+          node --check projects/independent-game-studio/games/chess-odyssey/masters-ui.js
+          node --check projects/independent-game-studio/games/chess-odyssey/progress-core.js
+          node --check projects/independent-game-studio/games/chess-odyssey/progress-ui.js
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/release-rules.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/release-browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/release-live-match-browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/release-accessibility.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/progress-content.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/progress-browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/masters-content.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/masters-browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/academy-content.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/academy-browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/scripts/build-standalone.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/scripts/serve-local.cjs
+          python3 -m py_compile projects/independent-game-studio/games/chess-odyssey/scripts/package-preview.py
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/engine-bridge.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/stockfish-uci.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/stockfish-browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/coach-engine.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/postgame-smoke.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/chess-smoke.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/dom-smoke.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/browser.cjs
       - name: Unit and integration
-        working-directory: projects/chess-odyssey
+        working-directory: projects/independent-game-studio/games/chess-odyssey
         run: |
           node tests/clock-core.cjs
           node tests/b8-translation-structure.cjs
@@ -144,10 +145,10 @@ jobs:
         with:
           node-version: '22'
       - name: Install pinned test runner
-        working-directory: projects/chess-odyssey
+        working-directory: projects/independent-game-studio/games/chess-odyssey
         run: npm install --no-audit --no-fund --no-save playwright@1.57.0 @axe-core/playwright@4.10.2
       - name: Detect preinstalled Chrome or install Chromium
-        working-directory: projects/chess-odyssey
+        working-directory: projects/independent-game-studio/games/chess-odyssey
         run: |
           if command -v google-chrome >/dev/null 2>&1; then
             google-chrome --version
@@ -157,7 +158,7 @@ jobs:
             npx playwright install chromium
           fi
       - name: Run browser regression
-        working-directory: projects/chess-odyssey
+        working-directory: projects/independent-game-studio/games/chess-odyssey
         run: |
           node scripts/build-standalone.cjs 0.7.0
           node scripts/build-standalone.cjs 0.8.0
@@ -172,12 +173,12 @@ jobs:
           node tests/b8-clock-browser.cjs
           node tests/b9-browser.cjs
       - name: Build and verify Stockfish preview ZIP with full GPL license
-        working-directory: projects/chess-odyssey
+        working-directory: projects/independent-game-studio/games/chess-odyssey
         run: python3 scripts/package-preview.py
       - uses: actions/upload-artifact@v4
         with:
           name: ChessOdyssey-v0.8.0-B8-Development-Stockfish-PREVIEW
-          path: projects/chess-odyssey/dist/ChessOdyssey_v0.8.0_Stockfish_Preview.zip
+          path: projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v0.8.0_Stockfish_Preview.zip
           if-no-files-found: error
           retention-days: 30
 

@@ -1,0 +1,28 @@
+name: Independent Game Studio migration smoke
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'projects/independent-game-studio/**'
+      - '.github/workflows/independent-game-studio-smoke.yml'
+  workflow_dispatch:
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser runner
+        run: npm install --no-save --no-audit --no-fund playwright@1.57.0
+      - name: Select browser
+        run: |
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "CHESS_CHROME_CHANNEL=chrome" >> "$GITHUB_ENV"
+          else
+            npx playwright install chromium
+          fi
+      - name: Browser startup and persistence smoke
+        run: node projects/independent-game-studio/qa/smoke.cjs
