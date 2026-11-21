@@ -7,7 +7,7 @@ const fs=require("node:fs");
 const path=require("node:path");
 const assert=require("node:assert/strict");
 const root=path.resolve(__dirname,"..");
-const version=process.argv[2]||"0.6.0";
+const version=process.argv[2]||"0.7.0";
 if(!/^0\.[0-9]+\.[0-9]+$/.test(version))throw new Error("Invalid preview version");
 const name="ChessOdyssey_v"+version+"_PREVIEW.html";
 const h=fs.readFileSync(path.join(root,"index.html"),"utf8");
