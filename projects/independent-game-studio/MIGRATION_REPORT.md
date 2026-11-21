@@ -40,6 +40,7 @@
 | Browser migration regression | PASS on CI; BLOCKED locally | [Studio smoke CI #1](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44908111495) on commit `883358d1d36546a1a3ab8b6d285e828c493708d8`: **3/3** Caribbean v1.2, Kingdoms v1.1, Chess v0.8 HTML startup/UI/JS and storage reload. Local Chromium aborts with sandbox socket `Operation not permitted`; CI was the actual browser check. |
 | Caribbean v1.2 gameplay acceptance / Kingdoms offline file launch | NOT TESTED | Initial browser smoke checks page startup/storage only. Full gameplay and direct `file://` save lifecycle need separate QA. |
 | Checkpoint consistency | PASS | GitHub tree read-back SHA `7e770abe53f56abdf8a3bd809f01b7f75c189468` equals the local Git tree; 157 studio blobs, 0 old-path blobs. PR #11 merged at `deb017e3401077fea568db0fe5baa795a72bc422`; post-merge main read-back confirmed the same 157/0 counts. |
-| Main merge | PASS | PR #11 merged with explicit owner authorization; main HEAD and canonical registry read-back PASS. |\n| Production deployment | NOT APPLICABLE | No game deployment was requested or performed. |
+| Main merge | PASS | PR #11 merged with explicit owner authorization; main HEAD and canonical registry read-back PASS. |
+| Production deployment | NOT APPLICABLE | No game deployment was requested or performed. |
 
 The unavailable original Kingdoms v1.1 source archive and game-specific release QA gates are explicitly tracked. Passing migration CI proves the repository move and smoke checks; it is not release certification of every game.
