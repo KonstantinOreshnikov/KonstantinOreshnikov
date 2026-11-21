@@ -169,8 +169,8 @@ const URL_FOR=file=>"file://"+path.resolve(__dirname,"../"+file);
   });
   await test("masters final position has accessible full-game/last-SAN label",async()=>{
    assert.match(await page.locator("#m-board").getAttribute("aria-label"),/33\/33.*Rd8#/);
-   assert.equal(await page.locator("#m-board button[tabindex='-1']").count(),64);
-   assert.equal(await page.locator("#m-board button[tabindex='0']").count(),0);
+   assert.equal(await page.locator("#m-board .square").count(),64);
+   assert.equal(await page.locator("#m-board button").count(),0);
   });
   await test("RU/EN/AZ name real kings, pawns and modal buttons accurately",async()=>{
    await page.locator("#nav-play").click();
