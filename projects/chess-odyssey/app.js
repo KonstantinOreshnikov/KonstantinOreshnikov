@@ -436,7 +436,7 @@ function hint(){
   }
   function persist(){
     const session=parked||{pgn:lesson?null:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized:finalized&&!lesson,notes};
-    try{localStorage.setItem(KEY,JSON.stringify({pgn:session.pgn,side:session.side,difficulty:session.difficulty,language,completed,stats,flipped:session.flipped,finalized:session.finalized,notes:session.notes||[],academy:lesson?{id:lesson,step:lessonStep}:null,academyTrack}));}
+    try{localStorage.setItem(KEY,JSON.stringify({pgn:session.pgn,side:session.side,difficulty:session.difficulty,language,completed,stats,flipped:session.flipped,finalized:session.finalized,notes:session.notes||[],academy:lesson?{id:lesson,step:lessonStep}:null,academyTrack,matchMode,matchSession}));}
     catch(e){message("Storage unavailable; progress cannot be saved.");}
   }
   function restore(){
@@ -446,6 +446,10 @@ function hint(){
       language=["ru","en","az"].includes(data.language)?data.language:"ru";
       side=["w","b"].includes(data.side)?data.side:"w";
       difficulty=ENGINE.ids.includes(data.difficulty)?data.difficulty:"beginner";
+      const m=data.matchSession;
+      const matchValid=data.matchMode==="independent"&&m&&typeof m.id==="string"&&/^g-[a-z0-9-]{6,60}$/.test(m.id)&&m.mode==="independent"&&m.side===side&&m.level===difficulty;
+      matchMode=matchValid?"independent":"practice";
+      matchSession=matchValid?{id:m.id,mode:"independent",side,level:difficulty,assisted:Boolean(m.assisted),undone:Boolean(m.undone),restarted:Boolean(m.restarted),fallback:Boolean(m.fallback)}:null;
       completed=Array.isArray(data.completed)?[...new Set(data.completed.filter(x=>Boolean(ACADEMY.byId[x])))]:[];
       academyTrack=data.academyTrack==="all"||ACADEMY.tracks.some(x=>x.id===data.academyTrack)?data.academyTrack:"all";
       stats=data.stats&&["wins","losses","draws"].every(k=>Number.isInteger(data.stats[k])&&data.stats[k]>=0)?data.stats:stats;
@@ -474,19 +478,25 @@ function hint(){
       $("flip").checked=Boolean(data.flipped);
       $("lang").value=language;$("side").value=side;$("level").value=difficulty;
       $("academy-track").value=academyTrack;$("lesson").value=lesson||"";
+      $("match-mode").value=matchMode;
+      if(lesson){matchMode="practice";matchSession=null;$("match-mode").value="practice";}
       if(game.history().length)last=game.history({verbose:true}).slice(-1).map(x=>[x.from,x.to])[0]||null;
-      message(tr("restored"));
+      restoreMatchNotice();message(tr("restored"));
     }catch(e){message("Saved state is invalid; a fresh game was started.");}
   }
   function newGame(){
     clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();lesson=null;lessonStep=0;lastLessonId=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
     $("lesson").value="";
     side=$("side").value;difficulty=$("level").value;language=$("lang").value;
-    updateEngineAvailability();
-    learnMessage("");message(tr("newGame")+" "+tr("notRated"));render();renderAcademy();persist();
+    matchMode=$("match-mode").value==="independent"?"independent":"practice";
+    matchSession=matchMode==="independent"?{id:matchId(),mode:"independent",side,level:difficulty,assisted:false,undone:false,restarted:false,fallback:false}:null;
+    if(matchSession&&ENGINE.profile(difficulty).mode!=="local"&&!canRunStockfish())matchSession.fallback=true;
+    updateEngineAvailability();restoreMatchNotice();
+    learnMessage("");message(tr("newGame")+" "+(currentMatch()?prog("loading"):tr("notRated")));render();renderAcademy();persist();
     if(side==="b")scheduleBot();
   }
   function undo(){
+    if(currentMatch())return message(prog("assistBlocked"));
     if(lesson||parked||!game.history().length)return message(tr("noUndo"));
     clearTimeout(aiTimer);++epoch;engine.cancel();
     if(finalized&&game.game_over()){
@@ -501,6 +511,7 @@ function hint(){
     if(game.turn()!==side)scheduleBot();
   }
   function startLesson(id){
+    if(currentMatch()&&!finalized){$("lesson").value="";return message(prog("assistBlocked"));}
     const task=ACADEMY.byId[id];if(!task)return;
     if(!parked)parked={pgn:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized,notes:notes.slice()};
     clearHints();showReview=false;renderReview();
@@ -544,12 +555,13 @@ function hint(){
     else learnMessage("");
     if(!task){
       if(hintState&&hintState.fen===game.fen())message(ct("hintIntro"));
-      else if(game.game_over())message(status()+" — "+tr("notRated"));
+      else if(game.game_over())message(status()+" — "+(currentMatch()?prog("independentResult"):tr("notRated")));
+      else if(currentMatch())message(prog("loading"));
       else if(notes.length)message(assessmentMessage(notes[notes.length-1]));
       else message(tr("select"));
     }
     renderAcademy();showHints();renderReview();render();
-    showEngineStatus(lastEngineKind);
+    showEngineStatus(lastEngineKind);restoreMatchNotice();
   }
     const LABELS={
     ru:{title:"Chess Odyssey",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Учимся играя",newGame:"Новая партия",undo:"Отменить ход",hint:"Подсказка",game:"Тренировочная партия",level:"Сложность AI",side:"Мои фигуры",language:"Язык",flip:"Повернуть доску",lessons:"Академия",chooseLesson:"Выбрать урок…",resume:"Вернуться к партии",academyTrack:"Раздел обучения",allTracks:"Все разделы",trackBasics:"Основы и правила",trackTactics:"Тактика и комбинации",trackOpenings:"Дебютные идеи",trackEndgames:"Эндшпиль",academyLesson:"Урок или задача",nextLesson:"Следующий урок",reviewButton:"Разобрать ходы",reviewTitle:"Ключевые моменты",record:"Победы / поражения / ничьи",done:"Пройдено уроков",moves:"История ходов",about:"Рейтинг отключён в тренировке; без таймера",white:"Белые",black:"Чёрные",beginner:"Начинающий",novice:"Любитель",intermediate:"Средний",advanced:"Продвинутый",expert:"Эксперт",grandmaster:"Гроссмейстерский вызов"},
@@ -567,20 +579,21 @@ function hint(){
     $("next-lesson").addEventListener("click",nextLesson);
     $("academy-track").addEventListener("change",()=>{academyTrack=$("academy-track").value;renderAcademy();});
     $("hint").addEventListener("click",hint);
-    $("review-button").addEventListener("click",()=>{showReview=!showReview;renderReview();});
+    $("review-button").addEventListener("click",()=>{if(currentMatch()&&!finalized)return;showReview=!showReview;renderReview();});
     $("flip").addEventListener("change",()=>{render();persist();});
     $("lang").addEventListener("change",()=>{language=$("lang").value;refreshLabels();persist();});
     $("side").addEventListener("change",newGame);
     $("level").addEventListener("change",newGame);
+    $("match-mode").addEventListener("change",newGame);
     $("lesson").addEventListener("change",()=>{if($("lesson").value)startLesson($("lesson").value);});
     for(const btn of document.querySelectorAll("[data-promote]"))btn.addEventListener("click",()=>{if(pendingPromotion)doMove(pendingPromotion.from,pendingPromotion.to,btn.dataset.promote);});
     $("promotion-close").addEventListener("click",()=>{pendingPromotion=null;$("promotion").hidden=true;});
     updateEngineAvailability();
-    refreshLabels();
+    refreshLabels();restoreMatchNotice();
     if(showReview)renderReview();
     if(game.turn()!==side && !game.game_over() && !finalized)scheduleBot();
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init); else init();
   // Stable test surface without providing a user-facing debug console.
-  window.ChessOdysseyQA={academy:()=>({total:LESSONS.length,tracks:ACADEMY.tracks.map(x=>x.id),active:lesson,step:lessonStep}),levels:()=>ENGINE.ids.slice(),engineStatus:()=>lastEngineKind,legalUci:(fen,uci)=>{const c=new Chess(fen);return ENGINE.legalUci(c,uci);},legalCount:(fen)=>{const c=new Chess();if(fen&&!c.load(fen))throw new Error("invalid FEN");return c.moves().length;},lessonIds:()=>LESSONS.map(x=>x.id),evaluate:()=>scorePosition(),coach:()=>COACH.version,notes:()=>notes.length};
+  window.ChessOdysseyQA={academy:()=>({total:LESSONS.length,tracks:ACADEMY.tracks.map(x=>x.id),active:lesson,step:lessonStep}),levels:()=>ENGINE.ids.slice(),engineStatus:()=>lastEngineKind,legalUci:(fen,uci)=>{const c=new Chess(fen);return ENGINE.legalUci(c,uci);},legalCount:(fen)=>{const c=new Chess();if(fen&&!c.load(fen))throw new Error("invalid FEN");return c.moves().length;},lessonIds:()=>LESSONS.map(x=>x.id),evaluate:()=>scorePosition(),coach:()=>COACH.version,notes:()=>notes.length,match:()=>({mode:matchMode,session:matchSession&&{...matchSession},finalized}),progress:()=>window.ChessProgress.snapshot().summary};
 })();
