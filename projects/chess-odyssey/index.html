@@ -11,6 +11,7 @@
   <script defer src="coach-engine.js"></script>
   <script defer src="engine-bridge.js"></script>
   <script defer src="academy.js"></script>
+  <script defer src="progress-core.js"></script>
   <script defer src="app.js"></script>
   <script defer src="masters-library.js"></script>
   <script defer src="masters-notes-a.js"></script>
@@ -18,6 +19,7 @@
   <script defer src="masters-notes-c.js"></script>
   <script defer src="masters-core.js"></script>
   <script defer src="masters-ui.js"></script>
+  <script defer src="progress-ui.js"></script>
 </head>
 <body>
   <main class="shell">
@@ -25,11 +27,12 @@
       <div class="brand"><span class="brand-mark" aria-hidden="true">♞</span><div>
         <h1 data-i18n="title">Chess Odyssey</h1><p data-i18n="subtitle">ACADEMY & ARENA</p>
       </div></div>
-      <div class="version">PREVIEW <span>v0.5.0 · B5</span> · UNTIMED</div>
+      <div class="version">PREVIEW <span>v0.6.0 · B6</span> · UNTIMED</div>
     </header>
     <nav class="game-tabs" role="tablist" aria-label="Chess Odyssey sections">
       <button type="button" id="nav-play" role="tab" aria-selected="true" aria-controls="practice-view" data-master-label="practiceTab">Практика и Академия</button>
       <button type="button" id="nav-masters" role="tab" aria-selected="false" aria-controls="masters-view" data-master-label="mastersTab">Мастера и легенды</button>
+      <button type="button" id="nav-progress" role="tab" aria-selected="false" aria-controls="progress-view" data-master-label="progressTab">Мой прогресс</button>
     </nav>
     <section class="workspace" id="practice-view" role="tabpanel" aria-labelledby="nav-play" aria-label="Chess game and coach">
       <div class="play-section">
@@ -63,6 +66,13 @@
             <label><span data-i18n="side">Мои фигуры</span><select id="side"><option value="w" data-i18n="white">Белые</option><option value="b" data-i18n="black">Чёрные</option></select></label>
           </div>
           <p id="engine-status" class="engine-status" role="status" aria-live="polite">Локальный AI для обучения</p>
+          <label class="match-mode-label"><span id="match-mode-label">Тип партии</span>
+            <select id="match-mode" aria-label="Match type">
+              <option value="practice">Тренировка с подсказками</option>
+              <option value="independent">Самостоятельный матч без помощи</option>
+            </select>
+          </label>
+          <p id="match-integrity" class="match-integrity" aria-live="polite">В тренировке рейтинг не меняется.</p>
           <label><span data-i18n="language">Язык</span><select id="lang"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label>
         </section>
         <section class="panel academy-panel">
@@ -204,6 +214,61 @@
           <div id="m-bookmarks" class="masters-bookmark-list"></div>
         </section>
       </aside>
+    </section>
+    <section id="progress-view" class="progress-layout" role="tabpanel" aria-labelledby="nav-progress" hidden>
+      <div class="progress-hero">
+        <p class="eyebrow" id="progress-eyebrow">ВАШ ПУТЬ В ШАХМАТАХ</p>
+        <h2 id="progress-title">Мой прогресс</h2>
+        <p id="progress-lead" class="progress-lead">Обучение и самостоятельная игра измеряются отдельно.</p>
+      </div>
+      <div class="progress-metrics">
+        <article class="panel progress-metric">
+          <p id="progress-rep-label">Репутация Академии</p>
+          <strong id="progress-rep">0</strong>
+          <small id="progress-rep-note">Очки за уникальные достижения, без накрутки за повторы</small>
+        </article>
+        <article class="panel progress-metric">
+          <p id="progress-lessons-label">Академия</p>
+          <strong id="progress-lessons">0 / 33</strong>
+          <small id="progress-lessons-note">Завершённые уроки</small>
+        </article>
+        <article class="panel progress-metric">
+          <p id="progress-masters-label">Мастера и легенды</p>
+          <strong id="progress-masters">0 / 31</strong>
+          <small id="progress-masters-note">Полностью изученные партии</small>
+        </article>
+        <article class="panel progress-metric">
+          <p id="progress-index-label">Локальный AI Ladder Index</p>
+          <strong id="progress-index">—</strong>
+          <small id="progress-index-note">Нет пяти самостоятельных завершённых матчей</small>
+        </article>
+      </div>
+      <div class="progress-two-columns">
+        <section class="panel progress-academy">
+          <h3 id="progress-academy-title">Обучение по разделам</h3>
+          <div id="progress-tracks" class="progress-tracks"></div>
+          <p id="progress-moments-label" class="progress-note"></p>
+          <p id="progress-quiz-label" class="progress-note"></p>
+        </section>
+        <section class="panel progress-independent">
+          <h3 id="progress-independent-title">Самостоятельная игра</h3>
+          <p id="progress-integrity-note" class="progress-note"></p>
+          <p id="progress-match-count" class="progress-note"></p>
+          <p id="progress-results" class="progress-note"></p>
+          <div id="progress-tier-results" class="progress-tiers"></div>
+          <p id="progress-index-method" class="progress-index-method"></p>
+        </section>
+      </div>
+      <section class="panel progress-achievements">
+        <h3 id="progress-achievements-title">Достижения</h3>
+        <p id="progress-achievements-count" class="progress-note"></p>
+        <div id="progress-awards" class="progress-awards"></div>
+      </section>
+      <section class="panel progress-history">
+        <h3 id="progress-history-title">Последние самостоятельные матчи</h3>
+        <div id="progress-match-history" class="progress-match-history"></div>
+        <p id="progress-storage-note" class="progress-note"></p>
+      </section>
     </section>
   </main>
   <div id="promotion" class="promotion-backdrop" hidden>
