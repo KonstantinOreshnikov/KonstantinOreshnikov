@@ -21,4 +21,28 @@ t("custom positive minutes and increment",()=>{const c=C.config("custom",20,5);a
 t("reject custom zero, huge or invalid",()=>{assert.throws(()=>C.config("custom",0,0));assert.throws(()=>C.config("custom",300,0));assert.throws(()=>C.config("custom",5,-1));});
 t("format hour and minute clock",()=>{assert.equal(C.format(900000),"15:00");assert.equal(C.format(1001),"00:02");assert.equal(C.format(3600000),"1:00:00");});
 t("stop freezes remaining",()=>{const s=C.stop(C.start(C.config("rapid10"),1000),2000);assert.equal(C.settle(s,900000).remaining.w,599000);});
+const Chess=require("../vendor/chess.js").Chess;
+function board(fen){return new Chess(fen).board();}
+t("no mating material with king alone",()=>assert.equal(C.cannotMate("w",board("4k3/8/8/8/8/8/8/4K3 w - - 0 1")),true));
+t("knight against bare king cannot mate",()=>assert.equal(C.cannotMate("w",board("4k3/8/8/8/8/8/8/3NK3 w - - 0 1")),true));
+t("bishop against bare king cannot mate",()=>assert.equal(C.cannotMate("w",board("4k3/8/8/8/8/8/8/2B1K3 w - - 0 1")),true));
+t("multiple same-colour bishops against lone king cannot mate",()=>assert.equal(C.cannotMate("w",board("4k3/8/8/8/8/4B3/8/2B1K3 w - - 0 1")),true));
+t("different-colour bishop pair could mate",()=>assert.equal(C.cannotMate("w",board("4k3/8/8/8/8/8/8/2B1KB2 w - - 0 1")),false));
+t("two knights may mate with cooperation, no false flag draw",()=>assert.equal(C.cannotMate("w",board("4k3/8/8/8/8/8/8/2NNK3 w - - 0 1")),false));
+t("knight vs defender knight must not be assumed drawn",()=>assert.equal(C.cannotMate("w",board("4kn2/8/8/8/8/8/8/3NK3 w - - 0 1")),false));
+t("bare king cannot mate even with enemy queen",()=>assert.equal(C.cannotMate("w",board("4k3/8/8/8/8/8/4q3/4K3 w - - 0 1")),true));
+t("queen clearly can mate",()=>assert.equal(C.cannotMate("w",board("4k3/8/8/8/8/8/8/3QK3 w - - 0 1")),false));
+t("invalid material board fails closed",()=>assert.throws(()=>C.cannotMate("w",[])));
+t("clock monotonic across backwards wall-time at completed move",()=>{
+ const s=C.move(C.start(C.config("rapid10"),10000),"w",1);
+ assert.equal(s.ok,true);assert.equal(s.state.at,10000);
+ assert.equal(C.settle(s.state,11000).remaining.b,599000);
+});
+t("resume backwards clock cannot grant time",()=>{
+ const s=C.resume(C.pause(C.start(C.config("rapid10"),10000),15000),200);
+ assert.equal(s.at,15000);
+ assert.equal(C.settle(s,16000).remaining.w,594000);
+});
+t("hidden tab 48-second elapsed debit",()=>{const s=C.settle(C.start(C.config("bullet1"),300),48300);assert.equal(s.remaining.w,12000);});
+t("hourglass not part of canonical clock state",()=>assert.equal("hourglass" in C.start(C.config("blitz5"),0),false));
 console.log("PASS B8 clock "+count+"/"+count);
