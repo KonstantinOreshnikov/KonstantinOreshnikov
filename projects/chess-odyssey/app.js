@@ -340,6 +340,9 @@ function hint(){
   function closePromotion(){
     const original=pendingPromotion;
     pendingPromotion=null;$("promotion").hidden=true;
+    // Escape genuinely cancels the pending move. Do not leave the origin selected:
+    // otherwise the next click deselects it and makes a second promotion attempt fail.
+    selected=null;render();
     if(original)boardFocus(original.from);
   }
   function doMove(from,to,promotion){
