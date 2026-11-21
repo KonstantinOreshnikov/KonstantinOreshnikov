@@ -1,0 +1,86 @@
+/* Browser E2E for Chess Odyssey — uses real Chromium, no mocked chess logic. */
+"use strict";
+const {chromium}=require("playwright");
+const assert=require("node:assert/strict");
+const path=require("node:path");
+(async()=>{
+  const browser=await chromium.launch({headless:true,channel:process.env.CHESS_CHROME_CHANNEL||undefined,args:["--no-sandbox"]});
+  const page=await browser.newPage({viewport:{width:1365,height:900}});
+  const errors=[];page.on("pageerror",e=>errors.push(e.message));
+  const url="file://"+path.resolve(__dirname,"../index.html");
+  let cases=0;
+  try{
+    await page.goto(url);
+    await page.waitForFunction("window.ChessOdysseyQA && document.querySelectorAll('#board .square').length===64");
+    assert.equal(await page.locator("#board .piece").filter({hasText:/[♔-♟]/}).count(),32);cases++;
+    await page.locator("#hint").click();
+    assert.equal(await page.locator("#coach-variations li").count(),3);
+    assert.match(await page.locator("#coach-variations").innerText(),/Возможный ответ соперника/);cases++;
+    await page.selectOption("#lang","en");
+    assert.match(await page.locator("#coach-message").innerText(),/Legal ideas/);
+    assert.match(await page.locator("#coach-variations").innerText(),/Possible opponent reply/);
+    await page.selectOption("#lang","ru");cases++;
+    await page.locator('#board button[aria-label^="e2 "]').click();
+    assert.ok(await page.locator("#board .square.legal").count()>=2);
+    await page.locator('#board button[aria-label^="e4 "]').click();
+    await page.waitForFunction("document.getElementById('moves').textContent.trim().split(' ').length>=3",{timeout:12000});
+    assert.match(await page.locator("#moves").innerText(),/1\. e4/);cases++;
+    const notesBeforeReload=await page.evaluate(()=>JSON.parse(localStorage.getItem("chess-odyssey-v01")).notes);
+    assert.equal(notesBeforeReload.length,1);
+    assert.equal(notesBeforeReload[0].san,"e4");cases++;
+    await page.reload();
+    await page.waitForFunction("document.getElementById('moves').textContent.includes('e4')");
+    assert.match(await page.locator("#moves").innerText(),/e4/);cases++;
+    await page.locator("#review-button").click();
+    assert.ok(await page.locator("#review-list li").count()>=3);
+    assert.match(await page.locator("#coach-review").innerText(),/Альтернатива/);cases++;
+    await page.locator("#undo").click();
+    assert.equal(await page.locator("#moves").innerText(),"—");
+    assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem("chess-odyssey-v01")).notes.length),0);cases++;
+    await page.selectOption("#lesson","pawn");
+    await page.locator('#board button[aria-label^="e2 "]').click();
+    await page.locator('#board button[aria-label^="e4 "]').click();
+    assert.equal(await page.locator("#completed").innerText(),"1/33");cases++;
+    await page.selectOption("#lang","az");
+    assert.match(await page.locator(".academy-panel h2").innerText(),/Akademiya/);
+    assert.match(await page.locator("#review-button").innerText(),/Gedişləri/);cases++;
+    await page.selectOption("#lang","en");
+    assert.match(await page.locator(".board-controls #new-game").innerText(),/New game/);cases++;
+    await page.locator("#new-game").click();
+    await page.selectOption("#side","b");
+    await page.waitForFunction("document.getElementById('moves').textContent.includes('1.')",{timeout:12000});
+    assert.equal(await page.locator("#board .square").count(),64);cases++;
+    assert.deepEqual(errors,[]);cases++;
+    await page.setViewportSize({width:390,height:844});
+    assert.equal(await page.locator("#board .square").count(),64);
+    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+2);
+    assert.equal(overflow,false);cases++;
+    // Validate the distributed standalone HTML in a real browser.
+    await page.goto("file://"+path.resolve(__dirname,"../dist/ChessOdyssey_v0.1.1_PREVIEW.html"));
+    await page.waitForFunction("window.ChessOdysseyQA && document.querySelectorAll('#board .square').length===64");
+    assert.equal(await page.locator("#board .square").count(),64);cases++;
+    await page.selectOption("#side","w");
+    await page.locator("#new-game").click();
+    await page.locator('#board button[aria-label^="e2 "]').click();
+    await page.locator('#board button[aria-label^="e4 "]').click();
+    assert.match(await page.locator("#moves").innerText(),/e4/);cases++;
+    // The updated B2 standalone distribution also ships its own coach module.
+    await page.goto("file://"+path.resolve(__dirname,"../dist/ChessOdyssey_v0.2.0_PREVIEW.html"));
+    await page.waitForFunction("window.ChessOdysseyQA && window.ChessOdysseyQA.coach()==='B2-2ply'");
+    assert.equal(await page.locator("#board .square").count(),64);cases++;
+    await page.selectOption("#side","w");
+    await page.locator("#new-game").click();
+    await page.locator("#hint").click();
+    assert.equal(await page.locator("#coach-variations li").count(),3);cases++;
+    // The patch release must bundle updated translations and review validation.
+    await page.goto("file://"+path.resolve(__dirname,"../dist/ChessOdyssey_v0.2.1_PREVIEW.html"));
+    await page.waitForFunction("window.ChessOdysseyQA && window.ChessOdysseyQA.coach()==='B2-2ply'");
+    assert.equal(await page.locator("#board .square").count(),64);cases++;
+    await page.locator("#hint").click();
+    await page.selectOption("#lang","az");
+    assert.match(await page.locator("#coach-message").innerText(),/Qanuni variantlar/);
+    assert.match(await page.locator("#coach-variations").innerText(),/Rəqibin mümkün cavabı/);cases++;
+    assert.deepEqual(errors,[]);cases++;
+    console.log("PASS browser E2E "+cases+" / "+cases);
+  }finally{await browser.close();}
+})().catch(e=>{console.error("FAIL browser E2E",e);process.exitCode=1;});

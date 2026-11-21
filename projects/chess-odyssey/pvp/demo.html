@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chess Odyssey · B9 local multiplayer QA</title>
+<link rel="stylesheet" href="/demo.css"><script defer src="/demo.js"></script></head>
+<body><main class="shell">
+<header><div><p class="eyebrow">CHESS ODYSSEY · ARENA</p><h1>Friends PvP · B9 prototype</h1></div><p class="warning">LOCAL QA ONLY · Synthetic users · NO Neon Auth / Cloud / Production</p></header>
+<p class="sub">Server checks every move, turn, clock, player identity and result. Reload is safe while this local test server stays running. This is not a public account system.</p>
+<section class="toolbar">
+<label>Test identity <select id="identity"><option value="alice">alice</option><option value="bob">bob</option><option value="charlie">charlie</option></select></label>
+<label>Invite <select id="opponent"><option value="bob">bob</option><option value="alice">alice</option><option value="charlie">charlie</option></select></label>
+<label>Color <select id="color"><option value="w">White</option><option value="b">Black</option></select></label>
+<label>Time <select id="preset"><option value="none">Unlimited</option><option value="rapid10">10+0</option><option value="rapid1510">15+10</option><option value="blitz5">5+0</option><option value="bullet1">1+0</option></select></label>
+<button id="invite">Invite player</button>
+</section>
+<section class="status" role="status" aria-live="polite" id="notice">Choose two different test users in separate browser tabs.</section>
+<div class="layout"><section class="game">
+<div class="gamehead"><h2 id="game-title">Waiting for a match</h2><span id="state"></span></div>
+<div class="clocks" aria-label="Server authoritative clocks"><div><span id="black-name">Black</span><strong id="black-clock">—</strong></div><div><span id="white-name">White</span><strong id="white-clock">—</strong></div></div>
+<div id="board" class="board" role="group" aria-label="Chessboard"></div>
+<div class="controls"><button id="resign">Resign</button><button id="draw">Offer / accept draw</button><button id="rematch">Rematch</button><button id="refresh">Refresh</button></div>
+<p id="score" class="score">No game selected.</p>
+<h3>PGN · complete moves</h3><pre id="pgn">—</pre>
+</section><aside>
+<h2>Invitations</h2><div id="invitations" class="tiles"></div>
+<h2>My matches</h2><div id="matches" class="tiles"></div>
+<p class="note">Refresh interval: 1.2 s. This local-only fixture uses a synthetic request header. Production authentication is BLOCKED until the Neon project exists, and cannot use this header.</p>
+</aside></div>
+</main></body></html>
