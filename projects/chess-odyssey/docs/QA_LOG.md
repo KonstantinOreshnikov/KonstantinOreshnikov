@@ -1,7 +1,7 @@
 # Chess Odyssey QA Ledger
 
-**CURRENT VERIFIED CHECKPOINT (2026-11-21): B6 v0.6.0 Preview, GitHub Actions run #268 — 180/180 executable tests PASS + verified 34-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
-Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44845023609  
+**CURRENT VERIFIED CHECKPOINT (2026-11-21): B6 v0.6.0 Preview, GitHub Actions run #275 — 180/180 executable tests PASS + documentation-synchronized 34-file GPL Stockfish ZIP integrity PASS. Production v1.0 remains BLOCKED.**  
+Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44845418646  
 Current technical authority: docs/PROGRESS_B6_DESIGN.md + progress-core.js + progress-ui.js, on top of B5 source register, B4 Academy and B3 Stockfish. Earlier B0–B5 ledger entries remain historical evidence and are not claims of production release.
 
 Date: 2026-11-21
@@ -291,3 +291,11 @@ B6 real-browser gates include: no initial fake index, all three tabs, real B4 le
 - B6 browser test used a seeded legal terminal chess position and an actually clicked decisive move; independent long-game end-to-end/tournament sampling from ordinary new game through final position with human-like strategy is **NOT TESTED** here, and remains in B7.
 - Independent historical B5 source verification of every date/event, human RU/EN/AZ editorial audit, WCAG keyboard/contrast/assistive-technology validation, and physical Windows launcher E2E remain **NOT FULLY TESTED**.
 - B7 full production acceptance, deployment site and explicit owner-approved release boundary **BLOCKED**; `main` and production untouched.
+
+### Final successful source/docs-synchronized ZIP checkpoint — run #275 (2026-11-21)
+
+- After updating README, ROADMAP, CHANGELOG and B6 historical QA ledger, **GitHub Actions #275 (ID 44845418646)** independently reran BOTH jobs: **PASS**. Exactly **180/180** executable checks still pass, including 19 pure B6 methodology tests, 26 real Chrome B6 E2E tests, existing 135 B0–B5 regression tests and real licensed Stockfish.
+- Full 34-file ZIP `ChessOdyssey_v0.6.0_Stockfish_Preview.zip`, actually generated and reopened/CRC checked: **1,500,167 bytes**, internal SHA256 `77a8ee312f95c0d23408584d669418627ba1a626a39ac0b76fc2de8707d40e68`.
+- New downloadable artifact **ID 14682882393**, `ChessOdyssey-v0.6.0-Progress-Stockfish-PREVIEW`, outer GitHub archive digest `c82ee8d82dfe5c7650e3d8f59d39c493308a856205e419d6119f5c2e181deeab`, retained through **2026-12-21 UTC**. [Final full QA + downloadable ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44845418646).
+- Prior #268 ZIP SHA/size above is *historical evidence*, not the current full artifact's SHA. This final QA pointer was committed after #275 via `[skip ci]`; as always, the artifact cannot retroactively contain its own final recording.
+- B6 baseline **accepted only as green development preview**. B7 production still gated. No merge/main/deploy and no other-game change.
