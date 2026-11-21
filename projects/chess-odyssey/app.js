@@ -15,6 +15,7 @@
   const COACH = window.ChessCoachEngine;
   const ENGINE = window.ChessEngineBridge;
   const PROGRESS = window.ChessProgressCore;
+  const CLOCK = window.ChessClock || null;
   // Old preview smoke fixtures may omit the optional B6 module. Independent match
   // recording fails closed if the progress controller is unavailable.
   const I18N = {
@@ -32,12 +33,64 @@
   let lessonStep=0,academyTrack="all",lastLessonId=null;
   let keyboardSquare="e2";
   let matchMode="practice",matchSession=null;
+  let clockState=CLOCK?CLOCK.start(CLOCK.config("none"),Date.now()):null;
+  let clockTheme="digital",soundEnabled=false,endedBy=null,lowAlerted=null,audioContext=null;
   const engine = ENGINE && new ENGINE.Bridge();
   let lastEngineKind="local";
-  function tr(k) {return (I18N[language] || I18N.ru)[k] || k;}
+  const B8_TEXT={
+    ru:{whiteClock:"Белые",blackClock:"Чёрные",timeControl:"Контроль времени",untimed:"Без времени",customTime:"Своё время",customMinutes:"Минуты",customIncrement:"Добавление, секунд",clockTheme:"Вид часов",digitalClock:"Электронные",hourglassClock:"Песочные + цифры",sounds:"Звуки партии",resign:"Сдаться",rematch:"Реванш",timeout:"Время вышло",resigned:"Партия сдана",clockDraw:"Ничья: недостаточно материала для мата",clockPolicy:"Игры с часами пока не входят в AI Ladder Index.",confirmResign:"Сдаться в текущей партии?",resignNote:"Партия завершена сдачей; AI Ladder Index не изменён.",timeNote:"Партия завершена по времени; AI Ladder Index не изменён."},
+    en:{whiteClock:"White",blackClock:"Black",timeControl:"Time control",untimed:"Untimed",customTime:"Custom",customMinutes:"Minutes",customIncrement:"Increment, seconds",clockTheme:"Clock display",digitalClock:"Digital",hourglassClock:"Hourglass + digits",sounds:"Game sounds",resign:"Resign",rematch:"Rematch",timeout:"Time out",resigned:"Resigned",clockDraw:"Draw: insufficient mating material",clockPolicy:"Timed games are not yet in the AI Ladder Index.",confirmResign:"Resign this game?",resignNote:"Resignation recorded; AI Ladder Index unchanged.",timeNote:"Clock result recorded; AI Ladder Index unchanged."},
+    az:{whiteClock:"Ağlar",blackClock:"Qaralar",timeControl:"Vaxt nəzarəti",untimed:"Vaxtsız",customTime:"Xüsusi vaxt",customMinutes:"Dəqiqə",customIncrement:"Əlavə saniyə",clockTheme:"Saat görünüşü",digitalClock:"Rəqəmsal",hourglassClock:"Qum saatı + rəqəmlər",sounds:"Oyun səsləri",resign:"Təslim ol",rematch:"Təkrar oyun",timeout:"Vaxt bitdi",resigned:"Təslim oldu",clockDraw:"Heç-heçə: mat üçün fiqur kifayət etmir",clockPolicy:"Vaxtlı oyunlar hələ AI Ladder Index-ə daxil edilmir.",confirmResign:"Bu oyunda təslim olmaq istəyirsiniz?",resignNote:"Təslim nəticəsi qeyd edildi; AI Ladder Index dəyişmədi.",timeNote:"Vaxt nəticəsi qeyd edildi; AI Ladder Index dəyişmədi."}
+  };
+  function tr(k) {return (I18N[language] || I18N.ru)[k]||(B8_TEXT[language]||B8_TEXT.ru)[k]||k;}
   function text(k, val){return $(k) && ($(k).textContent=val);}
   function message(str){text("coach-message",str);}
   function learnMessage(str){text("lesson-status",str);}
+  function playSound(kind) {
+    if(!soundEnabled||typeof window.AudioContext!=="function")return;
+    try{
+      audioContext=audioContext||new window.AudioContext();
+      if(audioContext.state==="suspended")audioContext.resume().catch(()=>{});
+      (kind==="check"?[740,920]:kind==="low"?[620]:[600,440,780]).forEach((frequency,i)=>{
+        const osc=audioContext.createOscillator(),gain=audioContext.createGain(),at=audioContext.currentTime+i*.13;
+        osc.type="sine";osc.frequency.value=frequency;
+        gain.gain.setValueAtTime(.0001,at);
+        gain.gain.exponentialRampToValueAtTime(.07,at+.015);
+        gain.gain.exponentialRampToValueAtTime(.0001,at+.105);
+        osc.connect(gain);gain.connect(audioContext.destination);osc.start(at);osc.stop(at+.12);
+      });
+    }catch{/* optional audio cannot prevent legal chess */}
+  }
+  function opponentCannotMate(winner){
+    const pieces=game.board().flat().filter(Boolean);
+    const attacking=pieces.filter(p=>p.color===winner&&p.type!=="k");
+    const defending=pieces.filter(p=>p.color!==winner&&p.type!=="k");
+    return !attacking.length||(defending.length===0&&attacking.length===1&&["n","b"].includes(attacking[0].type));
+  }
+  function clockTick(){
+    if(!CLOCK||!clockState)return;
+    if(!lesson&&!parked&&!finalized&&clockState.baseMs){
+      clockState=CLOCK.settle(clockState,Date.now());
+      if(clockState.flagged&&!endedBy){
+        const loser=clockState.flagged,winner=loser==="w"?"b":"w";
+        endedBy={type:"timeout",loser,draw:opponentCannotMate(winner)};
+        clearTimeout(aiTimer);++epoch;engine?.cancel();finish();
+      }
+    }
+    const panel=$("clock-panel");if(!panel)return;
+    panel.hidden=!clockState.baseMs||Boolean(lesson);
+    panel.classList.toggle("hourglass-mode",clockTheme==="hourglass");
+    for(const color of ["w","b"]){
+      const name=color==="w"?"white":"black",card=$("clock-"+name),ms=clockState.remaining[color];
+      text("clock-"+name+"-time",CLOCK.format(ms));
+      card.dataset.active=String(!finalized&&!clockState.paused&&clockState.active===color);
+      card.dataset.low=String(!finalized&&ms<=10000);
+      card.dataset.flip=String(game.history().length%2===1);
+    }
+    if(!finalized&&clockState.active===side&&clockState.remaining[side]<=10000&&lowAlerted!==side){
+      lowAlerted=side;playSound("low");
+    }
+  }
   const prog=(key)=>window.ChessProgress?.translate?.(key)||key;
   const matchId=()=>("g-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,12));
   function currentMatch(){return matchMode==="independent"&&!lesson&&Boolean(matchSession);}
@@ -179,7 +232,7 @@
   }
   function gradeCompletedIndependentGame(){
     // Post-game only. Rebuild the exact played PGN; no analysis during the rated match.
-    if(!currentMatch()||!finalized||!game.game_over()||notes.length)return;
+    if(!currentMatch()||!finalized||(!game.game_over()&&!endedBy)||notes.length)return;
     const transcript=game.history({verbose:true}),replay=new Chess(),result=[];
     for(let i=0;i<transcript.length;i++){
       const played=transcript[i];
@@ -264,9 +317,17 @@
     return list;
   }
   function completeBotMove(choice){
-    if(!choice||game.game_over()||lesson||game.turn()===side)return false;
+    if(!choice||game.game_over()||finalized||lesson||game.turn()===side)return false;
+    const moveAt=Date.now();
+    if(CLOCK&&clockState?.baseMs){clockState=CLOCK.settle(clockState,moveAt);if(clockState.flagged){clockTick();return false;}}
     const moved=game.move(choice);
     if(!moved)return false;
+    if(CLOCK&&clockState?.baseMs){
+      const transition=CLOCK.move(clockState,moved.color,moveAt);
+      if(!transition.ok){game.undo();clockState=transition.state;clockTick();return false;}
+      clockState=transition.state;
+    }
+    if(game.in_check())playSound("check");
     clearHints();last=[moved.from,moved.to];finalized=false;selected=null;
     if(currentMatch()&&ENGINE.profile(difficulty).mode!=="local"&&lastEngineKind!=="stockfish")matchSession.fallback=true;
     render();persist();
@@ -274,7 +335,7 @@
     return true;
   }
   function fallbackBotMove(){
-    if(game.game_over()||lesson||game.turn()===side)return;
+    if(game.game_over()||finalized||lesson||game.turn()===side)return;
     const tier=ENGINE.profile(difficulty);
     // No grandmaster claim for the low-depth fallback.
     const depth=tier.mode==="local"?tier.localDepth:Math.min(2,tier.localDepth);
@@ -365,9 +426,17 @@ function hint(){
       }
     }
     const assessment=lesson||currentMatch()?null:COACH.grade(game,candidate.san);
+    const moveAt=Date.now();
+    if(!lesson&&CLOCK&&clockState?.baseMs){clockState=CLOCK.settle(clockState,moveAt);if(clockState.flagged){clockTick();return;}}
     const fromPromotion=Boolean(pendingPromotion&&promotion);
     const move=game.move({from,to,promotion:promotion||"q"});
     if(!move) return message(tr("illegal"));
+    if(!lesson&&CLOCK&&clockState?.baseMs){
+      const transition=CLOCK.move(clockState,move.color,moveAt);
+      if(!transition.ok){game.undo();clockState=transition.state;clockTick();return;}
+      clockState=transition.state;
+    }
+    if(!lesson&&game.in_check())playSound("check");
     last=[from,to]; selected=null;
     clearHints();
     $("promotion").hidden=true; pendingPromotion=null;
@@ -418,6 +487,10 @@ function hint(){
     text("moves",pairs.join("   ")||"—");
   }
   function status(){
+    if(endedBy){
+      if(endedBy.draw)return tr("clockDraw");
+      return tr(endedBy.type==="timeout"?"timeout":"resigned")+" — "+(endedBy.loser===side?tr("loss"):tr("win"));
+    }
     if(game.in_checkmate()) return tr("mate") + " — " + (game.turn()===side?tr("loss"):tr("win"));
     if(game.in_draw()) return tr("draw");
     if(game.in_check()) return tr("check") + " " + (game.turn()===side?tr("turn"):tr("bot"));
@@ -474,16 +547,23 @@ function hint(){
     $("lesson").disabled=currentMatch()&&!finalized;
     $("academy-track").disabled=currentMatch()&&!finalized;
     $("resume-game").hidden=!parked;
+    if($("resign"))$("resign").disabled=Boolean(lesson||parked||finalized||game.game_over());
+    clockTick();
   }
   function finish(){
-    if(finalized || lesson || !game.game_over()) return;
-    if(game.in_checkmate()) {
+    if(finalized||lesson||(!game.game_over()&&!endedBy))return;
+    if(CLOCK&&clockState?.baseMs)clockState=CLOCK.stop(clockState,Date.now());
+    if(endedBy){
+      if(endedBy.draw)stats.draws++;
+      else if(endedBy.loser===side)stats.losses++;
+      else stats.wins++;
+    }else if(game.in_checkmate()){
       if(game.turn()===side)stats.losses++;
       else stats.wins++;
     } else stats.draws++;
     finalized=true;showReview=!currentMatch();
     let ratedMessage=tr("notRated");
-    if(currentMatch()){
+    if(currentMatch()&&!endedBy&&!(clockState&&clockState.baseMs)){
       const result=game.in_checkmate()?(game.turn()===side?"loss":"win"):"draw";
       const tier=ENGINE.profile(difficulty);
       const method=tier.mode==="local"?"local":lastEngineKind==="stockfish"&&!matchSession.fallback?"stockfish":"fallback";
@@ -491,7 +571,9 @@ function hint(){
       ratedMessage=receipt.accepted?prog("independentResult"):prog("invalidRating");
       matchNotice(receipt.accepted?"independentResult":"ineligible");
     }
-    persist();render();renderReview();
+    if(endedBy)ratedMessage=tr(endedBy.type==="resign"?"resignNote":"timeNote");
+    else if(clockState?.baseMs)ratedMessage=tr("clockPolicy");
+    playSound("end");persist();render();renderReview();
     message(status()+" — "+ratedMessage);
   }
   function persist(){
