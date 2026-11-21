@@ -80,6 +80,7 @@ jobs:
           node --check projects/chess-odyssey/tests/b9-http.cjs
           node --check projects/chess-odyssey/tests/b9-browser.cjs
           node --check projects/chess-odyssey/tests/b9-match-service.cjs
+          node --check projects/chess-odyssey/tests/b8-translation-structure.cjs
           node --check projects/chess-odyssey/tests/b8-clock-browser.cjs
           node --check projects/chess-odyssey/coach-engine.js
           node --check projects/chess-odyssey/engine-bridge.js
@@ -117,6 +118,7 @@ jobs:
         working-directory: projects/chess-odyssey
         run: |
           node tests/clock-core.cjs
+          node tests/b8-translation-structure.cjs
           node tests/b9-match-service.cjs
           node tests/b9-http.cjs
           node tests/chess-smoke.cjs
