@@ -1,6 +1,6 @@
 # Independent Game Studio — migration and QA report
 
-**Source cutoff:** 2026-11-21 16:57 Asia/Baku. **Baseline main:** `5bc3496152e2dd49db2cb60e2e0216926cbd9d91` (committed 15:59:49 Baku). **Proposed branch:** `chore/independent-game-studio-reconcile-20261121`. Merge to `main` awaits separate owner approval.
+**Source cutoff:** 2026-11-21 16:57 Asia/Baku. **Baseline main:** `5bc3496152e2dd49db2cb60e2e0216926cbd9d91` (committed 15:59:49 Baku). **Migration branch:** `chore/independent-game-studio-reconcile-20261121`. Owner-approved PR #11 merged into `main` at `deb017e3401077fea568db0fe5baa795a72bc422`.
 
 ## Discovery and provenance
 
@@ -23,7 +23,7 @@
 ## Preservation and structure
 
 - `main` baseline had **134 tracked files** in five legacy game-only roots. All **134/134** have a mapped file in this branch; **124** retained byte-for-byte and **10** documentation files were edited for status/navigation/paths. Source code and existing historical HTML/WASM assets retain exact bytes.
-- The migration adds recovered v1.2 Caribbean HTML, original Kingdoms v1.0 HTML/ZIP, branch-only Kingdoms v1.1 sources/HTML/QA, original Chess v0.8.0 CI ZIP and HTML, retro branch-only design docs, registry, status and QA. The five legacy directories disappear from this branch; none of the original files was discarded. No nested Git repositories or submodules were created.
+- The migration adds recovered v1.2 Caribbean HTML, original Kingdoms v1.0 HTML/ZIP, branch-only Kingdoms v1.1 sources/HTML/QA, original Chess v0.8.0 CI ZIP and HTML, retro branch-only design docs, registry, status and QA. The five legacy directories are absent from `main` after the merge; none of the original files was discarded. No nested Git repositories or submodules were created.
 - GitHub Actions workflows must remain in `.github/workflows/` to execute; their game source/test paths were updated to the new studio tree. They are the only game-specific infrastructure files outside the studio directory. Branch links in historical docs are retained as evidence; living main navigation now uses studio paths.
 - Existing historical source remains in normal Git history; research and older game HTML remain as files. [Registry](GAME_REGISTRY.md) plus `STATUS.md` files are the next-chat entrypoints.
 
@@ -39,7 +39,8 @@
 | Chess source regression | PASS | Fourteen existing Node test scripts passed locally. Migration-branch [CI #409](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44908111445) on commit `883358d1d36546a1a3ab8b6d285e828c493708d8`: 3/3 jobs success (Node/unit, real Chromium, Windows launcher + Stockfish). Historic #407 remains earlier evidence. |
 | Browser migration regression | PASS on CI; BLOCKED locally | [Studio smoke CI #1](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44908111495) on commit `883358d1d36546a1a3ab8b6d285e828c493708d8`: **3/3** Caribbean v1.2, Kingdoms v1.1, Chess v0.8 HTML startup/UI/JS and storage reload. Local Chromium aborts with sandbox socket `Operation not permitted`; CI was the actual browser check. |
 | Caribbean v1.2 gameplay acceptance / Kingdoms offline file launch | NOT TESTED | Initial browser smoke checks page startup/storage only. Full gameplay and direct `file://` save lifecycle need separate QA. |
-| Checkpoint consistency | PASS | GitHub tree read-back SHA `7e770abe53f56abdf8a3bd809f01b7f75c189468` equals the local Git tree; 157 studio blobs, 0 old-path blobs. PR #11 is open and mergeable. |
-| Current main merge / deployments | NOT APPLICABLE | A PR may be reviewed; merge and production deployment require separate owner authorization. |
+| Checkpoint consistency | PASS | GitHub tree read-back SHA `7e770abe53f56abdf8a3bd809f01b7f75c189468` equals the local Git tree; 157 studio blobs, 0 old-path blobs. PR #11 merged at `deb017e3401077fea568db0fe5baa795a72bc422`; post-merge main read-back confirmed the same 157/0 counts. |
+| Main merge | PASS | PR #11 merged with explicit owner authorization; main HEAD and canonical registry read-back PASS. |
+| Production deployment | NOT APPLICABLE | No game deployment was requested or performed. |
 
-The unavailable original Kingdoms v1.1 source archive and game-specific release QA gates are explicitly tracked. A green migration PR would prove the repository move and smoke checks, not release certification of every game.
+The unavailable original Kingdoms v1.1 source archive and game-specific release QA gates are explicitly tracked. Passing migration CI proves the repository move and smoke checks; it is not release certification of every game.
