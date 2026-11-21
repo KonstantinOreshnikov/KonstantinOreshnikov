@@ -152,3 +152,30 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
 .promotion-box .close:focus-visible,.promotion-choices button:focus-visible{outline:3px solid #ffe2a8;outline-offset:2px}
 .game-tabs [role=tab]:focus-visible{outline:3px solid #ffe1a2;outline-offset:-2px}
 @media(max-width:570px){.chess-keyboard-help{font-size:11px;margin:8px 1px 10px}}
+
+
+/* B8 clock UI: exact readable time even when decorative hourglasses animate. */
+.clock-panel{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.clock-panel[hidden]{display:none}
+.clock-card{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #374e62;border-radius:11px;padding:10px 12px;background:#122231;min-width:0}
+.clock-card[data-active="true"]{border-color:#e1b86a;box-shadow:inset 0 0 0 1px #e1b86a60;background:#203248}
+.clock-card[data-low="true"]{border-color:#f0807a}
+.clock-player{font-size:13px;color:#cbd9e5;white-space:nowrap}
+.clock-time{font-size:clamp(17px,2.4vw,27px);font-variant-numeric:tabular-nums;font-feature-settings:"tnum";white-space:nowrap;color:#f4f6fa}
+.sandglass{display:none;font-size:23px;transition:transform 500ms ease}
+.clock-panel.hourglass-mode .sandglass{display:inline-block}
+.clock-panel.hourglass-mode .clock-card[data-active="true"] .sandglass{animation:b8-sand 1.8s ease-in-out infinite}
+.clock-panel.hourglass-mode .clock-card[data-flip="true"] .sandglass{transform:rotate(180deg)}
+@keyframes b8-sand{0%,100%{opacity:1}50%{opacity:.55}}
+.time-settings{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:12px 0;border-top:1px solid #344351}
+.time-settings label{display:flex;flex-direction:column;gap:6px}
+.time-settings label span{font-size:12px;color:#c6d2dd}
+.time-settings select,.time-settings input[type=number]{min-width:0;width:100%;padding:8px;border-radius:7px;color:#f4f6fa;background:#182a3a;border:1px solid #425669}
+.time-settings .sound-toggle{flex-direction:row;align-items:center}
+.time-settings .sound-toggle input{width:18px;height:18px}
+.custom-clock{display:contents}
+.custom-clock[hidden]{display:none}
+.time-settings #clock-policy{grid-column:1/-1;margin:0;font-size:11px;line-height:1.45}
+.b8-controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 13px}
+@media(max-width:570px){.clock-card{padding:7px 6px;gap:4px}.clock-player{font-size:11px}.clock-time{font-size:clamp(14px,4.1vw,19px)}.sandglass{font-size:16px}.time-settings{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){.clock-panel .sandglass{animation:none!important;transition:none!important}}
