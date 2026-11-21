@@ -1,7 +1,9 @@
-# Chess Odyssey — Development Operating Protocol v0.1
+# Chess Odyssey — Development Operating Protocol (rules baseline v0.1)
+
+**Current application state:** B9 / v0.9 Development (2026-11-21). Last packaged playable v0.8.0. See [canonical current project status](CURRENT_STATUS.md); this protocol's *v0.1* number refers to the historical process baseline, not the game's current phase.
 
 ## Authority and separation
-- This game's owner-approved product concept is archived in docs/ORIGINAL_CONCEPT_2026-11-20.md.
+- The original owner's idea is archived at [ORIGINAL_CONCEPT_2026-11-20.md](ORIGINAL_CONCEPT_2026-11-20.md). It was superseded by the implemented B0–B8 game and owner-approved B9 live-friends-PvP v1.0 scope. Do not reuse its idea-only status as current.
 - Build only under projects/chess-odyssey/ and a dedicated game branch. Do not alter other games, main, deployment settings or production sites.
 - Prefer real code and evidence to optimistic completion reports. User authorizes iterative development but NOT declaring release on failed checks.
 
@@ -11,7 +13,7 @@
 3. **Humanizer:** new trainer content should explain what and WHY in natural RU/EN/AZ. Avoid automated-sounding verbosity, false tactical certainties, technical jargon without teaching context. Never change chess truth to improve prose.
 4. **Translation QA:** all three language variants must preserve move notation, legal moves, chess meaning, threats and exceptions. Independently inspect critical labels and lesson instructions; no machine-translation PASS by assertion.
 5. **Browser E2E:** Chromium interactions with board click and selection, actual legal moves, AI response, undo, lessons, localStorage after reload, translation switching and phone viewport. Browser test file existing != executed PASS.
-6. **Security/accessibility:** local-only in v0.1; no dynamic innerHTML for user-provided values; support keyboard focus, aria labels, buttons and touch targets. No accounts or analytics without scope decision.
+6. **Security/accessibility:** B0/B1 originally local-only. B9 now owner-authorizes staging Neon Better Auth and a small authenticated PvP product; the older no-accounts premise is superseded. No dynamic innerHTML from untrusted values; keyboard focus, aria labels and touch targets. No user-submitted `actorId` / spoofable header in a deployed server; server-side authenticated identity, row ownership, transaction clock and private data isolation must be proven. Local B9 demo is synthetic and must remain loopback-only.
 7. **Checkpoint and history:** coherent small commits, CHANGELOG with behavioral delta, QA_LOG with pass/failure evidence, issue for unresolved defect. Never replace failures silently.
 
 ## Decision workflow
@@ -30,4 +32,8 @@ Gate G: functional UX, keyboard focus and accessibility.
 Gate H: known high-impact bugs = 0, regression PASS, version artifact and rollback plan.
 Gate I: explicit production destination, deployment verification and owner-approved release boundary.
 
-Until all applicable release gates PASS, status stays DEVELOPMENT / BLOCKED FOR v1.0.
+Gate J (B9): **Neon authenticated user E2E**: verify real email OTP, JWT/session claims, exact user identity; per-match privacy, transactional chess move/clock/idempotency, authorized progress synchronization, reconnect, two separate real accounts and negative security E2E. A synthetic browser fixture or database schema alone can NEVER satisfy this.
+Gate K (B9): safe HTTPS hosting, invite-only/friends access model for 5–10 participants, rollback and secrets isolation. No unrestricted Neon Realtime subscriptions with unknown RLS.
+Gate L (B8/B10): owner real PC and phone manual UAT, independent educational RU/EN/AZ editing, B5 historical second-source adjudication or explicitly accepted exclusions.
+
+**Current evidence:** [#403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) local CI all jobs PASS; staging PostgreSQL tables and Neon Better Auth with OTP provisioned; **actual two-user cloud E2E NOT RUN**. Until J, K, L and applicable original gates PASS, status remains **B9/v0.9 DEVELOPMENT — v1.0 BLOCKED**. See [current project status](CURRENT_STATUS.md).
