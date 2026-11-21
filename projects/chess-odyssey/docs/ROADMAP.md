@@ -35,6 +35,13 @@ Each block: reuse precheck -> minimal implementation -> targeted unit/perft -> b
 
 **Release:** v0.8.0 is Development Preview, **not** approved production v1.0; no merge, deployment, Neon project or DB writes authorized/executed.
 
+## Current B9 Neon staging checkpoint — 2026-11-21
+- **B8 automated QA:** 32/32 clock units and 12/12 real-browser cases PASS; owner physical UAT, independent trilingual editorial, historic source review and bounded extra openings remain OPEN.
+- **B9 isolated PvP:** 27/27 authoritative domain tests, 15/15 HTTP QA and 11/11 two-browser cases PASS, plus older B0–B7 regression and Windows PASS in [GitHub Actions #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027).
+- **Neon now connected and staging created:** project `wild-hall-05832800` (Frankfurt, PostgreSQL 17), branch `br-still-credit-b9voxawu`; 4-table schema successfully applied on staging only, RLS and FORCE RLS all true, ZERO access policies. No user data; no deployment.
+- **B9 blocker known early:** Neon Auth not enabled (verified HTTP 404). Enabling live Auth/security policy requires explicit approval under project authorization boundaries. Server API, durable transactional multiplayer, authenticated privacy tests, actual two-user Neon E2E and frontend hosting are not yet implemented/verified.
+- **Canonical evidence:** [B9 Neon Staging Checkpoint](B9_NEON_STAGING_CHECKPOINT_2026-11-21.md). Existing B7 / #339 baseline is historical immutable evidence; #403 is the current technical QA run.
+
 ## Owner-approved v1.0 expansion — 2026-11-21: timed play AND live friends PvP
 
 **Core product decision (supersedes earlier postponement of human-vs-human):** Chess Odyssey is a learn → train against AI → play against other humans → study game progression. Human-vs-human real-time play with friends **is required for first v1.0**, not a vague future add-on. Early launch targets approximately **5–10 invited friends/colleagues**, not a mass public chess platform. Existing B0–B7 code and QA #339 (238/238 PASS) are a protected verified development baseline, not evidence for new B8–B10.
