@@ -142,3 +142,13 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
 @media(max-width:1000px){.progress-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.progress-awards{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:690px){.progress-two-columns{grid-template-columns:minmax(0,1fr)}.progress-awards{grid-template-columns:repeat(2,minmax(0,1fr))}.progress-metrics{gap:9px}.progress-metric{padding:13px}.progress-metric strong{font-size:25px}}
 @media(max-width:390px){.progress-awards{grid-template-columns:minmax(0,1fr)}}
+
+
+/* B7 WCAG-oriented keyboard and promotion interaction. */
+.chess-keyboard-help{font-size:12px;color:#e0e8ef;line-height:1.6;margin:10px 0 4px;max-width:720px}
+.square:focus-visible{outline:4px solid #ffe1a2;outline-offset:-4px;z-index:5;box-shadow:inset 0 0 0 2px #102331}
+.promotion-help{font-size:13px;line-height:1.55;color:#e8eef2;margin-bottom:18px}
+.promotion-box .close{width:44px;height:44px;display:grid;place-items:center;top:4px;right:5px;border-radius:8px}
+.promotion-box .close:focus-visible,.promotion-choices button:focus-visible{outline:3px solid #ffe2a8;outline-offset:2px}
+.game-tabs [role=tab]:focus-visible{outline:3px solid #ffe1a2;outline-offset:-2px}
+@media(max-width:570px){.chess-keyboard-help{font-size:11px;margin:8px 1px 10px}}
