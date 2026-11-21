@@ -2,7 +2,11 @@
 
 **CURRENT VERIFIED CHECKPOINT (2026-11-21): B8 automated clock QA 32/32 + browser 12/12 PASS, B9 isolated PvP 27/27 + HTTP 15/15 + dual-browser 11/11 PASS; [CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027), all three jobs successful. New Neon staging project `wild-hall-05832800`, `staging` branch `br-still-credit-b9voxawu`: four RLS/FORCE RLS tables applied and independently read back; Neon Better Auth ENABLED and configured with verified email OTP on staging; actual signup/login/JWT and cloud PvP E2E NOT RUN. B8 human QA OPEN; B9 still BLOCKED on verified real-user Auth E2E, user-scoped APIs and durable persistence. Evidence: [B9 Neon checkpoint](B9_NEON_STAGING_CHECKPOINT_2026-11-21.md). No v1.0 production release.**  
 Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027 (B8/B9 local-development #403; B7 archive #339 retained below)  
-Current technical authority: B8 clock-core.js, app.js, tests/clock-core.cjs, tests/b8-clock-browser.cjs and docs/ROADMAP.md on top of preserved B7 docs/RELEASE_B7_QA.md, docs/SOURCE_B7_REFRESH.md, B5/B6 evidence and verified Stockfish/Academy. Earlier B0–B6 entries are historical checkpoints, not production-release claims.
+Current technical authority: [CURRENT_STATUS.md](CURRENT_STATUS.md) for navigation; B9 `pvp/match-service.cjs`, `docs/B9_NEON_INTEGRATION.md`, `docs/B9_NEON_STAGING_CHECKPOINT_2026-11-21.md`, local B9 tests and live #403 for executed proof; B8 `clock-core.js`, `app.js` and tests; `docs/ROADMAP.md` for owner scope. Historical B7 source/regression baseline remains intact. Earlier B0–B6 entries are historical checkpoints, not production-release claims.
+
+## Historical QA chronology — B0/B1 original checkpoint and later milestones
+
+**The sections below are immutable historical work-package snapshots; statements such as "NOT IMPLEMENTED", "NOT TESTED" and "next gate" are relative to their original B0/B1/B2/B3/B4 phase, NOT the current B9 stage.** Always use the current status banner above and [CURRENT_STATUS.md](CURRENT_STATUS.md) for live operational status.
 
 Date: 2026-11-21
 Branch: game/chess-odyssey-v0.1
