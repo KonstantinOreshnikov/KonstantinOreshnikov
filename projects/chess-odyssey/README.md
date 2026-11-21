@@ -55,6 +55,10 @@ node scripts/serve-local.cjs
 
 **Offline one-file:** `dist/ChessOdyssey_v0.6.0_PREVIEW.html` contains *all* Practice, Academy, Masters and Progress features without a server or internet. The four stronger Stockfish tiers fall back visibly to a weaker local engine because a file://-loaded HTML cannot run the licensed WASM Worker correctly. **Such fallback games are ineligible for the independent AI index.**
 
+## Executed QA — B6 v0.6.0
+
+**[GitHub Actions #268](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44845023609): 180/180 PASS**, covering B0–B5 regression, 19 independent Progress methodology/PGN/denominator cases, 26 new real Chrome desktop/mobile cases, genuine Stockfish and 34-file ZIP integrity. Detailed chronology of earlier failed/cancelled runs and explicit B7 limitations is in `docs/QA_LOG.md`. The current passing build and final distribution link should be checked against the latest run in the branch before sharing the ZIP.
+
 ## Evidence, source and licensing
 
 - **B6 technical and measurement authority:** `docs/PROGRESS_B6_DESIGN.md` and exact original executable `progress-core.js` (pure progress+match verification), `progress-ui.js` (three-language display and persistence). B6 Node methodology tests: `tests/progress-content.cjs`; real browser integration: `tests/progress-browser.cjs`.
