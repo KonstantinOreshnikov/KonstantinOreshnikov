@@ -11,8 +11,9 @@
 | **v0.5** | Sticky cash/hold indicators; market opportunities, one-click quantity, cargo availability, contract shopping assistance and denser UI. | A game must stay usable after scrolling. |
 | **v0.6** | Career progression with 16 ranks, 60 achievements, multiple endings and reward checks. | Economic growth needs motivating milestones. |
 | **v1.0** | 10 productions/city, auto-sale manager, reserve/price floor, 150→300 storage, atomic contracts, city buildings, three simplified competitors, pirate hideouts, 82 achievements. | Automate repetitive work so the player can enjoy the sea adventure. |
+| **v1.1** | Rotating expired contracts, priority offers, one-click fulfillment, global factory auto-sale controls and clear capital/palace unlock. | Prevent career-contract stalls and remove manual factory configuration. |
 
-The build labels v0.1–v0.6 and v1.0 were used during active iteration. No fabricated v0.7–v0.9 releases are presented as shipped.
+The build labels v0.1–v0.6, v1.0 and v1.1 were used during active iteration. No fabricated v0.7–v0.9 releases are presented as shipped.
 
 ## Critical design pivot
 

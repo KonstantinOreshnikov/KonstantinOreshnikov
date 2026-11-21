@@ -27,4 +27,4 @@ flowchart TD
 
 A lightweight single-page interactive application with business rules, localization and real user feedback — not a claim of large-scale infrastructure or production hosting.
 
-[Play v1.0](../play/README.md) · [State model](../data-economy/README.md) · [QA evidence](../testing/evidence.md)
+[Play latest v1.1](../play/README.md) · [State model](../data-economy/README.md) · [QA evidence](../testing/evidence.md)
