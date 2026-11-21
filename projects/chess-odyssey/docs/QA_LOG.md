@@ -1,8 +1,8 @@
 # Chess Odyssey QA Ledger
 
 **CURRENT VERIFIED CHECKPOINT (2026-11-21): B8 v0.8.0 Development run #372 [three jobs SUCCESS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44888424604), 18/18 B8 clock unit and 12/12 B8 real Chrome new checks, all B0–B7 regressions green and actual Windows smoke PASS; 42-file GPL ZIP SHA256 `d89214184b7e2cd9a45b2d8c17d01c8049d6d4e70fb40fb823974164f7d55daa`. B8 remaining human/content QA OPEN; production v1.0 BLOCKED. B7 original #339 238/238 preserved below as immutable baseline.**  
-Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44883137898  
-Current technical authority: docs/RELEASE_B7_QA.md + docs/SOURCE_B7_REFRESH.md + B7 release tests, on top of B6, B5 source register and verified Stockfish/Academy. Earlier B0–B6 entries are historical checkpoints, not production-release claims.
+Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44888424604 (B8 Development; B7 archive #339 retained below)  
+Current technical authority: B8 clock-core.js, app.js, tests/clock-core.cjs, tests/b8-clock-browser.cjs and docs/ROADMAP.md on top of preserved B7 docs/RELEASE_B7_QA.md, docs/SOURCE_B7_REFRESH.md, B5/B6 evidence and verified Stockfish/Academy. Earlier B0–B6 entries are historical checkpoints, not production-release claims.
 
 Date: 2026-11-21
 Branch: game/chess-odyssey-v0.1
