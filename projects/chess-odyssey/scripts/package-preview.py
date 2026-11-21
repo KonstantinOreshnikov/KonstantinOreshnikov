@@ -29,7 +29,7 @@ FILES = [
     "docs/COACH_B2_DESIGN.md",
     "docs/DEVELOPMENT_PROTOCOL.md",
     "docs/QA_LOG.md", "docs/ROADMAP.md",
-    "tests/release-rules.cjs", "tests/release-browser.cjs", "tests/release-accessibility.cjs",
+    "tests/release-rules.cjs", "tests/release-browser.cjs", "tests/release-live-match-browser.cjs", "tests/release-accessibility.cjs",
     "dist/ChessOdyssey_v0.7.0_PREVIEW.html",
 ]
 for rel in FILES:
