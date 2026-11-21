@@ -116,6 +116,8 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
 .progress-hero{padding:8px 0 0}
 .progress-hero h2{font-family:Georgia,"Times New Roman",serif;font-size:27px;font-weight:550;margin:6px 0 9px;color:#f5deb1}
 .progress-lead{color:#baccd8;max-width:730px;line-height:1.65;font-size:14px;margin:0}
+.progress-lang-control{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:15px 0 0;font-size:12px;color:#c3d2dd}
+.progress-lang-control select{min-height:42px;max-width:240px;padding:8px 12px;border:1px solid #556c7d;border-radius:8px;background:#1b2e3e;color:#e4e9ed}
 .progress-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
 .progress-metric{display:flex;flex-direction:column;gap:7px;padding:18px;min-width:0;border-color:#3d5668}
 .progress-metric p{color:#bfcbd3;font-size:12px;margin:0;line-height:1.5}
@@ -3941,7 +3943,7 @@ return Object.freeze({compile,referencePly,exerciseChoices,pgn,languages,categor
  const KEY="chess-odyssey-progress-v1",PRACTICE_KEY="chess-odyssey-v01";
  const $=(x)=>document.getElementById(x);
  const translations={
-  ru:{progressTab:"Мой прогресс",eyebrow:"ВАШ ПУТЬ В ШАХМАТАХ",title:"Путь шахматиста",
+  ru:{progressTab:"Мой прогресс",progressLangLabel:"Язык",eyebrow:"ВАШ ПУТЬ В ШАХМАТАХ",title:"Путь шахматиста",
     lead:"Прогресс обучения и результаты самостоятельных партий учитываются отдельно.",
     reputation:"Репутация Академии",repNote:"За уникальные уроки, реальные исторические задачи и достижения. Повторы не накручивают очки.",
     academy:"Академия",lessons:"Пройдено интерактивных уроков",masters:"Мастера и легенды",mastersNote:"Изучены все ключевые моменты и финал партии",
@@ -3966,7 +3968,7 @@ return Object.freeze({compile,referencePly,exerciseChoices,pgn,languages,categor
     invalidRating:"Матч не подходит для индекса. Прогресс обучения не пострадал.",assistBlocked:"В самостоятельной партии помощь отключена.",
     loading:"Идёт самостоятельная партия: живые подсказки скрыты."
   },
-  en:{progressTab:"My progress",eyebrow:"YOUR CHESS LEARNING JOURNEY",title:"Your chess journey",
+  en:{progressTab:"My progress",progressLangLabel:"Language",eyebrow:"YOUR CHESS LEARNING JOURNEY",title:"Your chess journey",
     lead:"Learning progress and truly unassisted game results are tracked separately.",
     reputation:"Academy Reputation",repNote:"Unique lessons, historical puzzles and achievements; repeated work cannot farm points.",
     academy:"Academy",lessons:"Interactive lessons completed",masters:"Masters & Legends",mastersNote:"Every highlighted moment and the game ending studied",
@@ -3991,7 +3993,7 @@ return Object.freeze({compile,referencePly,exerciseChoices,pgn,languages,categor
     invalidRating:"Game is not eligible for the local index. Learning progress is unaffected.",assistBlocked:"Assistance is disabled in independent games.",
     loading:"Independent game in progress: live help is hidden."
   },
-  az:{progressTab:"Mənim inkişafım",eyebrow:"ŞAHMAT ÖYRƏNMƏ YOLUNUZ",title:"Şahmat inkişafınız",
+  az:{progressTab:"Mənim inkişafım",progressLangLabel:"Dil",eyebrow:"ŞAHMAT ÖYRƏNMƏ YOLUNUZ",title:"Şahmat inkişafınız",
     lead:"Təlim nəticələri və tam müstəqil oyunlar ayrıca hesablanır.",
     reputation:"Akademiya nüfuzu",repNote:"Təkrar xal toplamadan unikal dərslər, tarixi tapşırıqlar və nailiyyətlər üçün.",
     academy:"Akademiya",lessons:"Tamamlanmış interaktiv dərslər",masters:"Ustadlar və Əfsanələr",mastersNote:"Partiyanın bütün əsas məqamları və sonluğu öyrənilib",
@@ -4036,7 +4038,9 @@ return Object.freeze({compile,referencePly,exerciseChoices,pgn,languages,categor
    lang=["ru","en","az"].includes($("lang")?.value)?$("lang").value:lang;
    const sum=model(),matches=state.matches;
    setText("progress-eyebrow",format("eyebrow"));setText("progress-title",format("title"));
-   setText("progress-lead",format("lead"));setText("progress-rep-label",format("reputation"));
+   setText("progress-lead",format("lead"));setText("progress-lang-label",format("progressLangLabel"));
+   if($("progress-lang"))$("progress-lang").value=lang;
+   setText("progress-rep-label",format("reputation"));
    setText("progress-rep",sum.reputation);
    setText("progress-rep-note",format("repNote"));
    setText("progress-lessons-label",format("academy"));
@@ -4135,6 +4139,12 @@ return Object.freeze({compile,referencePly,exerciseChoices,pgn,languages,categor
    load();ready=true;refresh();
    $("lang").addEventListener("change",()=>{lang=$("lang").value;refresh();});
    $("m-lang").addEventListener("change",()=>{lang=$("m-lang").value;refresh();});
+   $("progress-lang").addEventListener("change",()=>{
+     lang=$("progress-lang").value;
+     $("m-lang").value=lang;
+     $("m-lang").dispatchEvent(new Event("change",{bubbles:true}));
+     refresh();
+   });
    document.addEventListener("chess-progress-change",refresh);
  }
  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});
@@ -4342,6 +4352,9 @@ return Object.freeze({compile,referencePly,exerciseChoices,pgn,languages,categor
         <p class="eyebrow" id="progress-eyebrow">ВАШ ПУТЬ В ШАХМАТАХ</p>
         <h2 id="progress-title">Мой прогресс</h2>
         <p id="progress-lead" class="progress-lead">Обучение и самостоятельная игра измеряются отдельно.</p>
+        <label class="progress-lang-control"><span id="progress-lang-label">Язык</span>
+          <select id="progress-lang" aria-label="Progress language"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select>
+        </label>
       </div>
       <div class="progress-metrics">
         <article class="panel progress-metric">
