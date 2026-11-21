@@ -81,6 +81,7 @@ jobs:
           node --check projects/chess-odyssey/progress-ui.js
           node --check projects/chess-odyssey/tests/release-rules.cjs
           node --check projects/chess-odyssey/tests/release-browser.cjs
+          node --check projects/chess-odyssey/tests/release-live-match-browser.cjs
           node --check projects/chess-odyssey/tests/release-accessibility.cjs
           node --check projects/chess-odyssey/tests/progress-content.cjs
           node --check projects/chess-odyssey/tests/progress-browser.cjs
@@ -116,7 +117,7 @@ jobs:
     name: Chromium real UI E2E
     needs: unit
     runs-on: ubuntu-24.04
-    timeout-minutes: 12
+    timeout-minutes: 14
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -145,6 +146,7 @@ jobs:
           node tests/masters-browser.cjs
           node tests/progress-browser.cjs
           node tests/release-browser.cjs
+          node tests/release-live-match-browser.cjs
           node tests/release-accessibility.cjs
       - name: Build and verify Stockfish preview ZIP with full GPL license
         working-directory: projects/chess-odyssey
