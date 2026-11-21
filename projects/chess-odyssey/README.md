@@ -1,15 +1,25 @@
 # Chess Odyssey — Academy, Arena & Legends
 
-**B8 Development v0.8.0 — implemented clocks and core match polish, automated QA PASS (#372); B8 is not fully closed and v1.0 production remains BLOCKED.**  
+**CURRENT: B9 / v0.9 DEVELOPMENT (2026-11-21) — ACTIVE, IMPLEMENTED PROJECT, NOT IDEA.** Last packaged playable preview is **v0.8.0**, NOT a shipped v0.9 build. [Canonical current status](docs/CURRENT_STATUS.md) · [verified full CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) · [Draft PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7). **Production v1.0 not released.**  
 **Preserved baseline:** B7 v0.7.0 RC 238/238 PASS (#339).  
 **Development branch:** `game/chess-odyssey-v0.1`. The game is independent of the CBA Examinations Platform and the other three game projects.
 
-## B8 Development Preview — latest tested source
+## B9 / v0.9 Development — local PvP + Neon staging (not a published online service)
+
+**The product is built, not conceptual.** Working local application: chess from beginner through six AI levels with Stockfish, 33 interactive RU/EN/AZ Academy lessons, 31 fully replayable historic master games and private progression/achievements. **B8 clock feature set is implemented and automated QA PASS**, but independent human review is still open.
+
+**B9 delivered in source:** separate local authoritative chess match module (`pvp/match-service.cjs`), synthetic loopback HTTP/API (`pvp/dev-server.cjs`) and demo UI, private invites, alternating legal moves, canonical PGN/FEN, two clocks, resign/draw/rematch/reload. **27/27 domain + 15/15 HTTP + 11/11 real two-context Chrome synthetic PvP PASS** in [CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027). **WARNING:** `X-Demo-User` in this local-only fixture is spoofable; never deploy it publicly. Cloud multiplayer is NOT tested.
+
+**Neon staging actual state:** connected Free organization; isolated project `Chess Odyssey — Staging`, PostgreSQL 17 Frankfurt; four application tables created with RLS+FORCE RLS and zero allow policies; Better Auth enabled with password + mandatory email OTP, password-reset session revocation; 9 auth tables, 0 actual users/games at last verification. **Real two-user signup/login, persisted game API, token validation, negative access/security E2E, host and production not ready.** See [live Neon staging checkpoint](docs/B9_NEON_STAGING_CHECKPOINT_2026-11-21.md) and [B9 technical contract](docs/B9_NEON_INTEGRATION.md).
+
+**Status discipline:** phase `v0.9` != validated downloadable `v0.9` artifact. Continue using v0.8.0 preview to play locally. B8 human language/source and owner device checks remain open. PvP with real cloud accounts is a v1.0 blocker.
+
+## B8 playable clock preview (v0.8.0; included in B9 working branch)
 - **Clock presets:** Untimed (default); Bullet 1+0; Blitz 3+0 and 5+0; Rapid 10+0, 15+0, 15+10, 20+0 and 30+0; Custom. Clocks run separately and include AI thinking time. Each completed move earns the chosen increment. Clock flags and resignation conclude the game without inventing checkmate in the PGN.
 - **Display:** optional hourglass animation beside exact digital numbers, optional local synthesized sounds, rematch/resign actions and RU/EN/AZ time controls. B2 postgame analysis remains available.
 - **Integrity:** timed AI matches do not enter the existing uncalibrated AI Ladder Index; existing untimed no-assistance verification remains unchanged. Offline standalone still plays against the local weaker AI when file:// lacks Stockfish Worker support.
-- **Evidence:** [CI run #372](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44888424604), 18/18 B8 clock units + 12/12 B8 real Chrome tests + preserved B0–B7 regression + real Windows launcher. Development ZIP contains 42 files, SHA256 `d89214184b7e2cd9a45b2d8c17d01c8049d6d4e70fb40fb823974164f7d55daa`.
-- **Open:** independent human RU/EN/AZ quality and physical device testing, further time-control edge QA, possible extra opening lessons, and final release gate. Neon cloud identity and human-vs-human are separate B9 scope, not yet integrated.
+- **Current QA evidence:** [CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027), **32/32 B8 clock units + 12/12 B8 real Chromium browser**, plus 27/27 B9 domain, 15/15 local HTTP, 11/11 dual-Chrome, legacy B0–B7 regression and actual Windows smoke, all **3/3 CI jobs SUCCESS**. Last packaged v0.8.0 preview ZIP SHA256 `3aa43053b4b395df415431fa099c2f8b5a084b9a416d638c8bebc246408d79c2` from run #403; historical B8-only SHA from run #372 is preserved in CHANGELOG/QA.
+- **Open:** independent human RU/EN/AZ educational semantics, physical PC/phone testing, historical second-source verification and bounded extra openings; B9 persistent authenticated Neon multiplayer and real E2E; B10 final release. Neon Auth provisioned is NOT equal to an integrated live game.
 
 ## What is playable
 
@@ -43,13 +53,13 @@ AI Ladder Index = round( average(100 × tier/6 × score) over last 20 eligible g
 
 The index is **hidden until at least 5 eligible independent games** exist. From 5–19 games, it is explicitly **provisional**; 20+ means more local data, **not certified confidence or skill calibration**. It is not comparable to Elo, FIDE, Lichess or Chess.com ratings. It measures a personal 0–100 in-game trend against fixed bot tier labels; changing AI builds could alter its meaning.
 
-**Storage and privacy:** `chess-odyssey-progress-v1` is local to the browser, source-grain separated from old `chess-odyssey-v01` practice/Academy and `chess-odyssey-masters-v1` historic bookmarks. No account, payment or telemetry. Clearing browser data clears local scores. Local storage **is not anti-cheat-secure**; never treat the index as a global competitive rating. The retained independent game ledger holds at most 500 entries, and can no longer mean literal all-time beyond that cap.
+**Offline-version storage and privacy:** `chess-odyssey-progress-v1` is local to the browser, source-grain separated from old `chess-odyssey-v01` practice/Academy and `chess-odyssey-masters-v1` historic bookmarks. The current downloadable v0.8.0 game does **not** log in to Neon, has no payments or telemetry. Neon Auth staging exists separately but is not yet integrated with this playable client. Clearing browser data clears local scores. Local storage **is not anti-cheat-secure**; never treat the index as a global competitive rating. The retained independent game ledger holds at most 500 entries, and can no longer mean literal all-time beyond that cap.
 
 ## How to play
 
 **Complete package with Stockfish:**
 
-1. Open the [verified v0.8.0 development QA run #372](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44888424604).
+1. Open the [latest verified B9/v0.9 source QA run #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027); the downloadable playable binary in its Artifacts section is still **v0.8.0**, not v0.9.
 2. In the **green, successful v0.8.0** run, open *Artifacts*, download `ChessOdyssey-v0.8.0-B8-Development-Stockfish-PREVIEW`, and extract the ZIP.
 3. On Windows double-click `START_WINDOWS.cmd` (Python 3 or Node.js required) to open the locally hosted game at `http://127.0.0.1:8765/index.html`. A physical Windows host test remains a v1.0 gate.
 
@@ -61,9 +71,9 @@ python -m http.server 8765 --bind 127.0.0.1
 node scripts/serve-local.cjs
 ```
 
-**Offline one-file in the #372 ZIP:** `dist/ChessOdyssey_v0.8.0_PREVIEW.html` contains *all* Practice, Academy, Masters and Progress features without a server or internet. The four stronger Stockfish tiers fall back visibly to a weaker local engine because a file://-loaded HTML cannot run the licensed WASM Worker correctly. **Such fallback games are ineligible for the independent AI index.**
+**Offline one-file in the latest #403 ZIP:** `dist/ChessOdyssey_v0.8.0_PREVIEW.html` contains *all* Practice, Academy, Masters and Progress features without a server or internet. The four stronger Stockfish tiers fall back visibly to a weaker local engine because a file://-loaded HTML cannot run the licensed WASM Worker correctly. **Such fallback games are ineligible for the independent AI index.**
 
-## B7 Release Candidate — automated gates and honest constraints
+## Historical B7 Release Candidate — automated gates and honest constraints (not current development phase)
 
 **[Final documentation-synchronized three-job GitHub Actions run #339](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44883137898)**:
 
@@ -84,4 +94,4 @@ node scripts/serve-local.cjs
 - chess.js **v0.10.3 BSD-2-Clause**, original license retained in `vendor/chess.js`. Genuine **Stockfish.js v19.0.1 Lite GPLv3** source https://github.com/nmrugg/stockfish.js/tree/v19.0.1, unmodified binary in `engine/*`, GNU GPLv3 text `engine/Copying.txt`, binary SHA256 in `engine/MANIFEST.md`; `THIRD_PARTY_NOTICES.md` attributes components. No proprietary third-party game commentary was copied.
 - Follow Reuse First, Unlazy QA, Humanizer and Translation QA; historical source provenance and RU/EN/AZ semantic parity are held to explicit gates, never certified without evidence.
 
-**Release boundary:** B7 full functional and automated QA is complete as a **v0.7.0 candidate**. Owner signoff, production hostname/deploy and independent human editorial/accessibility certification remain **BLOCKED / NOT TESTED**. **No merge to `main`, no production deployment.**
+**Release boundary:** the historical B7 v0.7.0 candidate passed automated QA, B8 clock feature QA and B9 local PvP QA have since passed separately. **Current stage is B9/v0.9 development, NOT a v0.9 shipped binary.** Owner signoff, authenticated Neon cloud PvP, production hostname/deploy and independent human editorial/accessibility certification remain **BLOCKED / NOT TESTED**. **No merge to `main`, no production deployment.**
