@@ -383,7 +383,8 @@ function hint(){
     return lesson?tr("lesson"):game.turn()===side?tr("turn"):tr("thinking");
   }
   function render(){
-    const legal=selected?game.moves({square:selected,verbose:true}).map(m=>m.to):[];
+    // Independent games do not reveal candidate destinations before the move.
+    const legal=selected&&!(currentMatch()&&!finalized)?game.moves({square:selected,verbose:true}).map(m=>m.to):[];
     const flipped=$("flip").checked; const order=boardSquares();
     if(flipped) order.reverse();
     const frag=document.createDocumentFragment();
