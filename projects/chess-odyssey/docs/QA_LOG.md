@@ -1,7 +1,7 @@
 # Chess Odyssey QA Ledger
 
-**CURRENT VERIFIED CHECKPOINT (2026-11-21): B8 automated clock QA 32/32 + browser 12/12 PASS, B9 isolated PvP 27/27 + HTTP 15/15 + dual-browser 11/11 PASS; [CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027), all three jobs successful. New Neon staging project `wild-hall-05832800`, `staging` branch `br-still-credit-b9voxawu`: four RLS/FORCE RLS tables applied and independently read back; Neon Auth NOT ENABLED and cloud PvP E2E NOT RUN. B8 human QA OPEN; B9 BLOCKED on authorized Auth provisioning and persistent implementation. Evidence: [B9 Neon checkpoint](B9_NEON_STAGING_CHECKPOINT_2026-11-21.md). No v1.0 production release.**  
-Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44888424604 (B8 Development; B7 archive #339 retained below)  
+**CURRENT VERIFIED CHECKPOINT (2026-11-21): B8 automated clock QA 32/32 + browser 12/12 PASS, B9 isolated PvP 27/27 + HTTP 15/15 + dual-browser 11/11 PASS; [CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027), all three jobs successful. New Neon staging project `wild-hall-05832800`, `staging` branch `br-still-credit-b9voxawu`: four RLS/FORCE RLS tables applied and independently read back; Neon Better Auth ENABLED and configured with verified email OTP on staging; actual signup/login/JWT and cloud PvP E2E NOT RUN. B8 human QA OPEN; B9 still BLOCKED on verified real-user Auth E2E, user-scoped APIs and durable persistence. Evidence: [B9 Neon checkpoint](B9_NEON_STAGING_CHECKPOINT_2026-11-21.md). No v1.0 production release.**  
+Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027 (B8/B9 local-development #403; B7 archive #339 retained below)  
 Current technical authority: B8 clock-core.js, app.js, tests/clock-core.cjs, tests/b8-clock-browser.cjs and docs/ROADMAP.md on top of preserved B7 docs/RELEASE_B7_QA.md, docs/SOURCE_B7_REFRESH.md, B5/B6 evidence and verified Stockfish/Academy. Earlier B0–B6 entries are historical checkpoints, not production-release claims.
 
 Date: 2026-11-21
@@ -381,3 +381,11 @@ B6 real-browser gates include: no initial fake index, all three tabs, real B4 le
 - Verified Neon connected, organization Free; created isolated `Chess Odyssey — Staging` project `wild-hall-05832800`, `aws-eu-central-1`, PostgreSQL 17, branch `br-still-credit-b9voxawu`.
 - Staging schema `chess_odyssey` 4 tables applied in one 20-statement transaction; readback confirmed RLS=true, FORCE RLS=true, policies=0 on every table. None of this is production. Neon Auth get returned HTTP 404/not enabled; real-user security QA is **BLOCKED** pending explicit authorization to change runtime Auth.
 - Canonical detailed checkpoint: [B9_NEON_STAGING_CHECKPOINT_2026-11-21.md](B9_NEON_STAGING_CHECKPOINT_2026-11-21.md). No credentials committed, no real account provisioned, no API/Functions deployed, no merge/deploy.
+
+## 2026-11-21 — Better Auth provisioning and staging security configuration (owner authorized)
+- Neon target explicitly verified: `Chess Odyssey — Staging`, project `wild-hall-05832800`, database `chess_odyssey`, branch `br-still-credit-b9voxawu`.
+- Auth provider **Better Auth enabled**; verified provider record, Auth endpoint and JWKS URL by independent connector readback; 9 Neon-auth managed tables exist.
+- Owner-authorized staging settings: email/password ON; email-verification OTP required; send email on signup/signin ON; password reset revokes sessions; automatic sign-in after verification OFF; staging signups ON, localhost allowed, trusted production origins NONE.
+- Initial request for email verification by **link** returned provider error `INVALID_EMAIL_VERIFICATION_METHOD`: Neon shared sender supports OTP only. Retested with OTP, successful configuration readback **PASS**.
+- Zero auth users, game matches, invites, moves and player profiles from direct SQL count. No credentials/source secrets committed. Existing four game tables still deny access by default (RLS + FORCE RLS; no application policies).
+- **Open:** real signup + delivered OTP + session/JWKS verification + access controls, durable transactions, actual authenticated dual-user browser E2E, production host and B8 human QA. Production UNTOUCHED.
