@@ -24,7 +24,7 @@ Each block: reuse precheck -> minimal implementation -> targeted unit/perft -> b
 **One-file launch:** historical standalone previews through **v0.7.0** remain under `dist/` for rollback; the **latest CI-built playable standalone is v0.8.0** from #403 (in the downloadable ZIP artifact), with genuine Stockfish available when served over localhost. **No confirmed downloadable v0.9 build exists.** Source/licensing provenance remains canonical.
 
 ## Product expectations
-- Default no clocks and full explanations only when requested.
+- Default **Untimed** mode; optional timed presets are implemented as of B8, with human review still open. Coach explanations remain opt-in.
 - Never call beginner engine moves grandmaster strength.
 - Do not silently change other three games.
 - Do not auto-merge into main or deploy until verified v1.0 acceptance.
@@ -77,7 +77,7 @@ Each block: reuse precheck -> minimal implementation -> targeted unit/perft -> b
 6. Finish historical independent archival reconciliation and B0–B9 full regression; actual owner desktop/mobile UAT; document exact QA PASS/FAIL/BLOCKED, CI IDs and rollback artifact.
 7. Owner separately chooses domain/host and explicitly authorizes production release; deploy only after accepted gates and re-test the live site.
 
-**Status boundary:** This roadmap commit is documentation-only. No Neon project, user accounts, code, schema, database writes, web host, multiplayer sessions, main merge or deploy have been created by this decision.
+**Historical decision-only snapshot (before B8/B9 implementation):** the owner scope update made no runtime changes *at that moment*. **Current B9 differs:** local PvP application code and isolated Neon staging schema/Auth have since been implemented and verified. Genuine authenticated multiplayer and site hosting are still NOT done; no main merge or production deploy.
 
 **External references:** https://neon.com/blog/neon-now-has-realtime (public beta, no live-query RLS); https://neon.com/blog/whats-new-with-the-neon-backend (Managed Better Auth, Functions, Data API); https://handbook.fide.com/chapter/E012023 (chess rules).
 
