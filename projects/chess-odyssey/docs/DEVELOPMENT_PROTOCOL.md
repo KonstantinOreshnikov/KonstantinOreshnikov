@@ -4,7 +4,7 @@
 
 ## Authority and separation
 - The original owner's idea is archived at [ORIGINAL_CONCEPT_2026-11-20.md](ORIGINAL_CONCEPT_2026-11-20.md). It was superseded by the implemented B0–B8 game and owner-approved B9 live-friends-PvP v1.0 scope. Do not reuse its idea-only status as current.
-- Build only under projects/chess-odyssey/ and a dedicated game branch. Do not alter other games, main, deployment settings or production sites.
+- Work under `projects/chess-odyssey/` via dedicated feature branches and review; explicit owner-approved GitHub source/docs merges #7 and #8 were completed into `main` on 2026-11-21. Do not change other games or deploy production, and do not treat source merge as acceptance of live cloud PvP.
 - Prefer real code and evidence to optimistic completion reports. User authorizes iterative development but NOT declaring release on failed checks.
 
 ## Skill practices, adapted, not falsely installed
