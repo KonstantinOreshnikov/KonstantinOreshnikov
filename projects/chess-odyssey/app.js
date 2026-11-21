@@ -62,10 +62,7 @@
     }catch{/* optional audio cannot prevent legal chess */}
   }
   function opponentCannotMate(winner){
-    const pieces=game.board().flat().filter(Boolean);
-    const attacking=pieces.filter(p=>p.color===winner&&p.type!=="k");
-    const defending=pieces.filter(p=>p.color!==winner&&p.type!=="k");
-    return !attacking.length||(defending.length===0&&attacking.length===1&&["n","b"].includes(attacking[0].type));
+    return CLOCK.cannotMate(winner,game.board());
   }
   function clockTick(){
     if(!CLOCK||!clockState)return;
