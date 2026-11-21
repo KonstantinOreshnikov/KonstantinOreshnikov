@@ -2703,6 +2703,21 @@ if (typeof define !== 'undefined')
     }
     list.hidden=hintState.lines.length===0;
   }
+  function gradeCompletedIndependentGame(){
+    // Post-game only. Rebuild the exact played PGN; no analysis during the rated match.
+    if(!currentMatch()||!finalized||!game.game_over()||notes.length)return;
+    const transcript=game.history({verbose:true}),replay=new Chess(),result=[];
+    for(let i=0;i<transcript.length;i++){
+      const played=transcript[i];
+      if(played.color===side){
+        const detail=COACH.grade(replay,played.san);
+        result.push(Object.assign({ply:i+1},detail));
+      }
+      if(!replay.move(played.san))throw new Error("Invalid scored PGN at "+i);
+    }
+    if(replay.fen()!==game.fen())throw new Error("Postgame replay changed chess truth");
+    notes=result.slice(-160);persist();
+  }
   function renderReview(){
     const panel=$("coach-review"),list=$("review-list");
     panel.hidden=!showReview||(currentMatch()&&!finalized);list.replaceChildren();
@@ -3115,7 +3130,11 @@ function hint(){
     $("next-lesson").addEventListener("click",nextLesson);
     $("academy-track").addEventListener("change",()=>{academyTrack=$("academy-track").value;renderAcademy();});
     $("hint").addEventListener("click",hint);
-    $("review-button").addEventListener("click",()=>{if(currentMatch()&&!finalized)return;showReview=!showReview;renderReview();});
+    $("review-button").addEventListener("click",()=>{
+      if(currentMatch()&&!finalized)return;
+      if(currentMatch()&&finalized&&!showReview)gradeCompletedIndependentGame();
+      showReview=!showReview;renderReview();
+    });
     $("flip").addEventListener("change",()=>{render();persist();});
     $("lang").addEventListener("change",()=>{language=$("lang").value;refreshLabels();persist();});
     $("side").addEventListener("change",newGame);
