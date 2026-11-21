@@ -107,6 +107,8 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
 .progress-hero{padding:8px 0 0}
 .progress-hero h2{font-family:Georgia,"Times New Roman",serif;font-size:27px;font-weight:550;margin:6px 0 9px;color:#f5deb1}
 .progress-lead{color:#baccd8;max-width:730px;line-height:1.65;font-size:14px;margin:0}
+.progress-lang-control{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:15px 0 0;font-size:12px;color:#c3d2dd}
+.progress-lang-control select{min-height:42px;max-width:240px;padding:8px 12px;border:1px solid #556c7d;border-radius:8px;background:#1b2e3e;color:#e4e9ed}
 .progress-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
 .progress-metric{display:flex;flex-direction:column;gap:7px;padding:18px;min-width:0;border-color:#3d5668}
 .progress-metric p{color:#bfcbd3;font-size:12px;margin:0;line-height:1.5}
