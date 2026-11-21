@@ -1,6 +1,6 @@
 # Chess Odyssey — Academy, Arena & Legends
 
-**Development preview v0.6.0 — B6 Player Progress & Reputation. Not a v1.0 production release.**  
+**B7 Release Candidate v0.7.0 — functional/automated QA PASS, not yet an owner-approved v1.0 production release.**  
 **Development branch:** `game/chess-odyssey-v0.1`. The game is independent of the CBA Examinations Platform and the other three game projects.
 
 ## What is playable
@@ -42,7 +42,7 @@ The index is **hidden until at least 5 eligible independent games** exist. From 
 **Complete package with Stockfish:**
 
 1. Open the [latest Chess Odyssey QA run](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/workflows/chess-odyssey-ci.yml).
-2. In a **green, successful v0.6.0** run, open *Artifacts*, download `ChessOdyssey-v0.6.0-Progress-Stockfish-PREVIEW`, and extract the ZIP.
+2. In a **green, successful v0.7.0** run, open *Artifacts*, download `ChessOdyssey-v0.7.0-Release-Candidate-Stockfish-PREVIEW`, and extract the ZIP.
 3. On Windows double-click `START_WINDOWS.cmd` (Python 3 or Node.js required) to open the locally hosted game at `http://127.0.0.1:8765/index.html`. A physical Windows host test remains a v1.0 gate.
 
 Alternatively, from the extracted folder:
@@ -53,11 +53,21 @@ python -m http.server 8765 --bind 127.0.0.1
 node scripts/serve-local.cjs
 ```
 
-**Offline one-file:** `dist/ChessOdyssey_v0.6.0_PREVIEW.html` contains *all* Practice, Academy, Masters and Progress features without a server or internet. The four stronger Stockfish tiers fall back visibly to a weaker local engine because a file://-loaded HTML cannot run the licensed WASM Worker correctly. **Such fallback games are ineligible for the independent AI index.**
+**Offline one-file:** `dist/ChessOdyssey_v0.7.0_PREVIEW.html` contains *all* Practice, Academy, Masters and Progress features without a server or internet. The four stronger Stockfish tiers fall back visibly to a weaker local engine because a file://-loaded HTML cannot run the licensed WASM Worker correctly. **Such fallback games are ineligible for the independent AI index.**
 
-## Executed QA — B6 v0.6.0
+## B7 Release Candidate — automated gates and honest constraints
 
-**[GitHub Actions #275](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44845418646): 180/180 PASS**, covering B0–B5 regression, 19 independent Progress methodology/PGN/denominator cases, 26 new real Chrome desktop/mobile cases, genuine Stockfish and 34-file ZIP integrity. Detailed chronology of earlier failed/cancelled runs and explicit B7 limitations is in `docs/QA_LOG.md`. The current passing build and final distribution link should be checked against the latest run in the branch before sharing the ZIP.
+**[Actual full three-job green GitHub Actions run #328](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44882567499)**:
+
+- **237/237 runnable Node and real Chrome automated cases PASS** (previous 180 from B0–B6, 22 B7 legal/rules/integrity cases, 27 B7 desktop/mobile/promotion/keyboard cases, one *genuinely played* full human-move-vs-AI match via real Stockfish UCI, and seven WCAG 2.2 axe scans). **Windows runner launcher + licensed Stockfish archive smoke 1/1 PASS**, so **238/238 including Windows gate**.
+- **Real full game:** separate real Stockfish computes user moves against the built-in actual Beginner bot, and the test clicks each move through the normal browser UI from the **standard starting position**, with no seeded PGN. Game ended after **21 real half-moves** in checkmate, was recorded only once as an independent result, and survived reload without changing the score.
+- **Controls and UX:** all practice-board cells support arrow-key navigation, Enter/Space moves and localized piece speech labels in Russian, English and Azerbaijani; the pawn-promotion modal captures focus, cycles with Tab, cancels with Escape and returns focus to the actual square. Historical read-only board uses non-interactive visual cells rather than dozens of dead buttons. Tabs navigate by ArrowLeft/ArrowRight/Home/End.
+- **Accessibility:** six real Chrome axe checks (3 tabs × desktop/mobile) plus the real promotion modal detected **zero WCAG A/AA violations** under the automated rules. This does **not** assert fully independent human screen-reader or WCAG conformance certification.
+- **Source truth:** on 2026-11-21 all **31 exact historical source pages** were re-fetched and checked: **1,923/1,923 SAN moves, player names, years and results** match the registered primary pages. Independent cross-archive full proof remains limited and disclosed in `docs/SOURCE_B7_REFRESH.md`.
+- **Security/integrity:** independent AI matches are now only admitted if the exact final PGN can be replayed **in full from the normal initial position**. Composed custom-FEN terminal PGNs are excluded from the local AI index.
+- **Packaged:** full versioned **40-file** source-inclusive GPL Stockfish v0.7.0 ZIP (internal SHA256 **`282ce29786d345d3416f3f2f9083265575659b768f0d48b3ebc48d3ac6b56928`** from #328), plus complete self-contained HTML. The original Stockfish WASM is included unmodified, and the offline file falls back to weak local AI, explicitly labelled.
+
+**Important release boundary:** A v0.7.0 **Release Candidate** passed real automated testing; `main` and production were not touched. FIDE official laws treat threefold repetition as a claimable draw; this coaching app auto-adjudicates it in accordance with the existing pinned chess.js simplification. Independent human RU/EN/AZ pedagogical proofreading, manual assistive-technology audit, historical second-source adjudication for remaining parties and the owner-approved deployment location are **NOT DONE / OPEN**, so **v1.0 remains BLOCKED**.
 
 ## Evidence, source and licensing
 
@@ -66,4 +76,4 @@ node scripts/serve-local.cjs
 - chess.js **v0.10.3 BSD-2-Clause**, original license retained in `vendor/chess.js`. Genuine **Stockfish.js v19.0.1 Lite GPLv3** source https://github.com/nmrugg/stockfish.js/tree/v19.0.1, unmodified binary in `engine/*`, GNU GPLv3 text `engine/Copying.txt`, binary SHA256 in `engine/MANIFEST.md`; `THIRD_PARTY_NOTICES.md` attributes components. No proprietary third-party game commentary was copied.
 - Follow Reuse First, Unlazy QA, Humanizer and Translation QA; historical source provenance and RU/EN/AZ semantic parity are held to explicit gates, never certified without evidence.
 
-**Development release boundary:** B6 source/preview and technical QA are tracked by GitHub Actions; any failed gate remains visible. **B7** is still required for full-game tournament E2E, accessible interaction, human language and historical editorial signoff, physical Windows launcher and explicit owner-approved production release. **No merging into `main` or deployment.**
+**Release boundary:** B7 full functional and automated QA is complete as a **v0.7.0 candidate**. Owner signoff, production hostname/deploy and independent human editorial/accessibility certification remain **BLOCKED / NOT TESTED**. **No merge to `main`, no production deployment.**
