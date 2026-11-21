@@ -8,6 +8,8 @@
   const FILES = "abcdefgh";
   const COACH = window.ChessCoachEngine;
   const ENGINE = window.ChessEngineBridge;
+  const PROGRESS = window.ChessProgressCore;
+  if(!PROGRESS||!window.ChessProgress)throw new Error("B6 progress module missing");
   const I18N = {
     ru:{turn:"Ваш ход",thinking:"Противник выбирает ход",check:"Шах!",mate:"Мат",draw:"Ничья",win:"Победа",loss:"Поражение",select:"Выберите фигуру, затем доступную клетку.",illegal:"Недопустимый ход.",hint:"Возможные идеи",notRated:"Тренировочная игра: рейтинг не меняется.",safe:"Сейчас фигуру нельзя немедленно взять легальным ходом.",risk:"После этого хода соперник сможет взять фигуру на {square}. Подумайте о продолжении.",capture:"Взятие фигуры соперника",develop:"Развитие фигуры помогает включить её в игру.",center:"Ход влияет на борьбу за центр.",castle:"Рокировка помогает укрыть короля.",pawn:"Пешки помогают контролировать пространство.",quiet:"Спокойный ход: проверьте угрозы соперника.",lesson:"Учебная задача",lessonGood:"Верно! Продолжайте обучение.",lessonRetry:"Попробуйте выполнить показанную задачу.",lessonDone:"Урок пройден. Выберите следующий.",mateMove:"Этот ход завершает партию матом.",checkMove:"Вы даёте шах.",promo:"Выберите превращение пешки",restored:"Партия восстановлена.",newGame:"Новая тренировочная партия.",undo:"Последний ход отменён.",noUndo:"Нет ходов для отмены.",gameOver:"Партия окончена.",bot:"Компьютер",you:"Вы",beginner:"Начинающий",novice:"Любитель",intermediate:"Средний",advanced:"Продвинутый",expert:"Эксперт",grandmaster:"Гроссмейстерский вызов"},
     en:{turn:"Your turn",thinking:"Opponent is choosing a move",check:"Check!",mate:"Checkmate",draw:"Draw",win:"Victory",loss:"Defeat",select:"Select a piece, then a legal destination.",illegal:"Illegal move.",hint:"Possible ideas",notRated:"Practice game: no rating changes.",safe:"This piece cannot be captured by an immediate legal move.",risk:"After this move, your opponent can capture the piece on {square}. Consider the reply.",capture:"Captures an opposing piece.",develop:"Developing a piece brings it into play.",center:"This move contributes to control of the center.",castle:"Castling helps shelter your king.",pawn:"Pawns help claim space.",quiet:"A quiet move: check the opponent's threats.",lesson:"Training challenge",lessonGood:"Correct! Keep learning.",lessonRetry:"Try to complete the displayed challenge.",lessonDone:"Lesson complete. Choose the next one.",mateMove:"This move ends the game with checkmate.",checkMove:"This move gives check.",promo:"Choose pawn promotion",restored:"Game restored.",newGame:"New practice game.",undo:"Last turn undone.",noUndo:"No moves to undo.",gameOver:"The game has ended.",bot:"Computer",you:"You",beginner:"Beginner",novice:"Novice",intermediate:"Intermediate",advanced:"Advanced",expert:"Expert",grandmaster:"Grandmaster Challenge"},
@@ -21,12 +23,22 @@
   let completed = [], stats = {wins:0,losses:0,draws:0}, epoch = 0, aiTimer = null, finalized = false, pendingPromotion = null, parked = null;
   let notes = [], hintState = null, showReview = false;
   let lessonStep=0,academyTrack="all",lastLessonId=null;
+  let matchMode="practice",matchSession=null;
   const engine = ENGINE && new ENGINE.Bridge();
   let lastEngineKind="local";
   function tr(k) {return (I18N[language] || I18N.ru)[k] || k;}
   function text(k, val){return $(k) && ($(k).textContent=val);}
   function message(str){text("coach-message",str);}
   function learnMessage(str){text("lesson-status",str);}
+  const prog=(key)=>window.ChessProgress?.translate?.(key)||key;
+  const matchId=()=>("g-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,12));
+  function currentMatch(){return matchMode==="independent"&&!lesson&&Boolean(matchSession);}
+  function matchNotice(key){const node=$("match-integrity");node.dataset.reason=key;node.textContent=prog(key);}
+  function restoreMatchNotice(){
+    const code=matchMode==="independent"?(matchSession?.fallback||matchSession?.assisted?"ineligible":"independentIntegrity"):"practiceIntegrity";
+    matchNotice(code);$("match-mode").value=matchMode;
+  }
+
 
   const ENGINE_MESSAGES = {
     ru:{local:"Локальный учебный AI · лёгкий режим",pending:"Stockfish 19 Lite · запустится на ходе компьютера",loading:"Stockfish 19 Lite · вычисляет ход",stockfish:"Stockfish 19 Lite · настоящий UCI-движок",fallback:"Запасной локальный AI · Stockfish недоступен; сила ниже выбранного уровня"},
@@ -146,6 +158,7 @@
   }
   function showHints(){
     const list=$("coach-variations");list.replaceChildren();
+    if(currentMatch()&&!finalized){list.hidden=true;return;}
     if(!hintState || hintState.fen!==game.fen()){list.hidden=true;return;}
     for(let i=0;i<hintState.lines.length;i++){
       const line=hintState.lines[i], item=document.createElement("li");
@@ -158,8 +171,8 @@
   }
   function renderReview(){
     const panel=$("coach-review"),list=$("review-list");
-    panel.hidden=!showReview;list.replaceChildren();
-    if(!showReview)return;
+    panel.hidden=!showReview||(currentMatch()&&!finalized);list.replaceChildren();
+    if(!showReview||(currentMatch()&&!finalized))return;
     if(!notes.length){const item=document.createElement("li");item.textContent=ct("reviewEmpty");list.appendChild(item);return;}
     const count=notes.filter(x=>x.severity!=="fine").length;
     const intro=document.createElement("li");
@@ -232,8 +245,9 @@
     const moved=game.move(choice);
     if(!moved)return false;
     clearHints();last=[moved.from,moved.to];finalized=false;selected=null;
+    if(currentMatch()&&ENGINE.profile(difficulty).mode!=="local"&&lastEngineKind!=="stockfish")matchSession.fallback=true;
     render();persist();
-    if(game.game_over())finish();else message(explain(moved));
+    if(game.game_over())finish();else message(currentMatch()?prog("loading"):explain(moved));
     return true;
   }
   function fallbackBotMove(){
@@ -280,6 +294,7 @@
     return tr("quiet");
   }
 function hint(){
+    if(currentMatch()&&!finalized)return message(prog("assistBlocked"));
     if(game.game_over())return message(tr("gameOver"));
     if(!lesson&&game.turn()!==side)return;
     if(lesson){
@@ -310,7 +325,7 @@ function hint(){
         selected=null;learnMessage(at("wrong"));render();return;
       }
     }
-    const assessment=lesson?null:COACH.grade(game,candidate.san);
+    const assessment=lesson||currentMatch()?null:COACH.grade(game,candidate.san);
     const move=game.move({from,to,promotion:promotion||"q"});
     if(!move) return message(tr("illegal"));
     last=[from,to]; selected=null;
@@ -335,10 +350,10 @@ function hint(){
         message(task.steps[lessonStep].prompt[language]);
       }
       renderAcademy();
-    } else {
+    } else if(assessment){
       notes.push(Object.assign({ply:game.history().length},assessment));
       message(assessmentMessage(assessment));
-    }
+    }else message(prog("loading"));
     render();persist();
     if(game.game_over()) finish();
     else if(!lesson && !finalized && game.turn()!==side) scheduleBot();
@@ -393,7 +408,11 @@ function hint(){
     text("game-status",status());showMoves();
     text("record",stats.wins+" / "+stats.losses+" / "+stats.draws);
     text("completed",completed.length+"/"+LESSONS.length);
-    $("undo").disabled=!!parked || !game.history().length;
+    $("undo").disabled=!!parked||!game.history().length||currentMatch();
+    $("hint").disabled=currentMatch()&&!finalized;
+    $("review-button").disabled=currentMatch()&&!finalized;
+    $("lesson").disabled=currentMatch()&&!finalized;
+    $("academy-track").disabled=currentMatch()&&!finalized;
     $("resume-game").hidden=!parked;
   }
   function finish(){
@@ -402,8 +421,18 @@ function hint(){
       if(game.turn()===side)stats.losses++;
       else stats.wins++;
     } else stats.draws++;
-    finalized=true;showReview=true;persist();render();renderReview();
-    message(status()+" — "+tr("notRated"));
+    finalized=true;showReview=!currentMatch();
+    let ratedMessage=tr("notRated");
+    if(currentMatch()){
+      const result=game.in_checkmate()?(game.turn()===side?"loss":"win"):"draw";
+      const tier=ENGINE.profile(difficulty);
+      const method=tier.mode==="local"?"local":lastEngineKind==="stockfish"&&!matchSession.fallback?"stockfish":"fallback";
+      const receipt=window.ChessProgress.recordGame({...matchSession,pgn:game.pgn(),result,engine:method,level:difficulty,side,date:new Date().toISOString()});
+      ratedMessage=receipt.accepted?prog("independentResult"):prog("invalidRating");
+      matchNotice(receipt.accepted?"independentResult":"ineligible");
+    }
+    persist();render();renderReview();
+    message(status()+" — "+ratedMessage);
   }
   function persist(){
     const session=parked||{pgn:lesson?null:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized:finalized&&!lesson,notes};
