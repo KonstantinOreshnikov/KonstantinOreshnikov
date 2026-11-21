@@ -8,6 +8,7 @@ on:
       - "projects/chess-odyssey/styles.css"
       - "projects/chess-odyssey/app.js"
       - "projects/chess-odyssey/clock-core.js"
+      - "projects/chess-odyssey/pvp/**"
       - "projects/chess-odyssey/coach-engine.js"
       - "projects/chess-odyssey/engine-bridge.js"
       - "projects/chess-odyssey/academy.js"
@@ -72,6 +73,8 @@ jobs:
           node --check projects/chess-odyssey/app.js
           node --check projects/chess-odyssey/clock-core.js
           node --check projects/chess-odyssey/tests/clock-core.cjs
+          node --check projects/chess-odyssey/pvp/match-service.cjs
+          node --check projects/chess-odyssey/tests/b9-match-service.cjs
           node --check projects/chess-odyssey/tests/b8-clock-browser.cjs
           node --check projects/chess-odyssey/coach-engine.js
           node --check projects/chess-odyssey/engine-bridge.js
@@ -109,6 +112,7 @@ jobs:
         working-directory: projects/chess-odyssey
         run: |
           node tests/clock-core.cjs
+          node tests/b9-match-service.cjs
           node tests/chess-smoke.cjs
           node tests/coach-engine.cjs
           node tests/engine-bridge.cjs
