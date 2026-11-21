@@ -3,7 +3,7 @@
 **As verified 2026-11-21 | CURRENT DEVELOPMENT PHASE: B9 / v0.9 (in progress). NOT an idea. NOT production v1.0.**  
 **Last packaged playable preview:** **v0.8.0** from [GitHub Actions #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) (all three jobs SUCCESS). **No separately shipped v0.9 HTML/ZIP has been verified**, so v0.9 is the *development phase*, not a published binary.
 
-> This is the **primary navigation and current-state entrypoint**. Historical `ORIGINAL_CONCEPT_2026-11-20.md`, B0–B7 documents and prior CI results remain evidence of earlier phases, not today's project status. Source code + actual current CI, Neon staging readback and `QA_LOG.md` outrank descriptive summaries. All links below refer to branch `game/chess-odyssey-v0.1` unless explicitly historical.
+> This is the **primary navigation and current-state entrypoint**. Historical `ORIGINAL_CONCEPT_2026-11-20.md`, B0–B7 documents and prior CI results remain evidence of earlier phases, not today's project status. Source code + actual current CI, Neon staging readback and `QA_LOG.md` outrank descriptive summaries. Chess Odyssey source and docs were merged to **`main`** by the owner's explicit instruction (PR #7); the older development branch remains historical. PR #8 merged the public portfolio statuses. Future runtime development should use a separate reviewed branch; production remains undeployed.
 
 ## Product (owner-approved)
 A standalone independently authored browser chess learning platform: **learn chess from zero → play against AI / Stockfish → play timed or untimed human-vs-human games with 5–10 friends/colleagues → review mistakes**. PvP is required in v1.0, not a speculative future feature. RU/EN/AZ educational content; offline AI/Academy experience remains supported. Separate from the CBA platform and other game workstreams.
@@ -37,7 +37,12 @@ A standalone independently authored browser chess learning platform: **learn che
 2. Connect genuine signup + received OTP + session verification, then test **two different real users** with database-backed private invites/games, disconnections and simultaneous move attempts; prove outsider denial and data isolation. Until then cloud PvP is BLOCKED.
 3. Resolve B8 owner manual PC/mobile review, independent human RU/EN/AZ pedagogy, remaining B5 historical second-source cases and opening enhancements (bounded, only if verified).
 4. Stage a proper HTTPS frontend preview, decide friends-only signup/access model, data retention/backups, hosted endpoints and domain; run security/accessibility/real-device QA.
-5. Explicit owner **merge and production deploy** approval, followed by live smoke; no automatic merge, public release or other project's changes.
+5. **GitHub source publication gate COMPLETED:** owner-approved #8 portfolio merge and #7 source merge into `main` on 2026-11-21. **Production release gate still BLOCKED:** actual Neon authenticated two-user E2E, independent human acceptance, owner-approved hosting/deploy, and live smoke. Do not conflate main-branch source availability with a deployed website.
+
+## GitHub source publication checkpoint — 2026-11-21
+- Owner explicitly authorized both GitHub merges: **PR #8** portfolio docs (squash commit `56d6c8406989c9887164c526c275e248de690f66`) then **PR #7** chess source and CI (merge commit `cc3934d4fdefd0635339ef146cb760e43bb2553d`).
+- All 86 Chess Odyssey source/workflow blobs reconciled against current `main` with zero unrelated modifications, missing assets or deleted main files. Main branch contains the game, licensed Stockfish WASM, tests and documentation. This is **source publication**, NOT an online game deployment or a v0.9 release.
+- GitHub Actions last verified before source merge: #403 all 3 jobs green. Main-branch CI monitoring is enabled by follow-up docs/CI PR; **a distinct post-merge main CI PASS must be measured separately** before claiming it.
 
 ## Canonical navigation
 - [Game README](../README.md) — how to run the current last *playable* preview and current feature inventory
@@ -48,7 +53,7 @@ A standalone independently authored browser chess learning platform: **learn che
 - [Changelog](../CHANGELOG.md) — chronological version evolution
 - [Historical original idea (20 Nov 2026)](ORIGINAL_CONCEPT_2026-11-20.md) — **archived, superseded as current status**
 - [Historical B7 release QA](RELEASE_B7_QA.md), [B5 source register](MASTERS_B5_SOURCE_REGISTER.md)
-- [Draft source/game PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7) — chess code and technical docs, NOT merged.
-- [Docs-only public portfolio PR #8](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/8) — fixes stale “idea only” descriptions on `README.md`, `projects/README.md`, `projects/game-studio/README.md` **without publishing chess runtime**. Open, NOT merged. Default-branch `main` will continue to show the old description until the owner explicitly approves merge.
+- [Merged source/game PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7) — game code, tests, GPL/WASM assets and technical documents now available on `main` (merge commit `cc3934d4fdefd0635339ef146cb760e43bb2553d`).
+- [Merged docs-only portfolio PR #8](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/8) — public `main` now correctly describes Chess Odyssey as B9/v0.9 Development (commit `56d6c8406989c9887164c526c275e248de690f66`).
 
 **Privacy/security boundary:** project contains no real user accounts or live game records as of verified checkpoint; never publish database URLs, server keys, auth secrets, private identity data or synthetic security-bypass fixtures as production.
