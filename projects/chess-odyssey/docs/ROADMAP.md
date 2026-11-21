@@ -1,8 +1,10 @@
 # Chess Odyssey — Incremental Roadmap
 
-**ACTIVE STAGE: B9 / v0.9 DEVELOPMENT (21 Nov 2026), NOT IDEA. SOURCE MERGED TO MAIN via owner-approved PR #7/#8, production NOT DEPLOYED.** Last certified playable preview **v0.8.0**, no released v0.9 binary. [Canonical current status](CURRENT_STATUS.md) · [QA #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) · [Neon staging evidence](B9_NEON_STAGING_CHECKPOINT_2026-11-21.md). B9 local PvP PASS, Neon staging Postgres + Better Auth configured; true authenticated cloud PvP E2E remains BLOCKED. B8 human release gates OPEN; v1.0 production not released.
+**ACTIVE STAGE: B9 / v0.9 DEVELOPMENT (21 Nov 2026), NOT IDEA. SOURCE MERGED TO MAIN via owner-approved PR #7/#8, production NOT DEPLOYED.** Last certified playable preview **v0.8.0**, no released v0.9 binary. [Canonical current status](CURRENT_STATUS.md) · [POST-MERGE MAIN CI #407](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865) · [Neon staging evidence](B9_NEON_STAGING_CHECKPOINT_2026-11-21.md). B9 local PvP PASS, Neon staging Postgres + Better Auth configured; true authenticated cloud PvP E2E remains BLOCKED. B8 human release gates OPEN; v1.0 production not released.
 
 
+
+**GitHub publication checkpoint:** owner-authorized source/docs PR #7, #8 and CI/doc PR #9 all **merged into `main`**. [GitHub Actions #407](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865) on main: **3/3 jobs SUCCESS** including B8 clock 32/32, B8 Chrome 12/12, B9 local PvP 27/27 domain + 15/15 HTTP + 11/11 dual-Chrome, full Windows GPL/WASM smoke. **No live two-user Neon Auth game or production deploy.** Next block: authenticated persistent PvP backend E2E and B8 owner/manual signoff.
 
 ## Delivery discipline
 Each block: reuse precheck -> minimal implementation -> targeted unit/perft -> browser regression -> checkpoint with commit hash -> next block. A completed feature is not a release.
