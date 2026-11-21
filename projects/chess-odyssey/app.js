@@ -734,6 +734,16 @@ function hint(){
     renderAcademy();showHints();renderReview();render();
     if($("clock-policy"))text("clock-policy",clockState?.baseMs?tr("clockPolicy"):"");
     if($("sound-enabled"))$("sound-enabled").checked=soundEnabled;
+    if($("clock-panel")){
+      const spoken={
+        ru:["Шахматные часы","Осталось времени у белых","Осталось времени у чёрных"],
+        en:["Chess game clocks","White time remaining","Black time remaining"],
+        az:["Şahmat saatları","Ağların qalan vaxtı","Qaraların qalan vaxtı"]
+      }[language]||["Chess game clocks","White time remaining","Black time remaining"];
+      $("clock-panel").setAttribute("aria-label",spoken[0]);
+      $("clock-white-time").setAttribute("aria-label",spoken[1]);
+      $("clock-black-time").setAttribute("aria-label",spoken[2]);
+    }
     const names=PROMOTE_NAMES[language]||PROMOTE_NAMES.ru;
     for(const button of document.querySelectorAll("[data-promote]")){
       button.setAttribute("aria-label",names[button.dataset.promote]);
