@@ -1,5 +1,7 @@
 # Chess Odyssey — Changelog
 
+**CURRENT: B9 / v0.9 Development**, not an idea and not yet a shipped v0.9 binary. Last verified playable package is **v0.8.0**; actual CI: [#403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) (3/3 PASS). See [canonical current status](docs/CURRENT_STATUS.md). The entries below are intentionally chronological and do not supersede newer gates.
+
 ## 2026-11-21 — Development Preview v0.1
 - Started dedicated branch game/chess-odyssey-v0.1 from earlier docs concept branch.
 - Preserved approved owner concept under docs/ORIGINAL_CONCEPT_2026-11-20.md.
@@ -102,3 +104,13 @@
 - Preserved Academy/Masters/Progress, 33 lessons, 31 historical games, 116 notes, Stockfish WASM, 16 achievements and B7 historical evidence. The B2 postgame review remains reusable. No extra opening lesson was added in this checkpoint.
 - CI red→green: #361/#362 failed only on new browser test's millisecond-exact comparison; #369 failed on double-escaped time-display regex; both tests corrected with realistic bounded real-browser assertions. [#372](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44888424604): unit, Chrome, native Windows all SUCCESS; **B8 18/18 unit + 12/12 browser**, earlier browser suites all green. Reproducible 42-file GPL ZIP SHA256 `d89214184b7e2cd9a45b2d8c17d01c8049d6d4e70fb40fb823974164f7d55daa`.
 - NOT v1.0 Production: owner real-device/screen-reader/language QA outstanding; additional openings and deeper post-game UI optional; B9 online PvP/cloud still not started; no main merge or deploy.
+
+## 2026-11-21 — B9 / v0.9 Development: local PvP, Neon staging and Better Auth (CURRENT)
+- Owner confirmed **human Player-vs-Player is required for v1.0** for 5–10 invited friends/colleagues, with Academy and Stockfish AI as training. v0.9 refers to **development stage**, not a released binary.
+- Implemented server-authoritative **in-memory** `pvp/match-service.cjs`: turn/legal move verification via chess.js, invites, canonical FEN/PGN, two clocks, server-time/flag fall, resignation, agreed draws, rematch, replay/idempotency and per-player privacy checks.
+- Implemented deliberately **unsafe loopback-only** synthetic `pvp/dev-server.cjs` plus `demo.html`, `demo-client.js`, `demo.css`: test-only `X-Demo-User` must never be deployed. CI #403: **27/27 domain, 15/15 HTTP, 11/11 real dual-browser Chrome** PASS. Existing B0–B8 regression and actual Windows smoke remain green.
+- Expanded B8 clock truth to **32/32 clock unit PASS** (including material exceptions, wall-clock rollback) and **12/12 B8 Chrome PASS** in #403, without making a new manual/semantic/historical acceptance claim.
+- Connected Neon Free; created isolated Chess Odyssey — Staging (Frankfurt, PostgreSQL 17). Verified schema with 4 app tables, RLS + FORCE RLS and **zero** permissive policies; no game/account data seeded.
+- With explicit owner consent, provisioned **Neon Better Auth** in that staging DB and configured email/password with **mandatory email verification OTP**, revocation on password reset, staging-only localhost and no trusted production origins. Initial verification-link request was rejected because shared Neon mail sender supports OTP only; OTP configuration read-back PASS. **9 Auth tables**, last inspected **0 users / 0 games**.
+- **Still BLOCKED** for true cloud multiplayer: no authenticated real user signup/received OTP/login E2E, no persistent trusted server API with transaction/RLS permissions, no private live authenticated 2-user game, no public hosting, no v1.0 signoff. Independent human RU/EN/AZ, owner desktop/phone, historical second-archive and extra-opening gates remain open.
+- [CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) **all three jobs PASS**; 42-file v0.8.0 GPL Stockfish ZIP internal SHA256 `3aa43053b4b395df415431fa099c2f8b5a084b9a416d638c8bebc246408d79c2`. Historical #372/#339 artifacts remain earlier evidence. No release of v0.9 as a binary; no merge to main or production deployment.
