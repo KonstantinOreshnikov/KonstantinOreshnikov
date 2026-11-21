@@ -55,9 +55,13 @@ A multilingual professional learning and assessment platform: structured content
 
 A personal, AI-assisted revival of the *experience* of a mid-2000s Caribbean trading game: user-led playtesting, UI redesign, economic rules, game testing and a downloadable independent v1.0. Includes genuine archived milestones v0.1–v1.0, not a reconstructed fake commit history.
 
+### [Chess Odyssey — Academy & Arena · v0.9 Development](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/blob/game/chess-odyssey-v0.1/projects/chess-odyssey/README.md)
+
+Independent chess learning game **already implemented**, not an idea: 33 interactive RU/EN/AZ Academy lessons, real Stockfish-powered AI, 31 historical master games, player progress and clock controls. Last tested playable package **v0.8.0**. Current **B9 / v0.9 development**: local two-player PvP tests PASS; Neon PostgreSQL staging and Better Auth with email OTP configured; **live authenticated cloud PvP is not yet complete**. [Current project status](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/blob/game/chess-odyssey-v0.1/projects/chess-odyssey/docs/CURRENT_STATUS.md) · [actual CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) · [draft PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7).
+
 ### [Independent Game Studio — Four Game Directions](projects/game-studio/README.md)
 
-Four separately versioned game directions: the published Caribbean Merchant, Kingdoms of Ember (working v1.1 branch), research-stage Lord of Ultima-inspired strategy, and idea-stage Chess Odyssey. Each has its own current state, design and QA boundary.
+Four separately versioned game directions: Caribbean Merchant (published), Kingdoms of Ember (working development branch), Lord of Ultima-inspired strategy (research), and **Chess Odyssey (B9/v0.9 development; PvP cloud release still pending)**. Each has its own verified evidence and release boundary.
 
 ### [Secret Santa 2026 — Private Gift Exchange](projects/secret-santa-2026/README.md)
 
