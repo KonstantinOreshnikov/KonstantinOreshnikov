@@ -19,8 +19,9 @@ const {createDemoServer}=require("../pvp/dev-server.cjs");
    await check("two genuinely separate browser sessions",async()=>{
      assert.equal(await alice.locator("#identity").inputValue(),"alice");
      assert.equal(await bob.locator("#identity").inputValue(),"bob");
-     assert.notEqual(await alice.evaluate(()=>sessionStorage.getItem("pvp-local-game-alice")),
-       await bob.evaluate(()=>sessionStorage.getItem("pvp-local-game-bob")));
+     await alice.evaluate(()=>sessionStorage.setItem("qa-context-isolation","alice"));
+     assert.equal(await bob.evaluate(()=>sessionStorage.getItem("qa-context-isolation")),null);
+     assert.equal(await alice.evaluate(()=>sessionStorage.getItem("qa-context-isolation")),"alice");
    });
    await check("Alice creates private invite",async()=>{
      await alice.selectOption("#opponent","bob");
