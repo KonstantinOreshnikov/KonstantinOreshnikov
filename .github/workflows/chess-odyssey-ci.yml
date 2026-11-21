@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - "game/chess-odyssey-v0.1"
+      - "main"
     paths:
       - "projects/chess-odyssey/index.html"
       - "projects/chess-odyssey/styles.css"
@@ -29,6 +30,7 @@ on:
       - ".github/workflows/chess-odyssey-ci.yml"
   pull_request:
     branches:
+      - "main"
       - "docs/retro-strategy-ux-aeii-foundation-20261119"
     paths:
       - "projects/chess-odyssey/index.html"

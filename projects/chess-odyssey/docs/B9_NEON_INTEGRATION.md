@@ -23,7 +23,8 @@ Owner intent: 5–10 invited players learn in Academy, practice against local St
 | Neon Better Auth | **PROVISIONED WITH EXPLICIT OWNER APPROVAL**: `neon_auth` schema (9 tables), password+mandatory email OTP, verified email on signup/signin, session revocation on reset, localhost allowed on staging, no production trusted origins |
 | Shared mail provider | **LIMITATION HANDLED**: Neon shared email sender rejects verification-by-link; configured supported **OTP** instead, read back |
 | Real authenticated two-user cloud PvP | **BLOCKED / NOT TESTED**: no real signup/email receipt/login/JWKS token E2E; no durable transactional server adapter/real-game API yet |
-| Hosting, production domain, main | **NOT AUTHORIZED/NOT DEPLOYED**; original local v0.8.0 preview preserved |
+| GitHub `main` source | **MERGED BY OWNER AUTHORIZATION**: PR #7. This does not constitute a v0.9 release or real multiplayer service. |
+| Public hosting and production domain | **NOT AUTHORIZED / NOT DEPLOYED**; original local v0.8.0 preview preserved |
 
 Verified data checkpoint: **0 real auth users, 0 games, 0 app RLS allow policies**. The actual API/token and permission tests have not occurred; table creation and provider-side Auth config are NOT equivalent to live online play.
 
@@ -32,7 +33,7 @@ Verified data checkpoint: **0 real auth users, 0 games, 0 app RLS allow policies
 2. Implement transactional Postgres game state (atomic `SELECT FOR UPDATE` or serializable), idempotent unique request IDs, server-time clocks, legal chess moves, invite/use-once/reconnect handling.
 3. Add secure user-scoped read/write policy or server-only role with proof of deny-by-default/outsider denial; do not open public tables or unguarded Realtime live queries.
 4. Test genuine verified email OTP signup/signin and **two independent users** on staging, real game persistence and forbidden third-user access; record real HTTP/DB E2E evidence, rate limiting and privacy tests.
-5. Preserve B8 owner/human acceptance gates; obtain separate public hosting, final rollout and main-merge signoff.
+5. Preserve B8 owner/human acceptance gates; GitHub source merge #7 is complete, **but public hosting, authenticated deployment, production DB writes and final release still require distinct authorization and QA**.
 
 ## Recommended architecture, deliberately provider-bound only at the edge
 
@@ -78,4 +79,4 @@ Neon Postgres  [invites, games, moves, private progress]
 - https://neon.com/blog/a-postgrest-compatible-data-api-now-on-neon (Data API and RLS)
 - https://handbook.fide.com/chapter/E012023 (6.9 flag fall and no possible mate exception)
 
-**Boundaries:** only isolated Neon **staging** schema and owner-authorized Better Auth configuration were modified; no production database, public site, user records, unrelated projects or main merge. Live authenticated PvP is NOT ready. Version `v0.9` is current development phase only. See [current status](CURRENT_STATUS.md).
+**Boundaries:** only isolated Neon **staging** schema and owner-authorized Better Auth configuration were modified; no production database, public site, user records or unrelated projects. **Owner-authorized PR #7 merged Chess Odyssey source into main; no public runtime deployment occurred.** Live authenticated PvP is NOT ready. Version `v0.9` is current development phase only. See [current status](CURRENT_STATUS.md).

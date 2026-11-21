@@ -55,9 +55,9 @@ A multilingual professional learning and assessment platform: structured content
 
 A personal, AI-assisted revival of the *experience* of a mid-2000s Caribbean trading game: user-led playtesting, UI redesign, economic rules, game testing and a downloadable independent v1.1 with improved contracts and empire-wide auto-sale. Earlier v0.1–v1.0 milestones are preserved, not reconstructed as a fake commit history.
 
-### [Chess Odyssey — Academy & Arena · v0.9 Development](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/blob/game/chess-odyssey-v0.1/projects/chess-odyssey/README.md)
+### [Chess Odyssey — Academy & Arena · v0.9 Development](projects/chess-odyssey/README.md)
 
-Independently built trilingual chess learning platform — **not an idea**. 33 interactive RU/EN/AZ exercises, real Stockfish AI, 31 sourced historical games, player progress and chess clocks. Latest playable ZIP **v0.8.0**; current B9/v0.9 phase has working **synthetic local PvP tests** plus configured Neon staging Postgres/Better Auth OTP, but **real authenticated cloud PvP is NOT finished**. [Current technical status](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/blob/game/chess-odyssey-v0.1/projects/chess-odyssey/docs/CURRENT_STATUS.md) · [CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) · [draft PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7).
+Independently built trilingual chess learning platform — **not an idea**. 33 interactive RU/EN/AZ exercises, real Stockfish AI, 31 sourced historical games, player progress and chess clocks. Latest playable ZIP **v0.8.0**; current B9/v0.9 phase has working **synthetic local PvP tests** plus configured Neon staging Postgres/Better Auth OTP, but **real authenticated cloud PvP is NOT finished**. [Current technical status](projects/chess-odyssey/docs/CURRENT_STATUS.md) · [CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) · [draft PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7).
 
 ### [Independent Game Studio — Four Game Directions](projects/game-studio/README.md)
 

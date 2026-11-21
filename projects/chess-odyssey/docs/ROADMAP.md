@@ -1,6 +1,6 @@
 # Chess Odyssey — Incremental Roadmap
 
-**ACTIVE STAGE: B9 / v0.9 DEVELOPMENT (21 Nov 2026), NOT IDEA.** Last certified playable preview **v0.8.0**, no released v0.9 binary. [Canonical current status](CURRENT_STATUS.md) · [QA #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) · [Neon staging evidence](B9_NEON_STAGING_CHECKPOINT_2026-11-21.md). B9 local PvP PASS, Neon staging Postgres + Better Auth configured; true authenticated cloud PvP E2E remains BLOCKED. B8 human release gates OPEN; v1.0 production not released.
+**ACTIVE STAGE: B9 / v0.9 DEVELOPMENT (21 Nov 2026), NOT IDEA. SOURCE MERGED TO MAIN via owner-approved PR #7/#8, production NOT DEPLOYED.** Last certified playable preview **v0.8.0**, no released v0.9 binary. [Canonical current status](CURRENT_STATUS.md) · [QA #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) · [Neon staging evidence](B9_NEON_STAGING_CHECKPOINT_2026-11-21.md). B9 local PvP PASS, Neon staging Postgres + Better Auth configured; true authenticated cloud PvP E2E remains BLOCKED. B8 human release gates OPEN; v1.0 production not released.
 
 
 
@@ -27,7 +27,7 @@ Each block: reuse precheck -> minimal implementation -> targeted unit/perft -> b
 - Default **Untimed** mode; optional timed presets are implemented as of B8, with human review still open. Coach explanations remain opt-in.
 - Never call beginner engine moves grandmaster strength.
 - Do not silently change other three games.
-- Do not auto-merge into main or deploy until verified v1.0 acceptance.
+- The owner explicitly approved **source/docs merges into `main`** (#7 and #8, completed on 2026-11-21). Future automatic/unreviewed merges and any production deploy remain prohibited; **v1.0 release** requires separate B8/B9/B10 acceptance.
 
 
 
@@ -40,7 +40,7 @@ Each block: reuse precheck -> minimal implementation -> targeted unit/perft -> b
 
 **Red → green evidence:** #361/#362 failed on a new browser test's unrealistic exact millisecond assertion, no chess-rule defect; #369 failed due to double-escaped test regex on a valid `15:00` display; test assertions fixed and latest #372 performed the full suite successfully. The 238/238 B7 #339 baseline is preserved, not redefined as B8.
 
-**Historical scope boundary at #372:** v0.8.0 was Development Preview; at that time Neon project/Auth did not yet exist. **Later** on 2026-11-21, B9 created isolated Neon staging and configured Better Auth with explicit owner authorization. This sentence is NOT the current infrastructure state. No main merge or production release.
+**Historical scope boundary at #372:** v0.8.0 was Development Preview; at that time Neon project/Auth did not exist. **Later** on 2026-11-21, B9 created isolated Neon staging and configured Better Auth, and owner-approved PR #7/#8 merged source/docs into `main`. **No production release**.
 
 ## Current B9 Neon staging checkpoint — 2026-11-21
 - **B8 automated QA:** 32/32 clock units and 12/12 real-browser cases PASS; owner physical UAT, independent trilingual editorial, historic source review and bounded extra openings remain OPEN.

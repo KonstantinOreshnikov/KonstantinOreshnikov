@@ -1,10 +1,10 @@
 # Chess Odyssey — Academy, Arena & Legends
 
-**CURRENT: B9 / v0.9 DEVELOPMENT (2026-11-21) — ACTIVE, IMPLEMENTED PROJECT, NOT IDEA.** Last packaged playable preview is **v0.8.0**, NOT a shipped v0.9 build. [Canonical current status](docs/CURRENT_STATUS.md) · [verified full CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) · [Draft PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7). **Production v1.0 not released.**  
+**CURRENT: B9 / v0.9 DEVELOPMENT (2026-11-21) — ACTIVE, IMPLEMENTED PROJECT, NOT IDEA.** Last packaged playable preview is **v0.8.0**, NOT a shipped v0.9 build. [Canonical current status](docs/CURRENT_STATUS.md) · [verified full CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) · [merged PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7). **Production v1.0 not released.**  
 **Preserved baseline:** B7 v0.7.0 RC 238/238 PASS (#339).  
 **Development branch:** `game/chess-odyssey-v0.1`. The game is independent of the CBA Examinations Platform and the other three game projects.
 
-## B9 / v0.9 Development — local PvP + Neon staging (not a published online service)
+## B9 / v0.9 Development — source now on main, local PvP + Neon staging (not a published online service)
 
 **The product is built, not conceptual.** Working local application: chess from beginner through six AI levels with Stockfish, 33 interactive RU/EN/AZ Academy lessons, 31 fully replayable historic master games and private progression/achievements. **B8 clock feature set is implemented and automated QA PASS**, but independent human review is still open.
 
@@ -85,7 +85,7 @@ node scripts/serve-local.cjs
 - **Security/integrity:** independent AI matches are now only admitted if the exact final PGN can be replayed **in full from the normal initial position**. Composed custom-FEN terminal PGNs are excluded from the local AI index.
 - **Packaged:** full versioned **40-file** source-inclusive GPL Stockfish v0.7.0 ZIP (internal SHA256 **`bb9fa7b525f320ce50fdc0465ca63c5eac2d91807cc234f914bb9f5fafa37d94`** from #339), plus complete self-contained HTML. The original Stockfish WASM is included unmodified, and the offline file falls back to weak local AI, explicitly labelled.
 
-**Important release boundary:** A v0.7.0 **Release Candidate** passed real automated testing; `main` and production were not touched. FIDE official laws treat threefold repetition as a claimable draw; this coaching app auto-adjudicates it in accordance with the existing pinned chess.js simplification. Independent human RU/EN/AZ pedagogical proofreading, manual assistive-technology audit, historical second-source adjudication for remaining parties and the owner-approved deployment location are **NOT DONE / OPEN**, so **v1.0 remains BLOCKED**.
+**Historical B7 release boundary:** At the earlier v0.7.0 RC checkpoint, neither `main` nor production had been changed. **Later, on 2026-11-21, owner-approved PR #7 merged source into `main`, while production remained untouched.** FIDE official laws treat threefold repetition as a claimable draw; this coaching app auto-adjudicates it in accordance with the existing pinned chess.js simplification. Independent human RU/EN/AZ pedagogical proofreading, manual assistive-technology audit, historical second-source adjudication for remaining parties and the owner-approved deployment location are **NOT DONE / OPEN**, so **v1.0 remains BLOCKED**.
 
 ## Evidence, source and licensing
 
@@ -94,4 +94,4 @@ node scripts/serve-local.cjs
 - chess.js **v0.10.3 BSD-2-Clause**, original license retained in `vendor/chess.js`. Genuine **Stockfish.js v19.0.1 Lite GPLv3** source https://github.com/nmrugg/stockfish.js/tree/v19.0.1, unmodified binary in `engine/*`, GNU GPLv3 text `engine/Copying.txt`, binary SHA256 in `engine/MANIFEST.md`; `THIRD_PARTY_NOTICES.md` attributes components. No proprietary third-party game commentary was copied.
 - Follow Reuse First, Unlazy QA, Humanizer and Translation QA; historical source provenance and RU/EN/AZ semantic parity are held to explicit gates, never certified without evidence.
 
-**Release boundary:** the historical B7 v0.7.0 candidate passed automated QA, B8 clock feature QA and B9 local PvP QA have since passed separately. **Current stage is B9/v0.9 development, NOT a v0.9 shipped binary.** Owner signoff, authenticated Neon cloud PvP, production hostname/deploy and independent human editorial/accessibility certification remain **BLOCKED / NOT TESTED**. **No merge to `main`, no production deployment.**
+**Release boundary:** the historical B7 v0.7.0 candidate passed automated QA, B8 clock feature QA and B9 local PvP QA have since passed separately. **Current stage is B9/v0.9 development, NOT a v0.9 shipped binary.** Owner signoff, authenticated Neon cloud PvP, production hostname/deploy and independent human editorial/accessibility certification remain **BLOCKED / NOT TESTED**. **Source code merged into `main` under explicit owner authorization (PR #7); no production deployment or v1.0 release.**

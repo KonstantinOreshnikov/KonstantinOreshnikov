@@ -1,7 +1,7 @@
 # Chess Odyssey QA Ledger
 
 **CURRENT VERIFIED CHECKPOINT (2026-11-21): B8 automated clock QA 32/32 + browser 12/12 PASS, B9 isolated PvP 27/27 + HTTP 15/15 + dual-browser 11/11 PASS; [CI #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027), all three jobs successful. New Neon staging project `wild-hall-05832800`, `staging` branch `br-still-credit-b9voxawu`: four RLS/FORCE RLS tables applied and independently read back; Neon Better Auth ENABLED and configured with verified email OTP on staging; actual signup/login/JWT and cloud PvP E2E NOT RUN. B8 human QA OPEN; B9 still BLOCKED on verified real-user Auth E2E, user-scoped APIs and durable persistence. Evidence: [B9 Neon checkpoint](B9_NEON_STAGING_CHECKPOINT_2026-11-21.md). No v1.0 production release.**  
-Current GitHub CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027 (B8/B9 local-development #403; B7 archive #339 retained below)  
+Last independently VERIFIED gameplay CI: https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027 (B8/B9 developer-branch #403, 3/3 jobs green; NOT a post-merge main-branch run). B7 archive #339 retained. Verify next main CI separately.  
 Current technical authority: [CURRENT_STATUS.md](CURRENT_STATUS.md) for navigation; B9 `pvp/match-service.cjs`, `docs/B9_NEON_INTEGRATION.md`, `docs/B9_NEON_STAGING_CHECKPOINT_2026-11-21.md`, local B9 tests and live #403 for executed proof; B8 `clock-core.js`, `app.js` and tests; `docs/ROADMAP.md` for owner scope. Historical B7 source/regression baseline remains intact. Earlier B0–B6 entries are historical checkpoints, not production-release claims.
 
 ## Historical QA chronology — B0/B1 original checkpoint and later milestones
@@ -393,3 +393,9 @@ B6 real-browser gates include: no initial fake index, all three tabs, real B4 le
 - Initial request for email verification by **link** returned provider error `INVALID_EMAIL_VERIFICATION_METHOD`: Neon shared sender supports OTP only. Retested with OTP, successful configuration readback **PASS**.
 - Zero auth users, game matches, invites, moves and player profiles from direct SQL count. No credentials/source secrets committed. Existing four game tables still deny access by default (RLS + FORCE RLS; no application policies).
 - **Open:** real signup + delivered OTP + session/JWKS verification + access controls, durable transactions, actual authenticated dual-user browser E2E, production host and B8 human QA. Production UNTOUCHED.
+
+## 2026-11-21 — Owner-authorized GitHub source and portfolio merges; pending distinct main CI
+- **PR #8** (portfolio docs only) merged to `main`: `56d6c8406989c9887164c526c275e248de690f66`. It corrected the stale Chess Odyssey idea-only description without prematurely releasing chess runtime.
+- Resolved **PR #7** branch/base divergence using a genuine two-parent merge commit `a406bcf843f0aea12025e441939df226e8571ccd`: exact 86 Chess Odyssey source/workflow blobs over current `main` base tree, verified zero missing Chess files, unrelated base changes or deleted files. No force push.
+- **PR #7** then merged by explicit owner authorization to `main`: `cc3934d4fdefd0635339ef146cb760e43bb2553d`. Both PRs merged and read back.
+- **QA limitation:** prior full code CI #403 is green, but a **new main-branch run** is required to validate merge integration; this docs/CI PR enables `main` push and PR triggers. No real Neon authenticated match, cloud service deploy or v1.0 release claimed.
