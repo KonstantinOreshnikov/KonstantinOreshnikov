@@ -85,7 +85,7 @@ const {pathToFileURL}=require("node:url");
  await ok("Alice cannot make consecutive move",async()=>{let r=await request("alice","play",{gameId:game.game_id,expectedVersion:1,requestId:"11111111-2222-4222-8222-111111111114",from:"d2",to:"d4"});assert.equal(r.status,409)});
  await ok("Bob legal e7-e5 committed",async()=>{let r=await request("bob","play",{gameId:game.game_id,expectedVersion:1,requestId:"11111111-2222-4222-8222-111111111115",from:"e7",to:"e5"});assert.equal(r.status,200);assert.equal(game.move_count,2);assert.match(game.canonical_pgn,/e5/)});
  await ok("Stale version rejects competing move",async()=>assert.equal((await request("alice","play",{gameId:game.game_id,expectedVersion:0,requestId:"11111111-2222-4222-8222-111111111116",from:"g1",to:"f3"})).status,409));
- await ok("Third player cannot read private game",async()=>assert.equal((await request("charlie","game",null,"GET")).status,422));
+ await ok("Third player cannot read private game by actual ID",async()=>assert.equal((await request("charlie","game?id="+game.game_id,null,"GET")).status,404));
  await ok("Alice offers draw",async()=>{let r=await request("alice","draw",{gameId:game.game_id,expectedVersion:2,action:"offer"});assert.equal(r.status,200);assert.equal(game.version,3)});
  await ok("Bob accepts draw",async()=>{let r=await request("bob","draw",{gameId:game.game_id,expectedVersion:3,action:"accept"});assert.equal(r.status,200);assert.equal(game.state,"finished");assert.equal(game.result,"1/2-1/2")});
  await ok("Finished game disallows play",async()=>assert.equal((await request("alice","play",{gameId:game.game_id,expectedVersion:4,requestId:"11111111-2222-4222-8222-111111111117",from:"g1",to:"f3"})).status,409));

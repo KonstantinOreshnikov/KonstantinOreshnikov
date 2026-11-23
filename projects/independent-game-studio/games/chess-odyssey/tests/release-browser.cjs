@@ -200,9 +200,9 @@ const URL_FOR=file=>"file://"+path.resolve(__dirname,"../"+file);
    }));
    for(const s of sizes)assert.ok(s.width>=24&&s.height>=24,JSON.stringify(s));
   });
-  await test("all three tabs support keyboard visible focus state",async()=>{
+  await test("all four tabs support keyboard visible focus state",async()=>{
    await page.locator("#nav-play").focus();
-   for(const nav of ["nav-masters","nav-progress","nav-play"]){
+   for(const nav of ["nav-masters","nav-progress","nav-pvp","nav-play"]){
      await page.keyboard.press("ArrowRight");
      assert.equal(await page.evaluate(()=>document.activeElement.id),nav);
    }
