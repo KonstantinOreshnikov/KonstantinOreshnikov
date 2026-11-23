@@ -145,6 +145,7 @@ jobs:
           node tests/academy-content.cjs
           node tests/masters-content.cjs
           node tests/masters-expansion.cjs
+          node tests/pages-package.cjs
           node tests/progress-content.cjs
           node tests/release-rules.cjs
           node tests/stockfish-uci.cjs

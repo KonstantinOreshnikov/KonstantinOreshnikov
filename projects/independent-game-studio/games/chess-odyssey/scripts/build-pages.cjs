@@ -7,7 +7,7 @@ const DEST=path.join(OUT,"chess-odyssey");
 const files=[
  "index.html","styles.css","pieces/piece-sets.css","cloud/cloud.css","cloud/cloud-client.js","pvp/pvp.css","pvp/pvp-ui.js","app.js","chess-appearance.js","game-review-core.js",
  "clock-core.js","coach-engine.js","engine-bridge.js","academy.js",
- "progress-core.js","progress-ui.js","masters-library.js",
+ "progress-core.js","progress-ui.js","masters-library.js","masters-expanded.js",
  "masters-core.js","masters-ui.js","masters-notes-a.js","masters-notes-b.js","masters-notes-c.js",
  "vendor/chess.js","data/masters-source-scores.json",
  "engine/stockfish-19-lite-single.js","engine/stockfish-19-lite-single.wasm",
