@@ -1,6 +1,7 @@
 /* Chess Odyssey — P1 visual customization and P0 global language; no chess-state writes. */
 (function(root,factory){"use strict";const api=factory();if(typeof module==="object"&&module.exports)module.exports=api;else root.ChessAppearance=api;})(typeof window!=="undefined"?window:this,function(){
 "use strict";
+const host=typeof window!=="undefined"?window:{};
 const KEY="chess-odyssey-appearance-v1";
 const THEMES=Object.freeze([
 {id:"walnut",name:["Классическое дерево","Walnut Classic","Klassik qoz"],light:"#F0D9B5",dark:"#B58863"},
@@ -69,7 +70,7 @@ function option(doc,item,kind,details){
  button.append(preview,title);
  button.addEventListener("click",()=>{
    if(kind==="theme")state.theme=item.id;else state.pieces=item.id;
-   apply(doc);save(root.localStorage);populate(doc);
+   apply(doc);save(host.localStorage);populate(doc);
    details.open=false;
  });
  return button;
@@ -113,7 +114,7 @@ function toggleWide(doc){
 }
 function init(doc,callbacks){
  if(initialized)return;initialized=true;
- read(root.localStorage);
+ read(host.localStorage);
  const source=doc.getElementById("lang");
  state.lang=source&&langs.includes(source.value)?source.value:"ru";
  apply(doc);populate(doc);setLanguage(state.lang,doc);
