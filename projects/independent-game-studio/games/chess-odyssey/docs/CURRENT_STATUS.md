@@ -1,5 +1,14 @@
 # Chess Odyssey — CURRENT STATUS / project entrypoint
 
+## 2026-11-24 — staging authorization and first live-account readback
+
+- **Owner authorization:** full **Neon staging-only** E2E, required staging configuration, dedicated test identities, and nondestructive staging test records authorized explicitly in chat. **NOT authorized:** merge into `main`, production release, production DB writes, destructive cleanup, or modifying the existing player's progress.
+- **Current live source readback:** Neon Auth and Data API are active; the staging Auth users and server-owned progress tables are now **nonempty** (previous `0 users / 0 progress` was only an older point-in-time snapshot and must not be repeated as current). Read-only aggregate validated that the saved progress belongs to a registered Auth user, plus revisioned server storage; no identifiable account fields/values are recorded in this public status file. Four chess game tables maintain RLS + FORCE RLS enabled and have defined policies.
+- **Gates remaining:** real three-actor OTP/JWT and two-device concurrency tests, live PvP/outsider-negative QA, rollback evidence, physical-device checks and human localization; preexisting anonymous/master UI PASS does not close these gates. Test mailboxes with OTP access are still needed for independent real-OTP coverage; admin-created verified accounts cannot substitute for OTP tests. Do not alter the real player's account or progress.
+- **Backend deployment:** staging `chesscloud` remains deployment #4 at this checkpoint; do not claim an environment update or deploy without a separate deployment readback.
+
+---
+
 ## 2026-11-23 — v1.0.0 public static release candidate, verified (LATEST; overrides historical status below)
 
 - **Public Pages URL:** https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/ — code source commit `c7d5786a0b80664c9d9e5a7133fff841b339b144` on `feature/chess-odyssey-v1-foundation-20261123`, promoted by lease-checked fast-forward from integration branch after source validation. **`main` untouched**. Pages deployment [#45252324098](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45252324098): **3/3 jobs SUCCESS**. Public page shows `v1.0.0 · RELEASE CANDIDATE`, not an asserted cloud-enabled final production release.
