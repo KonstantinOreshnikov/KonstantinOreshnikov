@@ -1,0 +1,24 @@
+"use strict";
+/* Extended 300-score catalogue: factual source provenance and real chess.js SAN validation. */
+const assert=require("node:assert/strict");
+const Chess=require("../vendor/chess.js").Chess;
+const Core=require("../masters-core.js");
+const Base=require("../masters-library.js");
+const Extra=require("../masters-expanded.js");
+const notes=[require("../masters-notes-a.js"),require("../masters-notes-b.js"),require("../masters-notes-c.js")];
+assert.equal(Base.games.length,31);
+assert.equal(Extra.games.length,269);
+assert.equal(new Set(Extra.games.map(g=>g.id)).size,269);
+assert.equal(new Set(Extra.games.map(g=>g.sourceIndex)).size,269);
+const mixed={games:[...Base.games,...Extra.games]};
+const result=Core.compile(Chess,mixed,notes);
+assert.equal(result.ok,true,"Expanded score validation failed: "+result.problems.slice(0,30).join(" | "));
+assert.equal(result.games.length,300);
+assert.equal(result.moments,116,"The original 116 authored lessons must remain untouched");
+assert.equal(result.games.filter(g=>g.collection==="legends").length,31);
+assert.equal(result.games.filter(g=>g.collection==="champions").length,269);
+assert.ok(result.games.filter(g=>g.collection==="champions"&&g.year>=2010).length===35);
+assert.ok(result.totalPlies>1923);
+assert.ok(result.games.every(g=>g.positions.length===g.totalPlies+1));
+assert.ok(Extra.games.every(g=>["ru","en","az"].every(k=>g.title[k].length>=12&&g.summary[k].length>=60)));
+console.log("PASS Masters expanded 300/300 true legal full-score games, original 31/116 annotations unchanged, plies="+result.totalPlies);
