@@ -18,6 +18,15 @@
 - Independent SQL readback (no writes): four user tables FORCE RLS+policy, only authenticated SELECT grants, six authenticated RPC EXECUTE grants, no anonymous table grants. This proves catalog access configuration, **not** individual user's end-to-end access.
 - Historical intermediate CI failure/cancellations reflect commits where CI was enabled before the new test file landed; final full run above supersedes interim state. Preserve historical runs; do not rewrite failure history.
 
+## Latest verified browser/hardening milestone — 2026-11-23
+
+- [Chess Odyssey QA #45153407632](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45153407632), implementation source SHA `467895acba1072e27b0ecf660e8d0410ab92bb8d`: **3/3 jobs SUCCESS** (Node unit, Chromium real browser, Windows Stockfish/launcher).
+- Chromium **Appearance 6/6 PASS**: programmatic selection of all **10×10=100** theme and piece combinations across Practice, Masters and PvP 64-cell boards; SVG assets loaded; localized RU/EN/AZ options, persisted selection and 390px mobile width.
+- Chromium **Cloud UI 10/10 PASS**, using exclusively intercepted HTTPS static pages and a synthetic Neon SDK/API fixture: signup OTP, login revision=7, save→8, stale 409 does not mutate local state, relogin revision=9, save→10, canceled cloud download, RU/EN/AZ and no real cloud requests. These are **MOCKED browser interactions, not live Auth success**.
+- Read-only live PostgreSQL catalog evidence: four user-data tables RLS+FORCE and participant/owner read policies; authenticated SELECT only and no anonymous table grant; `authorized_actor` not executable by `authenticated`; other six business RPCs callable by authenticated; unique `moves(game_id,request_id)`, per-game move PK and invite token hash unique. No DB writes.
+- [Authenticated staging runbook](V1_STAGING_E2E_RUNBOOK.md) prepared, with preconditions, actor isolation, OTP, cross-device revisions, PvP race/reconnect, third-account denial and rollback. **Actual account-backed acceptance remains BLOCKED/UNEXECUTED**.
+- Changes confined to draft PR #21's development branch; prior public Pages deployment and Neon Function #4 not modified. Documentation-only commits after tested code are not runtime promotions.
+
 ## Ordered independent work packages
 
 | ID | Work | Acceptance evidence | Current status |
@@ -25,8 +34,8 @@
 | NU-01 | Isolate development branch; repair SDK JWT retrieval; validate compact JWT shape; fetch cloud revision after sign-in to prevent false conflict on an existing account | Unit/contract tests PASS, full chess CI green, no changes to live Pages or Neon staging | **PASS** — Auth Client 9/9; Chess QA 3/3 at #45151032505 |
 | NU-02 | Validate authorization architecture and DB access contracts, without any new users or live data writes | Read-only inventory of RLS/FORCE, GRANTs, trusted origins, JWT role and API-only RPC permissions; fail-closed expectations documented | READ-ONLY INVENTORY PASS; positive account-scoped E2E OPEN |
 | NU-03 | Expand no-user tests for PvP replay/idempotency, stale version, invite expiry, draw/resign, privacy and clock boundary cases | Reproducible fake-JWT/mock-transport or isolated disposable test-branch tests with exact PASS/FAIL evidence; no fixture identity header in public runtime | **PARTIAL PASS** — 26/26 signed-JWT/mock-PvP tests, including replay across completion and changed-request denial; true DB race/clock E2E OPEN |
-| NU-04 | Staging frontend smoke/regression in Chromium including cloud panel UX (without signup), 10 theme × 10 style structural render, RU/EN/AZ labels | Automated UI test evidence, zero regressions; existing public preview unaffected until promotion | PENDING |
-| NU-05 | Prepare staging account-based E2E script, synthetic data policy, rollback, backup, release checklist | Runbook/test fixtures built; tests requiring email delivery/OTP and actual user sessions marked BLOCKED, never inferred from mocks | PENDING |
+| NU-04 | Staging frontend smoke/regression in Chromium with synthetic HTTPS cloud-panel flow, 10 theme × 10 style structural render, RU/EN/AZ labels | Automated Chromium evidence, zero regressions; existing public preview unaffected until promotion | **PASS** — Appearance 6/6 and synthetic Cloud UI 10/10, all 100 combinations; #45153407632 |
+| NU-05 | Prepare staging authenticated E2E script, synthetic data policy, rollback, backup, release checklist | Runbook and acceptance gates prepared; actual OTP and real signed-in sessions require later execution | **RUNBOOK PREPARED** — [V1_STAGING_E2E_RUNBOOK.md](V1_STAGING_E2E_RUNBOOK.md); real-user E2E BLOCKED, not yet executed |
 
 ## Boundary: user-dependent gates, not to be silently closed
 
