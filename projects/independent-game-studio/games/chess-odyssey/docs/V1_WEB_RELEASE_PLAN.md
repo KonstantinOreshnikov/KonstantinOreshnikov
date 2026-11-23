@@ -1,5 +1,13 @@
 # Chess Odyssey v1.0 — staged implementation and release gates
 
+## Verified Phase 1 QA checkpoint (2026-11-23)
+
+- GitHub branch `feature/chess-odyssey-v1-foundation-20261123`, tested source commit `dd5b2af0ac43caf0070ed99029655bcdc42c2f64` (PR #20 DRAFT, not merged/deployed).
+- [Chess QA #45133287865](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45133287865) **3/3 jobs PASS**: offline Node/unit, Chromium real display and 10-style selection, Masters, historical tests, actual Windows launcher/Stockfish WASM. Earlier red [#45132878410](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45132878410) failed in a new test due forbidden fetch(file://SVG); repaired with SVG Image.onload validation. No chess-state semantics were changed.
+- [GitHub Pages package run #45133287871](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45133287871) **6/6 PASS** including 96 same-origin SVG assets, engine, notices and no synthetic backend/secrets. [Studio smoke #45133287855](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45133287855) **PASS**.
+- [Download compiled P0-P2 + SVG preview](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45133287865/artifacts/14799470086); 146-file Stockfish ZIP with 96 SVGs, original CSS preview and offline standalone. Both ZIP layers downloaded and CRC-checked: no errors.
+- **OPEN:** live GitHub Pages site and URL not confirmed; Neon staging Functions empty, Data API disabled, Auth E2E zero verified users, four protected game tables RLS+FORCE RLS and zero permissive policies; genuine cloud statistics/PvP and owner device/linguistic QA remain unverified. No production release.
+
 **Approved direction (2026-11-23):** production-grade single website, 8–10 genuinely different licensed SVG chess piece sets, GitHub-hosted static UI with on-device Stockfish WASM, Neon authenticated user statistics and durable private friend PvP. Reuse v0.9.0 code, do not replace it.
 
 ## Verified baseline / PRECHECK
