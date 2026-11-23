@@ -62,6 +62,7 @@
   az:{practiceTab:"Məşq və Akademiya",mastersTab:"Ustadlar və Əfsanələr",progressTab:"Mənim inkişafım",pvpTab:"Dostla oyna",mastersHeading:"ŞAHMAT TARİXİ · OYNAYARAQ ÖYRƏNİN",
    flip:"Taxtanı çevir",guessMove:"Ustadın gedişini tap",bookmark:"Əlfəcin",bookmarked:"Əlfəcin saxlanıb",
    downloadPGN:"PGN yüklə",scoreTitle:"Bütün gedişlər — istənilən gedişi seçin",libraryTitle:"Tarixi partiyalar kitabxanası",
+   groupTitle:"Kolleksiya",groupAll:"Bütün kolleksiyalar",groupLegends:"Əfsanələr · şərhli",groupChampions:"Dünya çempionları · tam oyunlar",groupModern:"2010+ çempionatları",championship:"Dünya çempionatı matçları",noMoment:"Partiyanın bütün gedişləri var, lakin ayrıca müəllif şərhləri yoxdur. Lövhə və gedişlərdən istifadə edin.",
    filterTitle:"Mövzu",all:"Bütün mövzular",attack:"Hücumlar və kombinasiyalar",strategy:"Strategiya və müdafiə",
    endgame:"Endşpil və piyadalar",machine:"İnsan və kompüter",searchTitle:"Oyunçu, ad və il üzrə axtarış",
    chooseTitle:"Tarixi partiya",language:"İzahların dili",source:"Gedişlərin mənbəyi",momentsTitle:"Əsas təlim məqamları",
