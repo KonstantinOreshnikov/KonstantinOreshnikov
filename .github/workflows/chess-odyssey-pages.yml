@@ -1,5 +1,11 @@
 name: Chess Odyssey — GitHub Pages staging
 on:
+  push:
+    branches:
+      - "feature/chess-odyssey-v1-foundation-20261123"
+    paths:
+      - "projects/independent-game-studio/games/chess-odyssey/**"
+      - ".github/workflows/chess-odyssey-pages.yml"
   pull_request:
     branches: [main]
     paths:
@@ -24,9 +30,9 @@ jobs:
       - name: Confirm static game/engine bundle, privacy and licensing
         run: node projects/independent-game-studio/games/chess-odyssey/tests/pages-package.cjs
   deploy:
-    name: Deploy static HTTPS preview (manual dispatch, main only)
+    name: Deploy isolated Chess Odyssey staging HTTPS preview
     needs: validate
-    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/feature/chess-odyssey-v1-foundation-20261123'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
@@ -43,7 +49,34 @@ jobs:
           node-version: "22"
       - name: Build static files; no PvP fixtures or backend credentials
         run: node projects/independent-game-studio/games/chess-odyssey/scripts/build-pages.cjs "${{ runner.temp }}/chess-pages-site"
-      - name: Configure GitHub Pages (must be enabled in repository settings)
+      - name: Provision isolated Pages hosting only when there is no existing site
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          status=$(curl -sS -L --max-time 20 -o "$RUNNER_TEMP/pages.json" -w '%{http_code}' \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/pages")
+          if [ "$status" = "404" ]; then
+            echo "No existing Pages; enabling workflow source (staging site)."
+            code=$(curl -sS -L --max-time 20 -o "$RUNNER_TEMP/created-pages.json" -w '%{http_code}' -X POST \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{"build_type":"workflow"}' \
+              "https://api.github.com/repos/$GITHUB_REPOSITORY/pages")
+            echo "PAGES_CREATE_HTTP=$code"
+            if [ "$code" != "201" ] && [ "$code" != "200" ]; then
+              cat "$RUNNER_TEMP/created-pages.json"
+              exit 1
+            fi
+          elif [ "$status" = "200" ]; then
+            node -e 'const p=require(process.argv[1]); if(p.build_type!=="workflow") { console.error("Existing Pages source is not a workflow; refusing to change it"); process.exit(1) }; console.log("Existing workflow Pages preserved",p.html_url)' "$RUNNER_TEMP/pages.json"
+          else
+            echo "PAGES_STATUS_BLOCKED:$status";exit 1
+          fi
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
