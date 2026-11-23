@@ -54,7 +54,7 @@
     en:{whiteClock:"White",blackClock:"Black",timeControl:"Time control",untimed:"Untimed",customTime:"Custom",customMinutes:"Minutes",customIncrement:"Increment, seconds",clockTheme:"Clock display",digitalClock:"Digital",hourglassClock:"Hourglass + digits",sounds:"Game sounds",resign:"Resign",rematch:"Rematch",timeout:"Time out",resigned:"Resigned",clockDraw:"Draw: insufficient mating material",clockPolicy:"Timed games are not yet in the AI Ladder Index.",confirmResign:"Resign this game?",resignNote:"Resignation recorded; AI Ladder Index unchanged.",timeNote:"Clock result recorded; AI Ladder Index unchanged."},
     az:{whiteClock:"Ağlar",blackClock:"Qaralar",timeControl:"Vaxt nəzarəti",untimed:"Vaxtsız",customTime:"Xüsusi vaxt",customMinutes:"Dəqiqə",customIncrement:"Əlavə saniyə",clockTheme:"Saat görünüşü",digitalClock:"Rəqəmsal",hourglassClock:"Qum saatı + rəqəmlər",sounds:"Oyun səsləri",resign:"Təslim ol",rematch:"Təkrar oyun",timeout:"Vaxt bitdi",resigned:"Təslim oldu",clockDraw:"Heç-heçə: mat üçün fiqur kifayət etmir",clockPolicy:"Vaxtlı oyunlar hələ AI Ladder Index-ə daxil edilmir.",confirmResign:"Bu oyunda təslim olmaq istəyirsiniz?",resignNote:"Təslim nəticəsi qeyd edildi; AI Ladder Index dəyişmədi.",timeNote:"Vaxt nəticəsi qeyd edildi; AI Ladder Index dəyişmədi."}
   };
-  function tr(k) {return (I18N[language] || I18N.ru)[k]||(B8_TEXT[language]||B8_TEXT.ru)[k]||k;}
+  function tr(k) {return (I18N[language] || I18N.ru)[k]||(B8_TEXT[language]||B8_TEXT.ru)[k]||(UX_TEXT[language]||UX_TEXT.ru)[k]||k;}
   function text(k, val){return $(k) && ($(k).textContent=val);}
   function message(str){text("coach-message",str);}
   function learnMessage(str){text("lesson-status",str);}
@@ -478,7 +478,7 @@ function hint(){
     else if(!lesson && !finalized && game.turn()!==side) scheduleBot();
   }
   function clickSquare(square){
-    if(pendingPromotion||game.game_over() || finalized || (!lesson && game.turn()!==side)) return;
+    if(reviewCursor!==null||pendingPromotion||game.game_over() || finalized || (!lesson && game.turn()!==side)) return;
     const piece=game.get(square);
     if(selected){
       if(square===selected){selected=null;render();return;}
@@ -729,7 +729,7 @@ function hint(){
           const rank=Number(square[1])+dr*direction;
           if(file>=0&&file<8&&rank>=1&&rank<=8)boardFocus(FILES[file]+rank);
         }else if(e.key==="Enter"||e.key===" "){
-          e.preventDefault();keyboardSquare=square;clickSquare(square);
+          e.preventDefault();keyboardSquare=square;if(!readOnly)clickSquare(square);
         }
       });
       frag.appendChild(b);
@@ -740,14 +740,14 @@ function hint(){
     text("game-status",status());showMoves();
     text("record",stats.wins+" / "+stats.losses+" / "+stats.draws);
     text("completed",completed.length+"/"+LESSONS.length);
-    $("undo").disabled=!!parked||!game.history().length||currentMatch();
-    $("hint").disabled=currentMatch()&&!finalized;
+    $("undo").disabled=!!parked||reviewCursor!==null||!game.history().length||currentMatch();
+    $("hint").disabled=reviewCursor!==null||(currentMatch()&&!finalized);
     $("review-button").disabled=currentMatch()&&!finalized;
     $("lesson").disabled=currentMatch()&&!finalized;
     $("academy-track").disabled=currentMatch()&&!finalized;
     $("resume-game").hidden=!parked;
     if($("resign"))$("resign").disabled=Boolean(lesson||parked||finalized||game.game_over());
-    clockTick();
+    clockTick();renderFullReview();
   }
   function finish(){
     if(finalized||lesson||(!game.game_over()&&!endedBy))return;
@@ -777,7 +777,7 @@ function hint(){
   }
   function persist(){
     const session=parked||{pgn:lesson?null:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized:finalized&&!lesson,notes};
-    try{localStorage.setItem(KEY,JSON.stringify({pgn:session.pgn,side:session.side,difficulty:session.difficulty,language,completed,stats,flipped:session.flipped,finalized:session.finalized,notes:session.notes||[],academy:lesson?{id:lesson,step:lessonStep}:null,academyTrack,matchMode,matchSession,clockState,clockTheme,soundEnabled,endedBy}));}
+    try{localStorage.setItem(KEY,JSON.stringify({pgn:session.pgn,side:session.side,difficulty:session.difficulty,language,completed,stats,flipped:session.flipped,finalized:session.finalized,notes:session.notes||[],academy:lesson?{id:lesson,step:lessonStep}:null,academyTrack,matchMode,matchSession,clockState,clockTheme,soundEnabled,endedBy,reviewCursor}));}
     catch(e){message("Storage unavailable; progress cannot be saved.");}
   }
   function restore(){
@@ -839,11 +839,12 @@ function hint(){
       }
       if(lesson){matchMode="practice";matchSession=null;$("match-mode").value="practice";if(CLOCK&&clockState?.baseMs&&!clockState.paused)clockState=CLOCK.pause(clockState,Date.now());}
       if(game.history().length)last=game.history({verbose:true}).slice(-1).map(x=>[x.from,x.to])[0]||null;
+      reviewCursor=!lesson&&Number.isInteger(data.reviewCursor)&&data.reviewCursor>=0&&data.reviewCursor<game.history().length?data.reviewCursor:null;
       restoreMatchNotice();message(tr("restored"));
     }catch(e){message("Saved state is invalid; a fresh game was started.");}
   }
   function newGame(){
-    clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();endedBy=null;lowAlerted=null;lesson=null;lessonStep=0;lastLessonId=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
+    cancelFullAnalysis();analysisResult=null;reviewCursor=null;clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();endedBy=null;lowAlerted=null;lesson=null;lessonStep=0;lastLessonId=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
     $("lesson").value="";
     side=$("side").value;difficulty=$("level").value;language=$("lang").value;
     matchMode=$("match-mode").value==="independent"?"independent":"practice";
@@ -864,6 +865,7 @@ function hint(){
   }
   function undo(){
     if(currentMatch())return message(prog("assistBlocked"));
+    if(reviewCursor!==null)return message(ux("returnLive"));
     if(endedBy)return message(tr("gameOver"));
     if(lesson||parked||!game.history().length)return message(tr("noUndo"));
     clearTimeout(aiTimer);++epoch;engine.cancel();
@@ -871,6 +873,7 @@ function hint(){
       const outcome=game.in_checkmate()?(game.turn()===side?"losses":"wins"):"draws";
       stats[outcome]=Math.max(0,stats[outcome]-1);
     }
+    cancelFullAnalysis();analysisResult=null;reviewCursor=null;
     game.undo();
     if(game.history().length&&game.turn()!==side) game.undo();
     notes=notes.filter(x=>x.ply<=game.history().length);showReview=false;clearHints();renderReview();
@@ -882,6 +885,7 @@ function hint(){
   function startLesson(id){
     if(currentMatch()&&!finalized){$("lesson").value="";return message(prog("assistBlocked"));}
     const task=ACADEMY.byId[id];if(!task)return;
+    cancelFullAnalysis();analysisResult=null;reviewCursor=null;
     if(!parked)parked={pgn:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized,notes:notes.slice()};
     if(CLOCK&&clockState?.baseMs&&!clockState.done)clockState=CLOCK.pause(clockState,Date.now());
     clearHints();showReview=false;renderReview();
@@ -905,6 +909,7 @@ function hint(){
     if(!parked)return;
     const previous=parked, restored=new Chess();
     if(previous.pgn && !restored.load_pgn(previous.pgn))return message("Cannot restore saved PGN.");
+    cancelFullAnalysis();analysisResult=null;reviewCursor=null;
     clearTimeout(aiTimer);++epoch;engine.cancel();game=restored;parked=null;lesson=null;lessonStep=0;lastLessonId=null;selected=null;
     side=previous.side;difficulty=previous.difficulty;finalized=previous.finalized;notes=previous.notes||[];
     clearHints();showReview=finalized&&(game.game_over()||Boolean(endedBy));renderReview();
@@ -916,9 +921,10 @@ function hint(){
   }
   function refreshLabels(){
     document.documentElement.lang=language;
+    if(APPEARANCE)APPEARANCE.setLanguage(language,document);
     for(const node of document.querySelectorAll("[data-i18n]")){
       const name=node.getAttribute("data-i18n");
-      node.textContent=LABELS[language][name]||(B8_TEXT[language]||B8_TEXT.ru)[name]||LABELS.ru[name]||B8_TEXT.ru[name]||name;
+      node.textContent=LABELS[language][name]||(B8_TEXT[language]||B8_TEXT.ru)[name]||(UX_TEXT[language]||UX_TEXT.ru)[name]||LABELS.ru[name]||B8_TEXT.ru[name]||UX_TEXT.ru[name]||name;
     }
     const task=lessonTask();
     if(task){learnMessage(lessonPrompt(task));message(task.intro[language]);}
@@ -931,7 +937,7 @@ function hint(){
       else if(notes.length)message(assessmentMessage(notes[notes.length-1]));
       else message(tr("select"));
     }
-    renderAcademy();showHints();renderReview();render();
+    renderAcademy();showHints();renderReview();render();renderFullReview();
     if($("clock-policy"))text("clock-policy",clockState?.baseMs?tr("clockPolicy"):"");
     if($("sound-enabled"))$("sound-enabled").checked=soundEnabled;
     if($("clock-panel")){
@@ -963,6 +969,19 @@ function hint(){
     if(!COACH||typeof COACH.analyze!=="function")throw new Error("Chess Coach Engine missing");
     if(!ENGINE||typeof ENGINE.legalUci!=="function")throw new Error("Chess Engine Bridge missing");
     restore();
+    if(!APPEARANCE||!REVIEW)throw new Error("Chess Odyssey UX or Review module missing");
+    APPEARANCE.init(document,{languageChanged:(lang)=>{
+      if(!["ru","en","az"].includes(lang))return;
+      $("lang").value=lang;$("lang").dispatchEvent(new Event("change",{bubbles:true}));
+    }});
+    $("h-first").addEventListener("click",()=>jumpHistory(0));
+    $("h-prev").addEventListener("click",()=>jumpHistory((reviewCursor===null?game.history().length:reviewCursor)-1));
+    $("h-next").addEventListener("click",()=>jumpHistory((reviewCursor===null?game.history().length:reviewCursor)+1));
+    $("h-last").addEventListener("click",()=>jumpHistory(game.history().length));
+    $("h-return").addEventListener("click",()=>jumpHistory(game.history().length));
+    $("start-review").addEventListener("click",startFullAnalysis);
+    $("cancel-review").addEventListener("click",()=>{cancelFullAnalysis();text("review-progress",ux("reviewReady"));renderFullReview();});
+    $("full-review-details").addEventListener("toggle",renderFullReview);
     $("new-game").addEventListener("click",newGame);
     if($("rematch"))$("rematch").addEventListener("click",newGame);
     if($("resign"))$("resign").addEventListener("click",()=>{
@@ -1011,9 +1030,9 @@ function hint(){
     refreshLabels();restoreMatchNotice();
     if(showReview)renderReview();
     if(game.turn()!==side && !game.game_over() && !finalized)scheduleBot();
-    clockTick();
+    clockTick();render();
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init); else init();
   // Stable test surface without providing a user-facing debug console.
-  window.ChessOdysseyQA={academy:()=>({total:LESSONS.length,tracks:ACADEMY.tracks.map(x=>x.id),active:lesson,step:lessonStep}),levels:()=>ENGINE.ids.slice(),engineStatus:()=>lastEngineKind,legalUci:(fen,uci)=>{const c=new Chess(fen);return ENGINE.legalUci(c,uci);},legalCount:(fen)=>{const c=new Chess();if(fen&&!c.load(fen))throw new Error("invalid FEN");return c.moves().length;},lessonIds:()=>LESSONS.map(x=>x.id),evaluate:()=>scorePosition(),coach:()=>COACH.version,notes:()=>notes.length,clock:()=>({clockState,endedBy}),match:()=>({mode:matchMode,session:matchSession&&{...matchSession},finalized}),progress:()=>window.ChessProgress.snapshot().summary};
+  window.ChessOdysseyQA={academy:()=>({total:LESSONS.length,tracks:ACADEMY.tracks.map(x=>x.id),active:lesson,step:lessonStep}),levels:()=>ENGINE.ids.slice(),engineStatus:()=>lastEngineKind,legalUci:(fen,uci)=>{const c=new Chess(fen);return ENGINE.legalUci(c,uci);},legalCount:(fen)=>{const c=new Chess();if(fen&&!c.load(fen))throw new Error("invalid FEN");return c.moves().length;},lessonIds:()=>LESSONS.map(x=>x.id),evaluate:()=>scorePosition(),coach:()=>COACH.version,notes:()=>notes.length,clock:()=>({clockState,endedBy}),match:()=>({mode:matchMode,session:matchSession&&{...matchSession},finalized}),ux:()=>({cursor:reviewCursor,ply:game.history().length,lang:language,appearance:APPEARANCE?.snapshot(),analysisReady:Boolean(analysisResult),analysisRunning}),progress:()=>window.ChessProgress.snapshot().summary};
 })();
