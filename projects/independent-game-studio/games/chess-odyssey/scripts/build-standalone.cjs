@@ -20,7 +20,9 @@ const pieceCss=fs.readFileSync(path.join(root,"pieces/piece-sets.css"),"utf8").r
 });
 let out=h.replace('<link rel="stylesheet" href="styles.css">','<style>\n'+css+'\n</style>');
 out=out.replace('<link rel="stylesheet" href="pieces/piece-sets.css">','<style>\n'+pieceCss+'\n</style>');
-for(const file of ["vendor/chess.js","coach-engine.js","engine-bridge.js","academy.js","progress-core.js","clock-core.js","chess-appearance.js","game-review-core.js","app.js","masters-library.js","masters-notes-a.js","masters-notes-b.js","masters-notes-c.js","masters-core.js","masters-ui.js","progress-ui.js"]){
+const cloudCss=fs.readFileSync(path.join(root,"cloud/cloud.css"),"utf8");
+out=out.replace('<link rel="stylesheet" href="cloud/cloud.css">','<style>\n'+cloudCss+'\n</style>');
+for(const file of ["vendor/chess.js","coach-engine.js","engine-bridge.js","academy.js","progress-core.js","clock-core.js","chess-appearance.js","game-review-core.js","app.js","masters-library.js","masters-notes-a.js","masters-notes-b.js","masters-notes-c.js","masters-core.js","masters-ui.js","progress-ui.js","cloud/cloud-client.js"]){
  const src=fs.readFileSync(path.join(root,file),"utf8");
  assert.ok(!src.includes("</script"),"unsafe script boundary "+file);
  const link='<script defer src="'+file+'"></script>';

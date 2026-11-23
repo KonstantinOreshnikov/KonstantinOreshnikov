@@ -8,6 +8,7 @@
   <title>Chess Odyssey — Academy & Arena</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="pieces/piece-sets.css">
+  <link rel="stylesheet" href="cloud/cloud.css">
   <script defer src="vendor/chess.js"></script>
   <script defer src="coach-engine.js"></script>
   <script defer src="engine-bridge.js"></script>
@@ -24,6 +25,7 @@
   <script defer src="masters-core.js"></script>
   <script defer src="masters-ui.js"></script>
   <script defer src="progress-ui.js"></script>
+  <script defer src="cloud/cloud-client.js"></script>
 </head>
 <body>
   <main class="shell">
@@ -314,6 +316,32 @@
         <h3 id="progress-achievements-title">Достижения</h3>
         <p id="progress-achievements-count" class="progress-note"></p>
         <div id="progress-awards" class="progress-awards"></div>
+      </section>
+      <section class="panel cloud-account" id="cloud-account" aria-label="Chess Odyssey cloud account">
+        <h3 id="cloud-heading">Аккаунт и облачный прогресс</h3>
+        <p class="cloud-note" id="cloud-explanation">Локальная игра работает без аккаунта. Синхронизация запускается только вручную; данные не удаляются без подтверждения.</p>
+        <form id="cloud-auth-form" class="cloud-auth-form" autocomplete="on">
+          <label><span id="cloud-email-label">Email</span><input id="cloud-email" name="email" type="email" autocomplete="email" required maxlength="254"></label>
+          <label><span id="cloud-password-label">Пароль</span><input id="cloud-password" name="password" type="password" autocomplete="current-password" required minlength="8"></label>
+          <div class="cloud-actions">
+            <button type="button" id="cloud-login">Войти</button>
+            <button type="button" id="cloud-signup">Регистрация</button>
+          </div>
+          <label><span id="cloud-otp-label">Код подтверждения из письма</span><input id="cloud-otp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="12"></label>
+          <div class="cloud-actions">
+            <button type="button" id="cloud-verify">Подтвердить email</button>
+            <button type="button" id="cloud-send-otp">Отправить код</button>
+          </div>
+        </form>
+        <div id="cloud-signed-in" hidden>
+          <p id="cloud-identity"></p>
+          <div class="cloud-actions">
+            <button type="button" id="cloud-upload">Сохранить локальный прогресс</button>
+            <button type="button" id="cloud-download">Загрузить облачный прогресс</button>
+            <button type="button" id="cloud-logout">Выйти</button>
+          </div>
+        </div>
+        <p class="cloud-note" id="cloud-status" role="status" aria-live="polite">Облачная синхронизация доступна только на защищённом HTTPS-сайте.</p>
       </section>
       <section class="panel progress-history">
         <h3 id="progress-history-title">Последние самостоятельные матчи</h3>

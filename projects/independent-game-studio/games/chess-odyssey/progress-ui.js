@@ -197,6 +197,11 @@
  const api={
    study:recordStudy,quiz:recordQuiz,recordGame,refresh,
    snapshot:()=>({store:JSON.parse(JSON.stringify(state)),summary:model()}),
+   restoreCloudStore:(raw)=>{
+     const clean=Core.safe(raw,verified.games);
+     if(!clean||clean.schema!==Core.VERSION)throw Error("INVALID_CLOUD_PROGRESS");
+     state=clean;persist();refresh();return true;
+   },
    translate:(key)=>format(key),
    language:()=>lang
  };
