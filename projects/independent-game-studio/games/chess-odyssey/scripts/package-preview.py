@@ -1,19 +1,19 @@
-"""Build an inspectable, playable Stockfish B3 preview ZIP.
+"""Build an inspectable, playable Chess Odyssey v1.0 package with Stockfish.
 Only project-local files; includes GPL license and exact upstream hashes.
-This is a development artifact, not a production release.
+This is a QA release candidate; cloud accounts need separate live E2E acceptance.
 """
 from pathlib import Path
 import zipfile
 import hashlib
 
 ROOT = Path(__file__).resolve().parent.parent
-VERSION = "0.9.0"
+VERSION = "1.0.0"
 NAME = f"ChessOdyssey_v{VERSION}_Stockfish_Preview.zip"
 OUTPUT = ROOT / "dist" / NAME
 FILES = [
     "START_WINDOWS.cmd",
     "index.html", "styles.css", "cloud/cloud.css", "cloud/cloud-client.js", "pvp/pvp.css", "pvp/pvp-ui.js", "pieces/piece-sets.css", "pieces/SOURCE_REGISTER.md", "pieces/LICENSE-MIT.txt", "pieces/LICENSE-APACHE-2.0.txt", "app.js", "clock-core.js", "chess-appearance.js", "game-review-core.js", "coach-engine.js", "engine-bridge.js", "academy.js", "progress-core.js", "progress-ui.js",
-    "masters-library.js", "masters-notes-a.js", "masters-notes-b.js", "masters-notes-c.js",
+    "masters-library.js", "masters-expanded.js", "masters-notes-a.js", "masters-notes-b.js", "masters-notes-c.js",
     "masters-core.js", "masters-ui.js",
     "vendor/chess.js",
     "data/masters-source-scores.json",
@@ -30,7 +30,7 @@ FILES = [
     "docs/DEVELOPMENT_PROTOCOL.md",
     "docs/QA_LOG.md", "docs/ROADMAP.md",
     "tests/clock-core.cjs", "tests/p0p2-ui-core.cjs", "tests/p0p2-browser.cjs", "tests/release-rules.cjs", "tests/release-browser.cjs", "tests/release-live-match-browser.cjs", "tests/release-accessibility.cjs",
-    "dist/ChessOdyssey_v0.9.0_PREVIEW.html",
+    "dist/ChessOdyssey_v1.0.0_PREVIEW.html",
 ]
 FILES += [f"pieces/{style}/{side}{piece}.svg" for style in ("fantasy","spatial","celtic","chessnut","rhosgfx","kiwen-suwi","totoy","papercut") for side in "bw" for piece in "KQRBNP"]
 for rel in FILES:
