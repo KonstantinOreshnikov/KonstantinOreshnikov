@@ -50,6 +50,11 @@
     en:{skills:"Five-part game assessment",criterion:"Criterion",white:"White",black:"Black",opening:"Opening",tactics:"Tactical play",coordination:"Piece coordination",conversion:"Converting an advantage",endgame:"Endgame",noData:"N/A",method:"0–10 proxy: expected-points retained in Stockfish-evaluated moves of each category. At least 2 assessed moves required; otherwise N/A. Not an expert rating.",start:"Starting position",winnerW:"White won",winnerB:"Black won",winnerDraw:"Draw",youWon:"You won",youLost:"You lost",youDraw:"The game was drawn",seeReview:"Review game",close:"Dismiss",reasonMate:"checkmate",reasonTimeout:"time",reasonResign:"resignation",reasonDraw:"draw"},
     az:{skills:"Beş meyar üzrə oyun təhlili",criterion:"Meyar",white:"Ağlar",black:"Qaralar",opening:"Açılış",tactics:"Taktiki oyun",coordination:"Fiqur koordinasiyası",conversion:"Üstünlüyü reallaşdırma",endgame:"Endşpil",noData:"M/D",method:"0–10 təxmini bal: Stockfish təhlilində hər meyara aid gedişlər üzrə gözlənilən xalın qorunması. Ən azı 2 qiymətləndirilmiş gediş lazımdır; əks halda M/D. Ekspert reytinqi deyil.",start:"Başlanğıc mövqe",winnerW:"Ağlar qalib gəldi",winnerB:"Qaralar qalib gəldi",winnerDraw:"Heç-heçə",youWon:"Siz qalib gəldiniz",youLost:"Siz məğlub oldunuz",youDraw:"Oyun heç-heçə bitdi",seeReview:"Oyunu təhlil et",close:"Bağla",reasonMate:"mat",reasonTimeout:"vaxt",reasonResign:"təslim olma",reasonDraw:"heç-heçə"}
   };
+  const MOBILE_SETTINGS_TEXT={
+    ru:{mobileSettings:"Настройки партии",mobileSettingsDone:"Готово — свернуть настройки"},
+    en:{mobileSettings:"Game settings",mobileSettingsDone:"Done — collapse settings"},
+    az:{mobileSettings:"Partiya ayarları",mobileSettingsDone:"Hazırdır — ayarları yığ"}
+  };
   const pl=(key)=>(POSTGAME_LABELS[language]||POSTGAME_LABELS.ru)[key]||key;
   const GRADE_KEYS={best:"reviewBestTag",excellent:"reviewExcellent",good:"reviewGood",ordinary:"reviewOrdinary",inaccuracy:"reviewInaccuracy",mistake:"reviewMistake",blunder:"reviewBlunder",unknown:"reviewUnknown"};
   function ux(key,values){return (UX_TEXT[language]||UX_TEXT.ru)[key]?.replace(/\{(\w+)\}/g,(_,k)=>values&&values[k]!==undefined?String(values[k]):"?")||key;}
@@ -996,7 +1001,7 @@ function hint(){
     if(APPEARANCE)APPEARANCE.setLanguage(language,document);
     for(const node of document.querySelectorAll("[data-i18n]")){
       const name=node.getAttribute("data-i18n");
-      node.textContent=LABELS[language][name]||(B8_TEXT[language]||B8_TEXT.ru)[name]||(UX_TEXT[language]||UX_TEXT.ru)[name]||LABELS.ru[name]||B8_TEXT.ru[name]||UX_TEXT.ru[name]||name;
+      node.textContent=(MOBILE_SETTINGS_TEXT[language]||MOBILE_SETTINGS_TEXT.ru)[name]||LABELS[language][name]||(B8_TEXT[language]||B8_TEXT.ru)[name]||(UX_TEXT[language]||UX_TEXT.ru)[name]||LABELS.ru[name]||B8_TEXT.ru[name]||UX_TEXT.ru[name]||name;
     }
     const task=lessonTask();
     if(task){learnMessage(lessonPrompt(task));message(task.intro[language]);}
@@ -1037,6 +1042,37 @@ function hint(){
     en:{title:"Chess Odyssey",boardHelp:"Use arrow keys to move focus across the board. Enter or Space selects a square.",promotionHelp:"Choose the new piece for the pawn. Press Escape to cancel.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Learn by playing",newGame:"New game",undo:"Undo move",hint:"Hint",game:"Practice game",level:"AI difficulty",side:"My pieces",language:"Language",flip:"Flip board",lessons:"Academy",chooseLesson:"Choose a lesson…",resume:"Return to game",academyTrack:"Learning track",allTracks:"All tracks",trackBasics:"Rules and essentials",trackTactics:"Tactics and combinations",trackOpenings:"Opening ideas",trackEndgames:"Endgame",academyLesson:"Lesson or challenge",nextLesson:"Next lesson",reviewButton:"Review moves",reviewTitle:"Key moments",record:"Wins / losses / draws",done:"Lessons completed",moves:"Move history",about:"Practice does not affect rating; set clocks before playing",white:"White",black:"Black",beginner:"Beginner",novice:"Novice",intermediate:"Intermediate",advanced:"Advanced",expert:"Expert",grandmaster:"Grandmaster Challenge"},
     az:{title:"Chess Odyssey",boardHelp:"Ox düymələri ilə taxtada hərəkət edin. Xanəni seçmək üçün Enter və ya boşluq basın.",promotionHelp:"Piyadanın çevriləcəyi fiquru seçin. Ləğv etmək üçün Escape basın.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Oynayaraq öyrənin",newGame:"Yeni oyun",undo:"Gedişi ləğv et",hint:"İpucu",game:"Məşq oyunu",level:"AI çətinliyi",side:"Mənim fiqurlarım",language:"Dil",flip:"Taxtanı çevir",lessons:"Akademiya",chooseLesson:"Dərs seçin…",resume:"Oyuna qayıt",academyTrack:"Təlim bölməsi",allTracks:"Bütün bölmələr",trackBasics:"Qaydalar və əsaslar",trackTactics:"Taktika və kombinasiyalar",trackOpenings:"Debüt ideyaları",trackEndgames:"Endşpil",academyLesson:"Dərs və ya tapşırıq",nextLesson:"Növbəti dərs",reviewButton:"Gedişləri təhlil et",reviewTitle:"Əsas məqamlar",record:"Qələbə / məğlubiyyət / heç-heçə",done:"Tamamlanmış dərslər",moves:"Gedişlərin tarixçəsi",about:"Məşq reytinqə təsir etmir; saatı oyundan əvvəl seçin",white:"Ağlar",black:"Qaralar",beginner:"Başlanğıc",novice:"Həvəskar",intermediate:"Orta",advanced:"İrəliləmiş",expert:"Ekspert",grandmaster:"Qrossmeyster sınağı"}
   };
+  function setupMobileSettings(){
+    const panel=$("mobile-game-settings"),host=$("mobile-settings-fields"),done=$("mobile-settings-done");
+    const sidebar=document.querySelector("#practice-view > .sidebar");
+    const appearance=sidebar?.querySelector(":scope > .appearance-panel");
+    const settings=sidebar?.querySelector(":scope > .settings-panel");
+    if(!panel||!host||!done||!appearance||!settings||typeof window.matchMedia!=="function")return;
+    // Move the original controls instead of creating duplicate IDs or parallel state.
+    const appearanceAnchor=document.createComment("appearance desktop position");
+    const settingsAnchor=document.createComment("settings desktop position");
+    sidebar.insertBefore(appearanceAnchor,appearance);
+    sidebar.insertBefore(settingsAnchor,settings);
+    const viewport=window.matchMedia("(max-width: 720px)");
+    const relocate=()=>{
+      if(viewport.matches){
+        host.append(appearance,settings);
+      }else{
+        sidebar.insertBefore(appearance,appearanceAnchor.nextSibling);
+        sidebar.insertBefore(settings,settingsAnchor.nextSibling);
+        panel.open=false;
+      }
+    };
+    relocate();
+    if(typeof viewport.addEventListener==="function")viewport.addEventListener("change",relocate);
+    else if(typeof viewport.addListener==="function")viewport.addListener(relocate);
+    done.addEventListener("click",()=>{
+      panel.open=false;
+      const summary=panel.querySelector("summary");
+      if(summary)summary.focus({preventScroll:true});
+    });
+    document.body.classList.add("mobile-settings-ready");
+  }
   function init(){
     if(typeof Chess!=="function")throw new Error("Rules Engine missing");
     if(!COACH||typeof COACH.analyze!=="function")throw new Error("Chess Coach Engine missing");
@@ -1046,6 +1082,7 @@ function hint(){
       if(!["ru","en","az"].includes(lang))return;
       $("lang").value=lang;$("lang").dispatchEvent(new Event("change",{bubbles:true}));
     }});
+    setupMobileSettings();
     if($("game-result-close"))$("game-result-close").addEventListener("click",hideGameResult);
     if($("game-result-review"))$("game-result-review").addEventListener("click",()=>{
       hideGameResult();$("full-review-details").open=true;
