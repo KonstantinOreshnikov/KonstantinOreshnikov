@@ -9,13 +9,22 @@
 - API `/health` and anonymous-deny endpoints verified. **No authentic OTP/login/JWT, cross-device saves or real two-user PvP E2E verified.**
 - Neon primary source: [Managed Better Auth JWT](https://neon.com/docs/auth/guides/plugins/jwt) (2026-11-06) and [SDK reference](https://neon.com/docs/reference/javascript-sdk). They specify `auth.getSession()` → `data.session.token` as the JWT for separate bearer APIs. `auth.getJWTToken()` is not documented in the current SDK reference. This corrects a previous source-level assumption; do not automatically deploy an unverified replacement.
 
+## Verified implementation checkpoint — 2026-11-23
+
+- **Source SHA:** `938c77cf17da73e09f36103a4b7f0c6e683e39dc`, [draft PR #21](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/21), no merge/deploy.
+- **[Chess Odyssey QA #45151032505](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45151032505): 3/3 jobs PASS**: offline unit (Auth Client **9/9**, Cloud signed-JWT suite, PvP mock **26/26**), real Chromium UI and Windows native Stockfish/launcher.
+- Auth SDK getter corrected to documented `getSession().data.session.token`; authenticated profile pulls current cloud revision on sign-in before a save.
+- PvP commits are server-led; on stale request ID, read `moves` with actor/game-scoped RLS before deciding replay. Identical retry returns duplicate success; changed move/other actor rejected. Live Neon deployment #4 does NOT contain this work until explicitly promoted.
+- Independent SQL readback (no writes): four user tables FORCE RLS+policy, only authenticated SELECT grants, six authenticated RPC EXECUTE grants, no anonymous table grants. This proves catalog access configuration, **not** individual user's end-to-end access.
+- Historical intermediate CI failure/cancellations reflect commits where CI was enabled before the new test file landed; final full run above supersedes interim state. Preserve historical runs; do not rewrite failure history.
+
 ## Ordered independent work packages
 
 | ID | Work | Acceptance evidence | Current status |
 | --- | --- | --- | --- |
-| NU-01 | Isolate development branch; repair SDK JWT retrieval; validate compact JWT shape; fetch cloud revision after sign-in to prevent false conflict on an existing account | Unit/contract tests PASS, full chess CI green, no changes to live Pages or Neon staging | SOURCE IMPLEMENTED; CI pending |
+| NU-01 | Isolate development branch; repair SDK JWT retrieval; validate compact JWT shape; fetch cloud revision after sign-in to prevent false conflict on an existing account | Unit/contract tests PASS, full chess CI green, no changes to live Pages or Neon staging | **PASS** — Auth Client 9/9; Chess QA 3/3 at #45151032505 |
 | NU-02 | Validate authorization architecture and DB access contracts, without any new users or live data writes | Read-only inventory of RLS/FORCE, GRANTs, trusted origins, JWT role and API-only RPC permissions; fail-closed expectations documented | READ-ONLY INVENTORY PASS; positive account-scoped E2E OPEN |
-| NU-03 | Expand no-user tests for PvP replay/idempotency, stale version, invite expiry, draw/resign, privacy and clock boundary cases | Reproducible fake-JWT/mock-transport or isolated disposable test-branch tests with exact PASS/FAIL evidence; no fixture identity header in public runtime | PENDING |
+| NU-03 | Expand no-user tests for PvP replay/idempotency, stale version, invite expiry, draw/resign, privacy and clock boundary cases | Reproducible fake-JWT/mock-transport or isolated disposable test-branch tests with exact PASS/FAIL evidence; no fixture identity header in public runtime | **PARTIAL PASS** — 26/26 signed-JWT/mock-PvP tests, including replay across completion and changed-request denial; true DB race/clock E2E OPEN |
 | NU-04 | Staging frontend smoke/regression in Chromium including cloud panel UX (without signup), 10 theme × 10 style structural render, RU/EN/AZ labels | Automated UI test evidence, zero regressions; existing public preview unaffected until promotion | PENDING |
 | NU-05 | Prepare staging account-based E2E script, synthetic data policy, rollback, backup, release checklist | Runbook/test fixtures built; tests requiring email delivery/OTP and actual user sessions marked BLOCKED, never inferred from mocks | PENDING |
 
