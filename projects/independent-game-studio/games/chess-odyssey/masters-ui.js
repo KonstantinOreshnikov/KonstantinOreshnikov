@@ -4,7 +4,8 @@
  */
 (function(root,document){
  "use strict";
- const Core=root.ChessMastersCore,source=root.ChessMastersLibrary;
+ const Core=root.ChessMastersCore,base=root.ChessMastersLibrary,extra=root.ChessMastersExpansion;
+ const source=base&&extra?{games:[...base.games,...extra.games]}:base;
  const banks=[root.ChessMasterNotesA,root.ChessMasterNotesB,root.ChessMasterNotesC];
  const Chess=root.Chess;
  if(!Core||!source||banks.some(x=>!Array.isArray(x))||typeof Chess!=="function"){
@@ -23,6 +24,7 @@
   ru:{practiceTab:"Практика и Академия",mastersTab:"Мастера и легенды",progressTab:"Мой прогресс",pvpTab:"Онлайн с другом",mastersHeading:"ИСТОРИЯ ШАХМАТ · ОБУЧЕНИЕ",
    flip:"Повернуть доску",guessMove:"Угадать ход мастера",bookmark:"Закладка",bookmarked:"Закладка сохранена",
    downloadPGN:"Скачать PGN",scoreTitle:"Полная запись — нажмите на любой ход",libraryTitle:"Библиотека исторических партий",
+   groupTitle:"Коллекция",groupAll:"Все коллекции",groupLegends:"Легенды · с комментариями",groupChampions:"Чемпионы мира · полные партии",groupModern:"Чемпионаты 2010+",championship:"Матчи за мировую корону",noMoment:"Полная партия без авторских заметок по отдельным ходам. Используйте запись ходов и доску.",
    filterTitle:"Тема",all:"Все темы",attack:"Атаки и комбинации",strategy:"Стратегия и защита",
    endgame:"Эндшпиль и пешки",machine:"Человек и машина",searchTitle:"Поиск по игроку, названию и году",
    chooseTitle:"Историческая партия",language:"Язык объяснений",source:"Источник записи",momentsTitle:"Ключевые учебные моменты",
@@ -41,6 +43,7 @@
   en:{practiceTab:"Practice & Academy",mastersTab:"Masters & Legends",progressTab:"My progress",pvpTab:"Play a friend",mastersHeading:"CHESS HISTORY · LEARN BY REPLAYING",
    flip:"Flip board",guessMove:"Guess the master's move",bookmark:"Bookmark",bookmarked:"Bookmarked",
    downloadPGN:"Download PGN",scoreTitle:"Complete score — select any move",libraryTitle:"Historical games library",
+   groupTitle:"Collection",groupAll:"All collections",groupLegends:"Legends · annotated",groupChampions:"World Champions · full scores",groupModern:"Championships 2010+",championship:"World Championship games",noMoment:"Full game score without original move-by-move lessons. Use the board and notation to explore the recorded moves.",
    filterTitle:"Theme",all:"All themes",attack:"Attacks and combinations",strategy:"Strategy and defence",
    endgame:"Endgames and pawns",machine:"Human vs machine",searchTitle:"Search player, title or year",
    chooseTitle:"Historical game",language:"Explanation language",source:"Source score",momentsTitle:"Original teaching moments",
@@ -75,7 +78,7 @@
    quizEmpty:"Uyğun təlim məqamı yoxdur.",noteAt:"{move} gedişindən sonra",play:"Göstər",pause:"Pauza",
    noBook:"Hələ əlfəcin yoxdur.",start:"Başlanğıc mövqe"}
  };
- const initial={id:verified.games[0].id,ply:0,flipped:false,filter:"all",search:"",bookmarks:[],lang:"ru"};
+ const initial={id:verified.games[0].id,ply:0,flipped:false,filter:"all",group:"all",search:"",bookmarks:[],lang:"ru"};
  const state={...initial,quiz:null,feedback:"",playing:false,timer:null,view:"practice"};
  const tr=(name,args)=>((dict[state.lang]||dict.ru)[name]||name).replace(/\{(\w+)\}/g,(_,k)=>args&&args[k]!==undefined?String(args[k]):"?");
  const current=()=>verified.byId[state.id]||verified.games[0];
@@ -87,13 +90,14 @@
      if(verified.byId[o.id])state.id=o.id;
      if(Number.isInteger(o.ply))state.ply=Math.max(0,Math.min(o.ply,current().totalPlies));
      state.flipped=Boolean(o.flipped);
-     state.filter=["all","attack","strategy","endgame","machine"].includes(o.filter)?o.filter:"all";
+     state.filter=["all","attack","strategy","endgame","machine","championship"].includes(o.filter)?o.filter:"all";
+     state.group=["all","legends","champions","modern"].includes(o.group)?o.group:"all";
      if(["ru","en","az"].includes(o.lang))state.lang=o.lang;
      state.bookmarks=Array.isArray(o.bookmarks)?o.bookmarks.filter(x=>x&&verified.byId[x.id]&&Number.isInteger(x.ply)&&x.ply>=0&&x.ply<=verified.byId[x.id].totalPlies).slice(-80):[];
    }catch(_error){/* corrupted localStorage does not obstruct the game */}
  }
  function save(){
-   try{localStorage.setItem(STORAGE,JSON.stringify({id:state.id,ply:state.ply,flipped:state.flipped,filter:state.filter,lang:state.lang,bookmarks:state.bookmarks.slice(-80)}));}
+   try{localStorage.setItem(STORAGE,JSON.stringify({id:state.id,ply:state.ply,flipped:state.flipped,filter:state.filter,group:state.group,lang:state.lang,bookmarks:state.bookmarks.slice(-80)}));}
    catch(_error){/* private mode may deny localStorage */}
  }
  function stop(){
@@ -149,6 +153,7 @@
      button.addEventListener("click",()=>go(entry.ply));
      li.appendChild(button);fragment.appendChild(li);
    }
+   if(!game.moments.length){const li=document.createElement("li");li.textContent=tr("noMoment");fragment.appendChild(li);}
    holder.replaceChildren(fragment);
  }
  function explain(){
@@ -204,6 +209,7 @@
  }
  function render(){
    updateLabels();gameInfo();board();score();moments();explain();bookmarkList();
+   $("m-quiz").disabled=current().moments.length===0;
  }
  function go(ply){
    stop();
@@ -224,8 +230,10 @@
    const words=state.search.trim().toLocaleLowerCase("ru");
    const matches=verified.games.filter(g=>{
      if(state.filter!=="all"&&g.category!==state.filter)return false;
+     if(state.group!=="all"&&(state.group==="modern" ? !(g.collection==="champions"&&g.year>=2010) : g.collection!==state.group))return false;
      return !words||[g.white,g.black,g.title.ru,g.title.en,g.title.az,String(g.year),g.event].some(s=>String(s).toLocaleLowerCase("ru").includes(words));
    });
+   matches.sort((a,b)=>a.collection===b.collection?a.year-b.year:(a.collection==="legends"?-1:1));
    const selector=$("m-game"),frag=document.createDocumentFragment();
    if(matches.length===0){
      const opt=document.createElement("option");opt.value="";opt.textContent=tr("searchZero");frag.appendChild(opt);
@@ -323,6 +331,7 @@
    if(!verified.byId[state.id])state.id=verified.games[0].id;
    if($("lang")&&["ru","en","az"].includes($("lang").value))state.lang=$("lang").value;
    $("m-filter").value=state.filter;
+   $("m-group").value=state.group;
    $("nav-play").addEventListener("click",()=>showTab("practice"));
    $("nav-masters").addEventListener("click",()=>showTab("masters"));
    $("nav-progress").addEventListener("click",()=>showTab("progress"));
@@ -349,6 +358,7 @@
    $("m-slider").addEventListener("input",()=>go(Number($("m-slider").value)));
    $("m-game").addEventListener("change",()=>select($("m-game").value));
    $("m-filter").addEventListener("change",()=>{state.filter=$("m-filter").value;catalogue(true);save();});
+   $("m-group").addEventListener("change",()=>{state.group=$("m-group").value;catalogue(true);save();});
    $("m-search").addEventListener("input",()=>{state.search=$("m-search").value;catalogue(true);});
    $("m-lang").addEventListener("change",()=>language($("m-lang").value,true));
    $("lang").addEventListener("change",()=>language($("lang").value,false));
