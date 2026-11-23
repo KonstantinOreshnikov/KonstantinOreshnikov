@@ -1,5 +1,16 @@
 # Chess Odyssey — CURRENT STATUS / project entrypoint
 
+## 2026-11-24 — OWNER-AUTHORIZED PUBLIC v1.0.0 RELEASE (LATEST)
+
+- **Approval:** owner explicitly authorized **merge into `main` and production GitHub Pages deployment before remaining live QA**. This overrides the previous staging-only release boundary **for this release**; not an authorization to modify existing player progress, destructive production DB operations, or runtime auth/security policy.
+- **Delivered application:** v1.0.0 with 33 lessons, 300 historical games (31 annotated + 269 factual scores), RU/EN/AZ, Stockfish and responsive Academy/Practice UX. [Release notes](RELEASE_V1_0_0.md).
+- **Verified tests:** [CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329) and [anonymous live web smoke PASS](https://agent.tinyfish.ai/runs/ad1e13fb-00f5-4e26-a235-cd9013ae371d). **Cloud concurrency, real two-player PvP, outsider negative security, independent editorial/device QA remain OPEN and are an expressly accepted release risk**, not falsely recorded PASS.
+- **Neon:** existing staging Function `chesscloud` deployment #4, Neon Auth and Data API active; read-only aggregate confirmed a registered server-side 33/33 progress record and revision 36 at pre-release checkpoint. The public static site continues to connect to that staging Neon integration; no separate production-isolated cloud backend was established by this release.
+- **Next evidence required:** actual PR/main merge commit, `main` GitHub Pages deploy run and readback must be recorded only once verified; the owner's approval and this documentation alone are not deployment evidence.
+- Earlier 'main untouched' and 'production blocked' paragraphs below are historical and superseded as release **policy**, but still correctly describe their own prior checkpoints.
+
+---
+
 ## 2026-11-24 — staging authorization and first live-account readback
 
 - **Owner authorization:** full **Neon staging-only** E2E, required staging configuration, dedicated test identities, and nondestructive staging test records authorized explicitly in chat. **NOT authorized:** merge into `main`, production release, production DB writes, destructive cleanup, or modifying the existing player's progress.
