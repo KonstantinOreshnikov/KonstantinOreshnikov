@@ -7,11 +7,13 @@ Independent, AI-assisted game projects by Konstantin Oreshnikov. This directory 
 | [Caribbean Merchant](games/caribbean-merchant/README.md) | Offline Caribbean trading and strategy; inspired by a remembered Port Royale mobile experience | Latest real HTML v1.2; current documented v1.1 release, v1.2 QA pending |
 | [Kingdoms of Ember](games/kingdoms-of-ember/README.md) | Independent 16×12 fantasy turn-based tactics inspired by Ancient Empires II | v1.1 development candidate; original v1.0 preserved; offline launch QA open |
 | [Lord of Ultima-inspired strategy](games/lord-of-ultima/README.md) | Calm solo economy, city, army and continental strategy | Research/specification only; no build |
-| [Chess Odyssey — Academy & Arena](games/chess-odyssey/README.md) | Public multilingual chess game, Academy, historic games, Stockfish | **v1.0.0 RELEASED** — [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Download](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056) · [Release QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329); accepted cloud/PvP live QA gaps |
+| [Chess Odyssey — Academy & Arena](games/chess-odyssey/README.md) | Public multilingual chess game, Academy, historic games, Stockfish | **v1.0.0 RELEASED** — [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Download](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.0.0/ChessOdyssey_v1.0.0_Stockfish_Preview.zip) · [Release QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329); accepted cloud/PvP live QA gaps |
 
 ## Chess Odyssey — public v1.0.0 (2026-11-24)
 
-[Play Chess Odyssey](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Windows package](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056) · [Release notes](games/chess-odyssey/docs/RELEASE_V1_0_0.md).
+[Official versioned GitHub Release](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.0.0) · Permanent verified Windows ZIP with SHA-256 `f115a80859502a0c9c5610813a1d513a17c7b3314559f6a273002367b85193a4`.
+
+[Play Chess Odyssey](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Windows package](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.0.0/ChessOdyssey_v1.0.0_Stockfish_Preview.zip) · [Release notes](games/chess-odyssey/docs/RELEASE_V1_0_0.md).
 
 33 Academy lessons, 300 historical full-score games (31 annotated, 269 sourced records), responsive mobile chess, RU/EN/AZ and Stockfish. The owner approved immediate public release with actual two-device cloud/PvP outsider-security QA expressly deferred; those checks remain **OPEN**. No other game project was changed for this release.
 

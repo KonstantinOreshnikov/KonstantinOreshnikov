@@ -1,8 +1,10 @@
 # Chess Odyssey v1.0.0 — Public Release
 
+**Official GitHub Release:** https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.0.0
+**Permanent ZIP SHA-256:** `f115a80859502a0c9c5610813a1d513a17c7b3314559f6a273002367b85193a4` (2,027,337 bytes)
 **Date:** 24 November 2026  
 **Public game:** https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/  
-**Windows / Stockfish package:** https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056 (available until 23 December 2026).  
+**Windows / Stockfish package:** https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.0.0/ChessOdyssey_v1.0.0_Stockfish_Preview.zip.  
 **QA:** https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329
 
 ## Highlights

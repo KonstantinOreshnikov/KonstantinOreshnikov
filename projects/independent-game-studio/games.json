@@ -49,21 +49,21 @@
       "canonical_path": "projects/independent-game-studio/games/chess-odyssey",
       "current_verified_release": "v1.0.0 (owner-authorized public GitHub Pages release)",
       "latest_development_candidate": null,
-      "latest_verified_artifact": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056",
+      "latest_verified_artifact": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.0.0/ChessOdyssey_v1.0.0_Stockfish_Preview.zip",
       "source_path": "projects/independent-game-studio/games/chess-odyssey",
-      "sha256": "286db70e6bac0d7ab74fd3f300174a32cd28eeb628ab52dbf815111c95b6d2b3",
+      "sha256": "f115a80859502a0c9c5610813a1d513a17c7b3314559f6a273002367b85193a4",
       "qa_status": "Automated QA #45250410329 3/3 PASS; independent public game smoke PASS; real cloud/PvP E2E OPEN (owner accepted pre-QA release)",
       "known_blockers": "live 2-device cloud CAS, 2-player PvP and outsider-negative JWT/RLS, independent RU/EN/AZ/device and 100 visual themes QA; separate production Neon environment not verified",
       "last_verified": "2026-11-24 owner-authorized v1.0.0 release; 3/3 source CI + 3/3 main Pages deploy PASS",
       "origin_branch": "main",
       "origin_commit": "8f44eac227c15bb13d445493b0f09bf3a246688b",
-      "release_artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056",
-      "artifact_provenance": "v1.0.0 CI #45250410329 artifact #14857182056 (SHA-256 digest from GitHub Actions metadata)",
+      "release_artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.0.0/ChessOdyssey_v1.0.0_Stockfish_Preview.zip",
+      "artifact_provenance": "Official GitHub Release chess-odyssey-v1.0.0 (asset SHA256: f115a80859502a0c9c5610813a1d513a17c7b3314559f6a273002367b85193a4, 2027337 bytes), built and packaged by Actions run 45263595311; original temporary artifact 14857182056 retained as QA history",
       "last_archived_preview_path": "projects/independent-game-studio/games/chess-odyssey/releases/ChessOdyssey_v0.8.0_Stockfish_Preview.zip",
       "last_archived_preview_sha256": "3bac88d0d34bcf41fdaedb4b63e482398e6f850c5ba183f2d15bf0e07fcb3395",
-      "artifact_outer_sha256": "286db70e6bac0d7ab74fd3f300174a32cd28eeb628ab52dbf815111c95b6d2b3",
-      "artifact_files": 46,
-      "artifact_expires_on": "2026-12-23",
+      "artifact_outer_sha256": "f115a80859502a0c9c5610813a1d513a17c7b3314559f6a273002367b85193a4",
+      "artifact_files": null,
+      "artifact_expires_on": null,
       "latest_development_artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056",
       "latest_source_qa_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329",
       "main_post_merge_ci_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45261953544",
@@ -71,8 +71,12 @@
       "postmerge_main_ci_status": "PENDING — CI #45261953544 (do not infer PASS)",
       "public_url": "https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/",
       "release_notes_url": "projects/independent-game-studio/games/chess-odyssey/docs/RELEASE_V1_0_0.md",
-      "production_pages_deploy_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45261953720"
+      "production_pages_deploy_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45261953720",
+      "release_tag": "chess-odyssey-v1.0.0",
+      "release_tag_target": "5882431af32d75b83caad565d08c41bda5a40cf0",
+      "official_github_release_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.0.0",
+      "official_release_build_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45263595311"
     }
   ],
-  "latest_update": "2026-11-24 Chess Odyssey v1.0.0 main merge + GitHub Pages production deployment confirmed; online QA known gaps remain"
+  "latest_update": "2026-11-24 Chess Odyssey v1.0.0 merged/main deployed and officially tagged GitHub Release with permanent SHA-verified ZIP; other games unchanged"
 }

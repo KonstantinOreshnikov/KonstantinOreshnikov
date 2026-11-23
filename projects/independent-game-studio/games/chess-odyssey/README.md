@@ -1,6 +1,8 @@
 # Chess Odyssey — Academy, Arena & Legends
 
-[**Play Chess Odyssey v1.0.0**](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [**Windows / Stockfish ZIP**](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056) · [Release notes](docs/RELEASE_V1_0_0.md)
+[**Play Chess Odyssey v1.0.0**](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [**Windows / Stockfish ZIP**](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.0.0/ChessOdyssey_v1.0.0_Stockfish_Preview.zip) · [Release notes](docs/RELEASE_V1_0_0.md)
+
+**[Official GitHub Release v1.0.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.0.0)** — published 24 November 2026. Permanent Windows package SHA-256: `f115a80859502a0c9c5610813a1d513a17c7b3314559f6a273002367b85193a4`.
 
 **Public v1.0.0 — 24 November 2026.** Chess learning for RU/EN/AZ: 33 interactive Academy lessons, 300 historical games (31 fully annotated + 269 historical scores), six AI levels, Stockfish reviews, 10 board themes and 10 piece styles.
 

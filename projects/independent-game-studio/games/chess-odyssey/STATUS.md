@@ -1,6 +1,6 @@
 # Chess Odyssey — v1.0.0 Public Release
 
-**Date:** 2026-11-24 · **[Play online](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/)** · [Windows / Stockfish package](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056) · [Release notes](docs/RELEASE_V1_0_0.md).
+**Date:** 2026-11-24 · **[Play online](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/)** · [Windows / Stockfish package](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.0.0/ChessOdyssey_v1.0.0_Stockfish_Preview.zip) · [Release notes](docs/RELEASE_V1_0_0.md).
 
 **Delivered:** 33 Academy lessons, 300 historical games (31 detailed annotated / 269 complete factual scores), six AI levels, postgame Stockfish analysis, mobile settings, RU/EN/AZ, email OTP / cloud and PvP UI.
 
