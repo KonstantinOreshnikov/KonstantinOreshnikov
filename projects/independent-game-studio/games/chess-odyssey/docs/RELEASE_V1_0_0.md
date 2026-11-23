@@ -32,4 +32,4 @@ The owner requested publication **before** the remaining live E2E tests. These a
 
 ## Maintenance
 
-Follow-up authenticated/cloud/PvP tests should be tracked as separate QA evidence, not backdated as release validation. The user authorized merge to `main` and production GitHub Pages publication on 24 November 2026.
+Follow-up authenticated cloud, PvP and security tests are tracked in the [v1.0 post-release QA register](POST_RELEASE_QA_V1_0_0.md); do not backdate their outcomes as release validation. The user authorized merge to `main` and production GitHub Pages publication on 24 November 2026.
