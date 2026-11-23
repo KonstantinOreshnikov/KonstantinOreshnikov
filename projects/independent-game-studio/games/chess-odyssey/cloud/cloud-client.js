@@ -35,7 +35,8 @@ const email=()=>$("cloud-email").value.trim();
 async function token(){
  if(typeof neon?.auth?.getJWTToken!=="function")throw Error("JWT_PROVIDER_UNAVAILABLE");
  const jwt=await neon.auth.getJWTToken();
- if(typeof jwt!=="string"||!/^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$/.test(jwt))throw Error("SESSION_EXPIRED");
+ const parts=typeof jwt==="string"?jwt.split("."):[];
+ if(parts.length!==3||parts.some(part=>!part||!/^[A-Za-z0-9_-]+$/.test(part)))throw Error("SESSION_EXPIRED");
  return jwt;
 }
 async function api(path,{method="GET",body}={}){
