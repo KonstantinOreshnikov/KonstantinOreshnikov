@@ -97,5 +97,13 @@ const {pathToFileURL}=require("node:url");
   const r=await api.fetch(new Request("https://chess.qa.test/api/pvp/invite",{method:"OPTIONS",headers:{origin:"https://konstantinoreshnikov.github.io","access-control-request-method":"POST","access-control-request-headers":"authorization,content-type"}}));
   assert.equal(r.status,204);assert.match(r.headers.get("access-control-allow-methods")||"",/(?:^|,)POST(?:,|$)/);
  });
+ await ok("RU EN AZ PvP dynamic status labels are localized",async()=>{
+  const fs=require("node:fs"),path=require("node:path");
+  const source=fs.readFileSync(path.resolve(__dirname,"../pvp/pvp-ui.js"),"utf8");
+  for(const label of ["Ожидающих приглашений: {count}","Pending invitations: {count}","Gözləyən dəvətlər: {count}"])assert.ok(source.includes(label));
+  assert.ok(source.includes('tr("pendingInvites").replace("{count}",String(pending))'));
+  assert.ok(source.includes('tr("stateFinished")'));
+  assert.ok(!source.includes('length+" pending invitations"'));
+ });
  console.log("PASS Chess PvP Cloud "+n+"/"+n);
 })().catch(e=>{console.error(e);process.exitCode=1});
