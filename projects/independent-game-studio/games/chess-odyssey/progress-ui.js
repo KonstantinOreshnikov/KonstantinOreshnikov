@@ -24,7 +24,7 @@
     indexUncalibrated:"Не сравнивайте это число с рейтингами реальных шахматистов и онлайн-платформ.",
     trackTitle:"Прогресс Академии",independentTitle:"Самостоятельная игра",
     achievementsTitle:"Достижения",achievementsCount:"Открыто: {count} из {total}",
-    recentTitle:"Последние самостоятельные матчи",storage:"Всё хранится локально в браузере. Без аккаунтов, глобального рейтинга и облачной синхронизации.",
+    recentTitle:"Последние самостоятельные матчи",cloudStorage:"Прогресс привязан к аккаунту и автоматически синхронизируется с сервером.",storage:"Всё хранится локально в браузере. Без аккаунтов, глобального рейтинга и облачной синхронизации.",
     trackBasics:"Основы и правила",trackTactics:"Тактика",trackOpenings:"Дебюты",trackEndgames:"Эндшпиль",
     moments:"Ключевых моментов изучено: {done} из {total}",quizzes:"Разных исторических ходов угадано: {total}",
     resultCount:"В индекс допущено партий: {total}",results:"Победы: {win} · Ничьи: {draw} · Поражения: {loss}",
@@ -49,7 +49,7 @@
     indexUncalibrated:"Do not compare this number with online or real-player ratings.",
     trackTitle:"Academy tracks",independentTitle:"Independent games",
     achievementsTitle:"Achievements",achievementsCount:"Unlocked: {count} of {total}",
-    recentTitle:"Recent independent matches",storage:"Stored in this browser only. No account, global rating or cloud sync.",
+    recentTitle:"Recent independent matches",cloudStorage:"Progress belongs to this account and syncs with the server automatically.",storage:"Stored in this browser only. No account, global rating or cloud sync.",
     trackBasics:"Rules",trackTactics:"Tactics",trackOpenings:"Openings",trackEndgames:"Endgames",
     moments:"Highlighted positions studied: {done} of {total}",quizzes:"Unique historical moves guessed: {total}",
     resultCount:"Eligible independent games: {total}",results:"Wins: {win} · Draws: {draw} · Losses: {loss}",
@@ -74,7 +74,7 @@
     indexUncalibrated:"Bu göstəricini real oyunçu və ya onlayn reytinqlə müqayisə etməyin.",
     trackTitle:"Akademiya bölmələri",independentTitle:"Müstəqil oyunlar",
     achievementsTitle:"Nailiyyətlər",achievementsCount:"Açılıb: {count}/{total}",
-    recentTitle:"Son müstəqil oyunlar",storage:"Məlumatlar yalnız bu brauzerdə saxlanılır. Hesab, qlobal reytinq və bulud sinxronizasiyası yoxdur.",
+    recentTitle:"Son müstəqil oyunlar",cloudStorage:"İnkişaf bu hesaba aiddir və serverlə avtomatik sinxronlaşdırılır.",storage:"Məlumatlar yalnız bu brauzerdə saxlanılır. Hesab, qlobal reytinq və bulud sinxronizasiyası yoxdur.",
     trackBasics:"Qaydalar",trackTactics:"Taktika",trackOpenings:"Debütlər",trackEndgames:"Endşpil",
     moments:"Öyrənilmiş əsas mövqelər: {done}/{total}",quizzes:"Tapılmış fərqli tarixi gedişlər: {total}",
     resultCount:"Müstəqil oyunlar: {total}",results:"Qələbə: {win} · Heç-heçə: {draw} · Məğlubiyyət: {loss}",
@@ -132,7 +132,7 @@
    setText("progress-achievements-title",format("achievementsTitle"));
    setText("progress-achievements-count",format("achievementsCount",{count:sum.achievements.filter(a=>a.unlocked).length,total:sum.achievements.length}));
    setText("progress-history-title",format("recentTitle"));
-   setText("progress-storage-note",format("storage"));
+   setText("progress-storage-note",format(root.ChessCloud?.authenticated?.()?"cloudStorage":"storage"));
    setText("progress-moments-label",format("moments",{done:sum.masters.momentsVisited,total:sum.masters.momentsTotal}));
    setText("progress-quiz-label",format("quizzes",{total:sum.masters.quizzesSolved}));
    setText("progress-match-count",format("resultCount",{total:sum.rated.eligible}));
