@@ -7,7 +7,7 @@ const {chromium}=require("playwright");
 const ROOT=path.resolve(__dirname,"..");
 const ORIGIN="https://konstantinoreshnikov.github.io";
 const PREFIX="/KonstantinOreshnikov/chess-odyssey/";
-const fakeSdk=String.raw\`export function createClient() {
+const fakeSdk=String.raw`export function createClient() {
  const a=window.__chessMockAuth;
  return {auth:{
   getSession:async()=>({data:a.session?{session:{token:"aaa.bbb.ccc"},user:{email:a.email}}:{session:null,user:null},error:null}),
@@ -16,7 +16,7 @@ const fakeSdk=String.raw\`export function createClient() {
   emailOtp:{verifyEmail:async({otp})=>{if(otp!=="654321")return {error:{message:"INVALID_OTP"}};a.verified=true;return {data:{},error:null}},sendVerificationOtp:async()=>({data:{},error:null})},
   signOut:async()=>{a.session=false;return {data:{},error:null}}
  }};
-}\`;
+}`;
 (async()=>{
  const browser=await chromium.launch({headless:true,channel:process.env.CHESS_CHROME_CHANNEL||undefined,args:["--no-sandbox"]});
  const context=await browser.newContext({viewport:{width:1280,height:840}});
