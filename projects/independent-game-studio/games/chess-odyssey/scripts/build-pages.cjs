@@ -5,7 +5,7 @@ const ROOT=path.resolve(__dirname,"..");
 const OUT=path.resolve(process.argv[2]||path.join(ROOT,"build","github-pages"));
 const DEST=path.join(OUT,"chess-odyssey");
 const files=[
- "index.html","styles.css","app.js","chess-appearance.js","game-review-core.js",
+ "index.html","styles.css","pieces/piece-sets.css","app.js","chess-appearance.js","game-review-core.js",
  "clock-core.js","coach-engine.js","engine-bridge.js","academy.js",
  "progress-core.js","progress-ui.js","masters-library.js",
  "masters-core.js","masters-ui.js","masters-notes-a.js","masters-notes-b.js","masters-notes-c.js",

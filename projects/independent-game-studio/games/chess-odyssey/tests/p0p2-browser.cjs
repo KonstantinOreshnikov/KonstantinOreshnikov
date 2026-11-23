@@ -66,12 +66,14 @@ function startServer(){
    assert.equal(await page.locator("#m-board").getAttribute("data-theme"),"sea");
    await page.locator("#nav-play").click();
   });
-  await check("10 selectable piece styles, apply metallic finish",async()=>{
+  await check("10 real SVG styles, apply Golden Elite",async()=>{
    await page.locator("#piece-style-details summary").click();
    assert.equal(await page.locator("#piece-options button").count(),10);
    await page.locator('#piece-options [data-value="metal"]').click();
    assert.equal(await page.locator("#piece-style-details").evaluate(x=>x.open),false);
    assert.equal(await page.locator("#board").getAttribute("data-pieces"),"metal");
+   assert.equal(await page.locator("#board .piece[data-code]").count(),32);
+   assert.match(await page.locator("#board .piece[data-code=wN]").first().evaluate(x=>getComputedStyle(x).backgroundImage),/fantasy\/wN\.svg/);
   });
   await check("board and pieces persist after reload",async()=>{
    await page.reload();

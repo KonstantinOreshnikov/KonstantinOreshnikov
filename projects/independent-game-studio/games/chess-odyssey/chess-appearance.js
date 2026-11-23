@@ -16,16 +16,16 @@ const THEMES=Object.freeze([
 {id:"contrast",name:["Высокий контраст","High Contrast","Yüksək kontrast"],light:"#FAFAF7",dark:"#38414A"}
 ]);
 const STYLES=Object.freeze([
-{id:"staunton",name:["Классика Staunton","Staunton Classic","Klassik Staunton"]},
-{id:"tournament",name:["Турнирный","Tournament Bold","Turnir"]},
-{id:"neo",name:["Нео","Neo Flat","Neo Flat"]},
-{id:"minimal",name:["Минимализм","Modern Minimal","Minimalist"]},
-{id:"outline",name:["Контурный","Outline","Kontur"]},
-{id:"wood",name:["Дерево","Wooden","Taxta"]},
-{id:"marble",name:["Мрамор","Marble","Mərmər"]},
-{id:"metal",name:["Металл","Metallic","Metal"]},
-{id:"soft3d",name:["Объёмный","Soft 3D","Həcmli"]},
-{id:"highcontrast",name:["Контрастный","High Contrast","Yüksək kontrast"]}
+{id:"staunton",name:["Королевская классика","Royal Classic","Kral klassikası"],source:"chessnut"},
+{id:"tournament",name:["Турнирная резьба","Tournament Carved","Turnir oyma fiqurları"],source:"totoy"},
+{id:"neo",name:["Современная скульптура","Neo Sculpt","Müasir heykəl üslubu"],source:"kiwen-suwi"},
+{id:"minimal",name:["Выразительный контраст","Bold Contrast","Parlaq kontrast"],source:"rhosgfx"},
+{id:"outline",name:["Серебряный объём","Silver Spatial","Gümüşü həcm"],source:"spatial"},
+{id:"wood",name:["Кельтское дерево","Celtic Wood","Kelt ağacı"],source:"celtic"},
+{id:"marble",name:["Мрамор Люкс","Marble Luxe","Lüks mərmər"],source:"papercut"},
+{id:"metal",name:["Золотая элита","Golden Elite","Qızılı Elit"],source:"fantasy"},
+{id:"soft3d",name:["Кристальная фантазия","Fantasy Crystal","Kristal fantaziya"],source:"fantasy"},
+{id:"highcontrast",name:["Обсидиан Pro","Obsidian Pro","Obsidian Pro"],source:"rhosgfx"}
 ]);
 const WORDS={
 ru:{appearance:"Оформление доски",boardTheme:"Тема доски",pieces:"Набор фигур",wide:"Широкая доска",exitWide:"Выйти из широкого режима",language:"Язык",selected:"Выбрано"},
@@ -64,7 +64,7 @@ function option(doc,item,kind,details){
    preview.classList.add("preview-pieces");preview.dataset.pieces=item.id;
    const w=doc.createElement("span"),b=doc.createElement("span");
    w.className="piece-preview white";b.className="piece-preview black";
-   w.textContent="♘";b.textContent="♞";preview.append(w,b);
+   w.textContent="♘";b.textContent="♛";w.dataset.code="wN";b.dataset.code="bQ";preview.append(w,b);
  }
  const title=doc.createElement("span");title.textContent=name(item);
  button.append(preview,title);

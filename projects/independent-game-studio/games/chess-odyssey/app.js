@@ -716,7 +716,7 @@ function hint(){
       b.tabIndex=square===keyboardSquare?0:-1;
       b.setAttribute("aria-label",square+" — "+(BOARD_NAMES[language]||BOARD_NAMES.ru)[p?p.color+p.type:"empty"]);
       b.setAttribute("aria-pressed",!readOnly&&selected===square?"true":"false");
-      const mark=document.createElement("span");mark.className="piece";mark.textContent=p?PIECES[p.color+p.type]:"";b.appendChild(mark);
+      const mark=document.createElement("span");mark.className="piece";mark.textContent=p?PIECES[p.color+p.type]:"";if(p)mark.dataset.code=p.color+p.type.toUpperCase();b.appendChild(mark);
       if((flipped?r===7:r===0)) {const c=document.createElement("small");c.className="file";c.textContent=square[0];b.appendChild(c);}
       if((flipped?f===7:f===0)) {const c=document.createElement("small");c.className="rank";c.textContent=square[1];b.appendChild(c);}
       b.addEventListener("focus",()=>{keyboardSquare=square;});

@@ -12,7 +12,7 @@ NAME = f"ChessOdyssey_v{VERSION}_Stockfish_Preview.zip"
 OUTPUT = ROOT / "dist" / NAME
 FILES = [
     "START_WINDOWS.cmd",
-    "index.html", "styles.css", "app.js", "clock-core.js", "chess-appearance.js", "game-review-core.js", "coach-engine.js", "engine-bridge.js", "academy.js", "progress-core.js", "progress-ui.js",
+    "index.html", "styles.css", "pieces/piece-sets.css", "pieces/SOURCE_REGISTER.md", "app.js", "clock-core.js", "chess-appearance.js", "game-review-core.js", "coach-engine.js", "engine-bridge.js", "academy.js", "progress-core.js", "progress-ui.js",
     "masters-library.js", "masters-notes-a.js", "masters-notes-b.js", "masters-notes-c.js",
     "masters-core.js", "masters-ui.js",
     "vendor/chess.js",
@@ -32,6 +32,7 @@ FILES = [
     "tests/clock-core.cjs", "tests/p0p2-ui-core.cjs", "tests/p0p2-browser.cjs", "tests/release-rules.cjs", "tests/release-browser.cjs", "tests/release-live-match-browser.cjs", "tests/release-accessibility.cjs",
     "dist/ChessOdyssey_v0.9.0_PREVIEW.html",
 ]
+FILES += [f"pieces/{style}/{side}{piece}.svg" for style in ("fantasy","spatial","celtic","chessnut","rhosgfx","kiwen-suwi","totoy","papercut") for side in "bw" for piece in "KQRBNP"]
 for rel in FILES:
     target = ROOT / rel
     if not target.is_file() or target.stat().st_size == 0:

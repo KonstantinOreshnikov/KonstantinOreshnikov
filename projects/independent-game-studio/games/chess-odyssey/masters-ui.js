@@ -116,7 +116,7 @@
        button.setAttribute("aria-hidden","true");
        if(p){
          button.classList.add(p.color==="w"?"white-piece":"black-piece");
-         const icon=document.createElement("span");icon.className="piece";icon.textContent=PIECES[p.color][p.type];button.appendChild(icon);
+         const icon=document.createElement("span");icon.className="piece";icon.textContent=PIECES[p.color][p.type];icon.dataset.code=p.color+p.type.toUpperCase();button.appendChild(icon);
        }
        fragment.appendChild(button);
      }
