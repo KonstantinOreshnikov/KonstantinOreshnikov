@@ -9,7 +9,7 @@ function startServer(){
   const p=path.resolve(root,"."+decodeURIComponent(new URL(req.url,"http://127.0.0.1").pathname));
   if(!p.startsWith(root+path.sep)){res.writeHead(403);res.end();return;}
   fs.readFile(p,(err,data)=>{if(err){res.writeHead(404);res.end();return;}
-    res.writeHead(200,{"Content-Type":p.endsWith(".js")?"text/javascript":p.endsWith(".wasm")?"application/wasm":p.endsWith(".css")?"text/css":"text/html; charset=utf-8","Cache-Control":"no-store"});res.end(data);
+    res.writeHead(200,{"Content-Type":p.endsWith(".js")?"text/javascript":p.endsWith(".wasm")?"application/wasm":p.endsWith(".svg")?"image/svg+xml":p.endsWith(".css")?"text/css":"text/html; charset=utf-8","Cache-Control":"no-store"});res.end(data);
   });
  });
  return new Promise((resolve,reject)=>{server.once("error",reject);server.listen(0,"127.0.0.1",()=>resolve(server));});
@@ -74,6 +74,30 @@ function startServer(){
    assert.equal(await page.locator("#board").getAttribute("data-pieces"),"metal");
    assert.equal(await page.locator("#board .piece[data-code]").count(),32);
    assert.match(await page.locator("#board .piece[data-code=wN]").first().evaluate(x=>getComputedStyle(x).backgroundImage),/fantasy\/wN\.svg/);
+  });
+  await check("all ten real SVG piece sets load on Practice and Masters",async()=>{
+   const variants=["staunton","tournament","neo","minimal","outline","wood","marble","metal","soft3d","highcontrast"];
+   const inspect=()=>page.locator("#board .piece[data-code=wN]").first().evaluate(async el=>{
+      const css=getComputedStyle(el).backgroundImage,match=css.match(/^url\(["']?(.*?)["']?\)$/);
+      if(!match)return {css};
+      const response=await fetch(match[1]);const body=await response.text();
+      return {status:response.status,type:response.headers.get("content-type"),svg:body.trimStart().startsWith("<svg")};
+   });
+   for(const id of variants){
+      await page.locator("#piece-style-details > summary").click();
+      await page.locator('#piece-options [data-value="'+id+'"]').click();
+      const r=await inspect();
+      assert.equal(r.status,200,id+": "+JSON.stringify(r));
+      assert.match(r.type||"",/image\/svg\+xml/,id);
+      assert.ok(r.svg,id);
+   }
+   await page.locator("#piece-style-details > summary").click();
+   await page.locator('#piece-options [data-value="metal"]').click();
+   await page.locator("#nav-masters").click();
+   assert.equal(await page.locator("#m-board").getAttribute("data-pieces"),"metal");
+   const sprite=await page.locator("#m-board .piece[data-code=wN]").first().evaluate(x=>getComputedStyle(x).backgroundImage);
+   assert.match(sprite,/fantasy\/wN\.svg/);
+   await page.locator("#nav-play").click();
   });
   await check("board and pieces persist after reload",async()=>{
    await page.reload();

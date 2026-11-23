@@ -8,7 +8,7 @@ const http=require("node:http");
 const root=path.resolve(__dirname,"..");
 const port=Number(process.env.CHESS_PORT||8765);
 if(!Number.isInteger(port)||port<1024||port>65535)throw new Error("Invalid CHESS_PORT");
-const mime={".html":"text/html; charset=utf-8",".js":"text/javascript; charset=utf-8",".css":"text/css; charset=utf-8",".wasm":"application/wasm",".txt":"text/plain; charset=utf-8",".md":"text/plain; charset=utf-8"};
+const mime={".html":"text/html; charset=utf-8",".js":"text/javascript; charset=utf-8",".css":"text/css; charset=utf-8",".wasm":"application/wasm",".svg":"image/svg+xml",".txt":"text/plain; charset=utf-8",".md":"text/plain; charset=utf-8"};
 const app=http.createServer((req,res)=>{
  try{
   if(req.method!=="GET"&&req.method!=="HEAD"){res.writeHead(405);res.end();return;}
