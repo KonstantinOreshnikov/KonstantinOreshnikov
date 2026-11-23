@@ -872,7 +872,8 @@ function hint(){
     }
     if(endedBy)ratedMessage=tr(endedBy.type==="resign"?"resignNote":"timeNote");
     else if(clockState?.baseMs)ratedMessage=tr("clockPolicy");
-    playSound("end");persist();render();renderReview();
+    // Finalizing a no-help game unlocks postgame analysis; refresh mode classes before rendering.
+    playSound("end");persist();renderAcademy();render();renderReview();
     message(status()+" — "+ratedMessage);
     showGameResult();
     notifyCloudProgress();
