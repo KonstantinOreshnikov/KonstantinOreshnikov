@@ -2,6 +2,7 @@ name: Chess Odyssey QA
 on:
   push:
     branches:
+      - "feature/chess-odyssey-v1-auth-hardening-20261123"
       - "game/chess-odyssey-v0.1"
       - "main"
       - "chore/independent-game-studio-reconcile-20261121"
@@ -132,6 +133,7 @@ jobs:
           node tests/p0p2-ui-core.cjs
           node tests/v1-auth-boundary.cjs
           node tests/v1-cloud-api.cjs
+          node tests/v1-cloud-client-contract.cjs
           node tests/v1-pvp-cloud.cjs
           node tests/b8-translation-structure.cjs
           node tests/b9-match-service.cjs
