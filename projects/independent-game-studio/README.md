@@ -7,7 +7,11 @@ Independent, AI-assisted game projects by Konstantin Oreshnikov. This directory 
 | [Caribbean Merchant](games/caribbean-merchant/README.md) | Offline Caribbean trading and strategy; inspired by a remembered Port Royale mobile experience | Latest real HTML v1.2; current documented v1.1 release, v1.2 QA pending |
 | [Kingdoms of Ember](games/kingdoms-of-ember/README.md) | Independent 16×12 fantasy turn-based tactics inspired by Ancient Empires II | v1.1 development candidate; original v1.0 preserved; offline launch QA open |
 | [Lord of Ultima-inspired strategy](games/lord-of-ultima/README.md) | Calm solo economy, city, army and continental strategy | Research/specification only; no build |
-| [Chess Odyssey — Academy & Arena](games/chess-odyssey/README.md) | Chess education, AI and friend PvP development | B9/v0.9 source development; v0.8.0 playable CI ZIP; authentic cloud PvP open |
+| [Chess Odyssey — Academy & Arena](games/chess-odyssey/README.md) | Chess education, AI and friend PvP development | v0.9.0 P0–P2 development preview and source in `main` ([ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080/artifacts/14796265039), [QA 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080)); historical v0.8.0 archive kept, Neon PvP OPEN |
+
+## Chess Odyssey — latest verified development source (2026-11-23)
+
+[PR #18](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/18) merged v0.9.0 P0–P2 source into `main`. [Chess CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080) (27/27 new Node + 16/16 real Chrome) and Studio smoke PASS; [46-file game ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080/artifacts/14796265039) expires 2026-12-23, while source/build scripts remain on GitHub. Human devices, trilingual editorial and real Neon E2E still OPEN. Production v1.0 has not been deployed.
 
 ## Nostalgic game concepts (ideas only)
 
