@@ -13,6 +13,8 @@
   <script defer src="academy.js"></script>
   <script defer src="progress-core.js"></script>
   <script defer src="clock-core.js"></script>
+  <script defer src="chess-appearance.js"></script>
+  <script defer src="game-review-core.js"></script>
   <script defer src="app.js"></script>
   <script defer src="masters-library.js"></script>
   <script defer src="masters-notes-a.js"></script>
@@ -28,7 +30,7 @@
       <div class="brand"><span class="brand-mark" aria-hidden="true">♞</span><div>
         <h1 data-i18n="title">Chess Odyssey</h1><p data-i18n="subtitle">ACADEMY & ARENA</p>
       </div></div>
-      <div class="version">B8 DEVELOPMENT <span>v0.8.0</span> · NOT RELEASED</div>
+      <div class="top-actions"><label class="global-language"><span data-i18n="language">Язык</span><select id="global-language" aria-label="Site language"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label><div class="version">B9 / UX DEVELOPMENT <span>v0.9 · NOT RELEASED</span><small>Last tested preview: v0.8.0</small></div></div>
     </header>
     <nav class="game-tabs" role="tablist" aria-label="Chess Odyssey sections">
       <button type="button" id="nav-play" role="tab" aria-selected="true" aria-controls="practice-view" data-master-label="practiceTab">Практика и Академия</button>
@@ -39,7 +41,7 @@
       <div class="play-section">
         <div class="board-topline">
           <div><p class="eyebrow" data-i18n="game">Тренировочная партия</p><h2 id="game-status" aria-live="polite">Ваш ход</h2></div>
-          <label class="flip-control"><input type="checkbox" id="flip"><span data-i18n="flip">Повернуть доску</span></label>
+          <div class="board-top-actions"><label class="flip-control"><input type="checkbox" id="flip"><span data-i18n="flip">Повернуть доску</span></label><button type="button" id="wide-view" class="compact-action" aria-label="Wide board view">Широкая доска</button></div>
         </div>
         <div id="clock-panel" class="clock-panel" role="group" aria-label="Chess game clocks" hidden>
           <div class="clock-card" id="clock-black"><span class="clock-player" data-i18n="blackClock">Чёрные</span><span class="sandglass" aria-hidden="true">⌛</span><strong id="clock-black-time" class="clock-time" aria-label="Black time remaining">00:00</strong></div>
@@ -53,7 +55,17 @@
           <button id="hint" class="action accent" data-i18n="hint">Подсказка</button>
         </div>
         <div class="b8-controls"><button id="resign" type="button" class="action" data-i18n="resign">Сдаться</button><button id="rematch" type="button" class="action" data-i18n="rematch">Реванш</button></div>
-        <div class="moves-panel"><h3 data-i18n="moves">История ходов</h3><p id="moves" aria-live="polite">—</p></div>
+        <div class="moves-panel"><h3 data-i18n="moves">История ходов</h3>
+          <div class="replay-toolbar" role="group" aria-label="Move replay controls">
+            <button id="h-first" type="button" aria-label="First position" title="First position">|◀</button>
+            <button id="h-prev" type="button" aria-label="Previous move" title="Previous move">◀</button>
+            <span id="h-progress" aria-live="polite">0 / 0</span>
+            <button id="h-next" type="button" aria-label="Next move" title="Next move">▶</button>
+            <button id="h-last" type="button" aria-label="Last / live position" title="Last / live position">▶|</button>
+            <button id="h-return" type="button" class="replay-live" data-i18n="returnLive" hidden>К партии</button>
+          </div>
+          <div id="moves" class="move-timeline" role="group" aria-label="Recorded chess moves">—</div>
+        </div>
       </div>
       <aside class="sidebar">
         <section class="panel coach-panel">
@@ -61,11 +73,27 @@
           <p id="coach-message" class="coach-message" aria-live="polite">Выберите фигуру, затем доступную клетку.</p>
           <ol id="coach-variations" class="coach-variations" aria-label="Legal move choices" hidden></ol>
           <button id="review-button" class="review-button" data-i18n="reviewButton">Разбор ключевых ходов</button>
+          <details id="full-review-details" class="full-review-details">
+            <summary data-i18n="fullReview">Полный разбор партии</summary>
+            <div class="full-review-body">
+              <div class="review-actions"><label><span data-i18n="analysisQuality">Глубина анализа</span><select id="review-quality"><option value="quick" data-i18n="analysisQuick">Быстрый</option><option value="balanced" data-i18n="analysisBalanced">Сбалансированный</option><option value="deep" data-i18n="analysisDeep">Глубокий</option></select></label>
+              <button type="button" id="start-review" class="action accent" data-i18n="reviewStart">Анализировать ходы</button><button type="button" id="cancel-review" class="action" data-i18n="reviewCancel" hidden>Отменить анализ</button></div>
+              <p id="review-progress" role="status" aria-live="polite"></p>
+              <div id="review-summary" class="review-summary" aria-live="polite"></div>
+              <div id="review-chart" class="review-chart" role="img" aria-label="Position advantage after each move"></div>
+              <details id="move-legend" class="move-legend"><summary data-i18n="moveLegend">Что означают оценки ходов?</summary><div id="move-legend-list"></div></details>
+              <div id="review-entries" class="review-entries" role="group" aria-label="Move-by-move review"></div>
+            </div>
+          </details>
           <div id="coach-review" class="coach-review" aria-live="polite" hidden>
             <h3 data-i18n="reviewTitle">Ключевые моменты</h3>
             <ol id="review-list"></ol>
           </div>
           <p class="footnote" data-i18n="about">Рейтинг отключён в тренировке; без таймера</p>
+        </section>
+        <section class="panel appearance-panel">
+          <details id="board-theme-details" class="appearance-details"><summary><span data-appearance="boardTheme">Тема доски</span> <small id="theme-current">Классическое дерево</small></summary><div id="theme-options" class="appearance-options" role="group" aria-label="Board palettes"></div></details>
+          <details id="piece-style-details" class="appearance-details"><summary><span data-appearance="pieces">Набор фигур</span> <small id="piece-current">Классика Staunton</small></summary><div id="piece-options" class="appearance-options" role="group" aria-label="Piece styles"></div></details>
         </section>
         <section class="panel settings-panel">
           <div class="two-fields">
@@ -92,7 +120,7 @@
             <p id="clock-policy" class="footnote" aria-live="polite"></p>
           </div>
           <p id="match-integrity" class="match-integrity" aria-live="polite">В тренировке рейтинг не меняется.</p>
-          <label><span data-i18n="language">Язык</span><select id="lang"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label>
+          <label class="legacy-language-control" hidden><span data-i18n="language">Язык</span><select id="lang"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label>
         </section>
         <section class="panel academy-panel">
           <h2 data-i18n="lessons">Академия</h2>
@@ -211,7 +239,7 @@
             <select id="m-game" aria-label="Select historical master game"></select>
           </label>
           <p id="m-catalogue-count" class="masters-meta" aria-live="polite"></p>
-          <label><span data-master-label="language">Язык объяснений</span>
+          <label class="legacy-language-control" hidden><span data-master-label="language">Язык объяснений</span>
             <select id="m-lang"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select>
           </label>
           <p id="m-summary" class="masters-summary"></p>
@@ -239,7 +267,7 @@
         <p class="eyebrow" id="progress-eyebrow">ВАШ ПУТЬ В ШАХМАТАХ</p>
         <h2 id="progress-title">Мой прогресс</h2>
         <p id="progress-lead" class="progress-lead">Обучение и самостоятельная игра измеряются отдельно.</p>
-        <label class="progress-lang-control"><span id="progress-lang-label">Язык</span>
+        <label class="progress-lang-control legacy-language-control" hidden><span id="progress-lang-label">Язык</span>
           <select id="progress-lang" aria-label="Progress language"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select>
         </label>
       </div>
