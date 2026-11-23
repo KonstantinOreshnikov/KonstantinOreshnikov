@@ -33,7 +33,7 @@ function compile(Chess,source,commentaries){
    const note=byId.get(g.id);
    const expanded=g.collection==="championship-score";
    if(!note&&!expanded){failures.push(g.id+": missing original annotated lesson");continue;}
-   if(note&&expanded)failures.push(g.id+": candidate must not masquerade as authored annotation);
+   if(note&&expanded)failures.push(g.id+": candidate must not masquerade as authored annotation");
    if(!["1-0","0-1","1/2-1/2"].includes(g.result))failures.push(g.id+": invalid recorded result");
    const provenance=expanded?
      g.source==="https://raw.githubusercontent.com/bgard68/ClaudeChessApp/main/public/games/world-championship-title-matches.pgn"&&
