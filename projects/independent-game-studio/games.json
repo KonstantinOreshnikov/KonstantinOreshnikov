@@ -47,18 +47,29 @@
     {
       "id": "chess-odyssey",
       "canonical_path": "projects/independent-game-studio/games/chess-odyssey",
-      "current_verified_release": "v0.8.0",
-      "latest_development_candidate": "B9/v0.9 development",
-      "latest_verified_artifact": "projects/independent-game-studio/games/chess-odyssey/releases/ChessOdyssey_v0.8.0_Stockfish_Preview.zip",
+      "current_verified_release": "v0.8.0 (historical committed preview; no production release)",
+      "latest_development_candidate": "v0.9.0 P0–P2 development preview — QA PASS, source on main",
+      "latest_verified_artifact": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111/artifacts/14796195974",
       "source_path": "projects/independent-game-studio/games/chess-odyssey",
-      "sha256": "3bac88d0d34bcf41fdaedb4b63e482398e6f850c5ba183f2d15bf0e07fcb3395",
-      "qa_status": "historical main CI #407 3/3; cloud E2E BLOCKED",
-      "known_blockers": "real Neon authenticated two-user E2E and owner acceptance",
-      "last_verified": "2026-11-21 16:57 Asia/Baku (source cutoff)",
+      "sha256": "64a75e7fe2d95adf66207207882adae1c146817d4aefe6f58bc4679d29877bf1",
+      "qa_status": "P0–P2 feature CI 3/3 + Studio smoke PASS; merged main CI #45126130111 3/3 PASS; genuine Neon cloud PvP E2E still BLOCKED",
+      "known_blockers": "Neon authenticated persistent 2-user PvP E2E; physical Android/PC UAT; RU/EN/AZ human editorial; all 100 visual theme/style combinations",
+      "last_verified": "2026-11-23 (main CI #45126130111 3/3 PASS; feature CI 45125453080 and Studio smoke 45125452895 PASS)",
       "origin_branch": "main",
-      "origin_commit": "5bc3496152e2dd49db2cb60e2e0216926cbd9d91",
+      "origin_commit": "a81c5132e6bf0570744720551e857ec2f5f432c9",
       "release_artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865/artifacts/14705809423",
-      "artifact_provenance": "GitHub Actions run 44901266865 artifact 14705809423"
+      "artifact_provenance": "main push run 45126130111 artifact 14796195974; previous feature run 45125453080 artifact 14796265039; historical v0.8 original 14705809423",
+      "last_archived_preview_path": "projects/independent-game-studio/games/chess-odyssey/releases/ChessOdyssey_v0.8.0_Stockfish_Preview.zip",
+      "last_archived_preview_sha256": "3bac88d0d34bcf41fdaedb4b63e482398e6f850c5ba183f2d15bf0e07fcb3395",
+      "artifact_outer_sha256": "c0283f72b4a7c820ccad17fc1f9f4bbc54b423d13ef7c4404a718e129fe17a92",
+      "artifact_files": 46,
+      "artifact_expires_on": "2026-12-23",
+      "latest_development_artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111/artifacts/14796195974",
+      "latest_source_qa_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080",
+      "main_post_merge_ci_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111",
+      "reproducible_build": "scripts/build-standalone.cjs; scripts/package-preview.py (v0.9.0 CI ZIP time-limited; sources permanent)",
+      "postmerge_main_ci_status": "PASS 3/3"
     }
-  ]
+  ],
+  "latest_update": "2026-11-23 (Chess Odyssey v0.9 source published to main; other game cutoffs preserved)"
 }

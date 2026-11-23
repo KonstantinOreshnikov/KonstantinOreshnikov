@@ -1,21 +1,12 @@
 # Chess Odyssey — Academy, Arena & Legends
 
-## 2026-11-23 — P0–P2 v0.9.0 Development Preview (feature PR #18)
+## Current verified Chess Odyssey checkpoint — 2026-11-23
 
-**VERIFIED WORKING-BRANCH CANDIDATE; NOT MERGED TO `main`, NOT DEPLOYED.** Source at `c4b122840e19f0401c75508c2b520f302e5e52d0` passed [Chess Odyssey QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45124384103) **3/3 jobs** (Node/unit+integration; real Chrome browser E2E; Windows `.cmd` localhost/WASM smoke) and [Independent Game Studio smoke](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45124384267) **1/1 job**. New UX-specific coverage: **27/27 Node** and **16/16 real Chrome** checks. Historic B0–B9 regression also green, but B9 real Neon-authenticated cloud PvP was not exercised.
-
-**[Download v0.9.0 development preview from GitHub Actions](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45124384103/artifacts/14794988116)** (sign in to GitHub if required). Artifact `ChessOdyssey-v0.9.0-UX-GameReview-Development-PREVIEW` contains `ChessOdyssey_v0.9.0_Stockfish_Preview.zip` (**46 files**, internal SHA-256 `8262600a96954ef27e2083b0e80aea0e4436b62fc9342c812719d5cf6cf67d6e`); GitHub Actions artifact outer ZIP SHA-256 `502a4c008bbf7506583788efc1eee4e051601b7a35ad22e50cff86ad224bdef6`. Uploaded 2026-11-23, expires 2026-12-23. Both digests refer to different ZIP layers.
-
-**Implemented:** visible global RU/EN/AZ selector; non-mutating 0..N standard-game SAN replay independent of Practice Undo; 10 persisted board palettes and 10 piece sets with independently collapsed selectors; optional ~50% wide/fullscreen board; coach/review arrow overlays; depth-gated actual Stockfish review with per-color analyzed denominators, evaluations and clickable visualization; collapsed multilingual move legend. `Brilliant / Блестящий / Parlaq` is positive and never automatically fabricated. Genuine Stockfish analysis is available via `localhost` or HTTPS with WASM, not from offline `file://` HTML.
-
-**Open acceptance:** actual owner Android/desktop UAT; independent RU/EN/AZ educational semantic proofread; exhaustive visual check of all 100 board/piece combinations; real authenticated two-user Neon PvP E2E; and separate merge/deployment authorization. Technical preview PASS does not equal public v1.0 release.
-
-
-**MAIN BASELINE (2026-11-21): B9 / v0.9 DEVELOPMENT.** The last verified preview on `main` is **v0.8.0**; see the separate verified **v0.9.0 feature-branch candidate** above. [Canonical current status](docs/CURRENT_STATUS.md) · [verified MAIN CI #407](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865) · [merged PR #7](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/7). **Production v1.0 not released.**  
-**[Download verified local v0.8.0 ZIP](releases/ChessOdyssey_v0.8.0_Stockfish_Preview.zip)** · [Standalone v0.8.0 fallback HTML](dist/ChessOdyssey_v0.8.0_PREVIEW.html). The ZIP is the original artifact from CI #407, SHA-256 verified in migration.
-
-**Preserved baseline:** B7 v0.7.0 RC 238/238 PASS (#339).  
-**Development branch:** `game/chess-odyssey-v0.1`. The game is independent of the CBA Examinations Platform and the other three game projects.
+- **Newest code on `main`:** P0–P2 via [merged PR #18](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/18), merge commit `a81c5132e6bf0570744720551e857ec2f5f432c9`. Global RU/EN/AZ UI, non-destructive SAN replay, 10 board themes and 10 piece appearances, wide/fullscreen view, depth-aware Stockfish postgame analysis with arrows, per-side denominators and legend.
+- **Downloadable v0.9.0 DEVELOPMENT preview:** [46-file ZIP (GitHub Actions artifact)](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111/artifacts/14796195974). Internal ZIP SHA-256 `64a75e7fe2d95adf66207207882adae1c146817d4aefe6f58bc4679d29877bf1`, outer archive SHA-256 `c0283f72b4a7c820ccad17fc1f9f4bbc54b423d13ef7c4404a718e129fe17a92`; archive expires **2026-12-23**. GitHub `main` retains the versioned source and reproducible build scripts, but not the v0.9.0 binary ZIP.
+- **Executable evidence:** [Post-merge `main` CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111); [P0–P2 Chess QA 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080) (27/27 new Node UX, 16/16 new real Chromium UX, Windows Stockfish/WASM and historical regressions); studio smoke 1/1 PASS. [Post-merge `main` CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111) on the merged source.
+- **Historical rollback:** `releases/ChessOdyssey_v0.8.0_Stockfish_Preview.zip` is preserved in the Git repository (original 42-file ZIP, SHA-256 `3bac88d0d34bcf41fdaedb4b63e482398e6f850c5ba183f2d15bf0e07fcb3395`).
+- **NOT production-ready:** real Neon authenticated two-person PvP and persistent authorized game API, owner Android/PC UAT, human RU/EN/AZ educational QA and all 100 visual theme/piece combinations remain OPEN. No production deploy or Neon DB changes.
 
 ## B9 / v0.9 Development — source now on main, local PvP + Neon staging (not a published online service)
 
@@ -70,7 +61,9 @@ The index is **hidden until at least 5 eligible independent games** exist. From 
 
 ## How to play
 
-**Complete package with Stockfish:**
+**Newest v0.9.0 development preview with Stockfish:** [Download GitHub Actions package](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111/artifacts/14796195974) (retained until 2026-12-23). Extract the inner ZIP and run `START_WINDOWS.cmd` on Windows for genuine local Worker/WASM. Source/build scripts persist on `main`. **Older v0.8.0 instructions below are for rollback.**
+
+**Historical v0.8.0 full package:**
 
 1. Open [verified main-branch CI #407](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865); the downloadable playable binary in Artifacts is still **v0.8.0**, not v0.9.
 2. In the **green, successful v0.8.0** run, open *Artifacts*, download `ChessOdyssey-v0.8.0-B8-Development-Stockfish-PREVIEW`, and extract the ZIP.

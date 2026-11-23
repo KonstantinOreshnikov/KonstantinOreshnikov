@@ -1,15 +1,20 @@
 # Chess Odyssey — Changelog
 
-## 2026-11-23 — P0–P2 v0.9.0 UX + Stockfish Game Review DEVELOPMENT Preview
+## 2026-11-23 — Post-merge main QA and authoritative v0.9 artifact
 
-- Approved P0 global RU/EN/AZ switcher and non-destructive move-by-move standard-game history, separate from real Undo.
-- Implemented 10 board themes × 10 piece sets, collapsed preview selectors, persistent appearance settings and optional wide/fullscreen board layout.
-- Implemented postgame real-engine review with played/best arrows, per-side analyzed move counts, conservative classifications, interactive evaluation graph and multilingual legend. Offline file HTML does not pretend it has worker-based Stockfish scoring.
-- Feature PR #18 source SHA `c4b122840e19f0401c75508c2b520f302e5e52d0`: [Chess QA 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45124384103) including 27/27 new Node UX, 16/16 new real Chrome UX; [Studio smoke 1/1 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45124384267). [GitHub artifact v0.9.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45124384103/artifacts/14794988116), internal ZIP 46 files SHA-256 `8262600a96954ef27e2083b0e80aea0e4436b62fc9342c812719d5cf6cf67d6e`.
-- **Development preview only:** not merged to `main`; no deploy; human RU/EN/AZ and physical-device QA, exhaustive 100-pair visual validation and authenticated Neon PvP remain open.
+- [Actual `main` run #45126130111](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111) **3/3 JOBS PASS** on merge commit `a81c5132e6bf0570744720551e857ec2f5f432c9`: offline/unit, real Chromium, Windows launcher/WASM. P0–P2 new UX Chrome 16/16; B9 synthetic two-Chrome 11/11.
+- [Main-produced v0.9.0 ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111/artifacts/14796195974): **46 files**, 1,593,653 bytes; inner SHA-256 `64a75e7fe2d95adf66207207882adae1c146817d4aefe6f58bc4679d29877bf1`; outer artifact SHA-256 `c0283f72b4a7c820ccad17fc1f9f4bbc54b423d13ef7c4404a718e129fe17a92`, expires 2026-12-23. Both archives independently downloaded, opened and CRC-checked with zero errors. This main artifact supersedes the *feature-branch ZIP as the latest preview*, while earlier feature test and package hashes remain historical proof.
+- This remains a **development preview**. Real persistent Neon Auth/PvP E2E, human RU/EN/AZ content proofread, actual device UAT and full 10×10 legibility check are OPEN; no production deployment.
 
 
-**CURRENT: B9 / v0.9 Development**, not an idea and not yet a shipped v0.9 binary. Last verified preview on `main` is **v0.8.0** (feature PR #18 separately has verified v0.9.0 development preview); actual CI: [#403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) (3/3 PASS). See [canonical current status](docs/CURRENT_STATUS.md). The entries below are intentionally chronological and do not supersede newer gates.
+## 2026-11-23 — Chess Odyssey v0.9.0 P0–P2 development source published to main
+
+- [PR #18 merged](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/18), merge `a81c5132e6bf0570744720551e857ec2f5f432c9`: P0 global RU/EN/AZ and replay; P1 appearance presets (10 themes × 10 piece styles) and wide mode; P2 depth-aware genuine Stockfish Game Review, directional arrows, accuracy figures and legend.
+- [Chess CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080) + Studio smoke PASS: UX Node 27/27, Chrome 16/16; historical regression, real Stockfish and Windows passed. [Main post-merge CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111) is separately tracked.
+- [v0.9.0 46-file development ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080/artifacts/14796265039) inner SHA256 `fc6db2dcc41d9515414d73de2a0442e9a7ee8bff9c360c8f1d21fd187f208e66`, outer artifact SHA256 `80db5319d0ae2252cc796c511dfb7f4fbeefddb0a46adf40b91ac0336b73e04f`; ZIP not checked into git, expires 2026-12-23. Source/build scripts permanent. v0.8.0 ZIP archived in repo, unchanged.
+- Production v1.0, genuine authenticated Neon OTP/two-user PvP, independent tri-language semantic review, 100-pair theme/style and real-device UAT remain open.
+
+**CURRENT: B9 / v0.9 Development**, not an idea and not yet a shipped v0.9 binary. At the 2026-11-21 baseline, last archived in-repo preview was **v0.8.0** (feature PR #18 separately has verified v0.9.0 development preview); actual CI: [#403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) (3/3 PASS). See [canonical current status](docs/CURRENT_STATUS.md). The entries below are intentionally chronological and do not supersede newer gates.
 
 ## 2026-11-21 — Development Preview v0.1
 - Started dedicated branch game/chess-odyssey-v0.1 from earlier docs concept branch.
