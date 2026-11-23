@@ -104,8 +104,8 @@ async function server(){
     await page.locator("#h-next").click();
     const y=await page.evaluate(()=>scrollY);assert.ok(Math.abs(y-start)<=2,"scroll jump "+i+": "+y+" vs "+start);
     const region=await page.evaluate(()=>({board:document.querySelector("#board").getBoundingClientRect().top,
-      dock:document.querySelector(".board-replay-dock").getBoundingClientRect().bottom}));
-    assert.ok(region.board>=-4&&region.dock<=innerHeight+4,JSON.stringify(region));
+      dock:document.querySelector(".board-replay-dock").getBoundingClientRect().bottom,height:window.innerHeight}));
+    assert.ok(region.board>=-4&&region.dock<=region.height+4,JSON.stringify(region));
    }
    for(let i=0;i<7;i++)await page.locator("#h-prev").click();
    assert.equal(await page.locator("#board .move-grade-badge").count(),0);
