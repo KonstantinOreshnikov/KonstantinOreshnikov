@@ -70,6 +70,8 @@ const {chromium}=require("playwright"),assert=require("node:assert/strict"),path
      assert.equal(await page.locator("#resign").isDisabled(),true);
    });
    await check("bullet timeout awards loss and survives reload",async()=>{
+     // On phones, the original game settings are behind the new top accordion.
+     await page.locator("#mobile-game-settings > summary").click();
      await page.selectOption("#side","w");
      await page.selectOption("#time-control","bullet1");
      await page.clock.fastForward(61000);

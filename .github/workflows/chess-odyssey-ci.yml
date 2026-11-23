@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - "feature/chess-odyssey-v1-auth-hardening-20261123"
+      - "feature/chess-odyssey-mobile-settings-20261123"
       - "game/chess-odyssey-v0.1"
       - "main"
       - "chore/independent-game-studio-reconcile-20261121"
