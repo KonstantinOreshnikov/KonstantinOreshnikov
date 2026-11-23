@@ -349,3 +349,31 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
  #mobile-settings-done{display:block;width:100%;margin-top:16px;min-height:44px;font-size:13px}
 }
 @media(max-width:390px){#mobile-settings-fields .two-fields{grid-template-columns:minmax(0,1fr)}}
+
+/* Academy next to the board, using the original lesson/track selects. */
+.academy-dock{margin:0 0 14px;border:1px solid #b09154;border-radius:13px;background:linear-gradient(120deg,#192d3b,#132536);overflow:hidden}
+.academy-dock[hidden]{display:none!important}
+.academy-dock>summary{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 16px;min-height:49px;cursor:pointer;list-style:none;color:#f3dcaa;font-size:14px;font-weight:650}
+.academy-dock>summary::-webkit-details-marker{display:none}
+.academy-dock>summary::before{content:"▸";color:#f0ce83}
+.academy-dock[open]>summary::before{content:"▾"}
+.academy-dock>summary:focus-visible{outline:2px solid #edcc91;outline-offset:-3px}
+.academy-dock>summary small{color:#ccdbdf;font-size:12px;white-space:nowrap}
+.academy-dock-content{padding:0 14px 14px}
+.academy-dock-fields{display:grid;grid-template-columns:1fr 1.45fr;gap:10px;align-items:start}
+.academy-dock-fields label{min-width:0}
+.academy-dock-fields select{min-width:0;width:100%;font-size:12px}
+.academy-dock-instruction{margin:12px 0;padding:10px 11px;border-left:3px solid #d2b26f;color:#e2eef3;font-size:13px;line-height:1.5;background:#233746;border-radius:5px}
+.academy-dock-actions{display:flex;flex-wrap:wrap;gap:9px}
+.academy-dock-actions button{flex:1 1 auto;min-height:43px;padding:8px 10px;font-size:12px}
+#practice-view.academy-active #full-review-details,#practice-view.academy-active #review-button,#practice-view.academy-active #coach-review{display:none!important}
+#practice-view.independent-mode #hint,#practice-view.independent-mode #undo,#practice-view.independent-mode .coach-panel{display:none!important}
+@media(max-width:720px){
+ .academy-dock{margin-top:0}
+ .academy-dock-fields{grid-template-columns:1fr;gap:10px}
+ .academy-dock>summary{padding:11px 12px}
+ .academy-dock-content{padding:0 12px 12px}
+ .academy-dock-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .academy-dock-actions button{min-width:0}
+}
+@media(max-width:370px){.academy-dock-actions{grid-template-columns:1fr}}
