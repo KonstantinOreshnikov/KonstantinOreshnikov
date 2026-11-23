@@ -10,6 +10,8 @@ on:
       - "projects/independent-game-studio/games/chess-odyssey/styles.css"
       - "projects/independent-game-studio/games/chess-odyssey/app.js"
       - "projects/independent-game-studio/games/chess-odyssey/clock-core.js"
+      - "projects/independent-game-studio/games/chess-odyssey/chess-appearance.js"
+      - "projects/independent-game-studio/games/chess-odyssey/game-review-core.js"
       - "projects/independent-game-studio/games/chess-odyssey/pvp/**"
       - "projects/independent-game-studio/games/chess-odyssey/coach-engine.js"
       - "projects/independent-game-studio/games/chess-odyssey/engine-bridge.js"
@@ -38,6 +40,8 @@ on:
       - "projects/independent-game-studio/games/chess-odyssey/styles.css"
       - "projects/independent-game-studio/games/chess-odyssey/app.js"
       - "projects/independent-game-studio/games/chess-odyssey/clock-core.js"
+      - "projects/independent-game-studio/games/chess-odyssey/chess-appearance.js"
+      - "projects/independent-game-studio/games/chess-odyssey/game-review-core.js"
       - "projects/independent-game-studio/games/chess-odyssey/pvp/**"
       - "projects/independent-game-studio/games/chess-odyssey/coach-engine.js"
       - "projects/independent-game-studio/games/chess-odyssey/engine-bridge.js"
@@ -76,6 +80,10 @@ jobs:
           node --check projects/independent-game-studio/games/chess-odyssey/vendor/chess.js
           node --check projects/independent-game-studio/games/chess-odyssey/app.js
           node --check projects/independent-game-studio/games/chess-odyssey/clock-core.js
+          node --check projects/independent-game-studio/games/chess-odyssey/chess-appearance.js
+          node --check projects/independent-game-studio/games/chess-odyssey/game-review-core.js
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/p0p2-ui-core.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/p0p2-browser.cjs
           node --check projects/independent-game-studio/games/chess-odyssey/tests/clock-core.cjs
           node --check projects/independent-game-studio/games/chess-odyssey/pvp/match-service.cjs
           node --check projects/independent-game-studio/games/chess-odyssey/pvp/dev-server.cjs
@@ -121,6 +129,7 @@ jobs:
         working-directory: projects/independent-game-studio/games/chess-odyssey
         run: |
           node tests/clock-core.cjs
+          node tests/p0p2-ui-core.cjs
           node tests/b8-translation-structure.cjs
           node tests/b9-match-service.cjs
           node tests/b9-http.cjs
@@ -162,6 +171,7 @@ jobs:
         run: |
           node scripts/build-standalone.cjs 0.7.0
           node scripts/build-standalone.cjs 0.8.0
+          node scripts/build-standalone.cjs 0.9.0
           node tests/browser.cjs
           node tests/stockfish-browser.cjs
           node tests/academy-browser.cjs
@@ -172,13 +182,14 @@ jobs:
           node tests/release-accessibility.cjs
           node tests/b8-clock-browser.cjs
           node tests/b9-browser.cjs
+          node tests/p0p2-browser.cjs
       - name: Build and verify Stockfish preview ZIP with full GPL license
         working-directory: projects/independent-game-studio/games/chess-odyssey
         run: python3 scripts/package-preview.py
       - uses: actions/upload-artifact@v4
         with:
-          name: ChessOdyssey-v0.8.0-B8-Development-Stockfish-PREVIEW
-          path: projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v0.8.0_Stockfish_Preview.zip
+          name: ChessOdyssey-v0.9.0-UX-GameReview-Development-PREVIEW
+          path: projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v0.9.0_Stockfish_Preview.zip
           if-no-files-found: error
           retention-days: 30
 
@@ -190,7 +201,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: ChessOdyssey-v0.8.0-B8-Development-Stockfish-PREVIEW
+          name: ChessOdyssey-v0.9.0-UX-GameReview-Development-PREVIEW
           path: ${{ runner.temp }}\chess-artifact
       - name: Execute packaged Windows launcher, verify loopback, GPL and genuine WASM
         shell: pwsh
@@ -200,7 +211,7 @@ jobs:
           if (!$zip) { throw 'GitHub Actions artifact inner ZIP missing' }
           $folder=Join-Path $env:RUNNER_TEMP 'chess-release'
           Expand-Archive -LiteralPath $zip.FullName -DestinationPath $folder -Force
-          $game=Join-Path $folder 'ChessOdyssey_v0.8.0'
+          $game=Join-Path $folder 'ChessOdyssey_v0.9.0'
           if (!(Test-Path (Join-Path $game 'START_WINDOWS.cmd'))) { throw 'Windows launch script absent' }
           if (!(Test-Path (Join-Path $game 'engine\Copying.txt'))) { throw 'GPL license missing' }
           if (!(Test-Path (Join-Path $game 'engine\stockfish-19-lite-single.wasm'))) { throw 'Stockfish binary missing' }
