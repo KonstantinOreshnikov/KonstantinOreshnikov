@@ -51,6 +51,21 @@ function startServer(){
    assert.equal(await page.locator('[data-i18n="moveLegend"]').innerText(),"Gediş qiymətləndirmələri nə deməkdir?");
    await page.locator("#nav-play").click();
   });
+  await check("four tabs include offline-safe PvP board and 64 accessible squares",async()=>{
+   assert.equal(await page.locator('.game-tabs [role="tab"]').count(),4);
+   await page.locator("#nav-pvp").click();
+   assert.equal(await page.locator("#pvp-view").isVisible(),true);
+   assert.equal(await page.locator("#pvp-board .square").count(),64);
+   assert.equal(await page.locator("#pvp-create").isVisible(),true);
+   assert.equal(await page.locator("#pvp-resign").isDisabled(),true);
+   assert.match(await page.locator("#pvp-game-status").textContent(),/daxil olun|Войдите|Sign in/i);
+   await page.locator("#pvp-flip").click();
+   assert.equal(await page.locator("#pvp-board button").first().getAttribute("data-square"),"h1");
+   await page.locator("#pvp-flip").click();
+   assert.equal(await page.locator("#pvp-board button").first().getAttribute("data-square"),"a8");
+   await page.locator("#nav-progress").click();
+   await page.locator("#nav-play").click();
+  });
   await check("both setting menus start collapsed and are independent",async()=>{
    assert.equal(await page.locator("#board-theme-details").evaluate(x=>x.open),false);
    assert.equal(await page.locator("#piece-style-details").evaluate(x=>x.open),false);

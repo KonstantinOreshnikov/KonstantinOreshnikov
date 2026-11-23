@@ -26,7 +26,7 @@ function gameEngine(){
 function render(){
  const board=$("pvp-board");if(!board)return;
  const chess=gameEngine(),g=state.game;
- const bottom=state.flip?!state.color:state.color; // flipped orientation: invert side
+ const bottom=state.flip?(state.color==="w"?"b":"w"):state.color; // flipped orientation: invert side
  const reversed=bottom==="b",rows=chess.board(),frag=document.createDocumentFragment();
  for(let visualRank=0;visualRank<8;visualRank++){
   for(let visualFile=0;visualFile<8;visualFile++){
