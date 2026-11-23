@@ -118,7 +118,7 @@ async function server(){
    assert.match(await page.locator("#game-result-detail").innerText(),/Вы победили/);
   });
   await check("draw result displays no false winner",async()=>{
-   await seed(["Nf3","Nf6","Ng1","Ng8","Nf3","Nf6","Ng1","Ng8","Nf3","Nf6","Ng1"],"b");
+   await seed(["Nf3","Nf6","Ng1","Ng8","Nf3","Nf6","Ng1"],"b");
    await click("f6","g8");
    await page.locator("#game-result-toast").waitFor({state:"visible"});
    assert.match(await page.locator("#game-result-title").innerText(),/Ничья/);
