@@ -79,17 +79,20 @@ function startServer(){
    const variants=["staunton","tournament","neo","minimal","outline","wood","marble","metal","soft3d","highcontrast"];
    const inspect=()=>page.locator("#board .piece[data-code=wN]").first().evaluate(async el=>{
       const css=getComputedStyle(el).backgroundImage,match=css.match(/^url\(["']?(.*?)["']?\)$/);
-      if(!match)return {css};
-      const response=await fetch(match[1]);const body=await response.text();
-      return {status:response.status,type:response.headers.get("content-type"),svg:body.trimStart().startsWith("<svg")};
+      if(!match)return {loaded:false,css};
+      return await new Promise(resolve=>{
+       const picture=new Image();
+       picture.onload=()=>resolve({loaded:true,width:picture.naturalWidth,src:match[1]});
+       picture.onerror=()=>resolve({loaded:false,src:match[1]});
+       picture.src=match[1];
+      });
    });
    for(const id of variants){
       await page.locator("#piece-style-details > summary").click();
       await page.locator('#piece-options [data-value="'+id+'"]').click();
       const r=await inspect();
-      assert.equal(r.status,200,id+": "+JSON.stringify(r));
-      assert.match(r.type||"",/image\/svg\+xml/,id);
-      assert.ok(r.svg,id);
+      assert.equal(r.loaded,true,id+": "+JSON.stringify(r));
+      assert.ok(r.width>0,id+": invalid SVG dimensions");
    }
    await page.locator("#piece-style-details > summary").click();
    await page.locator('#piece-options [data-value="metal"]').click();
