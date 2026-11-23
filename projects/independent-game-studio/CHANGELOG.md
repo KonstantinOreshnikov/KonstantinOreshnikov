@@ -1,5 +1,12 @@
 # Studio development history
 
+## 2026-11-24 — Chess Odyssey public v1.0.0 release
+
+- [Play live](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Windows / Stockfish package](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056) · [release notes](games/chess-odyssey/docs/RELEASE_V1_0_0.md).
+- 33 Academy lessons, 300 historical games (31 annotated / 269 sourced), responsive RU/EN/AZ and Stockfish.
+- [3/3 source QA PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329) · [public browser smoke PASS](https://agent.tinyfish.ai/runs/ad1e13fb-00f5-4e26-a235-cd9013ae371d); owner accepted deferring live multi-device cloud, PvP outsider security and independent human/device reviews.
+- Caribbean Merchant, Kingdoms of Ember and Lord of Ultima remain unchanged.
+
 ## 2026-11-23 — Chess Odyssey v0.9.0 source/QA publication
 
 - [PR #18](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/18) merged into `main` at `a81c5132e6bf0570744720551e857ec2f5f432c9` (P0/P1/P2 UX and Game Review).
