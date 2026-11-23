@@ -2,6 +2,13 @@
 
 **Prepared:** 2026-11-23. **Status:** PREPARED, **NOT EXECUTED**. An offline/mock PASS does not close any live-auth, data-persistence, security, PvP or release gate.
 
+## Owner-approved v1.0 progress baseline — 2026-11-23
+
+- All progress accumulated during pre-v1.0 anonymous/local testing is **test-only and out of scope**. Do **not** build or execute migration, historical backfill, local-to-cloud import, or retroactive reward/achievement credit.
+- Every newly registered and verified account starts its **cloud-owned** Academy progress, stats and achievements at zero, irrespective of preexisting device-local progress. Historical `localStorage` data must not silently populate or overwrite the new account. No destructive local-data wipe is required by this decision.
+- Only lessons/games completed **after registration in the authenticated account** are eligible to save and synchronize between phone/PC. Subsequent sign-in on another device loads that account's actual server-owned progress; first-use zero is **not** a reset at every login.
+- Acceptance: register on a device containing legacy 23/33 or other nonzero local test progress -> authenticated profile stays 0/33; complete one new lesson -> account shows 1/33, sync to a second device -> 1/33; sign out and return -> 1/33; unrelated account still 0/33. Do not assert real E2E PASS without live OTP, Neon write/readback and RLS evidence.
+
 ## Authority and strict boundaries
 
 - GitHub staging source: draft [PR #21](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/21), branched from draft v1.0 [PR #20](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/20); `main` protected.
@@ -33,7 +40,7 @@ A gate marked BLOCKED must not be treated as PASS simply because synthetic tests
 
 ## Cloud progress (P) — real Neon rows and cross-device persistence
 
-1. **P1** — On device A, create a local training result and save voluntarily. Expect revision `0→1` (or last known revision + 1), one row owned by the verified JWT `sub`, and no implicit overwrite.
+1. **P1** — After authenticated sign-in on device A, complete a NEW training result (not imported from an anonymous/local test) and save voluntarily. Expect revision `0→1` (or last known revision + 1), one row owned by the verified JWT `sub`, and no implicit overwrite.
 2. **P2** — On device B, sign in as the SAME user, fetch and explicitly accept cloud download; match the stored completed lessons, history, game stats and version. Verify local backup is created before replacement.
 3. **P3** — Competing save from two devices: only one request with `expectedRevision` succeeds; the other returns 409. Local data on the conflict device remains unchanged. After refreshing revision, the user can retry safely.
 4. **P4** — Third outsider user cannot SELECT/modify another account's progress or use another identity; denial must be verified in real API+RLS, not only mock tests. Anonymous access is denied.
