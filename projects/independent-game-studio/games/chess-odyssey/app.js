@@ -55,6 +55,12 @@
     en:{mobileSettings:"Game settings",mobileSettingsDone:"Done — collapse settings"},
     az:{mobileSettings:"Partiya ayarları",mobileSettingsDone:"Hazırdır — ayarları yığ"}
   };
+  const ACADEMY_DOCK_TEXT={
+    ru:{heading:"Академия · выбрать урок",previous:"Предыдущий урок",choose:"Выберите урок — доска и подсказки рядом"},
+    en:{heading:"Academy · choose a lesson",previous:"Previous lesson",choose:"Choose a lesson — controls and hints stay by the board"},
+    az:{heading:"Akademiya · dərs seçin",previous:"Əvvəlki dərs",choose:"Dərs seçin — idarəetmə və ipucları lövhənin yanındadır"}
+  };
+  const academyDockText=key=>(ACADEMY_DOCK_TEXT[language]||ACADEMY_DOCK_TEXT.ru)[key]||key;
   const pl=(key)=>(POSTGAME_LABELS[language]||POSTGAME_LABELS.ru)[key]||key;
   const GRADE_KEYS={best:"reviewBestTag",excellent:"reviewExcellent",good:"reviewGood",ordinary:"reviewOrdinary",inaccuracy:"reviewInaccuracy",mistake:"reviewMistake",blunder:"reviewBlunder",unknown:"reviewUnknown"};
   function ux(key,values){return (UX_TEXT[language]||UX_TEXT.ru)[key]?.replace(/\{(\w+)\}/g,(_,k)=>values&&values[k]!==undefined?String(values[k]):"?")||key;}
@@ -175,6 +181,25 @@
     text("academy-step",task?lessonPrompt(task):"");
     $("next-lesson").hidden=!lastLessonId||!parked||Boolean(lesson);
     text("completed",completed.length+"/"+LESSONS.length);
+    // One canonical Academy control set: fields are physically moved to the board dock.
+    const dock=$("academy-dock");
+    if(dock){
+      const active=Boolean(lesson||lastLessonId&&parked);
+      dock.hidden=matchMode==="independent"&&!active;
+      const heading=task?.title?.[language]||lastLessonId&&ACADEMY.byId[lastLessonId]?.title?.[language]||academyDockText("heading");
+      text("academy-dock-heading",heading);
+      text("academy-dock-count",completed.length+"/"+LESSONS.length);
+      text("academy-dock-instruction",task?lessonPrompt(task):lastLessonId&&parked?at("completed"):academyDockText("choose"));
+      $("academy-dock-prev").disabled=!task&&!lastLessonId||LESSONS.findIndex(x=>x.id===(lesson||lastLessonId))<=0;
+      $("academy-dock-next").disabled=!lastLessonId||!parked||Boolean(lesson);
+      $("academy-dock-hint").hidden=!Boolean(task);
+      $("academy-dock-resume").hidden=!parked;
+      const root=$("practice-view");
+      if(root?.classList){
+        root.classList.toggle("academy-active",active);
+        root.classList.toggle("independent-mode",matchMode==="independent"&&!active);
+      }
+    }
   }
 
   const COACH_TEXT = {
@@ -920,6 +945,7 @@ function hint(){
   function newGame(){
     hideGameResult();cancelFullAnalysis();analysisResult=null;reviewCursor=null;clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();endedBy=null;lowAlerted=null;lesson=null;lessonStep=0;lastLessonId=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
     $("lesson").value="";
+    if($("academy-dock"))$("academy-dock").open=false;
     side=$("side").value;difficulty=$("level").value;language=$("lang").value;
     matchMode=$("match-mode").value==="independent"?"independent":"practice";
     if(CLOCK){
@@ -969,6 +995,7 @@ function hint(){
     game=ACADEMY.createPosition(task,Chess);
     lesson=id;lessonStep=0;lastLessonId=null;side=game.turn();selected=null;last=null;finalized=false;
     $("side").value=side;$("lesson").value=id;
+    if($("academy-dock"))$("academy-dock").open=true;
     render();renderAcademy();
     message(task.intro[language]);learnMessage(lessonPrompt(task));
     persist();
@@ -992,6 +1019,7 @@ function hint(){
     clearHints();showReview=finalized&&(game.game_over()||Boolean(endedBy));renderReview();
     if(CLOCK&&clockState?.baseMs&&clockState.paused)clockState=CLOCK.resume(clockState,Date.now());
     $("side").value=side;$("level").value=difficulty;$("flip").checked=previous.flipped;$("lesson").value="";
+    if($("academy-dock"))$("academy-dock").open=false;
     updateEngineAvailability();
     learnMessage("");message(tr("restored"));render();renderAcademy();persist();
     if(!finalized&&!game.game_over()&&game.turn()!==side)scheduleBot();
@@ -999,6 +1027,7 @@ function hint(){
   function refreshLabels(){
     document.documentElement.lang=language;
     if(APPEARANCE)APPEARANCE.setLanguage(language,document);
+    if($("academy-dock-prev"))text("academy-dock-prev",academyDockText("previous"));
     for(const node of document.querySelectorAll("[data-i18n]")){
       const name=node.getAttribute("data-i18n");
       node.textContent=(MOBILE_SETTINGS_TEXT[language]||MOBILE_SETTINGS_TEXT.ru)[name]||LABELS[language][name]||(B8_TEXT[language]||B8_TEXT.ru)[name]||(UX_TEXT[language]||UX_TEXT.ru)[name]||LABELS.ru[name]||B8_TEXT.ru[name]||UX_TEXT.ru[name]||name;
@@ -1042,6 +1071,27 @@ function hint(){
     en:{title:"Chess Odyssey",boardHelp:"Use arrow keys to move focus across the board. Enter or Space selects a square.",promotionHelp:"Choose the new piece for the pawn. Press Escape to cancel.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Learn by playing",newGame:"New game",undo:"Undo move",hint:"Hint",game:"Practice game",level:"AI difficulty",side:"My pieces",language:"Language",flip:"Flip board",lessons:"Academy",chooseLesson:"Choose a lesson…",resume:"Return to game",academyTrack:"Learning track",allTracks:"All tracks",trackBasics:"Rules and essentials",trackTactics:"Tactics and combinations",trackOpenings:"Opening ideas",trackEndgames:"Endgame",academyLesson:"Lesson or challenge",nextLesson:"Next lesson",reviewButton:"Review moves",reviewTitle:"Key moments",record:"Wins / losses / draws",done:"Lessons completed",moves:"Move history",about:"Practice does not affect rating; set clocks before playing",white:"White",black:"Black",beginner:"Beginner",novice:"Novice",intermediate:"Intermediate",advanced:"Advanced",expert:"Expert",grandmaster:"Grandmaster Challenge"},
     az:{title:"Chess Odyssey",boardHelp:"Ox düymələri ilə taxtada hərəkət edin. Xanəni seçmək üçün Enter və ya boşluq basın.",promotionHelp:"Piyadanın çevriləcəyi fiquru seçin. Ləğv etmək üçün Escape basın.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Oynayaraq öyrənin",newGame:"Yeni oyun",undo:"Gedişi ləğv et",hint:"İpucu",game:"Məşq oyunu",level:"AI çətinliyi",side:"Mənim fiqurlarım",language:"Dil",flip:"Taxtanı çevir",lessons:"Akademiya",chooseLesson:"Dərs seçin…",resume:"Oyuna qayıt",academyTrack:"Təlim bölməsi",allTracks:"Bütün bölmələr",trackBasics:"Qaydalar və əsaslar",trackTactics:"Taktika və kombinasiyalar",trackOpenings:"Debüt ideyaları",trackEndgames:"Endşpil",academyLesson:"Dərs və ya tapşırıq",nextLesson:"Növbəti dərs",reviewButton:"Gedişləri təhlil et",reviewTitle:"Əsas məqamlar",record:"Qələbə / məğlubiyyət / heç-heçə",done:"Tamamlanmış dərslər",moves:"Gedişlərin tarixçəsi",about:"Məşq reytinqə təsir etmir; saatı oyundan əvvəl seçin",white:"Ağlar",black:"Qaralar",beginner:"Başlanğıc",novice:"Həvəskar",intermediate:"Orta",advanced:"İrəliləmiş",expert:"Ekspert",grandmaster:"Qrossmeyster sınağı"}
   };
+  function setupAcademyDock(){
+    if(typeof document.querySelector!=="function")return; // Node synthetic fixture
+    const dock=$("academy-dock"),host=$("academy-dock-fields");
+    const panel=document.querySelector("#practice-view .academy-panel");
+    const track=panel?.querySelector(".academy-filter-label");
+    const select=panel?.querySelector(".academy-lesson-label");
+    if(!dock||!host||!track||!select)return;
+    // Reparent existing native selects and labels: no duplicated IDs or progress state.
+    host.append(track,select);
+    $("academy-dock-next").addEventListener("click",nextLesson);
+    $("academy-dock-hint").addEventListener("click",hint);
+    $("academy-dock-resume").addEventListener("click",resumeGame);
+    $("academy-dock-prev").addEventListener("click",()=>{
+      const id=lesson||lastLessonId,index=LESSONS.findIndex(x=>x.id===id);
+      if(index<=0)return;
+      const previous=LESSONS[index-1];
+      academyTrack=previous.track;$("academy-track").value=academyTrack;
+      startLesson(previous.id);
+    });
+    if(lesson||lastLessonId&&parked)dock.open=true;
+  }
   function setupMobileSettings(){
     // Headless chess-rule fixtures may supply a minimal document without DOM query APIs.
     if(typeof document.querySelector!=="function"||typeof window.matchMedia!=="function")return;
@@ -1085,6 +1135,7 @@ function hint(){
       $("lang").value=lang;$("lang").dispatchEvent(new Event("change",{bubbles:true}));
     }});
     setupMobileSettings();
+    setupAcademyDock();
     if($("game-result-close"))$("game-result-close").addEventListener("click",hideGameResult);
     if($("game-result-review"))$("game-result-review").addEventListener("click",()=>{
       hideGameResult();$("full-review-details").open=true;
