@@ -92,9 +92,14 @@
  let lang="ru",state=Core.empty(),ready=false;
  const format=(key,vars)=>((translations[lang]||translations.ru)[key]||key).replace(/\{(\w+)\}/g,(_m,k)=>vars&&vars[k]!==undefined?String(vars[k]):"?");
  function load(){
+   // Never display cached server-owned scores before the account is re-verified.
+   if(localStorage.getItem("chess-odyssey-cloud-owner-v1")){state=Core.empty();return;}
    try{state=Core.safe(JSON.parse(localStorage.getItem(KEY)||"null"),verified.games);}catch(_error){state=Core.empty();}
  }
  function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(_error){/* private mode */}}
+ function notifyCloud(){
+   if(typeof root.dispatchEvent==="function"&&typeof Event==="function")root.dispatchEvent(new Event("chess-progress-commit"));
+ }
  function completed(){
    try{
      const record=JSON.parse(localStorage.getItem(PRACTICE_KEY)||"null");
@@ -181,17 +186,17 @@
    if(updated===state)return false;
    const old=JSON.stringify(state.masters[id]||null),next=JSON.stringify(updated.masters[id]||null);
    if(old===next)return false;
-   state=updated;persist();refresh();return true;
+   state=updated;persist();refresh();notifyCloud();return true;
  }
  function recordQuiz(id,ply){
    const game=verified.byId[id];if(!game)return false;
    const changed=Core.solve(state,game,ply),old=JSON.stringify(state.masters[id]||null),next=JSON.stringify(changed.masters[id]||null);
    if(old===next)return false;
-   state=changed;persist();refresh();return true;
+   state=changed;persist();refresh();notifyCloud();return true;
  }
  function recordGame(record){
    const result=Core.match(state,Chess,record);
-   if(result.accepted){state=result.state;persist();refresh();}
+   if(result.accepted){state=result.state;persist();refresh();notifyCloud();}
    return {accepted:result.accepted,reason:result.reason};
  }
  const api={
