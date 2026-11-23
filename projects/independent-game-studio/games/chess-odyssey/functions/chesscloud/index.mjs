@@ -183,7 +183,7 @@ export function createCloud({env,fetchImpl=fetch,now=()=>Date.now()}){
  return Object.freeze({async fetch(request){
   let origin=request.headers.get("origin");
   if(origin&&!cfg.origins.has(origin))return asJson(403,{error:"ORIGIN_DENIED"});
-  const cors=origin?{"Access-Control-Allow-Origin":origin,"Vary":"Origin","Access-Control-Allow-Headers":"authorization,content-type","Access-Control-Allow-Methods":"GET,PUT,OPTIONS"}:{};
+  const cors=origin?{"Access-Control-Allow-Origin":origin,"Vary":"Origin","Access-Control-Allow-Headers":"authorization,content-type","Access-Control-Allow-Methods":"GET,PUT,POST,OPTIONS"}:{};
   if(request.method==="OPTIONS")return origin?new Response(null,{status:204,headers:cors}):asJson(403,{error:"ORIGIN_REQUIRED"});
   if(request.headers.has("x-demo-user"))return asJson(400,{error:"TEST_IDENTITY_DENIED"},cors);
   const u=new URL(request.url);
