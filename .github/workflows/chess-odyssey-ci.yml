@@ -85,6 +85,8 @@ jobs:
           node --check projects/independent-game-studio/games/chess-odyssey/game-review-core.js
           node --check projects/independent-game-studio/games/chess-odyssey/tests/p0p2-ui-core.cjs
           node --check projects/independent-game-studio/games/chess-odyssey/tests/p0p2-browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/v1-postgame-ux-browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/v1-postgame-skills.cjs
           node --check projects/independent-game-studio/games/chess-odyssey/tests/v1-appearance-matrix-browser.cjs
           node --check projects/independent-game-studio/games/chess-odyssey/tests/v1-cloud-ui-browser.cjs
           node --check projects/independent-game-studio/games/chess-odyssey/tests/clock-core.cjs
@@ -137,6 +139,7 @@ jobs:
           node tests/v1-cloud-api.cjs
           node tests/v1-cloud-client-contract.cjs
           node tests/v1-pvp-cloud.cjs
+          node tests/v1-postgame-skills.cjs
           node tests/b8-translation-structure.cjs
           node tests/b9-match-service.cjs
           node tests/b9-http.cjs
@@ -182,6 +185,7 @@ jobs:
           node tests/p0p2-browser.cjs
           node tests/v1-appearance-matrix-browser.cjs
           node tests/v1-cloud-ui-browser.cjs
+          node tests/v1-postgame-ux-browser.cjs
           node tests/browser.cjs
           node tests/stockfish-browser.cjs
           node tests/academy-browser.cjs
