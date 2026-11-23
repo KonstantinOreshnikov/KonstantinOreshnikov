@@ -1,10 +1,17 @@
 # Chess Odyssey QA Ledger
 
+## 2026-11-23 — Post-merge main QA and authoritative v0.9 artifact
+
+- [Actual `main` run #45126130111](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111) **3/3 JOBS PASS** on merge commit `a81c5132e6bf0570744720551e857ec2f5f432c9`: offline/unit, real Chromium, Windows launcher/WASM. P0–P2 new UX Chrome 16/16; B9 synthetic two-Chrome 11/11.
+- [Main-produced v0.9.0 ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111/artifacts/14796195974): **46 files**, 1,593,653 bytes; inner SHA-256 `64a75e7fe2d95adf66207207882adae1c146817d4aefe6f58bc4679d29877bf1`; outer artifact SHA-256 `c0283f72b4a7c820ccad17fc1f9f4bbc54b423d13ef7c4404a718e129fe17a92`, expires 2026-12-23. Both archives independently downloaded, opened and CRC-checked with zero errors. This main artifact supersedes the *feature-branch ZIP as the latest preview*, while earlier feature test and package hashes remain historical proof.
+- This remains a **development preview**. Real persistent Neon Auth/PvP E2E, human RU/EN/AZ content proofread, actual device UAT and full 10×10 legibility check are OPEN; no production deployment.
+
+
 ## 2026-11-23 — P0–P2 merged source and verified development preview
 
 - [PR #18](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/18) **MERGED into `main`** at `a81c5132e6bf0570744720551e857ec2f5f432c9`. P0 global RU/EN/AZ, non-destructive SAN replay; P1 10×10 theme/piece options and wide board; P2 Stockfish postgame review/arrows, per-side analyzed moves/accuracy and multilingual move legend. Neither production auth nor Neon DB was changed.
 - Source commit `b8306da9aef74241d6f91e5be7fb1b6067e720e8`: [Chess QA 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080); new UX Node **27/27**, real Chrome **16/16**, B8 clocks **32/32**, synthetic B9 **27/27 domain + 15/15 HTTP + 11/11 dual-Chrome**, native Windows Stockfish/GPL smoke PASS. [Studio smoke #45125452895](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125452895) 1/1 PASS.
-- [Post-merge `main` CI #45126130111](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111) is a separate workflow: record success only when its actual jobs conclude.
+- [Post-merge `main` CI #45126130111](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111) **3/3 PASS**, separately verified, see top checkpoint.
 - [v0.9.0 development preview ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080/artifacts/14796265039), 46 files, 1,593,653 bytes, verified inner SHA-256 `fc6db2dcc41d9515414d73de2a0442e9a7ee8bff9c360c8f1d21fd187f208e66`, outer Actions artifact SHA-256 `80db5319d0ae2252cc796c511dfb7f4fbeefddb0a46adf40b91ac0336b73e04f`. Both ZIPs checked for CRC errors; none. Outer artifact expires 2026-12-23; code/build scripts remain on `main`. Historical v0.8.0 archive retained.
 - Preserve historical PR #18 red-to-green runs (#45123329659, #45123725453, #45124096306), corrected through targeted selector/legacy regression repairs.
 - **OPEN / not production release:** actual independent human RU/EN/AZ semantic proofreading; physical Android/desktop UAT and exhaustive 100 visual combinations; real authenticated two-user durable Neon PvP E2E with negative access testing. `X-Demo-User` local fixture is not production Auth.

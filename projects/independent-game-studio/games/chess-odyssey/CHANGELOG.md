@@ -1,5 +1,12 @@
 # Chess Odyssey — Changelog
 
+## 2026-11-23 — Post-merge main QA and authoritative v0.9 artifact
+
+- [Actual `main` run #45126130111](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111) **3/3 JOBS PASS** on merge commit `a81c5132e6bf0570744720551e857ec2f5f432c9`: offline/unit, real Chromium, Windows launcher/WASM. P0–P2 new UX Chrome 16/16; B9 synthetic two-Chrome 11/11.
+- [Main-produced v0.9.0 ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111/artifacts/14796195974): **46 files**, 1,593,653 bytes; inner SHA-256 `64a75e7fe2d95adf66207207882adae1c146817d4aefe6f58bc4679d29877bf1`; outer artifact SHA-256 `c0283f72b4a7c820ccad17fc1f9f4bbc54b423d13ef7c4404a718e129fe17a92`, expires 2026-12-23. Both archives independently downloaded, opened and CRC-checked with zero errors. This main artifact supersedes the *feature-branch ZIP as the latest preview*, while earlier feature test and package hashes remain historical proof.
+- This remains a **development preview**. Real persistent Neon Auth/PvP E2E, human RU/EN/AZ content proofread, actual device UAT and full 10×10 legibility check are OPEN; no production deployment.
+
+
 ## 2026-11-23 — Chess Odyssey v0.9.0 P0–P2 development source published to main
 
 - [PR #18 merged](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/18), merge `a81c5132e6bf0570744720551e857ec2f5f432c9`: P0 global RU/EN/AZ and replay; P1 appearance presets (10 themes × 10 piece styles) and wide mode; P2 depth-aware genuine Stockfish Game Review, directional arrows, accuracy figures and legend.
