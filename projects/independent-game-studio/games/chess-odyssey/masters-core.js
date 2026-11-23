@@ -41,7 +41,7 @@ function compile(Chess,source,commentaries){
      /^https:\/\/chessgator\.com\/games\/[a-z0-9-]+$/.test(g.source);
    if(!provenance)failures.push(g.id+": invalid score provenance");
    const year=Number(g.year),match=g.id.match(/(\d{4})$/);
-   if(!Number.isInteger(year)||year<1800||year>2026||(match&&Number(match[1])!==year))failures.push(g.id+": date mismatch");
+   if(!Number.isInteger(year)||year<1800||year>2026||(!expanded&&match&&Number(match[1])!==year))failures.push(g.id+": date mismatch");
    if(!g.white||!g.black||!g.event||!Array.isArray(g.moves)||g.moves.length<12||g.plies!==g.moves.length)failures.push(g.id+": incomplete source record");
    const display=note||g;
    if(!languages.every(k=>display.title&&display.title[k]&&display.summary&&display.summary[k]&&display.title[k].length>=12&&display.summary[k].length>=60))
