@@ -16,7 +16,7 @@ const {pathToFileURL}=require("node:url");
   const payload=Buffer.from(JSON.stringify({sub:id,iss:origin,aud:origin,iat:at/1000,exp:at/1000+900,role:"authenticated",emailVerified:true})).toString("base64url");
   bearer[id]=hdr+"."+payload+"."+sign(null,Buffer.from(hdr+"."+payload),privateKey).toString("base64url");
  }
- let invite=null,game=null,invites=[],games=[],moves=0;
+ let invite=null,game=null,invites=[],games=[],moves=0,moveRows=[];
  const rpcCalls=[];
  const dataFetch=async (url,options={})=>{
   if(url.endsWith("jwks.json"))return Response.json({keys:[jwk]});
@@ -25,6 +25,9 @@ const {pathToFileURL}=require("node:url");
   if(method==="GET"){
    if(path.endsWith("/games"))return Response.json(games.filter(g=>[g.white_user_id,g.black_user_id].includes(uid)).filter(g=>!u.searchParams.has("game_id")||"eq."+g.game_id===u.searchParams.get("game_id")));
    if(path.endsWith("/invites"))return Response.json(invites.filter(i=>[i.inviter_user_id,i.invited_user_id].includes(uid)));
+   if(path.endsWith("/moves"))return Response.json(moveRows.filter(m=>m.game_id===game?.game_id&&
+     [game.white_user_id,game.black_user_id].includes(uid)&&
+     "eq."+m.request_id===u.searchParams.get("request_id")));
    return Response.json([]);
   }
   const body=JSON.parse(options.body);
@@ -45,6 +48,8 @@ const {pathToFileURL}=require("node:url");
   if(path.endsWith("/rpc/commit_move")){
    if(Number(game.version)!==body.p_expected_version)return Response.json({code:"40001",message:"STALE_GAME_VERSION"},{status:409});
    game.canonical_fen=body.p_new_fen;game.canonical_pgn=body.p_new_pgn;game.version++;game.move_count++;moves++;
+   moveRows.push({game_id:game.game_id,actor_user_id:uid,request_id:body.p_request_id,
+     from_square:body.p_from,to_square:body.p_to,promotion:body.p_promotion,san:body.p_san});
    if(body.p_result){game.state="finished";game.result=body.p_result;game.reason=body.p_reason}
    return Response.json({game_id:game.game_id,version:game.version,fen:game.canonical_fen,san:body.p_san,duplicate:false});
   }
@@ -82,12 +87,35 @@ const {pathToFileURL}=require("node:url");
  await ok("Bob cannot move before white",async()=>{let r=await request("bob","play",{gameId:game.game_id,expectedVersion:0,requestId:"11111111-2222-4222-8222-111111111111",from:"e7",to:"e5"});assert.equal(r.status,409)});
  await ok("illegal rook jump rejected before DB call",async()=>{let prior=rpcCalls.length;let r=await request("alice","play",{gameId:game.game_id,expectedVersion:0,requestId:"11111111-2222-4222-8222-111111111112",from:"a1",to:"a6"});assert.equal(r.status,422);assert.equal(rpcCalls.length,prior)});
  await ok("Alice legal e2-e4 committed",async()=>{let r=await request("alice","play",{gameId:game.game_id,expectedVersion:0,requestId:"11111111-2222-4222-8222-111111111113",from:"e2",to:"e4"});assert.equal(r.status,200);assert.equal(game.move_count,1);assert.match(game.canonical_pgn,/e4/)});
+ await ok("lost response: retry of Alice's committed move is idempotent",async()=>{
+   const r=await request("alice","play",{gameId:game.game_id,expectedVersion:0,
+     requestId:"11111111-2222-4222-8222-111111111113",from:"e2",to:"e4"});
+   assert.equal(r.status,200);assert.equal((await r.json()).duplicate,true);
+   assert.equal(moves,1);assert.equal(moveRows.length,1);
+ });
+ await ok("reused request ID with altered move cannot succeed",async()=>{
+   const r=await request("alice","play",{gameId:game.game_id,expectedVersion:0,
+     requestId:"11111111-2222-4222-8222-111111111113",from:"d2",to:"d4"});
+   assert.equal(r.status,409);
+   assert.equal((await r.json()).error,"REQUEST_ID_REUSED");
+ });
+ await ok("other participant cannot replay Alice's request ID",async()=>{
+   const r=await request("bob","play",{gameId:game.game_id,expectedVersion:0,
+     requestId:"11111111-2222-4222-8222-111111111113",from:"e2",to:"e4"});
+   assert.equal(r.status,409);
+ });
  await ok("Alice cannot make consecutive move",async()=>{let r=await request("alice","play",{gameId:game.game_id,expectedVersion:1,requestId:"11111111-2222-4222-8222-111111111114",from:"d2",to:"d4"});assert.equal(r.status,409)});
  await ok("Bob legal e7-e5 committed",async()=>{let r=await request("bob","play",{gameId:game.game_id,expectedVersion:1,requestId:"11111111-2222-4222-8222-111111111115",from:"e7",to:"e5"});assert.equal(r.status,200);assert.equal(game.move_count,2);assert.match(game.canonical_pgn,/e5/)});
  await ok("Stale version rejects competing move",async()=>assert.equal((await request("alice","play",{gameId:game.game_id,expectedVersion:0,requestId:"11111111-2222-4222-8222-111111111116",from:"g1",to:"f3"})).status,409));
  await ok("Third player cannot read private game by actual ID",async()=>assert.equal((await request("charlie","game?id="+game.game_id,null,"GET")).status,404));
  await ok("Alice offers draw",async()=>{let r=await request("alice","draw",{gameId:game.game_id,expectedVersion:2,action:"offer"});assert.equal(r.status,200);assert.equal(game.version,3)});
  await ok("Bob accepts draw",async()=>{let r=await request("bob","draw",{gameId:game.game_id,expectedVersion:3,action:"accept"});assert.equal(r.status,200);assert.equal(game.state,"finished");assert.equal(game.result,"1/2-1/2")});
+ await ok("lost response retry survives game completion",async()=>{
+   const r=await request("alice","play",{gameId:game.game_id,expectedVersion:0,
+     requestId:"11111111-2222-4222-8222-111111111113",from:"e2",to:"e4"});
+   assert.equal(r.status,200);assert.equal((await r.json()).duplicate,true);
+   assert.equal(moves,2);
+ });
  await ok("Finished game disallows play",async()=>assert.equal((await request("alice","play",{gameId:game.game_id,expectedVersion:4,requestId:"11111111-2222-4222-8222-111111111117",from:"g1",to:"f3"})).status,409));
  await ok("Alice creates targeted rematch",async()=>{let r=await request("alice","rematch",{gameId:game.game_id,expectedVersion:4});assert.equal(r.status,200);assert.equal(invite.invited_user_id,"bob");token=(await r.clone().json()).inviteToken});
  await ok("Bob accepts rematch with opposite colors",async()=>{let r=await request("bob","accept",{inviteToken:token});assert.equal(r.status,200);assert.equal(game.white_user_id,"bob");assert.equal(game.black_user_id,"alice")});
