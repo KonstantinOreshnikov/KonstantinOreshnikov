@@ -124,6 +124,16 @@ async function server(){
    assert.match(await page.locator("#game-result-title").innerText(),/Ничья/);
    assert.match(await page.locator("#game-result-detail").innerText(),/вничью/);
   });
+  await check("resignation confirmation produces loss toast and never repeats on reload",async()=>{
+   await seed([],"w");
+   page.once("dialog",dialog=>dialog.accept());
+   await page.locator("#resign").click();
+   await page.locator("#game-result-toast").waitFor({state:"visible"});
+   assert.match(await page.locator("#game-result-title").innerText(),/Победили чёрные/);
+   assert.match(await page.locator("#game-result-detail").innerText(),/Вы проиграли/);
+   await page.reload();
+   assert.equal(await page.locator("#game-result-toast").isVisible(),false);
+  });
   await check("mobile reviewed navigation fits viewport without horizontal scrolling",async()=>{
    await page.setViewportSize({width:390,height:844});
    await page.locator("#h-first").click();
