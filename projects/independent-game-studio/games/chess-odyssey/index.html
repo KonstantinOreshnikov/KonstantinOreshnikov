@@ -20,6 +20,7 @@
   <script defer src="game-review-core.js"></script>
   <script defer src="app.js"></script>
   <script defer src="masters-library.js"></script>
+  <script defer src="masters-expanded.js"></script>
   <script defer src="masters-notes-a.js"></script>
   <script defer src="masters-notes-b.js"></script>
   <script defer src="masters-notes-c.js"></script>
@@ -258,6 +259,14 @@
       <aside class="masters-sidebar">
         <section class="panel masters-catalogue">
           <h2 data-master-label="libraryTitle">Библиотека исторических партий</h2>
+          <label><span data-master-label="groupTitle">Коллекция</span>
+            <select id="m-group" aria-label="Historical game collection">
+              <option value="all" data-master-label="groupAll">Все коллекции</option>
+              <option value="legends" data-master-label="groupLegends">Легенды · подробные разборы</option>
+              <option value="champions" data-master-label="groupChampions">Чемпионы мира · полные партии</option>
+              <option value="modern" data-master-label="groupModern">Современные чемпионаты (2010+)</option>
+            </select>
+          </label>
           <label><span data-master-label="filterTitle">Тема</span>
             <select id="m-filter">
               <option value="all" data-master-label="all">Все темы</option>
@@ -265,6 +274,7 @@
               <option value="strategy" data-master-label="strategy">Стратегия и защита</option>
               <option value="endgame" data-master-label="endgame">Эндшпиль и пешки</option>
               <option value="machine" data-master-label="machine">Человек и машина</option>
+              <option value="championship" data-master-label="championship">Матчи за мировую корону</option>
             </select>
           </label>
           <label><span data-master-label="searchTitle">Поиск по игроку, названию и году</span>
@@ -366,7 +376,7 @@
         </article>
         <article class="panel progress-metric">
           <p id="progress-masters-label">Мастера и легенды</p>
-          <strong id="progress-masters">0 / 31</strong>
+          <strong id="progress-masters">0 / 300</strong>
           <small id="progress-masters-note">Полностью изученные партии</small>
         </article>
         <article class="panel progress-metric">
