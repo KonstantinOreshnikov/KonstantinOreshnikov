@@ -571,6 +571,117 @@ function hint(){
     $("h-last").disabled=!moves.length||at===moves.length;
     $("h-return").hidden=reviewCursor===null;
   }
+  function cancelFullAnalysis(){
+    analysisGeneration++;analysisRunning=false;
+    if(analysisWorker){analysisWorker.dispose();analysisWorker=null;}
+    $("cancel-review").hidden=true;
+  }
+  function renderLegend(){
+    const holder=$("move-legend-list"),keys=["brilliant","best","excellent","good","ordinary","inaccuracy","mistake","blunder","unknown"];
+    const ids={brilliant:"reviewBrilliant",best:"reviewBestTag",excellent:"reviewExcellent",
+      good:"reviewGood",ordinary:"reviewOrdinary",inaccuracy:"reviewInaccuracy",
+      mistake:"reviewMistake",blunder:"reviewBlunder",unknown:"reviewUnknown"};
+    const frag=document.createDocumentFragment();
+    for(const key of keys){
+      const entry=document.createElement("div"),strong=document.createElement("strong");
+      strong.textContent=UX_ICONS[key]+" — "+ux(ids[key]);
+      entry.appendChild(strong);frag.appendChild(entry);
+    }
+    holder.replaceChildren(frag);
+  }
+  function renderReviewChart(records){
+    const holder=$("review-chart");holder.replaceChildren();
+    if(!records?.length)return;
+    const ns="http://www.w3.org/2000/svg",svg=document.createElementNS(ns,"svg");
+    svg.setAttribute("viewBox","0 0 500 105");svg.setAttribute("role","img");
+    svg.setAttribute("aria-label",ux("reviewSource"));
+    const base=document.createElementNS(ns,"line");
+    for(const [key,value]of Object.entries({x1:"0",x2:"500",y1:"52",y2:"52",stroke:"#889aa9","stroke-dasharray":"3 4"}))base.setAttribute(key,value);
+    svg.appendChild(base);
+    const known=records.filter(x=>Number.isFinite(x.cpAfter));
+    let previous=null;
+    for(const e of known){
+      const x=8+484*e.ply/records.length;
+      const y=52-42*Math.tanh(e.cpAfter/500);
+      if(previous){
+        const line=document.createElementNS(ns,"line");
+        for(const [key,value]of Object.entries({x1:previous[0],y1:previous[1],x2:x,y2:y,stroke:"#e6c583","stroke-width":2}))line.setAttribute(key,String(value));
+        svg.appendChild(line);
+      }
+      const dot=document.createElementNS(ns,"circle");
+      for(const [key,value]of Object.entries({cx:x,cy:y,r:4,fill:"#78d5b4",tabindex:"0",role:"button","aria-label":e.ply+" "+e.san}))dot.setAttribute(key,String(value));
+      dot.style.cursor="pointer";
+      dot.addEventListener("click",()=>jumpHistory(e.ply));
+      dot.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();jumpHistory(e.ply);}});
+      svg.appendChild(dot);previous=[x,y];
+    }
+    holder.appendChild(svg);
+  }
+  function renderFullReview(){
+    const all=game.history({verbose:true}),pgn=game.pgn();
+    if(analysisResult?.pgn!==pgn)analysisResult=null;
+    const denied=Boolean(lesson||(currentMatch()&&!finalized));
+    $("start-review").disabled=denied||!all.length||analysisRunning;
+    $("cancel-review").hidden=!analysisRunning;
+    renderLegend();
+    const sum=$("review-summary");sum.replaceChildren();
+    const report=analysisResult;
+    if(report){
+      for(const color of ["w","b"]){
+        const s=report.summary[color],card=document.createElement("div");
+        card.className="side-report";
+        const title=document.createElement("b"),grade=document.createElement("strong"),count=document.createElement("p");
+        title.textContent=ux(color==="w"?"reviewWhite":"reviewBlack");
+        grade.textContent=s.accuracy===null?"—":s.accuracy.toFixed(1)+"%";
+        count.textContent=ux("reviewAnalyzed")+": "+s.analyzed+" / "+s.total;
+        card.append(title,grade,count);sum.appendChild(card);
+      }
+    }
+    const entries=$("review-entries"),frag=document.createDocumentFragment();
+    for(let i=0;i<all.length;i++){
+      const move=all[i],entry=report?.entries?.[i];
+      const button=document.createElement("button");button.type="button";button.className="review-entry";
+      button.dataset.ply=String(i+1);button.dataset.tag=entry?.tag||"unknown";
+      button.setAttribute("aria-current",String((reviewCursor===null?all.length:reviewCursor)===i+1));
+      const line=document.createElement("span");
+      line.textContent=(Math.floor(i/2)+1)+(i%2?"...":".")+" "+move.san;
+      const grade=document.createElement("span");grade.className="grade";grade.textContent=UX_ICONS[entry?.tag||"unknown"];
+      grade.title=ux(({best:"reviewBestTag",excellent:"reviewExcellent",good:"reviewGood",ordinary:"reviewOrdinary",inaccuracy:"reviewInaccuracy",mistake:"reviewMistake",blunder:"reviewBlunder"})[entry?.tag]||"reviewUnknown");
+      const best=document.createElement("small");
+      best.textContent=entry?.bestUci?ux("reviewBest")+": "+entry.bestUci:ux("reviewLimited");
+      button.append(line,grade,best);
+      button.addEventListener("click",()=>jumpHistory(i+1));frag.appendChild(button);
+    }
+    entries.replaceChildren(frag);
+    renderReviewChart(report?.entries);
+    if(!analysisRunning&&!$("review-progress").textContent&&all.length)text("review-progress",denied?ux("reviewFairPlay"):ux("reviewReady"));
+  }
+  async function startFullAnalysis(){
+    if(analysisRunning)return;
+    if(lesson||(currentMatch()&&!finalized)){text("review-progress",ux("reviewFairPlay"));return;}
+    if(!game.history().length){text("review-progress",ux("reviewNoMoves"));return;}
+    if(location.protocol==="file:"||typeof Worker!=="function"){
+      text("review-progress",ux("reviewOffline"));renderFullReview();return;
+    }
+    cancelFullAnalysis();const token=analysisGeneration,pgn=game.pgn();
+    analysisResult=null;analysisRunning=true;
+    $("cancel-review").hidden=false;
+    $("start-review").disabled=true;
+    text("review-progress",ux("reviewWait",{done:0,total:game.history().length+1}));
+    const worker=new REVIEW.UciAnalyzer();analysisWorker=worker;
+    try{
+      const result=await REVIEW.analyzeGame(Chess,pgn,{quality:$("review-quality").value,worker,
+        onProgress:state=>{if(token===analysisGeneration)text("review-progress",ux("reviewWait",state));}});
+      if(token!==analysisGeneration||game.pgn()!==pgn)return;
+      analysisResult={...result,pgn};
+      text("review-progress",ux("reviewDone",{count:result.analyzed,total:result.total}));
+    }catch(error){if(token===analysisGeneration)text("review-progress",ux("reviewError"));}
+    finally{
+      worker.dispose();
+      if(analysisWorker===worker)analysisWorker=null;
+      if(token===analysisGeneration){analysisRunning=false;renderFullReview();}
+    }
+  }
   function status(){
     if(endedBy){
       if(endedBy.draw)return tr("clockDraw");
