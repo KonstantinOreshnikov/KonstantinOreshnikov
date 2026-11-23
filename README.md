@@ -53,7 +53,7 @@ A multilingual professional learning and assessment platform: structured content
 
 ### [Independent Game Studio](projects/independent-game-studio/README.md)
 
-Independent game projects: Caribbean Merchant, Kingdoms of Ember, Lord of Ultima-inspired strategy, and Chess Odyssey. [Live version and QA registry](projects/independent-game-studio/GAME_REGISTRY.md) distinguishes playable artifacts from development and research.
+Independent game projects: Caribbean Merchant, Kingdoms of Ember, Lord of Ultima-inspired strategy, and **[Chess Odyssey v1.0.0 — play online](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/)**. The chess game includes 33 Academy lessons and 300 historic games with Stockfish analysis. [Release notes](projects/independent-game-studio/games/chess-odyssey/docs/RELEASE_V1_0_0.md) · [Game registry](projects/independent-game-studio/GAME_REGISTRY.md). Cloud/PvP follow-up QA remains open.
 
 ### [Secret Santa 2026 — Private Gift Exchange](projects/secret-santa-2026/README.md)
 
