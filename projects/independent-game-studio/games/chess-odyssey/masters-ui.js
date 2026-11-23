@@ -20,7 +20,7 @@
  const STORAGE="chess-odyssey-masters-v1";
  const PIECES={w:{k:"♔",q:"♕",r:"♖",b:"♗",n:"♘",p:"♙"},b:{k:"♚",q:"♛",r:"♜",b:"♝",n:"♞",p:"♟"}};
  const dict={
-  ru:{practiceTab:"Практика и Академия",mastersTab:"Мастера и легенды",progressTab:"Мой прогресс",mastersHeading:"ИСТОРИЯ ШАХМАТ · ОБУЧЕНИЕ",
+  ru:{practiceTab:"Практика и Академия",mastersTab:"Мастера и легенды",progressTab:"Мой прогресс",pvpTab:"Онлайн с другом",mastersHeading:"ИСТОРИЯ ШАХМАТ · ОБУЧЕНИЕ",
    flip:"Повернуть доску",guessMove:"Угадать ход мастера",bookmark:"Закладка",bookmarked:"Закладка сохранена",
    downloadPGN:"Скачать PGN",scoreTitle:"Полная запись — нажмите на любой ход",libraryTitle:"Библиотека исторических партий",
    filterTitle:"Тема",all:"Все темы",attack:"Атаки и комбинации",strategy:"Стратегия и защита",
@@ -38,7 +38,7 @@
    wrong:"{san} — допустимый ход, но в этой партии был сыгран другой. Попробуйте снова.",
    quizEmpty:"Нет подходящего учебного момента.",noteAt:"После {move}",play:"Воспроизводить",pause:"Пауза",
    noBook:"Пока нет закладок.",start:"Начало партии"},
-  en:{practiceTab:"Practice & Academy",mastersTab:"Masters & Legends",progressTab:"My progress",mastersHeading:"CHESS HISTORY · LEARN BY REPLAYING",
+  en:{practiceTab:"Practice & Academy",mastersTab:"Masters & Legends",progressTab:"My progress",pvpTab:"Play a friend",mastersHeading:"CHESS HISTORY · LEARN BY REPLAYING",
    flip:"Flip board",guessMove:"Guess the master's move",bookmark:"Bookmark",bookmarked:"Bookmarked",
    downloadPGN:"Download PGN",scoreTitle:"Complete score — select any move",libraryTitle:"Historical games library",
    filterTitle:"Theme",all:"All themes",attack:"Attacks and combinations",strategy:"Strategy and defence",
@@ -56,7 +56,7 @@
    wrong:"{san} is legal, but another move was played in this game. Try again.",
    quizEmpty:"No suitable teaching moment.",noteAt:"After {move}",play:"Autoplay",pause:"Pause",
    noBook:"No bookmarks yet.",start:"Starting position"},
-  az:{practiceTab:"Məşq və Akademiya",mastersTab:"Ustadlar və Əfsanələr",progressTab:"Mənim inkişafım",mastersHeading:"ŞAHMAT TARİXİ · OYNAYARAQ ÖYRƏNİN",
+  az:{practiceTab:"Məşq və Akademiya",mastersTab:"Ustadlar və Əfsanələr",progressTab:"Mənim inkişafım",pvpTab:"Dostla oyna",mastersHeading:"ŞAHMAT TARİXİ · OYNAYARAQ ÖYRƏNİN",
    flip:"Taxtanı çevir",guessMove:"Ustadın gedişini tap",bookmark:"Əlfəcin",bookmarked:"Əlfəcin saxlanıb",
    downloadPGN:"PGN yüklə",scoreTitle:"Bütün gedişlər — istənilən gedişi seçin",libraryTitle:"Tarixi partiyalar kitabxanası",
    filterTitle:"Mövzu",all:"Bütün mövzular",attack:"Hücumlar və kombinasiyalar",strategy:"Strategiya və müdafiə",
@@ -250,17 +250,19 @@
    }
  }
  function showTab(name){
-   state.view=["practice","masters","progress"].includes(name)?name:"practice";
+   state.view=["practice","masters","progress","pvp"].includes(name)?name:"practice";
    $("practice-view").hidden=state.view!=="practice";
    $("masters-view").hidden=state.view!=="masters";
    $("progress-view").hidden=state.view!=="progress";
-   for(const [tab,view] of [["nav-play","practice"],["nav-masters","masters"],["nav-progress","progress"]]){
+   $("pvp-view").hidden=state.view!=="pvp";
+   for(const [tab,view] of [["nav-play","practice"],["nav-masters","masters"],["nav-progress","progress"],["nav-pvp","pvp"]]){
      $(tab).setAttribute("aria-selected",String(state.view===view));
      $(tab).setAttribute("tabindex",state.view===view?"0":"-1");
      $(tab).classList.toggle("active",state.view===view);
    }
    if(state.view==="masters"){language($("lang").value,false);catalogue(false);}
-   else {stop();if(state.view==="progress")root.ChessProgress?.refresh?.();}
+   else {stop();if(state.view==="progress")root.ChessProgress?.refresh?.();
+     if(state.view==="pvp")root.ChessPvp?.refresh?.();}
  }
  function quiz(){
    stop();
@@ -324,7 +326,8 @@
    $("nav-play").addEventListener("click",()=>showTab("practice"));
    $("nav-masters").addEventListener("click",()=>showTab("masters"));
    $("nav-progress").addEventListener("click",()=>showTab("progress"));
-   const tabs=[["nav-play","practice"],["nav-masters","masters"],["nav-progress","progress"]];
+   $("nav-pvp").addEventListener("click",()=>showTab("pvp"));
+   const tabs=[["nav-play","practice"],["nav-masters","masters"],["nav-progress","progress"],["nav-pvp","pvp"]];
    for(let index=0;index<tabs.length;index++){
      $(tabs[index][0]).addEventListener("keydown",event=>{
        let target=-1;

@@ -45,7 +45,7 @@ function save(storage){try{storage.setItem(KEY,JSON.stringify({theme:state.theme
 const name=(item)=>item.name[langs.indexOf(state.lang)]||item.name[0];
 function apply(doc){
  const t=THEMES.find(x=>x.id===state.theme)||THEMES[0];
- for(const board of doc.querySelectorAll("#board,#m-board")){
+ for(const board of doc.querySelectorAll("#board,#m-board,#pvp-board")){
    board.style.setProperty("--board-light",t.light);
    board.style.setProperty("--board-dark",t.dark);
    board.dataset.theme=t.id;board.dataset.pieces=state.pieces;

@@ -28,7 +28,7 @@ async function updateSession(){
  const signed=!!session;
  $("cloud-auth-form").hidden=signed;$("cloud-signed-in").hidden=!signed;
  if(signed)$("cloud-identity").textContent=t("signed",{email:session.user?.email||""});
- buttons();return signed;
+ buttons();window.dispatchEvent(new Event("chess-cloud-session"));return signed;
 }
 async function run(work){if(busy||!neon)return;busy=true;buttons();try{await work()}catch(e){show((e?.message&&e.message.length<160)?e.message:t("bad"),true)}finally{busy=false;buttons()}}
 const email=()=>$("cloud-email").value.trim();
@@ -93,6 +93,7 @@ async function init(){
  }
  try{
   const m=await import(SDK);neon=m.createClient({auth:{url:AUTH_BASE},dataApi:{url:DB}});
+  window.ChessCloud=Object.freeze({api,authenticated:()=>!!session,user:()=>session?.user||null});
   if(await updateSession())show(t("logged"));else show(t("await"));
  }catch(e){show(t("unavailable"),true);$("cloud-auth-form").hidden=true;return}
  const bind=(id,fn)=>$(id)?.addEventListener("click",()=>run(fn));

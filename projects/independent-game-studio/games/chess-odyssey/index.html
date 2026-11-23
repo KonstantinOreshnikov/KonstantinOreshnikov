@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="pieces/piece-sets.css">
   <link rel="stylesheet" href="cloud/cloud.css">
+  <link rel="stylesheet" href="pvp/pvp.css">
   <script defer src="vendor/chess.js"></script>
   <script defer src="coach-engine.js"></script>
   <script defer src="engine-bridge.js"></script>
@@ -26,6 +27,7 @@
   <script defer src="masters-ui.js"></script>
   <script defer src="progress-ui.js"></script>
   <script defer src="cloud/cloud-client.js"></script>
+  <script defer src="pvp/pvp-ui.js"></script>
 </head>
 <body>
   <main class="shell">
@@ -39,6 +41,7 @@
       <button type="button" id="nav-play" role="tab" aria-selected="true" aria-controls="practice-view" data-master-label="practiceTab">Практика и Академия</button>
       <button type="button" id="nav-masters" role="tab" aria-selected="false" aria-controls="masters-view" data-master-label="mastersTab">Мастера и легенды</button>
       <button type="button" id="nav-progress" role="tab" aria-selected="false" aria-controls="progress-view" data-master-label="progressTab">Мой прогресс</button>
+      <button type="button" id="nav-pvp" role="tab" aria-selected="false" aria-controls="pvp-view" data-master-label="pvpTab">Онлайн с другом</button>
     </nav>
     <section class="workspace" id="practice-view" role="tabpanel" aria-labelledby="nav-play" aria-label="Chess game and coach">
       <div class="play-section">
@@ -262,6 +265,53 @@
         <section class="panel masters-bookmarks">
           <h2 data-master-label="bookmarksTitle">Мои закладки</h2>
           <div id="m-bookmarks" class="masters-bookmark-list"></div>
+        </section>
+      </aside>
+    </section>
+        <section id="pvp-view" class="pvp-layout" role="tabpanel" aria-labelledby="nav-pvp" hidden>
+      <div class="pvp-play">
+        <p class="eyebrow" id="pvp-overline">ОНЛАЙН С ДРУГОМ · STAGING</p>
+        <h2 id="pvp-heading">Шахматная дуэль</h2>
+        <p id="pvp-information">Чтобы начать, войдите через вкладку «Мой прогресс». Для партий нужен HTTPS-сайт.</p>
+        <div class="pvp-clockline">
+          <strong id="pvp-black-time">Чёрные: —</strong><strong id="pvp-white-time">Белые: —</strong>
+        </div>
+        <div class="board-frame pvp-board-frame"><div id="pvp-board" class="board" role="group" aria-label="Online chessboard"></div></div>
+        <p id="pvp-game-status" role="status" aria-live="polite">Ожидание входа в аккаунт</p>
+        <div class="pvp-actions">
+          <button type="button" id="pvp-refresh">Обновить</button>
+          <button type="button" id="pvp-flip">Повернуть доску</button>
+          <button type="button" id="pvp-resign" disabled>Сдаться</button>
+          <button type="button" id="pvp-draw" disabled>Предложить ничью</button>
+          <button type="button" id="pvp-accept-draw" disabled>Принять ничью</button>
+          <button type="button" id="pvp-rematch" disabled>Реванш</button>
+        </div>
+        <p class="pvp-note" id="pvp-moves">Ходы появятся после начала партии.</p>
+      </div>
+      <aside class="pvp-sidebar">
+        <section class="panel">
+          <h2 id="pvp-invite-heading">Пригласить друга</h2>
+          <label><span id="pvp-time-label">Контроль времени</span>
+            <select id="pvp-time"><option value="none">Без часов</option><option value="blitz5" selected>Блиц 5+0</option><option value="blitz3">Блиц 3+0</option><option value="rapid10">Рапид 10+0</option><option value="rapid1510">Рапид 15+10</option><option value="rapid30">Рапид 30+0</option></select>
+          </label>
+          <label><span id="pvp-color-label">Ваш цвет</span><select id="pvp-color"><option value="w">Белые</option><option value="b">Чёрные</option></select></label>
+          <label><span id="pvp-friend-label">ID друга (необязательно)</span><input id="pvp-friend" placeholder="User ID" maxlength="255" autocomplete="off"></label>
+          <button type="button" class="pvp-primary" id="pvp-create">Создать приглашение</button>
+          <label><span id="pvp-link-label">Ссылка для друга</span><input id="pvp-invite-link" readonly aria-label="Private invitation link"></label>
+          <button type="button" id="pvp-copy">Скопировать ссылку</button>
+        </section>
+        <section class="panel">
+          <h2 id="pvp-join-heading">Принять приглашение</h2>
+          <label><span id="pvp-token-label">Секретный код приглашения</span><input id="pvp-invite-token" maxlength="43" autocomplete="off" autocapitalize="none" spellcheck="false"></label>
+          <button type="button" class="pvp-primary" id="pvp-accept">Принять и начать</button>
+        </section>
+        <section class="panel">
+          <h2 id="pvp-games-heading">Мои партии</h2>
+          <div id="pvp-games" role="group" aria-label="My active and finished games"></div>
+          <p class="pvp-note" id="pvp-invites"></p>
+          <label><span id="pvp-promotion-label">Превращение пешки</span>
+            <select id="pvp-promotion"><option value="q">Ферзь</option><option value="r">Ладья</option><option value="b">Слон</option><option value="n">Конь</option></select>
+          </label>
         </section>
       </aside>
     </section>

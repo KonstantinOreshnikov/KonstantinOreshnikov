@@ -183,10 +183,10 @@ const URL_FOR=file=>"file://"+path.resolve(__dirname,"../"+file);
      assert.match(await square("e2").getAttribute("aria-label"),pawn);
    }
   });
-  await test("three tabs stay usable and non-overflow on phone and tablet breakpoints",async()=>{
+  await test("four tabs stay usable and non-overflow on phone and tablet breakpoints",async()=>{
    for(const width of [320,390,768,1024]){
      await page.setViewportSize({width,height:844});
-     for(const nav of ["#nav-play","#nav-masters","#nav-progress"]){
+     for(const nav of ["#nav-play","#nav-masters","#nav-progress","#nav-pvp"]){
        await page.locator(nav).click();
        const dim=await page.evaluate(()=>({page:document.documentElement.scrollWidth,view:window.innerWidth}));
        assert.ok(dim.page<=dim.view+2,width+" "+nav+" "+JSON.stringify(dim));
