@@ -1,0 +1,55 @@
+name: Chess Odyssey — Official v1.0.0 GitHub Release
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/chess-odyssey-v1-release.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: chess-odyssey-v1.0.0-release
+  cancel-in-progress: false
+jobs:
+  publish:
+    name: Build and publish permanent Chess Odyssey v1.0.0 ZIP
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate source and historical PGNs
+        working-directory: projects/independent-game-studio/games/chess-odyssey
+        run: |
+          node tests/masters-expansion.cjs
+          node tests/pages-package.cjs
+          node scripts/build-standalone.cjs 1.0.0
+      - name: Package Windows and Stockfish v1.0.0
+        working-directory: projects/independent-game-studio/games/chess-odyssey
+        run: python3 scripts/package-preview.py
+      - name: Verify release binary and preserve SHA-256
+        run: |
+          set -euo pipefail
+          pkg="projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v1.0.0_Stockfish_Preview.zip"
+          test -s "$pkg"
+          unzip -t "$pkg" | tail -n 2
+          sha256sum "$pkg"
+      - name: Publish tagged official GitHub Release (idempotent)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="chess-odyssey-v1.0.0"
+          pkg="projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v1.0.0_Stockfish_Preview.zip"
+          notes="projects/independent-game-studio/games/chess-odyssey/docs/RELEASE_V1_0_0.md"
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            gh release create "$tag" \
+              --target "$GITHUB_SHA" \
+              --title "Chess Odyssey v1.0.0 — Academy & Arena" \
+              --notes-file "$notes"
+          fi
+          gh release upload "$tag" "$pkg" --clobber
+          gh release view "$tag" --json url,tagName,name,assets --jq '{url,tagName,name,assetCount:(.assets|length)}'
