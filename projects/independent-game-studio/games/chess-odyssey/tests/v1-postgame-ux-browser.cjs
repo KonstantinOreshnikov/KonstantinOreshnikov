@@ -135,6 +135,8 @@ async function server(){
    assert.equal(await page.locator("#game-result-toast").isVisible(),false);
   });
   await check("mobile reviewed navigation fits viewport without horizontal scrolling",async()=>{
+   // Use a live move history: after the resignation test the replay buttons are correctly disabled.
+   await seed(["e4","e5"],"w");
    await page.setViewportSize({width:390,height:844});
    await page.locator("#h-first").click();
    const state=await page.evaluate(()=>({vp:innerWidth,scroll:document.documentElement.scrollWidth,
