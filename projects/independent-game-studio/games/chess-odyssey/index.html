@@ -44,6 +44,13 @@
       <button type="button" id="nav-pvp" role="tab" aria-selected="false" aria-controls="pvp-view" data-master-label="pvpTab">Онлайн с другом</button>
     </nav>
     <section class="workspace" id="practice-view" role="tabpanel" aria-labelledby="nav-play" aria-label="Chess game and coach">
+      <details id="mobile-game-settings" class="mobile-game-settings">
+        <summary><span data-i18n="mobileSettings">Настройки партии</span></summary>
+        <div class="mobile-settings-content">
+          <div id="mobile-settings-fields"></div>
+          <button type="button" id="mobile-settings-done" class="action primary" data-i18n="mobileSettingsDone">Готово — свернуть настройки</button>
+        </div>
+      </details>
       <div class="play-section">
         <div class="board-topline">
           <div><p class="eyebrow" data-i18n="game">Тренировочная партия</p><h2 id="game-status" aria-live="polite">Ваш ход</h2></div>

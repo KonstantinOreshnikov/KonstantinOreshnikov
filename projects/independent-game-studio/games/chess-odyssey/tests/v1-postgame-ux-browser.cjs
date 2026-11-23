@@ -124,13 +124,94 @@ async function server(){
    assert.match(await page.locator("#game-result-title").innerText(),/Ничья/);
    assert.match(await page.locator("#game-result-detail").innerText(),/вничью/);
   });
+  await check("resignation confirmation produces loss toast and never repeats on reload",async()=>{
+   await seed([],"w");
+   page.once("dialog",dialog=>dialog.accept());
+   await page.locator("#resign").click();
+   await page.locator("#game-result-toast").waitFor({state:"visible"});
+   assert.match(await page.locator("#game-result-title").innerText(),/Победили чёрные/);
+   assert.match(await page.locator("#game-result-detail").innerText(),/Вы проиграли/);
+   await page.reload();
+   assert.equal(await page.locator("#game-result-toast").isVisible(),false);
+  });
   await check("mobile reviewed navigation fits viewport without horizontal scrolling",async()=>{
+   // Use a live move history: after the resignation test the replay buttons are correctly disabled.
+   await seed(["e4","e5"],"w");
    await page.setViewportSize({width:390,height:844});
    await page.locator("#h-first").click();
    const state=await page.evaluate(()=>({vp:innerWidth,scroll:document.documentElement.scrollWidth,
      buttons:[...document.querySelectorAll(".board-replay-dock button")].filter(x=>!x.hidden).every(x=>x.getBoundingClientRect().width>=30)}));
    assert.ok(state.scroll<=state.vp+3,JSON.stringify(state));
    assert.ok(state.buttons,JSON.stringify(state));
+  });
+  await check("mobile game setup appears under tabs with unique original controls",async()=>{
+   const panel=page.locator("#mobile-game-settings");
+   await panel.waitFor({state:"visible"});
+   const initial=await page.evaluate(()=>{
+     const details=document.getElementById("mobile-game-settings");
+     return {collapsed:!details.open,aboveBoard:details.nextElementSibling.classList.contains("play-section"),
+       parent:details.parentElement.id,visible:getComputedStyle(details).display!=="none",
+       duplicates:["level","side","match-mode","time-control","board-theme-details","piece-style-details"]
+         .every(id=>document.querySelectorAll("#"+id).length===1)};
+   });
+   assert.deepEqual(initial,{collapsed:true,aboveBoard:true,parent:"practice-view",visible:true,duplicates:true});
+   await page.locator("#mobile-game-settings > summary").click();
+   assert.equal(await panel.evaluate(x=>x.open),true);
+   const moved=await page.evaluate(()=>[".appearance-panel",".settings-panel"]
+     .every(sel=>document.querySelector("#mobile-settings-fields > "+sel)!==null));
+   assert.ok(moved,"both original panels must move under the accordion");
+   await page.locator("#level").selectOption("advanced");
+   await page.locator("#side").selectOption("b");
+   await page.locator("#match-mode").selectOption("independent");
+   await page.locator("#time-control").selectOption("blitz5");
+   await page.locator("#board-theme-details > summary").click();
+   await page.locator("#theme-options [data-value]").nth(1).click();
+   await page.locator("#piece-style-details > summary").click();
+   await page.locator("#piece-options [data-value]").nth(1).click();
+   await page.locator("#mobile-settings-done").click();
+   assert.equal(await panel.evaluate(x=>x.open),false);
+   for(const [id,expected] of [["level","advanced"],["side","b"],["match-mode","independent"],["time-control","blitz5"]]){
+     assert.equal(await page.locator("#"+id).inputValue(),expected);
+   }
+  });
+  await check("mobile setup survives desktop resize, RU EN AZ and reload without overflow",async()=>{
+   await page.evaluate(()=>{window.__gameSettingsNodes=["level","side","match-mode","time-control"]
+     .map(id=>document.getElementById(id));});
+   await page.setViewportSize({width:1280,height:900});
+   await page.waitForFunction(()=>[".appearance-panel",".settings-panel"]
+     .every(sel=>document.querySelector("#practice-view > .sidebar > "+sel)));
+   const desktop=await page.evaluate(()=>({
+     restored:[".appearance-panel",".settings-panel"].every(sel=>document.querySelector("#practice-view > .sidebar > "+sel)),
+     original:window.__gameSettingsNodes.every((node,i)=>node===document.getElementById(["level","side","match-mode","time-control"][i])),
+     hidden:getComputedStyle(document.getElementById("mobile-game-settings")).display==="none"
+   }));
+   assert.deepEqual(desktop,{restored:true,original:true,hidden:true});
+   await page.setViewportSize({width:390,height:844});
+   await page.waitForFunction(()=>[".appearance-panel",".settings-panel"]
+     .every(sel=>document.querySelector("#mobile-settings-fields > "+sel)));
+   await page.locator("#mobile-game-settings > summary").click();
+   await page.locator("#global-language").selectOption("en");
+   assert.match(await page.locator("#mobile-game-settings > summary").innerText(),/Game settings/);
+   assert.match(await page.locator("#mobile-settings-done").innerText(),/Done/);
+   await page.locator("#global-language").selectOption("az");
+   assert.match(await page.locator("#mobile-game-settings > summary").innerText(),/Partiya ayarları/);
+   await page.locator("#global-language").selectOption("ru");
+   await page.locator("#mobile-settings-done").click();
+   const mobile=await page.evaluate(()=>({
+     original:window.__gameSettingsNodes.every((node,i)=>node===document.getElementById(["level","side","match-mode","time-control"][i])),
+     moved:[".appearance-panel",".settings-panel"].every(sel=>document.querySelector("#mobile-settings-fields > "+sel)),
+     width:document.documentElement.scrollWidth,viewport:innerWidth,squares:document.querySelectorAll("#board .square").length
+   }));
+   assert.equal(mobile.original,true);
+   assert.equal(mobile.moved,true);
+   assert.ok(mobile.width<=mobile.viewport+3,JSON.stringify(mobile));
+   assert.equal(mobile.squares,64);
+   await page.reload();
+   assert.equal(await page.locator("#mobile-game-settings").evaluate(el=>el.open),false);
+   assert.equal(await page.locator("#level").inputValue(),"advanced");
+   assert.equal(await page.locator("#side").inputValue(),"b");
+   assert.equal(await page.locator("#match-mode").inputValue(),"independent");
+   assert.equal(await page.locator("#time-control").inputValue(),"blitz5");
   });
   await check("no uncaught browser exceptions",async()=>assert.deepEqual(errors,[]));
   console.log("PASS V1 Postgame UX "+n+"/"+n);
