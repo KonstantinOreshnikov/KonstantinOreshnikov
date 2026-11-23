@@ -44,7 +44,8 @@ const {chromium}=require("playwright");
   assert.equal(await page.locator("#side").inputValue(),"b");
   assert.equal(await page.evaluate(()=>window.ChessOdysseyQA.academy().step),0);
   await move("c7","c5");
-  assert.match(await page.locator("#moves").innerText(),/c5 2\. Nf3/);
+  assert.equal(await page.locator('#moves button[data-ply="2"]').innerText(),"c5");
+  assert.equal(await page.locator('#moves button[data-ply="3"]').innerText(),"Nf3");
   assert.equal(await page.evaluate(()=>window.ChessOdysseyQA.academy().step),1);
   tests++;
   // Resume exact stage after reload; original practice PGN stays parked.
