@@ -45,6 +45,13 @@
     az:{returnLive:"Oyuna qayıt",wide:"Geniş taxta",fullReview:"Partiyanın tam təhlili",analysisQuality:"Təhlil dərinliyi",analysisQuick:"Sürətli",analysisBalanced:"Balanslı",analysisDeep:"Dərin",reviewStart:"Gedişləri təhlil et",reviewCancel:"Təhlili dayandır",moveLegend:"Gediş qiymətləndirmələri nə deməkdir?",reviewOffline:"Tək HTML faylında Stockfish dərin təhlili mövcud deyil. ZIP-i localhost ilə və ya HTTPS saytında açın. Gedişlərə baxmaq mümkündür.",reviewReady:"Dərinliyi seçib təhlilə başlayın.",reviewWait:"Təhlil: {done}/{total} mövqe",reviewDone:"Təhlil tamamlandı: {count}/{total} yarımgediş qiymətləndirilib.",reviewError:"Təhlil mühərriki mövcud deyil. Rəqəmsal dəqiqlik hesablanmayıb.",reviewFairPlay:"Tam təhlil yalnız müstəqil oyun bitdikdən sonra mümkündür.",reviewNoMoves:"Əvvəlcə ən azı bir gediş edin.",reviewPosition:"{ply}/{total} mövqeyinə baxış — əsl oyun ayrıca davam edir.",reviewWhite:"Ağlar",reviewBlack:"Qaralar",reviewAccuracy:"Dəqiqlik (modelin qiyməti)",reviewAnalyzed:"Qiymətləndirilən yarımgedişlər",reviewBest:"Tövsiyə olunan gediş",reviewCurrent:"Oynanılıb",reviewLimited:"Mühərrik tərəfindən qiymətləndirilməyib",reviewUnknown:"Qiymətləndirilməyib",reviewBrilliant:"Parlaq — müstəsna güclü gediş; ayrıca meyar təsdiqlənməyib, buna görə verilməyib",reviewBestTag:"Ən yaxşı",reviewExcellent:"Əla",reviewGood:"Yaxşı",reviewOrdinary:"Adi",reviewInaccuracy:"Qeyri-dəqiqlik",reviewMistake:"Səhv",reviewBlunder:"Kobud səhv",reviewBook:"Debüt gedişi (yalnız təsdiqlənmiş baza)",reviewSource:"Gözlənilən xal dəyişməsi modeli, Elo reytinqi deyil."}
   };
   const UX_ICONS={best:"★",excellent:"!",good:"✓",ordinary:"—",inaccuracy:"?!",mistake:"?",blunder:"??",unknown:"—",brilliant:"!!",book:"⌂"};
+  const POSTGAME_LABELS={
+    ru:{skills:"Разбор по пяти критериям",criterion:"Критерий",white:"Белые",black:"Чёрные",opening:"Дебют",tactics:"Тактическая игра",coordination:"Координация фигур",conversion:"Реализация преимущества",endgame:"Эндшпиль",noData:"Н/Д",method:"Оценка 0–10: сохранение ожидаемых очков по анализу Stockfish для ходов каждой категории. Минимум 2 оценённых хода; иначе Н/Д. Это приближённая метрика, не экспертный рейтинг.",start:"Начальная позиция",winnerW:"Победили белые",winnerB:"Победили чёрные",winnerDraw:"Ничья",youWon:"Вы победили",youLost:"Вы проиграли",youDraw:"Партия завершилась вничью",seeReview:"Разбор партии",close:"Закрыть",reasonMate:"мат",reasonTimeout:"время",reasonResign:"сдача",reasonDraw:"ничья"},
+    en:{skills:"Five-part game assessment",criterion:"Criterion",white:"White",black:"Black",opening:"Opening",tactics:"Tactical play",coordination:"Piece coordination",conversion:"Converting an advantage",endgame:"Endgame",noData:"N/A",method:"0–10 proxy: expected-points retained in Stockfish-evaluated moves of each category. At least 2 assessed moves required; otherwise N/A. Not an expert rating.",start:"Starting position",winnerW:"White won",winnerB:"Black won",winnerDraw:"Draw",youWon:"You won",youLost:"You lost",youDraw:"The game was drawn",seeReview:"Review game",close:"Dismiss",reasonMate:"checkmate",reasonTimeout:"time",reasonResign:"resignation",reasonDraw:"draw"},
+    az:{skills:"Beş meyar üzrə oyun təhlili",criterion:"Meyar",white:"Ağlar",black:"Qaralar",opening:"Açılış",tactics:"Taktiki oyun",coordination:"Fiqur koordinasiyası",conversion:"Üstünlüyü reallaşdırma",endgame:"Endşpil",noData:"M/D",method:"0–10 təxmini bal: Stockfish təhlilində hər meyara aid gedişlər üzrə gözlənilən xalın qorunması. Ən azı 2 qiymətləndirilmiş gediş lazımdır; əks halda M/D. Ekspert reytinqi deyil.",start:"Başlanğıc mövqe",winnerW:"Ağlar qalib gəldi",winnerB:"Qaralar qalib gəldi",winnerDraw:"Heç-heçə",youWon:"Siz qalib gəldiniz",youLost:"Siz məğlub oldunuz",youDraw:"Oyun heç-heçə bitdi",seeReview:"Oyunu təhlil et",close:"Bağla",reasonMate:"mat",reasonTimeout:"vaxt",reasonResign:"təslim olma",reasonDraw:"heç-heçə"}
+  };
+  const pl=(key)=>(POSTGAME_LABELS[language]||POSTGAME_LABELS.ru)[key]||key;
+  const GRADE_KEYS={best:"reviewBestTag",excellent:"reviewExcellent",good:"reviewGood",ordinary:"reviewOrdinary",inaccuracy:"reviewInaccuracy",mistake:"reviewMistake",blunder:"reviewBlunder",unknown:"reviewUnknown"};
   function ux(key,values){return (UX_TEXT[language]||UX_TEXT.ru)[key]?.replace(/\{(\w+)\}/g,(_,k)=>values&&values[k]!==undefined?String(values[k]):"?")||key;}
 
   const engine = ENGINE && new ENGINE.Bridge();
@@ -566,6 +573,10 @@ function hint(){
     }
     const at=reviewCursor===null?moves.length:reviewCursor;
     text("h-progress",at+" / "+moves.length);
+    const current=at?game.history({verbose:true})[at-1]:null;
+    const evaluated=analysisResult?.pgn===game.pgn()?analysisResult.entries?.[at-1]:null;
+    const display=current?(Math.floor((at-1)/2)+1)+(at%2?"...":".")+" "+current.san:"";
+    text("h-current-san",display+(evaluated&&evaluated.tag!=="unknown"?"  "+UX_ICONS[evaluated.tag]:"")||pl("start"));
     $("h-first").disabled=!moves.length||at===0;
     $("h-prev").disabled=!moves.length||at===0;
     $("h-next").disabled=!moves.length||at===moves.length;
@@ -618,6 +629,36 @@ function hint(){
     }
     holder.appendChild(svg);
   }
+  function renderSkillTable(report){
+    const holder=$("review-skills");
+    if(!holder)return;
+    holder.replaceChildren();
+    holder.hidden=!report||!REVIEW?.skillReport;
+    if(holder.hidden)return;
+    const data=REVIEW.skillReport(report);
+    const heading=document.createElement("h4");heading.textContent=pl("skills");
+    const table=document.createElement("table");table.className="skills-table";
+    const head=document.createElement("thead"),hrow=document.createElement("tr");
+    for(const name of ["criterion","white","black"]){
+      const th=document.createElement("th");th.scope="col";th.textContent=pl(name);hrow.appendChild(th);
+    }
+    head.appendChild(hrow);table.appendChild(head);
+    const body=document.createElement("tbody");
+    for(const key of REVIEW.SKILL_KEYS){
+      const tr=document.createElement("tr"),label=document.createElement("th");
+      label.scope="row";label.textContent=pl(key);tr.appendChild(label);
+      for(const color of ["w","b"]){
+        const item=data.rows[key][color],cell=document.createElement("td");
+        cell.textContent=item.value===null?pl("noData"):item.value.toFixed(1)+"/10";
+        cell.title=String(item.analyzed)+" / "+String(item.eligible);
+        cell.dataset.skill=key;cell.dataset.side=color;tr.appendChild(cell);
+      }
+      body.appendChild(tr);
+    }
+    table.appendChild(body);
+    const note=document.createElement("p");note.className="skills-method";note.textContent=pl("method");
+    holder.append(heading,table,note);
+  }
   function renderFullReview(){
     const all=game.history({verbose:true}),pgn=game.pgn();
     if(analysisResult?.pgn!==pgn)analysisResult=null;
@@ -638,6 +679,7 @@ function hint(){
         card.appendChild(title);card.appendChild(grade);card.appendChild(count);sum.appendChild(card);
       }
     }
+    renderSkillTable(report);
     const entries=$("review-entries"),frag=document.createDocumentFragment();
     for(let i=0;i<all.length;i++){
       const move=all[i],entry=report?.entries?.[i];
@@ -680,7 +722,7 @@ function hint(){
     finally{
       worker.dispose();
       if(analysisWorker===worker)analysisWorker=null;
-      if(token===analysisGeneration){analysisRunning=false;renderFullReview();}
+      if(token===analysisGeneration){analysisRunning=false;render();}
     }
   }
   function status(){
@@ -693,9 +735,27 @@ function hint(){
     if(game.in_check()) return tr("check") + " " + (game.turn()===side?tr("turn"):tr("bot"));
     return lesson?tr("lesson"):game.turn()===side?tr("turn"):tr("thinking");
   }
+  function hideGameResult(){const toast=$("game-result-toast");if(toast)toast.hidden=true;}
+  function showGameResult(){
+    const toast=$("game-result-toast");if(!toast)return;
+    const winner=endedBy?(endedBy.draw?null:endedBy.loser==="w"?"b":"w"):
+      game.in_checkmate()?(game.turn()==="w"?"b":"w"):null;
+    const title=winner?(winner==="w"?pl("winnerW"):pl("winnerB")):pl("winnerDraw");
+    const mine=winner?(winner===side?pl("youWon"):pl("youLost")):pl("youDraw");
+    const why=endedBy?.type==="timeout"?pl("reasonTimeout"):
+      endedBy?.type==="resign"?pl("reasonResign"):game.in_checkmate()?pl("reasonMate"):pl("reasonDraw");
+    text("game-result-title",title);
+    text("game-result-detail",mine+" · "+why);
+    text("game-result-review",pl("seeReview"));
+    text("game-result-close",pl("close"));
+    toast.hidden=false;
+  }
   function render(){
     const boardElement=$("board");
     const shown=displayBoard(),readOnly=reviewCursor!==null;
+    const currentPly=reviewCursor===null?game.history().length:reviewCursor;
+    const assessed=analysisResult?.pgn===game.pgn()?analysisResult.entries?.[currentPly-1]:null;
+    const assessedMove=assessed&&assessed.tag!=="unknown"?game.history({verbose:true})[currentPly-1]:null;
     const wasFocused=Boolean(document.activeElement&&typeof boardElement.contains==="function"&&boardElement.contains(document.activeElement));
     // Independent games do not reveal candidate destinations before the move.
     const legal=!readOnly&&selected&&!(currentMatch()&&!finalized)?game.moves({square:selected,verbose:true}).map(m=>m.to):[];
@@ -717,6 +777,13 @@ function hint(){
       b.setAttribute("aria-label",square+" — "+(BOARD_NAMES[language]||BOARD_NAMES.ru)[p?p.color+p.type:"empty"]);
       b.setAttribute("aria-pressed",!readOnly&&selected===square?"true":"false");
       const mark=document.createElement("span");mark.className="piece";mark.textContent=p?PIECES[p.color+p.type]:"";if(p)mark.dataset.code=p.color+p.type.toUpperCase();b.appendChild(mark);
+      if(p&&assessedMove&&assessedMove.to===square&&assessed?.to===square&&UX_ICONS[assessed.tag]){
+        const badge=document.createElement("span");badge.className="move-grade-badge";badge.dataset.tag=assessed.tag;
+        badge.dataset.ply=String(currentPly);badge.textContent=UX_ICONS[assessed.tag];
+        badge.setAttribute("aria-hidden","true");badge.title=ux(GRADE_KEYS[assessed.tag]||"reviewUnknown");
+        b.appendChild(badge);
+        b.setAttribute("aria-label",b.getAttribute("aria-label")+" — "+badge.title);
+      }
       if((flipped?r===7:r===0)) {const c=document.createElement("small");c.className="file";c.textContent=square[0];b.appendChild(c);}
       if((flipped?f===7:f===0)) {const c=document.createElement("small");c.className="rank";c.textContent=square[1];b.appendChild(c);}
       b.addEventListener("focus",()=>{keyboardSquare=square;});
@@ -775,6 +842,7 @@ function hint(){
     else if(clockState?.baseMs)ratedMessage=tr("clockPolicy");
     playSound("end");persist();render();renderReview();
     message(status()+" — "+ratedMessage);
+    showGameResult();
   }
   function persist(){
     const session=parked||{pgn:lesson?null:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized:finalized&&!lesson,notes};
@@ -845,7 +913,7 @@ function hint(){
     }catch(e){message("Saved state is invalid; a fresh game was started.");}
   }
   function newGame(){
-    cancelFullAnalysis();analysisResult=null;reviewCursor=null;clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();endedBy=null;lowAlerted=null;lesson=null;lessonStep=0;lastLessonId=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
+    hideGameResult();cancelFullAnalysis();analysisResult=null;reviewCursor=null;clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();endedBy=null;lowAlerted=null;lesson=null;lessonStep=0;lastLessonId=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
     $("lesson").value="";
     side=$("side").value;difficulty=$("level").value;language=$("lang").value;
     matchMode=$("match-mode").value==="independent"?"independent":"practice";
@@ -865,6 +933,7 @@ function hint(){
     if(side==="b")scheduleBot();
   }
   function undo(){
+    hideGameResult();
     if(currentMatch())return message(prog("assistBlocked"));
     if(reviewCursor!==null)return message(ux("returnLive"));
     if(endedBy)return message(tr("gameOver"));
@@ -884,6 +953,7 @@ function hint(){
     if(game.turn()!==side)scheduleBot();
   }
   function startLesson(id){
+    hideGameResult();
     if(currentMatch()&&!finalized){$("lesson").value="";return message(prog("assistBlocked"));}
     const task=ACADEMY.byId[id];if(!task)return;
     cancelFullAnalysis();analysisResult=null;reviewCursor=null;
@@ -907,6 +977,7 @@ function hint(){
     startLesson(next.id);
   }
     function resumeGame(){
+    hideGameResult();
     if(!parked)return;
     const previous=parked, restored=new Chess();
     if(previous.pgn && !restored.load_pgn(previous.pgn))return message("Cannot restore saved PGN.");
@@ -939,6 +1010,7 @@ function hint(){
       else message(tr("select"));
     }
     renderAcademy();showHints();renderReview();render();renderFullReview();
+    if($("game-result-toast")&&!$("game-result-toast").hidden)showGameResult();
     if($("clock-policy"))text("clock-policy",clockState?.baseMs?tr("clockPolicy"):"");
     if($("sound-enabled"))$("sound-enabled").checked=soundEnabled;
     if($("clock-panel")){
@@ -974,6 +1046,11 @@ function hint(){
       if(!["ru","en","az"].includes(lang))return;
       $("lang").value=lang;$("lang").dispatchEvent(new Event("change",{bubbles:true}));
     }});
+    if($("game-result-close"))$("game-result-close").addEventListener("click",hideGameResult);
+    if($("game-result-review"))$("game-result-review").addEventListener("click",()=>{
+      hideGameResult();$("full-review-details").open=true;
+      if(typeof $("full-review-details").scrollIntoView==="function")$("full-review-details").scrollIntoView({block:"start",behavior:"smooth"});
+    });
     $("h-first").addEventListener("click",()=>jumpHistory(0));
     $("h-prev").addEventListener("click",()=>jumpHistory((reviewCursor===null?game.history().length:reviewCursor)-1));
     $("h-next").addEventListener("click",()=>jumpHistory((reviewCursor===null?game.history().length:reviewCursor)+1));
