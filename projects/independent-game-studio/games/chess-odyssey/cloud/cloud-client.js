@@ -6,6 +6,7 @@ const API="https://br-still-credit-b9voxawu-chesscloud.compute.c-7.eu-central-1.
 const DB="https://ep-dawn-fog-b9hs1qdd.apirest.c-7.eu-central-1.aws.neon.tech/chess_odyssey/rest/v1";
 const SDK="https://esm.sh/@neondatabase/neon-js@0.9.0-beta?bundle&target=es2022";
 const KEY="chess-odyssey-progress-v1",PRACTICE="chess-odyssey-v01";
+const OWNER_KEY="chess-odyssey-cloud-owner-v1",PENDING_PREFIX="chess-odyssey-pending-v1:";
 const $=id=>document.getElementById(id);
 const dict={
  ru:{heading:"Аккаунт и облачный прогресс",explanation:"Локальная игра работает без аккаунта. Синхронизация только вручную: загрузка требует подтверждения.",email:"Email",password:"Пароль",otp:"Код подтверждения из письма",login:"Войти",signup:"Регистрация",verify:"Подтвердить email",send:"Отправить код",upload:"Сохранить локальный прогресс",download:"Загрузить из облака",logout:"Выйти",disabled:"Облако доступно только на защищённом сайте GitHub Pages.",unavailable:"Облачный сервис недоступен; локальная игра сохранена.",signed:"Аккаунт: {email}",await:"Войдите, чтобы сохранить или загрузить прогресс.",verified:"Email подтверждён. Теперь войдите.",verifyNeeded:"Проверьте почту и введите код подтверждения.",logged:"Вход выполнен. Локальная статистика пока не изменена.",sent:"Код отправлен на email.",saved:"Прогресс сохранён в Neon (ревизия {rev}).",empty:"Облачного прогресса пока нет. Локальные данные не изменены.",loaded:"Облачный прогресс загружен. Локальная копия сохранена для восстановления.",confirm:"Заменить локальную статистику облачной? Перед заменой будет создана резервная копия.",conflict:"Облако изменилось на другом устройстве. Сначала загрузите актуальные данные.",bad:"Ошибка облачной операции. Локальный прогресс не изменён.",bye:"Выход выполнен. Локальный прогресс сохранён.",noProgress:"Данные прогресса ещё не сформированы."},
@@ -13,6 +14,7 @@ const dict={
  az:{heading:"Hesab və bulud inkişafı",explanation:"Oflayn oyun üçün hesab lazım deyil. Sinxronizasiya əl ilə aparılır; yükləmə təsdiq tələb edir.",email:"Email",password:"Şifrə",otp:"Email təsdiq kodu",login:"Daxil ol",signup:"Qeydiyyat",verify:"Emaili təsdiqlə",send:"Kodu göndər",upload:"Lokal inkişafı saxla",download:"Buluddan yüklə",logout:"Çıxış",disabled:"Bulud yalnız təhlükəsiz GitHub Pages saytında aktivdir.",unavailable:"Bulud xidməti əlçatan deyil; lokal oyun saxlanılıb.",signed:"Hesab: {email}",await:"İnkişafı saxlamaq/yükləmək üçün daxil olun.",verified:"Email təsdiqləndi. İndi daxil olun.",verifyNeeded:"Emailinizi yoxlayıb təsdiq kodunu daxil edin.",logged:"Daxil oldunuz. Lokal nəticələr dəyişmədi.",sent:"Kod emailə göndərildi.",saved:"İnkişaf Neon-da saxlanıldı (reviziya {rev}).",empty:"Buludda məlumat yoxdur. Lokal nəticələr dəyişmədi.",loaded:"Bulud inkişafı yükləndi; lokal ehtiyat nüsxə yaradıldı.",confirm:"Lokal inkişaf bulud nüsxəsi ilə əvəz edilsin? Əvvəl ehtiyat nüsxə yaradılacaq.",conflict:"Başqa cihazda bulud dəyişib. Əvvəl cari məlumatı yükləyin.",bad:"Bulud əməliyyatı alınmadı; lokal nəticələr dəyişmədi.",bye:"Çıxış tamamlandı. Lokal inkişaf saxlanıldı.",noProgress:"Hələ inkişaf məlumatı yoxdur."}
 };
 let neon=null,session=null,revision=0,busy=false,locale="ru";
+let accountReady=false,syncBlocked=false,syncTimer=null,syncActive=false;
 const t=(key,params={})=>((dict[locale]||dict.ru)[key]||key).replace(/\{(\w+)\}/g,(_,k)=>params[k]===undefined?"":String(params[k]));
 const show=(message,err=false)=>{const p=$("cloud-status");if(p){p.textContent=message;p.dataset.error=String(err)}};
 function translate(){
@@ -21,7 +23,13 @@ function translate(){
  for(const [id,key] of pairs)if($(id))$(id).textContent=t(key);
  if(session)$("cloud-identity").textContent=t("signed",{email:session.user?.email||""});
 }
-function buttons(){for(const id of ["cloud-login","cloud-signup","cloud-verify","cloud-send-otp","cloud-upload","cloud-download","cloud-logout"])if($(id))$(id).disabled=busy||(!session&&["cloud-upload","cloud-download","cloud-logout"].includes(id));}
+function buttons(){
+ for(const id of ["cloud-login","cloud-signup","cloud-verify","cloud-send-otp","cloud-upload","cloud-download","cloud-logout"]){
+  if(!$(id))continue;
+  $(id).disabled=busy||(!session&&["cloud-upload","cloud-download","cloud-logout"].includes(id))||
+   (!accountReady&&["cloud-upload","cloud-download"].includes(id));
+ }
+}
 async function updateSession(){
  const {data,error}=await neon.auth.getSession();if(error)throw Error(error.message||"SESSION_ERROR");
  session=data?.session?data:null;
@@ -44,6 +52,7 @@ async function refreshRevision(){
  const response=await api("/api/progress");
  if(!Number.isSafeInteger(response?.revision)||response.revision<0)throw Error("INVALID_CLOUD_REVISION");
  revision=response.revision;
+ return response;
 }
 async function api(path,{method="GET",body}={}){
  const response=await fetch(API+path,{method,headers:{Authorization:"Bearer "+await token(),...(body?{"Content-Type":"application/json"}:{})},body:body?JSON.stringify(body):undefined,cache:"no-store",credentials:"omit"});
@@ -52,10 +61,13 @@ async function api(path,{method="GET",body}={}){
  return data;
 }
 function snapshot(){
+ if(!accountReady||!session?.user?.id||localStorage.getItem(OWNER_KEY)!==session.user.id)return null;
  const raw=localStorage.getItem(KEY);if(!raw)return null;
  const progress=JSON.parse(raw);
  const local=JSON.parse(localStorage.getItem(PRACTICE)||"{}");
- return {schema:1,progress,practiceCompleted:Array.isArray(local.completed)?local.completed:[]};
+ const stats=local.stats&&["wins","losses","draws"].every(k=>Number.isSafeInteger(local.stats[k])&&local.stats[k]>=0)
+  ?{wins:local.stats.wins,losses:local.stats.losses,draws:local.stats.draws}:{wins:0,losses:0,draws:0};
+ return {schema:1,ownerId:session.user.id,progress,practiceCompleted:Array.isArray(local.completed)?local.completed:[],practiceStats:stats};
 }
 function backup(){
  const stamp=new Date().toISOString().replace(/[:.]/g,"-");
@@ -64,34 +76,97 @@ function backup(){
  localStorage.setItem(key,JSON.stringify(local));
  return key;
 }
+function requireOwner(){
+ const id=session?.user?.id;
+ if(typeof id!=="string"||!id||id.length>255)throw Error("MISSING_ACCOUNT_ID");
+ return id;
+}
+function pendingKey(){return PENDING_PREFIX+requireOwner();}
+function validateDoc(doc){
+ if(!doc)return null;
+ if(doc.schema!==1||typeof doc.progress!=="object"||!doc.progress||Array.isArray(doc.progress))
+  throw Error("INVALID_CLOUD_DOCUMENT");
+ if(doc.ownerId!==requireOwner())throw Error("CLOUD_OWNER_MISMATCH");
+ return doc;
+}
+function applyAccountDocument(doc){
+ // Always replace any pre-v1 local test data with server-owned state, even on first sign-in.
+ const clean=validateDoc(doc);
+ if(!window.ChessOdysseyAccount?.apply||!window.ChessProgress?.restoreCloudStore||!window.ChessProgressCore?.empty)
+  throw Error("ACCOUNT_MODULE_NOT_READY");
+ localStorage.setItem(OWNER_KEY,requireOwner());
+ window.ChessOdysseyAccount.apply(clean);
+ window.ChessProgress.restoreCloudStore(clean?clean.progress:window.ChessProgressCore.empty());
+ document.dispatchEvent(new Event("chess-progress-change"));
+}
+async function activateAccount(){
+ accountReady=false;syncBlocked=false;buttons();
+ const remote=await refreshRevision();
+ const oldPending=localStorage.getItem(pendingKey());
+ if(oldPending){
+  // Preserve the already-owned unsent work. Never silently overwrite the server after a conflict.
+  const doc=validateDoc(JSON.parse(oldPending));
+  applyAccountDocument(doc);syncBlocked=true;
+  accountReady=true;buttons();show(t("conflict"),true);return;
+ }
+ applyAccountDocument(remote.progressDoc||null);
+ accountReady=true;buttons();
+ show(remote.progressDoc?t("loaded"):t("empty"));
+}
+function queueAutoSave(){
+ if(!accountReady||syncBlocked||!session)return;
+ const doc=snapshot();if(!doc)return;
+ localStorage.setItem(pendingKey(),JSON.stringify(doc));
+ if(syncTimer!==null)clearTimeout(syncTimer);
+ syncTimer=setTimeout(()=>{syncTimer=null;void flushPending()},280);
+}
+async function flushPending(){
+ if(syncActive||!accountReady||syncBlocked||!session)return;
+ const key=pendingKey(),raw=localStorage.getItem(key);
+ if(!raw)return;
+ const doc=validateDoc(JSON.parse(raw));
+ syncActive=true;
+ try{
+  const result=await api("/api/progress",{method:"PUT",body:{expectedRevision:revision,progressDoc:doc}});
+  if(!Number.isSafeInteger(result?.revision)||result.revision<=revision)throw Error("INVALID_CLOUD_REVISION");
+  revision=result.revision;
+  if(localStorage.getItem(key)===raw)localStorage.removeItem(key);
+  show(t("saved",{rev:revision}));
+ }catch(error){
+  if(error.message===t("conflict"))syncBlocked=true;
+  show(error.message||t("bad"),true);
+ }finally{
+  syncActive=false;
+  if(accountReady&&!syncBlocked&&localStorage.getItem(key)!==raw&&localStorage.getItem(key))
+   queueAutoSave();
+ }
+}
 async function upload(){
- const doc=snapshot();if(!doc){show(t("noProgress"));return}
- const r=await api("/api/progress",{method:"PUT",body:{expectedRevision:revision,progressDoc:doc}});
- revision=r.revision;show(t("saved",{rev:revision}));
+ if(!accountReady||syncBlocked){show(t("conflict"),true);return}
+ queueAutoSave();
+ if(syncTimer!==null){clearTimeout(syncTimer);syncTimer=null}
+ await flushPending();
 }
 async function download(){
- const r=await api("/api/progress");revision=r.revision;
- if(!r.progressDoc){show(t("empty"));return}
- const doc=r.progressDoc;
- if(doc.schema!==1||typeof doc.progress!=="object"||!doc.progress||Array.isArray(doc.progress))throw Error("INVALID_CLOUD_DOCUMENT");
+ if(!accountReady)return;
+ const remote=await refreshRevision();
+ const clean=validateDoc(remote.progressDoc);
+ if(!clean){show(t("empty"));return}
  if(!window.confirm(t("confirm")))return;
- const previous=backup();
- try{
-  if(!window.ChessProgress?.restoreCloudStore)throw Error("PROGRESS_MODULE_NOT_READY");
-  window.ChessProgress.restoreCloudStore(doc.progress);
-  if(Array.isArray(doc.practiceCompleted)){
-   const valid=new Set((window.ChessAcademy?.lessons||[]).map(x=>x.id));
-   const clean=[...new Set(doc.practiceCompleted.filter(x=>typeof x==="string"&&valid.has(x)))];
-   const practice=JSON.parse(localStorage.getItem(PRACTICE)||"{}");
-   practice.completed=clean;localStorage.setItem(PRACTICE,JSON.stringify(practice));
-  }
-  document.dispatchEvent(new Event("chess-progress-change"));show(t("loaded"));
- }catch(e){
-  const prior=JSON.parse(localStorage.getItem(previous)||"{}");
-  if(prior.progress===null)localStorage.removeItem(KEY);else localStorage.setItem(KEY,prior.progress);
-  if(prior.practice===null)localStorage.removeItem(PRACTICE);else localStorage.setItem(PRACTICE,prior.practice);
-  throw e;
+ backup(); // backup only current authenticated account workspace; legacy test data never imports
+ applyAccountDocument(clean);
+ localStorage.removeItem(pendingKey());
+ syncBlocked=false;buttons();show(t("loaded"));
+}
+async function clearAccount(){
+ accountReady=false;syncBlocked=false;
+ if(syncTimer!==null){clearTimeout(syncTimer);syncTimer=null}
+ localStorage.removeItem(OWNER_KEY);
+ if(window.ChessOdysseyAccount?.apply&&window.ChessProgress?.restoreCloudStore&&window.ChessProgressCore?.empty){
+  window.ChessOdysseyAccount.apply(null);
+  window.ChessProgress.restoreCloudStore(window.ChessProgressCore.empty());
  }
+ revision=0;
 }
 async function init(){
  if(!$("cloud-account"))return;
