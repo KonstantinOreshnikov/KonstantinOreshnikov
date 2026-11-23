@@ -5,7 +5,7 @@
  */
 (function(root,document){
  "use strict";
- const Core=root.ChessProgressCore,Academy=root.ChessAcademy,Source=root.ChessMastersLibrary,MastersCore=root.ChessMastersCore,Chess=root.Chess;
+ const Core=root.ChessProgressCore,Academy=root.ChessAcademy,Base=root.ChessMastersLibrary,Expansion=root.ChessMastersExpansion,Source=Base&&Expansion?{games:[...Base.games,...Expansion.games]}:Base,MastersCore=root.ChessMastersCore,Chess=root.Chess;
  if(!Core||!Academy||!Source||!MastersCore||typeof Chess!=="function"){root.ChessProgress={error:"B6 modules unavailable"};return;}
  const books=[root.ChessMasterNotesA,root.ChessMasterNotesB,root.ChessMasterNotesC];
  const verified=MastersCore.compile(Chess,Source,books);
