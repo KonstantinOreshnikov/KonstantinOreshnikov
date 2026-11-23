@@ -49,5 +49,12 @@ const {pathToFileURL}=require("node:url");
  await ok("empty origin configuration fails closed",async()=>assert.throws(()=>createCloud({env:{...env,CHESS_ALLOWED_ORIGINS:""},fetchImpl})));
  await ok("preflight allowed only configured site",async()=>{let r=await api.fetch(new Request("https://function.example.test/api/progress",{method:"OPTIONS",headers:{origin:env.CHESS_ALLOWED_ORIGINS}}));assert.equal(r.status,204);assert.equal(r.headers.get("access-control-allow-origin"),env.CHESS_ALLOWED_ORIGINS)});
  await ok("unknown resource unavailable",async()=>assert.equal((await call("/api/pvp",jwt())).status,404));
+ await ok("browser cloud fetch obtains JWT not opaque session ID",async()=>{
+  const fs=require("node:fs"),path=require("node:path");
+  const source=fs.readFileSync(path.resolve(__dirname,"../cloud/cloud-client.js"),"utf8");
+  assert.match(source,/neon\\.auth\\.getJWTToken\\(\\)/);
+  assert.doesNotMatch(source,/data\\.session\\.token/);
+  assert.match(source,/SESSION_EXPIRED/);
+ });
  console.log("PASS ChessCloud "+n+"/"+n);
 })().catch(e=>{console.error(e);process.exitCode=1;});
