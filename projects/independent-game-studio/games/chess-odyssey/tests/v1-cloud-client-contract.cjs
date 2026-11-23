@@ -59,8 +59,13 @@ const jwt="eyJhbGciOiJFZERTQSJ9.eyJzdWIiOiJ0ZXN0LXVzZXIifQ.c2lnbmF0dXJl";
   }
  });
  await ok("login waits for remote revision before claiming success",async()=>{
-  assert.ok(source.includes('await updateSession();await refreshRevision();show(t("logged"))'));
-  assert.ok(source.includes('if(session)try{await refreshRevision()}catch'));
+  assert.ok(source.includes('await updateSession();await activateAccount();show(t("logged"))'));
+  assert.ok(source.includes('if(await updateSession())await activateAccount()'));
+  assert.ok(source.includes('applyAccountDocument(remote.progressDoc||null)'));
+  assert.ok(source.includes('if(!accountReady||!session?.user?.id||localStorage.getItem(OWNER_KEY)!==session.user.id)return null'));
+  assert.ok(source.includes('if(doc.ownerId!==requireOwner())throw Error("CLOUD_OWNER_MISMATCH")'));
+  assert.ok(source.includes('window.addEventListener("chess-progress-commit",queueAutoSave)'));
+  assert.ok(!source.includes('practice.completed=clean;localStorage.setItem(PRACTICE,JSON.stringify(practice))'));
  });
  console.log("PASS Auth Client "+count+"/"+count);
 })().catch(error=>{console.error(error);process.exitCode=1;});
