@@ -78,7 +78,7 @@ const path=require("node:path");
     await page.waitForFunction("window.ChessOdysseyQA && window.ChessOdysseyQA.coach()==='B2-2ply'");
     assert.equal(await page.locator("#board .square").count(),64);cases++;
     await page.locator("#hint").click();
-    await page.selectOption("#global-language","az");
+    await page.selectOption("#lang","az");
     assert.match(await page.locator("#coach-message").innerText(),/Qanuni variantlar/);
     assert.match(await page.locator("#coach-variations").innerText(),/Rəqibin mümkün cavabı/);cases++;
     assert.deepEqual(errors,[]);cases++;
