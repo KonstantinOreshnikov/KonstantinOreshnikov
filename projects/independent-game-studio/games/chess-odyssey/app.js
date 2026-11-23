@@ -635,7 +635,7 @@ function hint(){
         title.textContent=ux(color==="w"?"reviewWhite":"reviewBlack");
         grade.textContent=s.accuracy===null?"—":s.accuracy.toFixed(1)+"%";
         count.textContent=ux("reviewAnalyzed")+": "+s.analyzed+" / "+s.total;
-        card.append(title,grade,count);sum.appendChild(card);
+        card.appendChild(title);card.appendChild(grade);card.appendChild(count);sum.appendChild(card);
       }
     }
     const entries=$("review-entries"),frag=document.createDocumentFragment();
@@ -650,7 +650,7 @@ function hint(){
       grade.title=ux(({best:"reviewBestTag",excellent:"reviewExcellent",good:"reviewGood",ordinary:"reviewOrdinary",inaccuracy:"reviewInaccuracy",mistake:"reviewMistake",blunder:"reviewBlunder"})[entry?.tag]||"reviewUnknown");
       const best=document.createElement("small");
       best.textContent=entry?.bestUci?ux("reviewBest")+": "+entry.bestUci:ux("reviewLimited");
-      button.append(line,grade,best);
+      button.appendChild(line);button.appendChild(grade);button.appendChild(best);
       button.addEventListener("click",()=>jumpHistory(i+1));frag.appendChild(button);
     }
     entries.replaceChildren(frag);
