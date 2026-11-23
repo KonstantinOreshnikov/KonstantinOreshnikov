@@ -11,7 +11,8 @@ const files=[
  "masters-core.js","masters-ui.js","masters-notes-a.js","masters-notes-b.js","masters-notes-c.js",
  "vendor/chess.js","data/masters-source-scores.json",
  "engine/stockfish-19-lite-single.js","engine/stockfish-19-lite-single.wasm",
- "engine/Copying.txt","engine/MANIFEST.md","THIRD_PARTY_NOTICES.md"
+ "engine/Copying.txt","engine/MANIFEST.md","THIRD_PARTY_NOTICES.md",
+ "pieces/SOURCE_REGISTER.md","pieces/LICENSE-MIT.txt","pieces/LICENSE-APACHE-2.0.txt"
 ];
 if(OUT===ROOT||OUT.startsWith(ROOT+path.sep)&&!OUT.includes(path.sep+"build"+path.sep)){
   throw Error("Refusing unsafe build output path");

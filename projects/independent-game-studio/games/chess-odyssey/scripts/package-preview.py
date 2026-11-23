@@ -12,7 +12,7 @@ NAME = f"ChessOdyssey_v{VERSION}_Stockfish_Preview.zip"
 OUTPUT = ROOT / "dist" / NAME
 FILES = [
     "START_WINDOWS.cmd",
-    "index.html", "styles.css", "pieces/piece-sets.css", "pieces/SOURCE_REGISTER.md", "app.js", "clock-core.js", "chess-appearance.js", "game-review-core.js", "coach-engine.js", "engine-bridge.js", "academy.js", "progress-core.js", "progress-ui.js",
+    "index.html", "styles.css", "pieces/piece-sets.css", "pieces/SOURCE_REGISTER.md", "pieces/LICENSE-MIT.txt", "pieces/LICENSE-APACHE-2.0.txt", "app.js", "clock-core.js", "chess-appearance.js", "game-review-core.js", "coach-engine.js", "engine-bridge.js", "academy.js", "progress-core.js", "progress-ui.js",
     "masters-library.js", "masters-notes-a.js", "masters-notes-b.js", "masters-notes-c.js",
     "masters-core.js", "masters-ui.js",
     "vendor/chess.js",
