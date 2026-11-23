@@ -52,8 +52,8 @@ const {pathToFileURL}=require("node:url");
  await ok("browser cloud fetch obtains JWT not opaque session ID",async()=>{
   const fs=require("node:fs"),path=require("node:path");
   const source=fs.readFileSync(path.resolve(__dirname,"../cloud/cloud-client.js"),"utf8");
-  assert.match(source,/neon\\.auth\\.getJWTToken\\(\\)/);
-  assert.doesNotMatch(source,/data\\.session\\.token/);
+  assert.ok(source.includes("neon.auth.getJWTToken()"));
+  assert.ok(!source.includes("data.session.token"));
   assert.match(source,/SESSION_EXPIRED/);
  });
  console.log("PASS ChessCloud "+n+"/"+n);
