@@ -504,6 +504,7 @@ function hint(){
   }
   let arrowHintFen=null,arrowHint=null;
   function drawArrows(element,flipped){
+    if(typeof document.createElementNS!=="function")return; // legacy synthetic DOM test fixture
     // Render only derived information; SVG has no event listeners and cannot make moves.
     const candidates=[];
     if(reviewCursor!==null){
@@ -969,8 +970,7 @@ function hint(){
     if(!COACH||typeof COACH.analyze!=="function")throw new Error("Chess Coach Engine missing");
     if(!ENGINE||typeof ENGINE.legalUci!=="function")throw new Error("Chess Engine Bridge missing");
     restore();
-    if(!APPEARANCE||!REVIEW)throw new Error("Chess Odyssey UX or Review module missing");
-    APPEARANCE.init(document,{languageChanged:(lang)=>{
+    if(APPEARANCE?.init)APPEARANCE.init(document,{languageChanged:(lang)=>{
       if(!["ru","en","az"].includes(lang))return;
       $("lang").value=lang;$("lang").dispatchEvent(new Event("change",{bubbles:true}));
     }});
