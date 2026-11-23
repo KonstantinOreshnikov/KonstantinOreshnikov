@@ -1,0 +1,53 @@
+name: Chess Odyssey — GitHub Pages staging
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "projects/independent-game-studio/games/chess-odyssey/**"
+      - ".github/workflows/chess-odyssey-pages.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: chess-odyssey-pages-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    name: Build and inspect isolated static package
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Confirm static game/engine bundle, privacy and licensing
+        run: node projects/independent-game-studio/games/chess-odyssey/tests/pages-package.cjs
+  deploy:
+    name: Deploy static HTTPS preview (manual dispatch, main only)
+    needs: validate
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Build static files; no PvP fixtures or backend credentials
+        run: node projects/independent-game-studio/games/chess-odyssey/scripts/build-pages.cjs "${{ runner.temp }}/chess-pages-site"
+      - name: Configure GitHub Pages (must be enabled in repository settings)
+        uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/chess-pages-site
+      - name: Publish approved static preview
+        id: deployment
+        uses: actions/deploy-pages@v4
