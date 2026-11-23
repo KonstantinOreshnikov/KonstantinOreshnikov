@@ -329,3 +329,23 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
  .skills-table{font-size:11px}
  .skills-table th,.skills-table td{padding:6px 4px}
 }
+
+/* Mobile-only game setup: reuses the exact desktop form controls through DOM reparenting. */
+.mobile-game-settings{display:none}
+@media(max-width:720px){
+ body.mobile-settings-ready .mobile-game-settings{display:block;grid-column:1/-1;min-width:0;margin:0 0 3px;border:1px solid #52677a;border-radius:13px;background:linear-gradient(145deg,#192e3e,#101d2a);box-shadow:0 8px 20px #0003}
+ .mobile-game-settings>summary{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:15px 17px;min-height:52px;list-style:none;cursor:pointer;font-weight:700;color:#f1ddba}
+ .mobile-game-settings>summary::-webkit-details-marker{display:none}
+ .mobile-game-settings>summary::after{content:'⌄';font-size:22px;color:#d4b476;transition:transform .15s ease}
+ .mobile-game-settings[open]>summary::after{transform:rotate(180deg)}
+ .mobile-game-settings>summary:focus-visible{outline:2px solid #edcc91;outline-offset:2px;border-radius:8px}
+ .mobile-settings-content{padding:0 15px 16px}
+ #mobile-settings-fields{display:grid;gap:14px;min-width:0}
+ #mobile-settings-fields>.panel{padding:0;border:0;background:none;box-shadow:none;border-radius:0;min-width:0}
+ #mobile-settings-fields>.appearance-panel{display:grid;gap:9px}
+ #mobile-settings-fields>.settings-panel{display:grid;gap:13px}
+ #mobile-settings-fields .two-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ #mobile-settings-fields label,#mobile-settings-fields select{min-width:0}
+ #mobile-settings-done{display:block;width:100%;margin-top:16px;min-height:44px;font-size:13px}
+}
+@media(max-width:390px){#mobile-settings-fields .two-fields{grid-template-columns:minmax(0,1fr)}}
