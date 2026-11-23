@@ -3,7 +3,7 @@
 ## 2026-11-23 — Chess Odyssey v0.9.0 source/QA publication
 
 - [PR #18](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/18) merged into `main` at `a81c5132e6bf0570744720551e857ec2f5f432c9` (P0/P1/P2 UX and Game Review).
-- [Chess CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080), Studio smoke PASS; [46-file development preview](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080/artifacts/14796265039) SHA256 `fc6db2dcc41d9515414d73de2a0442e9a7ee8bff9c360c8f1d21fd187f208e66`.
+- [Chess CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080), Studio smoke PASS; [post-merge main CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111); [46-file development preview](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111/artifacts/14796195974) SHA256 `64a75e7fe2d95adf66207207882adae1c146817d4aefe6f58bc4679d29877bf1`.
 - v0.8.0 archived in Git; v1.0 deployment and real authenticated Neon multiplayer remain OPEN. Other three games unchanged.
 
 
