@@ -49,11 +49,12 @@ const {pathToFileURL}=require("node:url");
  await ok("empty origin configuration fails closed",async()=>assert.throws(()=>createCloud({env:{...env,CHESS_ALLOWED_ORIGINS:""},fetchImpl})));
  await ok("preflight allowed only configured site",async()=>{let r=await api.fetch(new Request("https://function.example.test/api/progress",{method:"OPTIONS",headers:{origin:env.CHESS_ALLOWED_ORIGINS}}));assert.equal(r.status,204);assert.equal(r.headers.get("access-control-allow-origin"),env.CHESS_ALLOWED_ORIGINS)});
  await ok("unknown resource unavailable",async()=>assert.equal((await call("/api/pvp",jwt())).status,404));
- await ok("browser cloud fetch obtains JWT not opaque session ID",async()=>{
+ await ok("browser cloud fetch uses documented Neon Auth JWT session",async()=>{
   const fs=require("node:fs"),path=require("node:path");
   const source=fs.readFileSync(path.resolve(__dirname,"../cloud/cloud-client.js"),"utf8");
-  assert.ok(source.includes("neon.auth.getJWTToken()"));
-  assert.ok(!source.includes("data.session.token"));
+  assert.ok(source.includes("neon.auth.getSession()"));
+  assert.ok(source.includes("data?.session?.token"));
+  assert.ok(!source.includes("neon.auth.getJWTToken()"));
   assert.match(source,/SESSION_EXPIRED/);
  });
  console.log("PASS ChessCloud "+n+"/"+n);
