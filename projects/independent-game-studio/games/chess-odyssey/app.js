@@ -197,7 +197,7 @@
       const root=$("practice-view");
       if(typeof root?.classList?.toggle==="function"){
         root.classList.toggle("academy-active",active);
-        root.classList.toggle("independent-mode",matchMode==="independent"&&!active);
+        root.classList.toggle("independent-mode",matchMode==="independent"&&!finalized&&!active);
       }
     }
   }
