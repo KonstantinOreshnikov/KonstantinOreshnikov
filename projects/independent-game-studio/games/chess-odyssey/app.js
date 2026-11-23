@@ -945,7 +945,7 @@ function hint(){
   function newGame(){
     hideGameResult();cancelFullAnalysis();analysisResult=null;reviewCursor=null;clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();endedBy=null;lowAlerted=null;lesson=null;lessonStep=0;lastLessonId=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
     $("lesson").value="";
-    if($("academy-dock"))$("academy-dock").open=false;
+    if($("academy-dock")&&typeof window.matchMedia==="function"&&window.matchMedia("(max-width: 720px)").matches)$("academy-dock").open=false;
     side=$("side").value;difficulty=$("level").value;language=$("lang").value;
     matchMode=$("match-mode").value==="independent"?"independent":"practice";
     if(CLOCK){
@@ -1019,7 +1019,7 @@ function hint(){
     clearHints();showReview=finalized&&(game.game_over()||Boolean(endedBy));renderReview();
     if(CLOCK&&clockState?.baseMs&&clockState.paused)clockState=CLOCK.resume(clockState,Date.now());
     $("side").value=side;$("level").value=difficulty;$("flip").checked=previous.flipped;$("lesson").value="";
-    if($("academy-dock"))$("academy-dock").open=false;
+    if($("academy-dock")&&typeof window.matchMedia==="function"&&window.matchMedia("(max-width: 720px)").matches)$("academy-dock").open=false;
     updateEngineAvailability();
     learnMessage("");message(tr("restored"));render();renderAcademy();persist();
     if(!finalized&&!game.game_over()&&game.turn()!==side)scheduleBot();
@@ -1090,7 +1090,8 @@ function hint(){
       academyTrack=previous.track;$("academy-track").value=academyTrack;
       startLesson(previous.id);
     });
-    if(lesson||lastLessonId&&parked)dock.open=true;
+    // Desktop retains visible selectors for legacy keyboard workflows; phone stays compact.
+    if(lesson||lastLessonId&&parked||typeof window.matchMedia==="function"&&!window.matchMedia("(max-width: 720px)").matches)dock.open=true;
   }
   function setupMobileSettings(){
     // Headless chess-rule fixtures may supply a minimal document without DOM query APIs.
