@@ -2,6 +2,10 @@
 
 ## Active v1.0 staging checkpoint — 2026-11-23 (latest authority over historical sections below)
 
+**GitHub Pages owner activation handoff (2026-11-23):** owner supplied a repository Settings → Pages screenshot showing **Source: GitHub Actions** and **Enforce HTTPS**. This is screenshot-level configuration evidence, not yet proof of the GitHub Pages API readiness or a successful deploy; the existing custom workflow must be executed and the live address verified before closing `BLOCKED_PAGES_ACTIVATION`. Both expected project URLs returned HTTP 404 in pre-deploy checks. Do not install Jekyll or generic Static HTML templates; the repository has an isolated Chess Odyssey Pages workflow.
+
+
+
 **Source:** [draft PR #20](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/20), branch `feature/chess-odyssey-v1-foundation-20261123`, tested code HEAD `f57241abf1c69c1c86c6910d66e6abbfad9d8cc3`. The v0.9 baseline on `main` and the v0.8 rollback remain unchanged. This is **v1.0 implementation in staging, not a public release**.
 
 **Latest executable GitHub CI:**
