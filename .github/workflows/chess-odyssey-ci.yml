@@ -130,6 +130,7 @@ jobs:
         run: |
           node tests/clock-core.cjs
           node tests/p0p2-ui-core.cjs
+          node tests/v1-auth-boundary.cjs
           node tests/b8-translation-structure.cjs
           node tests/b9-match-service.cjs
           node tests/b9-http.cjs
