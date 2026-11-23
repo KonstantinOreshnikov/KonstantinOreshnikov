@@ -93,5 +93,9 @@ const {pathToFileURL}=require("node:url");
  await ok("Bob accepts rematch with opposite colors",async()=>{let r=await request("bob","accept",{inviteToken:token});assert.equal(r.status,200);assert.equal(game.white_user_id,"bob");assert.equal(game.black_user_id,"alice")});
  await ok("Bob resigns second game",async()=>{let r=await request("bob","resign",{gameId:game.game_id,expectedVersion:0});assert.equal(r.status,200);assert.equal(game.result,"0-1")});
  await ok("PVP mock creates 2 persistent game rows",async()=>{assert.equal(games.length,2);assert.equal(moves,2)});
+ await ok("browser preflight permits authenticated PvP POST",async()=>{
+  const r=await api.fetch(new Request("https://chess.qa.test/api/pvp/invite",{method:"OPTIONS",headers:{origin:"https://konstantinoreshnikov.github.io","access-control-request-method":"POST","access-control-request-headers":"authorization,content-type"}}));
+  assert.equal(r.status,204);assert.match(r.headers.get("access-control-allow-methods")||"",/(?:^|,)POST(?:,|$)/);
+ });
  console.log("PASS Chess PvP Cloud "+n+"/"+n);
 })().catch(e=>{console.error(e);process.exitCode=1});
