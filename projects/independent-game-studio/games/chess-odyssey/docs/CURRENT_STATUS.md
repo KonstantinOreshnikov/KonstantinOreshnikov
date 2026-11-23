@@ -1,5 +1,23 @@
 # Chess Odyssey — CURRENT STATUS / project entrypoint
 
+## Active v1.0 staging checkpoint — 2026-11-23 (latest authority over historical sections below)
+
+**Source:** [draft PR #20](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/20), branch `feature/chess-odyssey-v1-foundation-20261123`, tested code HEAD `f57241abf1c69c1c86c6910d66e6abbfad9d8cc3`. The v0.9 baseline on `main` and the v0.8 rollback remain unchanged. This is **v1.0 implementation in staging, not a public release**.
+
+**Latest executable GitHub CI:**
+- [Chess QA #45146146104](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45146146104): **3/3 jobs PASS** (offline/unit, real Chromium E2E, Windows Stockfish launcher).
+- [Pages package #45146146059](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45146146059): packaging and readiness completed successfully, **deploy job SKIPPED**, because GitHub Pages is not enabled for this repository (audit returned Pages HTTP 404). It does **not** establish a public URL. [Pages audit #45146145968](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45146145968) PASS; [studio smoke #45146145975](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45146145975) PASS.
+
+**Neon live readback — isolated staging only:** project `wild-hall-05832800`, branch `br-still-credit-b9voxawu`, database `chess_odyssey`, PostgreSQL 17. Data API **enabled**; Neon Better Auth email/password with mandatory email OTP and trusted origin `https://konstantinoreshnikov.github.io` configured. The four user-data tables `games`, `invites`, `moves`, `user_progress` all have **RLS + FORCE RLS and one member/owner-scoped SELECT policy each**; separate `api_gate` configuration table exists. Seven server-side chess/progress RPCs exist. Row counts directly verified: **0 actual auth users, 0 progress, 0 games, 0 invites, 0 moves**. The older statements below saying Functions were empty, Data API disabled, and RLS policies zero are **superseded** by this verified current state.
+
+**Backend runtime:** `chesscloud` Neon Function deployment **#4 COMPLETED** (Node.js 24) with the current source-backed POST CORS fix. Direct live `/health` returned `{"status":"staging","api":"chess-cloud","auth":"mandatory"}`; anonymous `/api/me`, `/api/progress`, `/api/pvp/dashboard` and a game-id lookup all returned HTTP **401**. These checks validate anonymous denial only, **not** signed live JWT handling, actual OTP, real user authorization or cross-device durability. New browser client source now obtains the signed JWT via `neon.auth.getJWTToken()` instead of the opaque `getSession().data.session.token`, and PvP dashboard status/remaining-invite labels are localized RU/EN/AZ. The corrected web client is **source only until an HTTPS Pages deployment succeeds**.
+
+**Still blocked for v1.0 release:** GitHub Pages owner-side one-time activation; real two-account signup/OTP and signed JWT E2E; cloud progress save/reload across devices; live invite/accept/move/rematch and outsider denial under actual RLS; server-side PvP secret/environment configuration, concurrency and clock testing; independent educational RU/EN/AZ, visual sets/100 combinations, owner Android/PC UAT, production rollback/security signoff. Previous synthetic tests or one anonymous API check do **not** close these gates. No prod deploy, main merge, or unapproved public release.
+
+**Next checkpoint:** enable GitHub Pages **Settings → Pages → Build and deployment → GitHub Actions** once, then verify an actual HTTPS site before authenticating two genuine staging users and testing secure cross-device PvP/progress. If Pages cannot be enabled, continue server-side QA and retain `BLOCKED_PAGES_ACTIVATION` explicitly.
+
+---
+
 ## Current verified Chess Odyssey checkpoint — 2026-11-23
 
 - **Newest code on `main`:** P0–P2 via [merged PR #18](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/18), merge commit `a81c5132e6bf0570744720551e857ec2f5f432c9`. Global RU/EN/AZ UI, non-destructive SAN replay, 10 board themes and 10 piece appearances, wide/fullscreen view, depth-aware Stockfish postgame analysis with arrows, per-side denominators and legend.
