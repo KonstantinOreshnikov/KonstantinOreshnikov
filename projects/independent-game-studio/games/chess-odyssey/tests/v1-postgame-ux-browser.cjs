@@ -178,6 +178,8 @@ async function server(){
    await page.evaluate(()=>{window.__gameSettingsNodes=["level","side","match-mode","time-control"]
      .map(id=>document.getElementById(id));});
    await page.setViewportSize({width:1280,height:900});
+   await page.waitForFunction(()=>[".appearance-panel",".settings-panel"]
+     .every(sel=>document.querySelector("#practice-view > .sidebar > "+sel)));
    const desktop=await page.evaluate(()=>({
      restored:[".appearance-panel",".settings-panel"].every(sel=>document.querySelector("#practice-view > .sidebar > "+sel)),
      original:window.__gameSettingsNodes.every((node,i)=>node===document.getElementById(["level","side","match-mode","time-control"][i])),
@@ -185,6 +187,8 @@ async function server(){
    }));
    assert.deepEqual(desktop,{restored:true,original:true,hidden:true});
    await page.setViewportSize({width:390,height:844});
+   await page.waitForFunction(()=>[".appearance-panel",".settings-panel"]
+     .every(sel=>document.querySelector("#mobile-settings-fields > "+sel)));
    await page.locator("#mobile-game-settings > summary").click();
    await page.locator("#global-language").selectOption("en");
    assert.match(await page.locator("#mobile-game-settings > summary").innerText(),/Game settings/);
