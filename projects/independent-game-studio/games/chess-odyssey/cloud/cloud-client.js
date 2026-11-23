@@ -33,8 +33,10 @@ async function updateSession(){
 async function run(work){if(busy||!neon)return;busy=true;buttons();try{await work()}catch(e){show((e?.message&&e.message.length<160)?e.message:t("bad"),true)}finally{busy=false;buttons()}}
 const email=()=>$("cloud-email").value.trim();
 async function token(){
- const {data,error}=await neon.auth.getSession();if(error||!data?.session?.token)throw Error("SESSION_EXPIRED");
- return data.session.token;
+ if(typeof neon?.auth?.getJWTToken!=="function")throw Error("JWT_PROVIDER_UNAVAILABLE");
+ const jwt=await neon.auth.getJWTToken();
+ if(typeof jwt!=="string"||!/^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$/.test(jwt))throw Error("SESSION_EXPIRED");
+ return jwt;
 }
 async function api(path,{method="GET",body}={}){
  const response=await fetch(API+path,{method,headers:{Authorization:"Bearer "+await token(),...(body?{"Content-Type":"application/json"}:{})},body:body?JSON.stringify(body):undefined,cache:"no-store",credentials:"omit"});
