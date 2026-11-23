@@ -2,6 +2,7 @@ name: Chess Odyssey QA
 on:
   push:
     branches:
+      - "feature/chess-odyssey-v1-integration-20261123"
       - "game/chess-odyssey-v0.1"
       - "main"
       - "chore/independent-game-studio-reconcile-20261121"
@@ -131,6 +132,7 @@ jobs:
           node tests/clock-core.cjs
           node tests/p0p2-ui-core.cjs
           node tests/v1-auth-boundary.cjs
+          node tests/v1-cloud-client-contract.cjs
           node tests/v1-cloud-api.cjs
           node tests/v1-pvp-cloud.cjs
           node tests/b8-translation-structure.cjs
@@ -186,6 +188,7 @@ jobs:
           node tests/release-accessibility.cjs
           node tests/b8-clock-browser.cjs
           node tests/b9-browser.cjs
+          node tests/v1-cloud-ui-browser.cjs
       - name: Build and verify Stockfish preview ZIP with full GPL license
         working-directory: projects/independent-game-studio/games/chess-odyssey
         run: python3 scripts/package-preview.py
