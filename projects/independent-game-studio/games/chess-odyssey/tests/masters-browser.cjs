@@ -126,6 +126,14 @@ const {chromium}=require("playwright");
   await page.waitForFunction("window.ChessMastersQA && window.ChessMastersQA.compile().games===31");
   await page.locator("#nav-masters").click();
   assert.equal(await page.locator("#m-game option").count(),31);total++;
+  // v1.0 standalone contains all 300 scores and works with no external game data.
+  await page.goto(pathTo("dist/ChessOdyssey_v1.0.0_PREVIEW.html"));
+  await page.waitForFunction("window.ChessMastersQA && window.ChessMastersQA.compile().games===300",null,{timeout:60000});
+  await page.locator("#nav-masters").click();
+  assert.equal(await page.locator("#m-game option").count(),300);
+  await page.selectOption("#m-group","champions");
+  assert.equal(await page.locator("#m-game option").count(),269);
+  assert.equal(await page.locator("#m-board .square").count(),64);total++;
   await page.setViewportSize({width:390,height:844});
   assert.equal(await page.locator("#m-board .square").count(),64);
   const scroll=await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+2);
