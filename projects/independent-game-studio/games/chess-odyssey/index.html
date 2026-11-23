@@ -52,6 +52,19 @@
         </div>
       </details>
       <div class="play-section">
+        <details id="academy-dock" class="academy-dock" aria-label="Academy lesson controls">
+          <summary><span id="academy-dock-heading" data-academy-dock="heading">Академия · выбрать урок</span><small id="academy-dock-count">0/33</small></summary>
+          <div class="academy-dock-content">
+            <div id="academy-dock-fields" class="academy-dock-fields"></div>
+            <p id="academy-dock-instruction" class="academy-dock-instruction" aria-live="polite"></p>
+            <div class="academy-dock-actions">
+              <button type="button" id="academy-dock-prev" class="action" data-academy-dock="prev">Предыдущий урок</button>
+              <button type="button" id="academy-dock-hint" class="action accent" data-i18n="hint">Подсказка</button>
+              <button type="button" id="academy-dock-next" class="action primary" data-i18n="nextLesson">Следующий урок</button>
+              <button type="button" id="academy-dock-resume" class="action" data-i18n="resume">Вернуться к партии</button>
+            </div>
+          </div>
+        </details>
         <div class="board-topline">
           <div><p class="eyebrow" data-i18n="game">Тренировочная партия</p><h2 id="game-status" aria-live="polite">Ваш ход</h2></div>
           <div class="board-top-actions"><label class="flip-control"><input type="checkbox" id="flip"><span data-i18n="flip">Повернуть доску</span></label><button type="button" id="wide-view" class="compact-action" aria-label="Wide board view">Широкая доска</button></div>
