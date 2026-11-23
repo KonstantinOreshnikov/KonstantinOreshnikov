@@ -1,0 +1,37 @@
+/* P0-P2 deterministic board/replay/engine-review unit QA */
+"use strict";
+const assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path");
+const Chess=require("../vendor/chess.js").Chess,A=require("../chess-appearance.js"),R=require("../game-review-core.js");
+let n=0;const t=(name,fn)=>{fn();console.log("PASS UX unit "+(++n)+" "+name);};
+t("10 palettes",()=>assert.equal(A.THEMES.length,10));
+t("10 piece styles",()=>assert.equal(A.STYLES.length,10));
+t("unique palette ids",()=>assert.equal(new Set(A.THEMES.map(x=>x.id)).size,10));
+t("unique piece-style ids",()=>assert.equal(new Set(A.STYLES.map(x=>x.id)).size,10));
+t("three named languages",()=>{for(const x of [...A.THEMES,...A.STYLES])assert.equal(x.name.length,3);});
+function lum(h){const n=h.match(/[0-9a-f]{2}/gi).map(x=>parseInt(x,16)/255).map(v=>v<.04045?v/12.92:((v+.055)/1.055)**2.4);return n[0]*.2126+n[1]*.7152+n[2]*.0722;}
+t("palette light/dark visible separation",()=>A.THEMES.forEach(x=>{assert.match(x.light,/^#[0-9a-f]{6}$/i);assert.match(x.dark,/^#[0-9a-f]{6}$/i);const a=lum(x.light),b=lum(x.dark);assert.ok((Math.max(a,b)+.05)/(Math.min(a,b)+.05)>1.35,x.id);}));
+const game=new Chess();for(const m of ["e4","e5","Nf3","Nc6"])assert.ok(game.move(m));
+const pgn=game.pgn(),fen=game.fen();
+t("full timeline includes initial position",()=>assert.equal(R.timeline(Chess,pgn).positions.length,5));
+t("zero ply is initial position",()=>assert.equal(R.atPly(Chess,pgn,0).fen(),new Chess().fen()));
+t("first halfmove has white pawn at e4",()=>assert.equal(R.atPly(Chess,pgn,1).get("e4").color,"w"));
+t("second halfmove has black pawn at e5",()=>assert.equal(R.atPly(Chess,pgn,2).get("e5").color,"b"));
+t("fourth ply returns true final FEN",()=>assert.equal(R.atPly(Chess,pgn,4).fen(),fen));
+t("replay leaves canonical game unchanged",()=>assert.equal(game.fen(),fen));
+t("invalid cursor never allowed",()=>assert.throws(()=>R.atPly(Chess,pgn,5)));
+t("UCI cp white perspective",()=>assert.equal(R.info("info depth 11 score cp 70 pv e2e4",new Chess().fen()).cpWhite,70));
+t("UCI cp black perspective",()=>assert.equal(R.info("info depth 11 score cp 70 pv e7e5",R.timeline(Chess,pgn).positions[1]).cpWhite,-70));
+t("UCI mate sign normalized",()=>assert.equal(R.info("info depth 12 score mate -2 pv e7e5",R.timeline(Chess,pgn).positions[1]).cpWhite,30000));
+t("UCI lowerbound excluded",()=>assert.equal(R.info("info depth 12 score cp 40 lowerbound pv e2e4",new Chess().fen()),null));
+t("bestmove alone is not a score",()=>assert.equal(R.info("bestmove e2e4",new Chess().fen()),null));
+const before={depth:11,cpWhite:0,bestUci:"e2e4"},after={depth:11,cpWhite:0};
+t("true best move label",()=>assert.equal(R.classify(before,after,{color:"w",from:"e2",to:"e4"}).tag,"best"));
+t("huge loss is blunder",()=>assert.equal(R.classify(before,{depth:11,cpWhite:-900},{color:"w",from:"d2",to:"d4"}).tag,"blunder"));
+t("shallow depth not evaluated",()=>assert.equal(R.classify({...before,depth:2},after,{color:"w",from:"e2",to:"e4"}).tag,"unknown"));
+t("zero evaluation maps to 50 percent win proxy",()=>assert.equal(R.probability(0),.5));
+t("expected points bounded",()=>assert.ok(R.probability(700)>R.probability(0)));
+t("both sides denominators exact",()=>{const res=R.results(game.history({verbose:true}),Array(5).fill({depth:11,cpWhite:0,bestUci:"a1a2"}));assert.equal(res.total,4);assert.equal(res.summary.w.total,2);assert.equal(res.summary.b.total,2);assert.equal(res.summary.w.analyzed,2);});
+t("unknown score never yields numeric accuracy",()=>{const a=R.results(game.history({verbose:true}),Array(5).fill(null));assert.equal(a.summary.w.accuracy,null);assert.equal(a.summary.b.accuracy,null);assert.equal(a.analyzed,0);});
+t("all new scripts bundled as standalone",()=>{const p=path.resolve(__dirname,"..");const b=fs.readFileSync(path.join(p,"scripts/build-standalone.cjs"),"utf8"),h=fs.readFileSync(path.join(p,"index.html"),"utf8");for(const x of ["game-review-core.js","chess-appearance.js"])assert.ok(b.includes(x)&&h.includes(x));});
+t("accessible compact controls and replay exist",()=>{const h=fs.readFileSync(path.resolve(__dirname,"../index.html"),"utf8");for(const id of ["global-language","board-theme-details","piece-style-details","h-first","h-prev","h-next","h-last","wide-view","move-legend"])assert.ok(h.includes('id="'+id+'"'),id);});
+console.log("PASS UX unit "+n+"/"+n);

@@ -13,7 +13,7 @@ const name="ChessOdyssey_v"+version+"_PREVIEW.html";
 const h=fs.readFileSync(path.join(root,"index.html"),"utf8");
 const css=fs.readFileSync(path.join(root,"styles.css"),"utf8");
 let out=h.replace('<link rel="stylesheet" href="styles.css">','<style>\n'+css+'\n</style>');
-for(const file of ["vendor/chess.js","coach-engine.js","engine-bridge.js","academy.js","progress-core.js","clock-core.js","app.js","masters-library.js","masters-notes-a.js","masters-notes-b.js","masters-notes-c.js","masters-core.js","masters-ui.js","progress-ui.js"]){
+for(const file of ["vendor/chess.js","coach-engine.js","engine-bridge.js","academy.js","progress-core.js","clock-core.js","chess-appearance.js","game-review-core.js","app.js","masters-library.js","masters-notes-a.js","masters-notes-b.js","masters-notes-c.js","masters-core.js","masters-ui.js","progress-ui.js"]){
  const src=fs.readFileSync(path.join(root,file),"utf8");
  assert.ok(!src.includes("</script"),"unsafe script boundary "+file);
  const link='<script defer src="'+file+'"></script>';

@@ -44,9 +44,9 @@ const {chromium}=require("playwright"),assert=require("node:assert/strict"),path
      assert.match(await page.locator("#moves").innerText(),/e4/);
    });
    await check("localized clock labels for EN and AZ",async()=>{
-     await page.selectOption("#lang","en");
+     await page.selectOption("#global-language","en");
      assert.equal(await page.locator('[data-i18n="timeControl"]').innerText(),"Time control");
-     await page.selectOption("#lang","az");
+     await page.selectOption("#global-language","az");
      assert.equal(await page.locator('[data-i18n="timeControl"]').innerText(),"Vaxt nəzarəti");
    });
    await check("AZ clock screen-reader labels and mobile fit",async()=>{

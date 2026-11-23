@@ -7,12 +7,12 @@ import zipfile
 import hashlib
 
 ROOT = Path(__file__).resolve().parent.parent
-VERSION = "0.8.0"
+VERSION = "0.9.0"
 NAME = f"ChessOdyssey_v{VERSION}_Stockfish_Preview.zip"
 OUTPUT = ROOT / "dist" / NAME
 FILES = [
     "START_WINDOWS.cmd",
-    "index.html", "styles.css", "app.js", "clock-core.js", "coach-engine.js", "engine-bridge.js", "academy.js", "progress-core.js", "progress-ui.js",
+    "index.html", "styles.css", "app.js", "clock-core.js", "chess-appearance.js", "game-review-core.js", "coach-engine.js", "engine-bridge.js", "academy.js", "progress-core.js", "progress-ui.js",
     "masters-library.js", "masters-notes-a.js", "masters-notes-b.js", "masters-notes-c.js",
     "masters-core.js", "masters-ui.js",
     "vendor/chess.js",
@@ -29,8 +29,8 @@ FILES = [
     "docs/COACH_B2_DESIGN.md",
     "docs/DEVELOPMENT_PROTOCOL.md",
     "docs/QA_LOG.md", "docs/ROADMAP.md",
-    "tests/clock-core.cjs", "tests/release-rules.cjs", "tests/release-browser.cjs", "tests/release-live-match-browser.cjs", "tests/release-accessibility.cjs",
-    "dist/ChessOdyssey_v0.8.0_PREVIEW.html",
+    "tests/clock-core.cjs", "tests/p0p2-ui-core.cjs", "tests/p0p2-browser.cjs", "tests/release-rules.cjs", "tests/release-browser.cjs", "tests/release-live-match-browser.cjs", "tests/release-accessibility.cjs",
+    "dist/ChessOdyssey_v0.9.0_PREVIEW.html",
 ]
 for rel in FILES:
     target = ROOT / rel

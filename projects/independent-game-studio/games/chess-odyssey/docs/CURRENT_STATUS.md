@@ -1,5 +1,12 @@
 # Chess Odyssey — CURRENT STATUS / project entrypoint
 
+## 2026-11-23 feature-branch override — Chess Odyssey P0–P2
+
+Latest independently verified **development preview** now exists on [`feature/chess-odyssey-p0-p2-game-review-20261123`](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/tree/feature/chess-odyssey-p0-p2-game-review-20261123): **v0.9.0** (PR #18; SHA `c4b122840e19f0401c75508c2b520f302e5e52d0`). [Actions run](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45124384103) **3/3 SUCCESS**, [Studio smoke](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45124384267) **1/1 SUCCESS**; UX Node **27/27**, real Chrome **16/16**; Windows launcher and existing B0–B9 automated regressions PASS. [Artifact download](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45124384103/artifacts/14794988116), 46-file inner ZIP SHA-256 `8262600a96954ef27e2083b0e80aea0e4436b62fc9342c812719d5cf6cf67d6e` (outer artifact ZIP uses a different SHA). The older v0.8.0 statement below describes the last preview shipped on **`main`** as of 2026-11-21, not the new feature-branch candidate.
+
+**Protection:** PR #18 remains unmerged; no deployment; no Neon/auth/schema/runtime changes. **OPEN:** owner physical PC/Android acceptance; full 10×10 contrast/visual matrix and independent tri-language semantic QA; authenticated durable two-user Neon cloud PvP. Passing local synthetic tests is not an authenticated cloud E2E. Do not call v1.0 production-ready.
+
+
 **VERIFIED 2026-11-21 | B9 / v0.9 DEVELOPMENT ON GITHUB MAIN (SOURCE MERGED). Main-branch GitHub Actions [#407](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865) **3/3 JOBS PASS**. NOT a v0.9 binary release, NOT production v1.0.**  
 **Last packaged playable preview:** **v0.8.0** from [GitHub Actions #403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) (all three jobs SUCCESS). **No separately shipped v0.9 HTML/ZIP has been verified**, so v0.9 is the *development phase*, not a published binary.
 

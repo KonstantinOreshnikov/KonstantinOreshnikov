@@ -1,6 +1,15 @@
 # Chess Odyssey — Changelog
 
-**CURRENT: B9 / v0.9 Development**, not an idea and not yet a shipped v0.9 binary. Last verified playable package is **v0.8.0**; actual CI: [#403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) (3/3 PASS). See [canonical current status](docs/CURRENT_STATUS.md). The entries below are intentionally chronological and do not supersede newer gates.
+## 2026-11-23 — P0–P2 v0.9.0 UX + Stockfish Game Review DEVELOPMENT Preview
+
+- Approved P0 global RU/EN/AZ switcher and non-destructive move-by-move standard-game history, separate from real Undo.
+- Implemented 10 board themes × 10 piece sets, collapsed preview selectors, persistent appearance settings and optional wide/fullscreen board layout.
+- Implemented postgame real-engine review with played/best arrows, per-side analyzed move counts, conservative classifications, interactive evaluation graph and multilingual legend. Offline file HTML does not pretend it has worker-based Stockfish scoring.
+- Feature PR #18 source SHA `c4b122840e19f0401c75508c2b520f302e5e52d0`: [Chess QA 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45124384103) including 27/27 new Node UX, 16/16 new real Chrome UX; [Studio smoke 1/1 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45124384267). [GitHub artifact v0.9.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45124384103/artifacts/14794988116), internal ZIP 46 files SHA-256 `8262600a96954ef27e2083b0e80aea0e4436b62fc9342c812719d5cf6cf67d6e`.
+- **Development preview only:** not merged to `main`; no deploy; human RU/EN/AZ and physical-device QA, exhaustive 100-pair visual validation and authenticated Neon PvP remain open.
+
+
+**CURRENT: B9 / v0.9 Development**, not an idea and not yet a shipped v0.9 binary. Last verified preview on `main` is **v0.8.0** (feature PR #18 separately has verified v0.9.0 development preview); actual CI: [#403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) (3/3 PASS). See [canonical current status](docs/CURRENT_STATUS.md). The entries below are intentionally chronological and do not supersede newer gates.
 
 ## 2026-11-21 — Development Preview v0.1
 - Started dedicated branch game/chess-odyssey-v0.1 from earlier docs concept branch.

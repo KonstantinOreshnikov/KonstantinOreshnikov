@@ -65,7 +65,8 @@ const URL_FOR=file=>"file://"+path.resolve(__dirname,"../"+file);
    await page.keyboard.press("Enter");
    await page.waitForFunction(()=>{const p=localStorage.getItem("chess-odyssey-v01");return p&&new Chess().load_pgn(JSON.parse(p).pgn)&&JSON.parse(p).pgn.includes("e4 ");},{timeout:12000});
    await page.waitForFunction(()=>{const g=new Chess();const p=JSON.parse(localStorage.getItem("chess-odyssey-v01"));return g.load_pgn(p.pgn)&&g.history().length>=2;},{timeout:12000});
-   assert.match(await page.locator("#moves").innerText(),/1\. e4/);
+   assert.equal(await page.locator("#moves .move-no").first().innerText(),"1.");
+   assert.equal(await page.locator('#moves button[data-ply="1"]').innerText(),"e4");
   });
   await test("practice undo plus full game reload keeps only legal PGN",async()=>{
    await page.locator("#undo").click();
@@ -175,7 +176,7 @@ const URL_FOR=file=>"file://"+path.resolve(__dirname,"../"+file);
   await test("RU/EN/AZ name real kings, pawns and modal buttons accurately",async()=>{
    await page.locator("#nav-play").click();
    for(const [lang,king,pawn] of [["ru",/белый король/,/белая пешка/],["en",/white king/,/white pawn/],["az",/ağ şah/,/ağ piyada/]]){
-     await page.selectOption("#lang",lang);
+     await page.selectOption("#global-language",lang);
      assert.match(await square("e1").getAttribute("aria-label"),king);
      // restore initial game for pawn before the next set of checks
      await page.locator("#new-game").click();
