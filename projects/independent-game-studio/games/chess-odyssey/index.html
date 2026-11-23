@@ -54,14 +54,7 @@
           <div class="clock-card" id="clock-white"><span class="clock-player" data-i18n="whiteClock">Белые</span><span class="sandglass" aria-hidden="true">⌛</span><strong id="clock-white-time" class="clock-time" aria-label="White time remaining">00:00</strong></div>
         </div>
         <div class="board-frame"><div id="board" class="board" role="group" aria-label="Chessboard" aria-describedby="board-keyboard-hint"></div></div>
-        <p id="board-keyboard-hint" class="chess-keyboard-help" data-i18n="boardHelp">Клавиши ← ↑ → ↓ — перемещение по доске; Enter или пробел — выбрать клетку.</p>
-        <div class="board-controls">
-          <button id="new-game" class="action primary" data-i18n="newGame">Новая партия</button>
-          <button id="undo" class="action" data-i18n="undo">Отменить ход</button>
-          <button id="hint" class="action accent" data-i18n="hint">Подсказка</button>
-        </div>
-        <div class="b8-controls"><button id="resign" type="button" class="action" data-i18n="resign">Сдаться</button><button id="rematch" type="button" class="action" data-i18n="rematch">Реванш</button></div>
-        <div class="moves-panel"><h3 data-i18n="moves">История ходов</h3>
+        <div class="board-replay-dock" role="region" aria-label="Move navigation and notation">
           <div class="replay-toolbar" role="group" aria-label="Move replay controls">
             <button id="h-first" type="button" aria-label="First position" title="First position">|◀</button>
             <button id="h-prev" type="button" aria-label="Previous move" title="Previous move">◀</button>
@@ -70,6 +63,21 @@
             <button id="h-last" type="button" aria-label="Last / live position" title="Last / live position">▶|</button>
             <button id="h-return" type="button" class="replay-live" data-i18n="returnLive" hidden>К партии</button>
           </div>
+          <output id="h-current-san" class="replay-current" aria-live="polite">Начальная позиция</output>
+        </div>
+        <aside id="game-result-toast" class="game-result-toast" role="status" aria-live="polite" hidden>
+          <div class="game-result-top"><strong id="game-result-title"></strong><button type="button" id="game-result-close" aria-label="Закрыть уведомление">×</button></div>
+          <p id="game-result-detail"></p>
+          <button id="game-result-review" type="button">Разбор партии</button>
+        </aside>
+        <p id="board-keyboard-hint" class="chess-keyboard-help" data-i18n="boardHelp">Клавиши ← ↑ → ↓ — перемещение по доске; Enter или пробел — выбрать клетку.</p>
+        <div class="board-controls">
+          <button id="new-game" class="action primary" data-i18n="newGame">Новая партия</button>
+          <button id="undo" class="action" data-i18n="undo">Отменить ход</button>
+          <button id="hint" class="action accent" data-i18n="hint">Подсказка</button>
+        </div>
+        <div class="b8-controls"><button id="resign" type="button" class="action" data-i18n="resign">Сдаться</button><button id="rematch" type="button" class="action" data-i18n="rematch">Реванш</button></div>
+        <div class="moves-panel"><h3 data-i18n="moves">История ходов</h3>
           <div id="moves" class="move-timeline" role="group" aria-label="Recorded chess moves">—</div>
         </div>
       </div>
@@ -86,6 +94,7 @@
               <button type="button" id="start-review" class="action accent" data-i18n="reviewStart">Анализировать ходы</button><button type="button" id="cancel-review" class="action" data-i18n="reviewCancel" hidden>Отменить анализ</button></div>
               <p id="review-progress" role="status" aria-live="polite"></p>
               <div id="review-summary" class="review-summary" aria-live="polite"></div>
+              <section id="review-skills" class="review-skills" aria-label="Five-category game assessment" hidden></section>
               <div id="review-chart" class="review-chart" role="img" aria-label="Position advantage after each move"></div>
               <details id="move-legend" class="move-legend"><summary data-i18n="moveLegend">Что означают оценки ходов?</summary><div id="move-legend-list"></div></details>
               <div id="review-entries" class="review-entries" role="group" aria-label="Move-by-move review"></div>
