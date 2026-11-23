@@ -10,7 +10,7 @@ const get=(path,headers={},method="GET")=>gate.fetch(new Request("https://neon.e
  await ok("health contains no secrets",async()=>{const r=await get("/health");assert.equal(r.status,200);const s=JSON.stringify(await r.json());assert.ok(!s.includes("DATABASE_URL")&&!s.includes("jwt"));});
  await ok("anonymous profile is forbidden",async()=>assert.equal((await get("/api/me",{origin:allowed})).status,401));
  await ok("invalid JWT is forbidden",async()=>assert.equal((await get("/api/me",{origin:allowed,authorization:"Bearer wrong.sig.token"})).status,401));
- await ok("valid signed and verified JWT resolves only its sub",async()=>{const r=await get("/api/me",{origin:allowed,authorization:"Bearer "+token});assert.equal(r.status,200);assert.deepEqual(await r.json(),{authenticated:true,user:{id:"auth-user-01"}});});
+ await ok("mocked valid verification claims resolve only their subject",async()=>{const r=await get("/api/me",{origin:allowed,authorization:"Bearer "+token});assert.equal(r.status,200);assert.deepEqual(await r.json(),{authenticated:true,user:{id:"auth-user-01"}});});
  await ok("untrusted Origin rejected without mirroring",async()=>{const r=await get("/api/me",{origin:"https://attacker.example",authorization:"Bearer "+token});assert.equal(r.status,403);assert.equal(r.headers.get("access-control-allow-origin"),null);});
  await ok("X-Demo-User identity spoofing rejected",async()=>assert.equal((await get("/api/me",{origin:allowed,authorization:"Bearer "+token,"x-demo-user":"alice"})).status,400));
  await ok("CORS preflight only for explicit approved origin",async()=>{const r=await get("/api/me",{origin:allowed},"OPTIONS");assert.equal(r.status,204);assert.equal(r.headers.get("access-control-allow-origin"),allowed);});
