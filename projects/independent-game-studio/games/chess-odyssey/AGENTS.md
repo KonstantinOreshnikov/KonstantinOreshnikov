@@ -2,7 +2,7 @@
 
 Application/runtime scope is ONLY `projects/independent-game-studio/games/chess-odyssey/`. Portfolio documentation may link to the studio registry. Do not alter other games during Chess implementation; the separately authorized studio migration moves files without changing gameplay. Never change production deployment without approval.
 
-**Current phase:** B9 / v0.9 DEVELOPMENT, not an idea; last packaged playable preview remains v0.8.0; no v0.9 release, no online PvP production. **Read first:** docs/CURRENT_STATUS.md -> docs/B9_NEON_STAGING_CHECKPOINT_2026-11-21.md -> docs/B9_NEON_INTEGRATION.md -> docs/QA_LOG.md -> docs/ROADMAP.md -> README.md -> docs/DEVELOPMENT_PROTOCOL.md -> CHANGELOG.md. Archived original idea: docs/ORIGINAL_CONCEPT_2026-11-20.md (**historical**, not current). Always verify actual CI and live Neon state before changing status.
+**Current phase:** B9 / v0.9 DEVELOPMENT. Latest development preview **v0.9.0 P0–P2** (46-file verified ZIP in Actions, source on `main` via PR #18), historical v0.8.0 preserved in repo for rollback. No v1.0 production release or genuine online Neon PvP. **Read first:** docs/CURRENT_STATUS.md -> docs/B9_NEON_STAGING_CHECKPOINT_2026-11-21.md -> docs/B9_NEON_INTEGRATION.md -> docs/QA_LOG.md -> docs/ROADMAP.md -> README.md -> docs/DEVELOPMENT_PROTOCOL.md -> CHANGELOG.md. Archived original idea: docs/ORIGINAL_CONCEPT_2026-11-20.md (**historical**, not current). Always verify actual CI and live Neon state before changing status.
 
 ## Required operating practices
 
@@ -15,12 +15,17 @@ Application/runtime scope is ONLY `projects/independent-game-studio/games/chess-
 
 These are repository-local agent operating instructions, not a claim that upstream packages, paid APIs or host-level skills have been installed. Original upstream grill-me would require grilling; grill-with-docs would require grilling and domain-modeling before invocation. Neither is invoked by this document.
 
+## P0–P2 v0.9.0 technical and release boundary (2026-11-23)
+- [PR #18 merged](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/18), [Chess QA 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080), 27/27 new Node UX and 16/16 new Chrome UX, Windows/WASM PASS. [46-file preview](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080/artifacts/14796265039) expires 2026-12-23; current source and reproducible build scripts are retained on `main`.
+- 10 board themes × 10 piece styles must be legible on real devices; full 100-pair manual visual acceptance NOT TESTED. Independent human RU/EN/AZ content correctness NOT COMPLETE.
+- Source merge is NOT public deployment or v1.0; separate authentic Neon multiplayer, security and owner UAT gates remain OPEN.
+
 ## Current B9 security and acceptance boundaries
 - Historical verified automated QA: GitHub Actions [#403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) (3/3 jobs PASS), B8 clock 32/32, B8 browser 12/12, B9 synthetic domain 27/27, HTTP 15/15, two-browser 11/11. Synthetic success is NOT live Neon E2E.
 - Neon Staging `wild-hall-05832800`, PostgreSQL 17 Frankfurt, Better Auth email+OTP configured with owner authorization. Four application tables have RLS+FORCE RLS and **zero** allow policies. Zero genuine users/games verified. Live authenticated PvP, issuer/signature checks, transactional durable adapter, real OTP and negative security QA are NOT TESTED.
 - `pvp/dev-server.cjs` uses spoofable `X-Demo-User`, limited to loopback. This fixture MUST NEVER be publicly served or re-used as production authentication; do not claim live PvP based on it.
 - In production protect data and credentials, perform authenticated two-real-user tests, preserve opt-in migration and distinct AI Ladder Index/PvP scores. Keep B8 independent RU/EN/AZ manual review and B5 second-archive checks OPEN.
-- Owner explicitly authorized GitHub source and docs merges into `main` on 2026-11-21 (PR #7/#8, both merged). That does **not** authorize future unreviewed source merges, production DB changes or a public deployment.
+- Owner approved source publication to `main` on 2026-11-21 (PR #7/#8), and current P0–P2 publication on 2026-11-23 (PR #18); these are historical authorizations, not a blanket permission for future code/deploy merges. That does **not** authorize future unreviewed source merges, production DB changes or a public deployment.
 
 ## Release barrier
 
