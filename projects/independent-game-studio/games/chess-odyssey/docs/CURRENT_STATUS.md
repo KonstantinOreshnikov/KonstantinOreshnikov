@@ -1,5 +1,10 @@
 # Chess Odyssey — CURRENT STATUS / project entrypoint
 
+## Owner decision — fresh-account v1.0 progress (2026-11-23)
+
+- Pre-release local/anonymous Academy and game progress is **test data only**; it must **NOT** be migrated, imported, backfilled or used to credit new registered accounts. New verified account: **0/33**, zero stats/achievements; sync only authenticated progress earned after registration across devices. Preserve the account's saved server progress on later logins. Do not require bulk local-data deletion.
+- **Current phase unchanged:** v1.0 cloud authentication and cross-device persistence still require actual signed-in Neon E2E; documented in [V1_STAGING_E2E_RUNBOOK.md](V1_STAGING_E2E_RUNBOOK.md). No staging runtime, production, DB, code or main merge occurred in this documentation-only checkpoint.
+
 ## Verified UX recovery — 2026-11-23 (latest checkpoint, supersedes older notes below)
 
 ## Exact four-item owner acceptance clarification — 2026-11-23
