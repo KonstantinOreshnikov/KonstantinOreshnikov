@@ -16,6 +16,8 @@
   const ENGINE = window.ChessEngineBridge;
   const PROGRESS = window.ChessProgressCore;
   const CLOCK = window.ChessClock || null;
+  const APPEARANCE = window.ChessAppearance;
+  const REVIEW = window.ChessGameReview;
   // Old preview smoke fixtures may omit the optional B6 module. Independent match
   // recording fails closed if the progress controller is unavailable.
   const I18N = {
@@ -35,6 +37,16 @@
   let matchMode="practice",matchSession=null;
   let clockState=CLOCK?CLOCK.start(CLOCK.config("none"),Date.now()):null;
   let clockTheme="digital",soundEnabled=false,endedBy=null,lowAlerted=null,audioContext=null;
+  // Review is strictly read-only: the canonical game/clock never follow this cursor.
+  let reviewCursor=null,lessonHintMove=null,analysisResult=null,analysisWorker=null,analysisGeneration=0,analysisRunning=false;
+  const UX_TEXT={
+    ru:{returnLive:"К партии",wide:"Широкая доска",fullReview:"Полный разбор партии",analysisQuality:"Глубина анализа",analysisQuick:"Быстрый",analysisBalanced:"Сбалансированный",analysisDeep:"Глубокий",reviewStart:"Анализировать ходы",reviewCancel:"Отменить анализ",moveLegend:"Что означают оценки ходов?",reviewOffline:"В одиночном HTML глубокий Stockfish-анализ недоступен. Для него откройте ZIP через localhost или сайт HTTPS. История ходов доступна.",reviewReady:"Выберите глубину и запустите разбор.",reviewWait:"Анализ: {done}/{total} позиций",reviewDone:"Разбор завершён: {count} из {total} полуходов оценено.",reviewError:"Движок анализа недоступен. Численные оценки не рассчитаны.",reviewFairPlay:"Полный анализ появится после окончания самостоятельной партии.",reviewNoMoves:"Сначала сыграйте хотя бы один ход.",reviewPosition:"Просмотр позиции {ply}/{total} — партия продолжает идти отдельно.",reviewWhite:"Белые",reviewBlack:"Чёрные",reviewAccuracy:"Точность (оценка модели)",reviewAnalyzed:"Оценено полуходов",reviewBest:"Рекомендованный ход",reviewCurrent:"Сыграно",reviewLimited:"Не оценено движком",reviewUnknown:"Нет оценки",reviewBrilliant:"Блестящий — исключительно сильный ход; отдельная методика, пока не присваивается",reviewBestTag:"Лучший",reviewExcellent:"Отличный",reviewGood:"Хороший",reviewOrdinary:"Обычный",reviewInaccuracy:"Неточность",reviewMistake:"Ошибка",reviewBlunder:"Грубая ошибка",reviewBook:"Дебютный ход (только при подтверждённой базе)",reviewSource:"Модель изменения ожидаемых очков, не рейтинг Elo."},
+    en:{returnLive:"Return to live",wide:"Wide board",fullReview:"Full Game Review",analysisQuality:"Analysis depth",analysisQuick:"Quick",analysisBalanced:"Balanced",analysisDeep:"Deep",reviewStart:"Analyze moves",reviewCancel:"Cancel analysis",moveLegend:"What do the move symbols mean?",reviewOffline:"Stockfish deep analysis is unavailable in a standalone HTML file. Open the ZIP over localhost or use the HTTPS site. Move replay still works.",reviewReady:"Choose quality and start analysis.",reviewWait:"Analyzing: {done}/{total} positions",reviewDone:"Review complete: {count} of {total} half-moves evaluated.",reviewError:"Analysis engine unavailable. No numeric accuracy was calculated.",reviewFairPlay:"Full review is available only after the independent game ends.",reviewNoMoves:"Play at least one move first.",reviewPosition:"Viewing position {ply}/{total}; the actual game keeps running separately.",reviewWhite:"White",reviewBlack:"Black",reviewAccuracy:"Accuracy (model estimate)",reviewAnalyzed:"Half-moves analyzed",reviewBest:"Recommended move",reviewCurrent:"Played",reviewLimited:"Not engine-evaluated",reviewUnknown:"Not evaluated",reviewBrilliant:"Brilliant — exceptional strong move; method not validated, so not assigned",reviewBestTag:"Best",reviewExcellent:"Excellent",reviewGood:"Good",reviewOrdinary:"Ordinary",reviewInaccuracy:"Inaccuracy",reviewMistake:"Mistake",reviewBlunder:"Blunder",reviewBook:"Book move (verified opening only)",reviewSource:"Expected-points change model, not an Elo rating."},
+    az:{returnLive:"Oyuna qayıt",wide:"Geniş taxta",fullReview:"Partiyanın tam təhlili",analysisQuality:"Təhlil dərinliyi",analysisQuick:"Sürətli",analysisBalanced:"Balanslı",analysisDeep:"Dərin",reviewStart:"Gedişləri təhlil et",reviewCancel:"Təhlili dayandır",moveLegend:"Gediş qiymətləndirmələri nə deməkdir?",reviewOffline:"Tək HTML faylında Stockfish dərin təhlili mövcud deyil. ZIP-i localhost ilə və ya HTTPS saytında açın. Gedişlərə baxmaq mümkündür.",reviewReady:"Dərinliyi seçib təhlilə başlayın.",reviewWait:"Təhlil: {done}/{total} mövqe",reviewDone:"Təhlil tamamlandı: {count}/{total} yarımgediş qiymətləndirilib.",reviewError:"Təhlil mühərriki mövcud deyil. Rəqəmsal dəqiqlik hesablanmayıb.",reviewFairPlay:"Tam təhlil yalnız müstəqil oyun bitdikdən sonra mümkündür.",reviewNoMoves:"Əvvəlcə ən azı bir gediş edin.",reviewPosition:"{ply}/{total} mövqeyinə baxış — əsl oyun ayrıca davam edir.",reviewWhite:"Ağlar",reviewBlack:"Qaralar",reviewAccuracy:"Dəqiqlik (modelin qiyməti)",reviewAnalyzed:"Qiymətləndirilən yarımgedişlər",reviewBest:"Tövsiyə olunan gediş",reviewCurrent:"Oynanılıb",reviewLimited:"Mühərrik tərəfindən qiymətləndirilməyib",reviewUnknown:"Qiymətləndirilməyib",reviewBrilliant:"Parlaq — müstəsna güclü gediş; ayrıca meyar təsdiqlənməyib, buna görə verilməyib",reviewBestTag:"Ən yaxşı",reviewExcellent:"Əla",reviewGood:"Yaxşı",reviewOrdinary:"Adi",reviewInaccuracy:"Qeyri-dəqiqlik",reviewMistake:"Səhv",reviewBlunder:"Kobud səhv",reviewBook:"Debüt gedişi (yalnız təsdiqlənmiş baza)",reviewSource:"Gözlənilən xal dəyişməsi modeli, Elo reytinqi deyil."}
+  };
+  const UX_ICONS={best:"★",excellent:"!",good:"✓",ordinary:"—",inaccuracy:"?!",mistake:"?",blunder:"??",unknown:"—",brilliant:"!!",book:"⌂"};
+  function ux(key,values){return (UX_TEXT[language]||UX_TEXT.ru)[key]?.replace(/\{(\w+)\}/g,(_,k)=>values&&values[k]!==undefined?String(values[k]):"?")||key;}
+
   const engine = ENGINE && new ENGINE.Bridge();
   let lastEngineKind="local";
   const B8_TEXT={
@@ -208,7 +220,7 @@
     return raw.replace(/\{(\w+)\}/g,(_match,name)=>values&&values[name]!==undefined?String(values[name]):"?");
   }
   function reason(kind){return ct("reason"+(kind||"quiet").charAt(0).toUpperCase()+(kind||"quiet").slice(1));}
-  function clearHints(){hintState=null;$("coach-variations").replaceChildren();$("coach-variations").hidden=true;}
+  function clearHints(){hintState=null;lessonHintMove=null;$("coach-variations").replaceChildren();$("coach-variations").hidden=true;}
   function appendLabel(parent,heading,detail){
     const bold=document.createElement("strong");bold.textContent=heading;
     const info=document.createElement("p");info.textContent=detail;
@@ -382,7 +394,7 @@ function hint(){
       const task=lessonTask(),san=task.steps[lessonStep].san;
       const expected=game.moves({verbose:true}).find(x=>x.san===san);
       if(!expected)throw new Error("Academy answer not legal: "+task.id+"/"+san);
-      selected=expected.from;
+      selected=expected.from;lessonHintMove={from:expected.from,to:expected.to};
       message(at("hint",{move:san})+" "+task.steps[lessonStep].prompt[language]);
       render();return;
     }
