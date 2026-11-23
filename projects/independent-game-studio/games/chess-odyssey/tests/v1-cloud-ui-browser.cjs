@@ -43,6 +43,7 @@ const fakeSdk=String.raw`export function createClient() {
    return route.fulfill({status:200,contentType:"text/javascript",headers:{"Access-Control-Allow-Origin":"*"},body:fakeSdk});
   }
   if(u.hostname.endsWith(".neon.tech")&&u.pathname.startsWith("/api/")){
+   if(req.method()==="OPTIONS")return route.fulfill({status:204,headers:{"Access-Control-Allow-Origin":ORIGIN,"Access-Control-Allow-Headers":"authorization,content-type","Access-Control-Allow-Methods":"GET,PUT,OPTIONS"}});
    if(req.headers().authorization!=="Bearer aaa.bbb.ccc"){return route.fulfill({status:401,contentType:"application/json",body:'{"error":"UNAUTHORIZED"}',headers:{"Access-Control-Allow-Origin":ORIGIN}})}
    if(u.pathname==="/api/progress"){
     if(req.method()==="GET")return route.fulfill({status:200,contentType:"application/json",body:JSON.stringify({revision:remoteRev,progressDoc:remoteDoc}),headers:{"Access-Control-Allow-Origin":ORIGIN}});
