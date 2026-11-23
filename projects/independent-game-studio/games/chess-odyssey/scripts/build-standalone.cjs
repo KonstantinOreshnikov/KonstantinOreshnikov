@@ -12,14 +12,14 @@ if(!/^0\.[0-9]+\.[0-9]+$/.test(version))throw new Error("Invalid preview version
 const name="ChessOdyssey_v"+version+"_PREVIEW.html";
 const h=fs.readFileSync(path.join(root,"index.html"),"utf8");
 const css=fs.readFileSync(path.join(root,"styles.css"),"utf8");
-const pieceCss=fs.readFileSync(path.join(root,"pieces/piece-sets.css"),"utf8").replace(/url\\("([a-z-]+\\/[bw][KQRBNP]\\.svg)"\\)/g,(_full,ref)=>{
+const pieceCss=fs.readFileSync(path.join(root,"pieces/piece-sets.css"),"utf8").replace(/url\("([a-z-]+\/[bw][KQRBNP]\.svg)"\)/g,(_full,ref)=>{
  const file=path.join(root,"pieces",ref);
  const svg=fs.readFileSync(file,"utf8");
  assert.ok(svg.startsWith("<svg"),"bad SVG "+ref);
  return 'url("data:image/svg+xml;base64,'+Buffer.from(svg,"utf8").toString("base64")+'")';
 });
-let out=h.replace('<link rel="stylesheet" href="styles.css">','<style>\\n'+css+'\\n</style>');
-out=out.replace('<link rel="stylesheet" href="pieces/piece-sets.css">','<style>\\n'+pieceCss+'\\n</style>');
+let out=h.replace('<link rel="stylesheet" href="styles.css">','<style>\n'+css+'\n</style>');
+out=out.replace('<link rel="stylesheet" href="pieces/piece-sets.css">','<style>\n'+pieceCss+'\n</style>');
 for(const file of ["vendor/chess.js","coach-engine.js","engine-bridge.js","academy.js","progress-core.js","clock-core.js","chess-appearance.js","game-review-core.js","app.js","masters-library.js","masters-notes-a.js","masters-notes-b.js","masters-notes-c.js","masters-core.js","masters-ui.js","progress-ui.js"]){
  const src=fs.readFileSync(path.join(root,file),"utf8");
  assert.ok(!src.includes("</script"),"unsafe script boundary "+file);
