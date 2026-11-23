@@ -33,11 +33,17 @@ async function updateSession(){
 async function run(work){if(busy||!neon)return;busy=true;buttons();try{await work()}catch(e){show((e?.message&&e.message.length<160)?e.message:t("bad"),true)}finally{busy=false;buttons()}}
 const email=()=>$("cloud-email").value.trim();
 async function token(){
- if(typeof neon?.auth?.getJWTToken!=="function")throw Error("JWT_PROVIDER_UNAVAILABLE");
- const jwt=await neon.auth.getJWTToken();
+ const {data,error}=await neon.auth.getSession();
+ if(error)throw Error("SESSION_EXPIRED");
+ const jwt=data?.session?.token;
  const parts=typeof jwt==="string"?jwt.split("."):[];
  if(parts.length!==3||parts.some(part=>!part||!/^[A-Za-z0-9_-]+$/.test(part)))throw Error("SESSION_EXPIRED");
  return jwt;
+}
+async function refreshRevision(){
+ const response=await api("/api/progress");
+ if(!Number.isSafeInteger(response?.revision)||response.revision<0)throw Error("INVALID_CLOUD_REVISION");
+ revision=response.revision;
 }
 async function api(path,{method="GET",body}={}){
  const response=await fetch(API+path,{method,headers:{Authorization:"Bearer "+await token(),...(body?{"Content-Type":"application/json"}:{})},body:body?JSON.stringify(body):undefined,cache:"no-store",credentials:"omit"});
@@ -100,13 +106,13 @@ async function init(){
   if(await updateSession())show(t("logged"));else show(t("await"));
  }catch(e){show(t("unavailable"),true);$("cloud-auth-form").hidden=true;return}
  const bind=(id,fn)=>$(id)?.addEventListener("click",()=>run(fn));
- bind("cloud-login",async()=>{const r=await neon.auth.signIn.email({email:email(),password:$("cloud-password").value});if(r.error)throw Error(r.error.message);await updateSession();show(t("logged"))});
+ bind("cloud-login",async()=>{const r=await neon.auth.signIn.email({email:email(),password:$("cloud-password").value});if(r.error)throw Error(r.error.message);await updateSession();await refreshRevision();show(t("logged"))});
  bind("cloud-signup",async()=>{const r=await neon.auth.signUp.email({email:email(),password:$("cloud-password").value,name:email().split("@")[0]});if(r.error)throw Error(r.error.message);show(t("verifyNeeded"))});
  bind("cloud-send-otp",async()=>{const r=await neon.auth.emailOtp.sendVerificationOtp({email:email(),type:"email-verification"});if(r.error)throw Error(r.error.message);show(t("sent"))});
  bind("cloud-verify",async()=>{const r=await neon.auth.emailOtp.verifyEmail({email:email(),otp:$("cloud-otp").value.trim()});if(r.error)throw Error(r.error.message);await updateSession();show(t("verified"))});
  bind("cloud-logout",async()=>{const r=await neon.auth.signOut();if(r.error)throw Error(r.error.message);session=null;revision=0;await updateSession();show(t("bye"))});
  bind("cloud-upload",upload);bind("cloud-download",download);
- if(session)try{revision=(await api("/api/progress")).revision}catch{show(t("unavailable"),true)}
+ if(session)try{await refreshRevision()}catch{show(t("unavailable"),true)}
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();
