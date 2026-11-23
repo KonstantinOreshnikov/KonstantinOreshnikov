@@ -35,7 +35,7 @@ const {chromium}=require("playwright");
   await page.waitForFunction("window.ChessOdysseyQA && window.ChessMastersQA && window.ChessProgressQA");
   await check("B6 starts at zero, no fake index",async()=>{
    const x=await page.evaluate(()=>window.ChessProgressQA.snapshot().summary);
-   assert.equal(x.academy.total,33);assert.equal(x.masters.total,31);
+   assert.equal(x.academy.total,33);assert.equal(x.masters.total,300);
    assert.equal(x.masters.momentsTotal,116);assert.equal(x.reputation,0);
    assert.equal(x.rated.index,null);
   });
