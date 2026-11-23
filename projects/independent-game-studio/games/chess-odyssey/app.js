@@ -453,6 +453,7 @@ function hint(){
     if(original)boardFocus(original.from);
   }
   function doMove(from,to,promotion){
+    const completedBefore=completed.length;
     const matches=game.moves({square:from,verbose:true}).filter(x=>x.to===to);
     if(!matches.length) return message(tr("illegal"));
     if(matches.some(m=>m.promotion) && !promotion) {
@@ -510,6 +511,7 @@ function hint(){
       message(assessmentMessage(assessment));
     }else message(prog("loading"));
     render();persist();
+    if(completed.length>completedBefore)notifyCloudProgress();
     if(fromPromotion)boardFocus(to);
     if(game.game_over()) finish();
     else if(!lesson && !finalized && game.turn()!==side) scheduleBot();
@@ -873,6 +875,10 @@ function hint(){
     playSound("end");persist();render();renderReview();
     message(status()+" — "+ratedMessage);
     showGameResult();
+    notifyCloudProgress();
+  }
+  function notifyCloudProgress(){
+    if(typeof window.dispatchEvent==="function"&&typeof Event==="function")window.dispatchEvent(new Event("chess-progress-commit"));
   }
   function persist(){
     const session=parked||{pgn:lesson?null:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized:finalized&&!lesson,notes};
@@ -881,6 +887,8 @@ function hint(){
   }
   function restore(){
     try {
+      // A prior signed-in account is never inferred from stale offline browser storage.
+      if(localStorage.getItem("chess-odyssey-cloud-owner-v1"))return;
       const raw=localStorage.getItem(KEY);if(!raw)return;
       const data=JSON.parse(raw);
       language=["ru","en","az"].includes(data.language)?data.language:"ru";
@@ -941,6 +949,28 @@ function hint(){
       reviewCursor=!lesson&&Number.isInteger(data.reviewCursor)&&data.reviewCursor>=0&&data.reviewCursor<game.history().length?data.reviewCursor:null;
       restoreMatchNotice();message(tr("restored"));
     }catch(e){message("Saved state is invalid; a fresh game was started.");}
+  }
+  function applyCloudAccount(doc){
+    // Authenticated, server-owned data only. Never import pre-registration local test results.
+    const known=new Set(LESSONS.map(x=>x.id));
+    const nextCompleted=Array.isArray(doc?.practiceCompleted)
+      ?[...new Set(doc.practiceCompleted.filter(id=>typeof id==="string"&&known.has(id)))]:[];
+    const rawStats=doc?.practiceStats;
+    const nextStats=rawStats&&["wins","losses","draws"].every(k=>Number.isSafeInteger(rawStats[k])&&rawStats[k]>=0&&rawStats[k]<=100000)
+      ?{wins:rawStats.wins,losses:rawStats.losses,draws:rawStats.draws}:{wins:0,losses:0,draws:0};
+    clearTimeout(aiTimer);++epoch;engine.cancel();cancelFullAnalysis();clearHints();hideGameResult();
+    game=new Chess();completed=nextCompleted;stats=nextStats;lesson=null;lessonStep=0;lastLessonId=null;parked=null;
+    selected=null;last=null;pendingPromotion=null;finalized=false;notes=[];showReview=false;reviewCursor=null;endedBy=null;matchSession=null;
+    matchMode="practice";academyTrack="all";
+    $("lesson").value="";$("academy-track").value="all";$("match-mode").value="practice";
+    if($("academy-dock"))$("academy-dock").open=typeof window.matchMedia==="function"&&!window.matchMedia("(max-width: 720px)").matches;
+    if(CLOCK)clockState=CLOCK.start(CLOCK.config("none"),Date.now());
+    if($("time-control"))$("time-control").value="none";
+    if($("custom-clock"))$("custom-clock").hidden=true;
+    if($("promotion"))$("promotion").hidden=true;
+    render();renderReview();renderAcademy();persist();
+    if(typeof document.dispatchEvent==="function"&&typeof Event==="function")document.dispatchEvent(new Event("chess-progress-change"));
+    return {completed:completed.length,stats:{...stats}};
   }
   function newGame(){
     hideGameResult();cancelFullAnalysis();analysisResult=null;reviewCursor=null;clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();endedBy=null;lowAlerted=null;lesson=null;lessonStep=0;lastLessonId=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
@@ -1200,6 +1230,7 @@ function hint(){
     if(game.turn()!==side && !game.game_over() && !finalized)scheduleBot();
     clockTick();render();
   }
+  window.ChessOdysseyAccount=Object.freeze({apply:applyCloudAccount,summary:()=>({completed:completed.length,stats:{...stats}})});
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init); else init();
   // Stable test surface without providing a user-facing debug console.
   window.ChessOdysseyQA={academy:()=>({total:LESSONS.length,tracks:ACADEMY.tracks.map(x=>x.id),active:lesson,step:lessonStep}),levels:()=>ENGINE.ids.slice(),engineStatus:()=>lastEngineKind,legalUci:(fen,uci)=>{const c=new Chess(fen);return ENGINE.legalUci(c,uci);},legalCount:(fen)=>{const c=new Chess();if(fen&&!c.load(fen))throw new Error("invalid FEN");return c.moves().length;},lessonIds:()=>LESSONS.map(x=>x.id),evaluate:()=>scorePosition(),coach:()=>COACH.version,notes:()=>notes.length,clock:()=>({clockState,endedBy}),match:()=>({mode:matchMode,session:matchSession&&{...matchSession},finalized}),ux:()=>({cursor:reviewCursor,ply:game.history().length,lang:language,appearance:APPEARANCE?.snapshot(),analysisReady:Boolean(analysisResult),analysisRunning}),progress:()=>window.ChessProgress.snapshot().summary};
