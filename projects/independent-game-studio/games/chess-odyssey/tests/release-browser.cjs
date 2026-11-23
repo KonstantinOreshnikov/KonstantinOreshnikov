@@ -175,7 +175,7 @@ const URL_FOR=file=>"file://"+path.resolve(__dirname,"../"+file);
   await test("RU/EN/AZ name real kings, pawns and modal buttons accurately",async()=>{
    await page.locator("#nav-play").click();
    for(const [lang,king,pawn] of [["ru",/белый король/,/белая пешка/],["en",/white king/,/white pawn/],["az",/ağ şah/,/ağ piyada/]]){
-     await page.selectOption("#lang",lang);
+     await page.selectOption("#global-language",lang);
      assert.match(await square("e1").getAttribute("aria-label"),king);
      // restore initial game for pawn before the next set of checks
      await page.locator("#new-game").click();
