@@ -11,7 +11,7 @@
 | My Progress | Email + OTP account UI and server progress; **two-device conflict E2E still open** |
 | Play a Friend | Invite-based PvP UI; **live 2-user/third-user security E2E still open** |
 
-[Automated QA: 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329) · [Independent public smoke: PASS](https://agent.tinyfish.ai/runs/ad1e13fb-00f5-4e26-a235-cd9013ae371d) · [Known risks and rollback](docs/RELEASE_V1_0_0.md). Released on public GitHub Pages at the owner's explicit direction; the cloud provider continues to use an existing staging Neon backend, without claiming a separately verified production-isolated cloud service.
+[Automated QA: 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329) · [Independent public smoke: PASS](https://agent.tinyfish.ai/runs/ad1e13fb-00f5-4e26-a235-cd9013ae371d) · [Known risks and rollback](docs/RELEASE_V1_0_0.md) · [Post-release QA register](docs/POST_RELEASE_QA_V1_0_0.md). Released on public GitHub Pages at the owner's explicit direction; the cloud provider continues to use an existing staging Neon backend, without claiming a separately verified production-isolated cloud service.
 
 ---
 
