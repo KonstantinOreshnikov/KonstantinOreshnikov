@@ -1,8 +1,8 @@
-name: Chess Odyssey — GitHub Pages staging
+name: Chess Odyssey — GitHub Pages production
 on:
   push:
     branches:
-      - "feature/chess-odyssey-v1-foundation-20261123"
+      - "main"
     paths:
       - "projects/independent-game-studio/games/chess-odyssey/**"
       - ".github/workflows/chess-odyssey-pages.yml"
@@ -59,9 +59,9 @@ jobs:
             echo "PAGES_AUDIT_HTTP=$code";exit 1
           fi
   deploy:
-    name: Deploy isolated Chess Odyssey staging HTTPS preview
+    name: Deploy Chess Odyssey v1.0 public HTTPS site
     needs: [validate, readiness]
-    if: needs.readiness.outputs.enabled == 'true' && github.ref == 'refs/heads/feature/chess-odyssey-v1-foundation-20261123' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    if: needs.readiness.outputs.enabled == 'true' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
@@ -83,6 +83,6 @@ jobs:
       - uses: actions/upload-pages-artifact@v4
         with:
           path: ${{ runner.temp }}/chess-pages-site
-      - name: Deploy staging site
+      - name: Deploy v1.0 public site
         id: deployment
         uses: actions/deploy-pages@v4
