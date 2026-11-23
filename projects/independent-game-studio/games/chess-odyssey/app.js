@@ -489,11 +489,87 @@ function hint(){
     else {selected=null;message(tr("illegal"));}
     render();
   }
+  function jumpHistory(ply){
+    const n=game.history().length;
+    if(!Number.isInteger(ply))return;
+    reviewCursor=Math.max(0,Math.min(n,ply));
+    if(reviewCursor===n)reviewCursor=null; // the last position is always LIVE
+    selected=null;render();renderFullReview();
+    if(reviewCursor!==null)message(ux("reviewPosition",{ply:reviewCursor,total:n}));
+  }
+  function displayBoard(){
+    if(reviewCursor===null)return game;
+    try{return REVIEW.atPly(Chess,game.pgn(),reviewCursor,game.fen());}
+    catch(_err){reviewCursor=null;return game;}
+  }
+  let arrowHintFen=null,arrowHint=null;
+  function drawArrows(element,flipped){
+    // Render only derived information; SVG has no event listeners and cannot make moves.
+    const candidates=[];
+    if(reviewCursor!==null){
+      const move=game.history({verbose:true})[reviewCursor-1];
+      if(move)candidates.push({from:move.from,to:move.to,kind:"played"});
+      const best=analysisResult?.entries?.[reviewCursor-1]?.bestUci;
+      if(best&&/^[a-h][1-8][a-h][1-8][qrbn]?$/.test(best)&&move&&best.slice(0,4)!==move.from+move.to)
+        candidates.push({from:best.slice(0,2),to:best.slice(2,4),kind:"suggested"});
+    }else if(!currentMatch()&&!finalized){
+      if(lessonHintMove)candidates.push({...lessonHintMove,kind:"suggested"});
+      else if(hintState?.fen===game.fen()&&hintState.lines.length)candidates.push({...hintState.lines[0],kind:"suggested"});
+      else if(!lesson&&game.turn()===side&&game.history().length<180){
+        if(arrowHintFen!==game.fen()){
+          arrowHintFen=game.fen();
+          try{arrowHint=COACH.analyze(game,{limit:1}).lines[0]||null;}
+          catch(_e){arrowHint=null;}
+        }
+        if(arrowHint)candidates.push({...arrowHint,kind:"suggested"});
+      }
+    }
+    if(!candidates.length)return;
+    const ns="http://www.w3.org/2000/svg",svg=document.createElementNS(ns,"svg");
+    svg.setAttribute("viewBox","0 0 800 800");svg.setAttribute("aria-hidden","true");svg.classList.add("move-arrows");
+    const point=square=>{
+      const f=FILES.indexOf(square[0]),r=Number(square[1])-1;
+      return [50+(flipped?7-f:f)*100,50+(flipped?r:7-r)*100];
+    };
+    for(const data of candidates){
+      if(!/^[a-h][1-8]$/.test(data.from)||!/^[a-h][1-8]$/.test(data.to))continue;
+      const a=point(data.from),b=point(data.to),angle=Math.atan2(b[1]-a[1],b[0]-a[0]);
+      const end=[b[0]-19*Math.cos(angle),b[1]-19*Math.sin(angle)];
+      const start=[a[0]+14*Math.cos(angle),a[1]+14*Math.sin(angle)];
+      const path=document.createElementNS(ns,"path");path.classList.add(data.kind);
+      path.setAttribute("d","M"+start.join(" ")+" L"+end.join(" "));
+      const color=data.kind==="played"?"#e5ad3e":"#49d6ad";
+      const head=document.createElementNS(ns,"polygon");
+      const wings=[[-17,-10],[-17,10]].map(([dx,dy])=>[
+        b[0]+dx*Math.cos(angle)-dy*Math.sin(angle),
+        b[1]+dx*Math.sin(angle)+dy*Math.cos(angle)
+      ]);
+      head.setAttribute("points",[b,...wings].map(x=>x.join(",")).join(" "));
+      head.setAttribute("fill",color);head.setAttribute("opacity",".9");
+      svg.append(path,head);
+    }
+    element.appendChild(svg);
+  }
   function showMoves(){
-    const moves=game.history();
-    const pairs=[];
-    for(let i=0;i<moves.length;i+=2) pairs.push((Math.floor(i/2)+1)+". "+moves[i]+(moves[i+1]?" "+moves[i+1]:""));
-    text("moves",pairs.join("   ")||"—");
+    const moves=game.history(),holder=$("moves"),frag=document.createDocumentFragment();
+    if(!moves.length){holder.textContent="—";}
+    else {
+      for(let i=0;i<moves.length;i++){
+        if(i%2===0){const turn=document.createElement("span");turn.className="move-no";turn.textContent=(Math.floor(i/2)+1)+".";frag.appendChild(turn);}
+        const button=document.createElement("button");button.type="button";button.textContent=moves[i];
+        button.dataset.ply=String(i+1);
+        button.setAttribute("aria-current",String((reviewCursor===null?moves.length:reviewCursor)===i+1));
+        button.addEventListener("click",()=>jumpHistory(i+1));frag.appendChild(button);
+      }
+      holder.replaceChildren(frag);
+    }
+    const at=reviewCursor===null?moves.length:reviewCursor;
+    text("h-progress",at+" / "+moves.length);
+    $("h-first").disabled=!moves.length||at===0;
+    $("h-prev").disabled=!moves.length||at===0;
+    $("h-next").disabled=!moves.length||at===moves.length;
+    $("h-last").disabled=!moves.length||at===moves.length;
+    $("h-return").hidden=reviewCursor===null;
   }
   function status(){
     if(endedBy){
@@ -507,30 +583,32 @@ function hint(){
   }
   function render(){
     const boardElement=$("board");
+    const shown=displayBoard(),readOnly=reviewCursor!==null;
     const wasFocused=Boolean(document.activeElement&&typeof boardElement.contains==="function"&&boardElement.contains(document.activeElement));
     // Independent games do not reveal candidate destinations before the move.
-    const legal=selected&&!(currentMatch()&&!finalized)?game.moves({square:selected,verbose:true}).map(m=>m.to):[];
+    const legal=!readOnly&&selected&&!(currentMatch()&&!finalized)?game.moves({square:selected,verbose:true}).map(m=>m.to):[];
     const flipped=$("flip").checked; const order=boardSquares();
     if(flipped) order.reverse();
     const frag=document.createDocumentFragment();
     for(const square of order){
-      const p=game.get(square), [f,r]=fileRank(square);
+      const p=shown.get(square), [f,r]=fileRank(square);
       const b=document.createElement("button");
       b.type="button"; b.className="square "+((f+r)%2===0?"dark":"light");
       if(p)b.classList.add(p.color==="w"?"white-piece":"black-piece");
-      if(selected===square)b.classList.add("selected");
+      if(!readOnly&&selected===square)b.classList.add("selected");
       if(legal.includes(square))b.classList.add("legal");
-      if(last&&last.includes(square))b.classList.add("last");
-      if(p && p.type==="k" && p.color===game.turn() && game.in_check())b.classList.add("checked");
+      const viewedMove=readOnly?game.history({verbose:true})[reviewCursor-1]:null;
+      if((readOnly&&viewedMove&&[viewedMove.from,viewedMove.to].includes(square))||(!readOnly&&last&&last.includes(square)))b.classList.add("last");
+      if(p && p.type==="k" && p.color===shown.turn() && shown.in_check())b.classList.add("checked");
       b.dataset.square=square;
       b.tabIndex=square===keyboardSquare?0:-1;
       b.setAttribute("aria-label",square+" — "+(BOARD_NAMES[language]||BOARD_NAMES.ru)[p?p.color+p.type:"empty"]);
-      b.setAttribute("aria-pressed",selected===square?"true":"false");
+      b.setAttribute("aria-pressed",!readOnly&&selected===square?"true":"false");
       const mark=document.createElement("span");mark.className="piece";mark.textContent=p?PIECES[p.color+p.type]:"";b.appendChild(mark);
       if((flipped?r===7:r===0)) {const c=document.createElement("small");c.className="file";c.textContent=square[0];b.appendChild(c);}
       if((flipped?f===7:f===0)) {const c=document.createElement("small");c.className="rank";c.textContent=square[1];b.appendChild(c);}
       b.addEventListener("focus",()=>{keyboardSquare=square;});
-      b.addEventListener("click",()=>{keyboardSquare=square;clickSquare(square);});
+      b.addEventListener("click",()=>{keyboardSquare=square;if(!readOnly)clickSquare(square);});
       b.addEventListener("keydown",e=>{
         const steps={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,1],ArrowDown:[0,-1]};
         if(steps[e.key]){
@@ -546,6 +624,7 @@ function hint(){
       frag.appendChild(b);
     }
     boardElement.replaceChildren(frag);
+    drawArrows(boardElement,flipped);
     if(wasFocused)boardFocus(keyboardSquare);
     text("game-status",status());showMoves();
     text("record",stats.wins+" / "+stats.losses+" / "+stats.draws);
