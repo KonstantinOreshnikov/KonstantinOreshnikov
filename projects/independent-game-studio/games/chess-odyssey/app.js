@@ -195,7 +195,7 @@
       $("academy-dock-hint").hidden=!Boolean(task);
       $("academy-dock-resume").hidden=!parked;
       const root=$("practice-view");
-      if(root?.classList){
+      if(typeof root?.classList?.toggle==="function"){
         root.classList.toggle("academy-active",active);
         root.classList.toggle("independent-mode",matchMode==="independent"&&!active);
       }
