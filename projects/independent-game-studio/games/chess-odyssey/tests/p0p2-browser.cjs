@@ -183,9 +183,11 @@ function startServer(){
   });
   await check("independent game blocks engine suggestions while still running",async()=>{
    await seed(page,["e4","e5"],"independent");
-   await page.locator("#full-review-details > summary").click();
-   assert.equal(await page.locator("#start-review").isDisabled(),true);
+   // The owner explicitly requested hiding analysis/assistant controls in independent play.
+   assert.equal(await page.locator("#full-review-details").isVisible(),false);
+   assert.equal(await page.locator("#hint").isVisible(),false);
    assert.equal(await page.locator("#hint").isDisabled(),true);
+   assert.equal(await page.locator("#academy-dock").isVisible(),false);
   });
   await check("real Stockfish UCI postgame review on localhost, no mocked results",async()=>{
    server=await startServer();
