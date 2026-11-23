@@ -1,6 +1,21 @@
 # Chess Odyssey — Academy, Arena & Legends
 
-## Current verified Chess Odyssey checkpoint — 2026-11-23
+[**Play Chess Odyssey v1.0.0**](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [**Windows / Stockfish ZIP**](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056) · [Release notes](docs/RELEASE_V1_0_0.md)
+
+**Public v1.0.0 — 24 November 2026.** Chess learning for RU/EN/AZ: 33 interactive Academy lessons, 300 historical games (31 fully annotated + 269 historical scores), six AI levels, Stockfish reviews, 10 board themes and 10 piece styles.
+
+| Module | What's included |
+| --- | --- |
+| Practice & Academy | Lesson navigation beside the board, modes, hints, timers and AI |
+| Masters & Legends | Full replay with era/collection filters and historical source attribution |
+| My Progress | Email + OTP account UI and server progress; **two-device conflict E2E still open** |
+| Play a Friend | Invite-based PvP UI; **live 2-user/third-user security E2E still open** |
+
+[Automated QA: 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329) · [Independent public smoke: PASS](https://agent.tinyfish.ai/runs/ad1e13fb-00f5-4e26-a235-cd9013ae371d) · [Known risks and rollback](docs/RELEASE_V1_0_0.md). Released on public GitHub Pages at the owner's explicit direction; the cloud provider continues to use an existing staging Neon backend, without claiming a separately verified production-isolated cloud service.
+
+---
+
+## Historical checkpoint: v0.9.0 development (2026-11-23; superseded)
 
 - **Newest code on `main`:** P0–P2 via [merged PR #18](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/18), merge commit `a81c5132e6bf0570744720551e857ec2f5f432c9`. Global RU/EN/AZ UI, non-destructive SAN replay, 10 board themes and 10 piece appearances, wide/fullscreen view, depth-aware Stockfish postgame analysis with arrows, per-side denominators and legend.
 - **Downloadable v0.9.0 DEVELOPMENT preview:** [46-file ZIP (GitHub Actions artifact)](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111/artifacts/14796195974). Internal ZIP SHA-256 `64a75e7fe2d95adf66207207882adae1c146817d4aefe6f58bc4679d29877bf1`, outer archive SHA-256 `c0283f72b4a7c820ccad17fc1f9f4bbc54b423d13ef7c4404a718e129fe17a92`; archive expires **2026-12-23**. GitHub `main` retains the versioned source and reproducible build scripts, but not the v0.9.0 binary ZIP.
