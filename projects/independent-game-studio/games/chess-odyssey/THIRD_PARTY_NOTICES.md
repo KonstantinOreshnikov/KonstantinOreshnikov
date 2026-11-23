@@ -24,6 +24,7 @@
 
 ## B5 factual historical game score sources
 - The `masters-library.js` and `data/masters-source-scores.json` datasets contain **historical factual moves and basic metadata**, with the exact independent primary source hyperlink recorded for each of 31 selected games.
+- The optional `masters-expanded.js` contains 269 additional historical factual move scores from the World Chess Championship PGN compilation at https://github.com/bgard68/ClaudeChessApp/blob/main/public/games/world-championship-title-matches.pgn (upstream project GPL-3.0; see https://github.com/bgard68/ClaudeChessApp/blob/main/LICENSE). Game scores, participant/result metadata and independently authored factual RU/EN/AZ descriptions only; no upstream instructional annotations or application code copied. Exact selection indices are preserved in `sourceIndex`. Standalone compilation and redistribution remain subject to source-license review.
 - Source directory: https://chessgator.com/games/; exact 31 page URLs, dates, source checking and known uncertainty: `docs/MASTERS_B5_SOURCE_REGISTER.md`.
 - Select secondary game transcriptions were compared with https://chessdna.app/games/; full independent parity is not claimed for the whole collection.
 - No third-party site commentary, prose explanations, engine evaluation labels, artwork, stylesheet or website code is redistributed from these game sources. We do not claim ownership of external websites. Their historical move data are treated as facts, not as a copied editorial database.
