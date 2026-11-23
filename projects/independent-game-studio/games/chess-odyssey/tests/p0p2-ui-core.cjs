@@ -4,9 +4,10 @@ const assert=require("node:assert/strict"),fs=require("node:fs"),path=require("n
 const Chess=require("../vendor/chess.js").Chess,A=require("../chess-appearance.js"),R=require("../game-review-core.js");
 let n=0;const t=(name,fn)=>{fn();console.log("PASS UX unit "+(++n)+" "+name);};
 t("10 palettes",()=>assert.equal(A.THEMES.length,10));
-t("10 piece styles",()=>assert.equal(A.STYLES.length,10));
+t("10 graphical piece styles",()=>assert.equal(A.STYLES.length,10));
 t("unique palette ids",()=>assert.equal(new Set(A.THEMES.map(x=>x.id)).size,10));
 t("unique piece-style ids",()=>assert.equal(new Set(A.STYLES.map(x=>x.id)).size,10));
+t("all styles route to 8 vendored source designs",()=>{const names=new Set(A.STYLES.map(x=>x.source));assert.equal(names.size,8);for(const x of names)for(const col of "bw")for(const p of "KQRBNP"){const file=path.resolve(__dirname,"../pieces",x,col+p+".svg");assert.ok(fs.existsSync(file),file);assert.match(fs.readFileSync(file,"utf8"),/^<svg/);}});
 t("three named languages",()=>{for(const x of [...A.THEMES,...A.STYLES])assert.equal(x.name.length,3);});
 function lum(h){const n=h.match(/[0-9a-f]{2}/gi).map(x=>parseInt(x,16)/255).map(v=>v<.04045?v/12.92:((v+.055)/1.055)**2.4);return n[0]*.2126+n[1]*.7152+n[2]*.0722;}
 t("palette light/dark visible separation",()=>A.THEMES.forEach(x=>{assert.match(x.light,/^#[0-9a-f]{6}$/i);assert.match(x.dark,/^#[0-9a-f]{6}$/i);const a=lum(x.light),b=lum(x.dark);assert.ok((Math.max(a,b)+.05)/(Math.min(a,b)+.05)>1.35,x.id);}));

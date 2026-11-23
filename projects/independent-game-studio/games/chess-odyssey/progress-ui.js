@@ -5,7 +5,7 @@
  */
 (function(root,document){
  "use strict";
- const Core=root.ChessProgressCore,Academy=root.ChessAcademy,Source=root.ChessMastersLibrary,MastersCore=root.ChessMastersCore,Chess=root.Chess;
+ const Core=root.ChessProgressCore,Academy=root.ChessAcademy,Base=root.ChessMastersLibrary,Expansion=root.ChessMastersExpansion,Source=Base&&Expansion?{games:[...Base.games,...Expansion.games]}:Base,MastersCore=root.ChessMastersCore,Chess=root.Chess;
  if(!Core||!Academy||!Source||!MastersCore||typeof Chess!=="function"){root.ChessProgress={error:"B6 modules unavailable"};return;}
  const books=[root.ChessMasterNotesA,root.ChessMasterNotesB,root.ChessMasterNotesC];
  const verified=MastersCore.compile(Chess,Source,books);
@@ -24,7 +24,7 @@
     indexUncalibrated:"Не сравнивайте это число с рейтингами реальных шахматистов и онлайн-платформ.",
     trackTitle:"Прогресс Академии",independentTitle:"Самостоятельная игра",
     achievementsTitle:"Достижения",achievementsCount:"Открыто: {count} из {total}",
-    recentTitle:"Последние самостоятельные матчи",storage:"Всё хранится локально в браузере. Без аккаунтов, глобального рейтинга и облачной синхронизации.",
+    recentTitle:"Последние самостоятельные матчи",cloudStorage:"Прогресс привязан к аккаунту и автоматически синхронизируется с сервером.",storage:"Всё хранится локально в браузере. Без аккаунтов, глобального рейтинга и облачной синхронизации.",
     trackBasics:"Основы и правила",trackTactics:"Тактика",trackOpenings:"Дебюты",trackEndgames:"Эндшпиль",
     moments:"Ключевых моментов изучено: {done} из {total}",quizzes:"Разных исторических ходов угадано: {total}",
     resultCount:"В индекс допущено партий: {total}",results:"Победы: {win} · Ничьи: {draw} · Поражения: {loss}",
@@ -49,7 +49,7 @@
     indexUncalibrated:"Do not compare this number with online or real-player ratings.",
     trackTitle:"Academy tracks",independentTitle:"Independent games",
     achievementsTitle:"Achievements",achievementsCount:"Unlocked: {count} of {total}",
-    recentTitle:"Recent independent matches",storage:"Stored in this browser only. No account, global rating or cloud sync.",
+    recentTitle:"Recent independent matches",cloudStorage:"Progress belongs to this account and syncs with the server automatically.",storage:"Stored in this browser only. No account, global rating or cloud sync.",
     trackBasics:"Rules",trackTactics:"Tactics",trackOpenings:"Openings",trackEndgames:"Endgames",
     moments:"Highlighted positions studied: {done} of {total}",quizzes:"Unique historical moves guessed: {total}",
     resultCount:"Eligible independent games: {total}",results:"Wins: {win} · Draws: {draw} · Losses: {loss}",
@@ -74,7 +74,7 @@
     indexUncalibrated:"Bu göstəricini real oyunçu və ya onlayn reytinqlə müqayisə etməyin.",
     trackTitle:"Akademiya bölmələri",independentTitle:"Müstəqil oyunlar",
     achievementsTitle:"Nailiyyətlər",achievementsCount:"Açılıb: {count}/{total}",
-    recentTitle:"Son müstəqil oyunlar",storage:"Məlumatlar yalnız bu brauzerdə saxlanılır. Hesab, qlobal reytinq və bulud sinxronizasiyası yoxdur.",
+    recentTitle:"Son müstəqil oyunlar",cloudStorage:"İnkişaf bu hesaba aiddir və serverlə avtomatik sinxronlaşdırılır.",storage:"Məlumatlar yalnız bu brauzerdə saxlanılır. Hesab, qlobal reytinq və bulud sinxronizasiyası yoxdur.",
     trackBasics:"Qaydalar",trackTactics:"Taktika",trackOpenings:"Debütlər",trackEndgames:"Endşpil",
     moments:"Öyrənilmiş əsas mövqelər: {done}/{total}",quizzes:"Tapılmış fərqli tarixi gedişlər: {total}",
     resultCount:"Müstəqil oyunlar: {total}",results:"Qələbə: {win} · Heç-heçə: {draw} · Məğlubiyyət: {loss}",
@@ -92,9 +92,14 @@
  let lang="ru",state=Core.empty(),ready=false;
  const format=(key,vars)=>((translations[lang]||translations.ru)[key]||key).replace(/\{(\w+)\}/g,(_m,k)=>vars&&vars[k]!==undefined?String(vars[k]):"?");
  function load(){
+   // Never display cached server-owned scores before the account is re-verified.
+   if(localStorage.getItem("chess-odyssey-cloud-owner-v1")){state=Core.empty();return;}
    try{state=Core.safe(JSON.parse(localStorage.getItem(KEY)||"null"),verified.games);}catch(_error){state=Core.empty();}
  }
  function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(_error){/* private mode */}}
+ function notifyCloud(){
+   if(typeof root.dispatchEvent==="function"&&typeof Event==="function")root.dispatchEvent(new Event("chess-progress-commit"));
+ }
  function completed(){
    try{
      const record=JSON.parse(localStorage.getItem(PRACTICE_KEY)||"null");
@@ -127,7 +132,7 @@
    setText("progress-achievements-title",format("achievementsTitle"));
    setText("progress-achievements-count",format("achievementsCount",{count:sum.achievements.filter(a=>a.unlocked).length,total:sum.achievements.length}));
    setText("progress-history-title",format("recentTitle"));
-   setText("progress-storage-note",format("storage"));
+   setText("progress-storage-note",format(root.ChessCloud?.authenticated?.()?"cloudStorage":"storage"));
    setText("progress-moments-label",format("moments",{done:sum.masters.momentsVisited,total:sum.masters.momentsTotal}));
    setText("progress-quiz-label",format("quizzes",{total:sum.masters.quizzesSolved}));
    setText("progress-match-count",format("resultCount",{total:sum.rated.eligible}));
@@ -181,22 +186,27 @@
    if(updated===state)return false;
    const old=JSON.stringify(state.masters[id]||null),next=JSON.stringify(updated.masters[id]||null);
    if(old===next)return false;
-   state=updated;persist();refresh();return true;
+   state=updated;persist();refresh();notifyCloud();return true;
  }
  function recordQuiz(id,ply){
    const game=verified.byId[id];if(!game)return false;
    const changed=Core.solve(state,game,ply),old=JSON.stringify(state.masters[id]||null),next=JSON.stringify(changed.masters[id]||null);
    if(old===next)return false;
-   state=changed;persist();refresh();return true;
+   state=changed;persist();refresh();notifyCloud();return true;
  }
  function recordGame(record){
    const result=Core.match(state,Chess,record);
-   if(result.accepted){state=result.state;persist();refresh();}
+   if(result.accepted){state=result.state;persist();refresh();notifyCloud();}
    return {accepted:result.accepted,reason:result.reason};
  }
  const api={
    study:recordStudy,quiz:recordQuiz,recordGame,refresh,
    snapshot:()=>({store:JSON.parse(JSON.stringify(state)),summary:model()}),
+   restoreCloudStore:(raw)=>{
+     const clean=Core.safe(raw,verified.games);
+     if(!clean||clean.schema!==Core.VERSION)throw Error("INVALID_CLOUD_PROGRESS");
+     state=clean;persist();refresh();return true;
+   },
    translate:(key)=>format(key),
    language:()=>lang
  };

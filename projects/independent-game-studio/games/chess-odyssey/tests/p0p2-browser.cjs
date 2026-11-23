@@ -9,7 +9,7 @@ function startServer(){
   const p=path.resolve(root,"."+decodeURIComponent(new URL(req.url,"http://127.0.0.1").pathname));
   if(!p.startsWith(root+path.sep)){res.writeHead(403);res.end();return;}
   fs.readFile(p,(err,data)=>{if(err){res.writeHead(404);res.end();return;}
-    res.writeHead(200,{"Content-Type":p.endsWith(".js")?"text/javascript":p.endsWith(".wasm")?"application/wasm":p.endsWith(".css")?"text/css":"text/html; charset=utf-8","Cache-Control":"no-store"});res.end(data);
+    res.writeHead(200,{"Content-Type":p.endsWith(".js")?"text/javascript":p.endsWith(".wasm")?"application/wasm":p.endsWith(".svg")?"image/svg+xml":p.endsWith(".css")?"text/css":"text/html; charset=utf-8","Cache-Control":"no-store"});res.end(data);
   });
  });
  return new Promise((resolve,reject)=>{server.once("error",reject);server.listen(0,"127.0.0.1",()=>resolve(server));});
@@ -51,6 +51,21 @@ function startServer(){
    assert.equal(await page.locator('[data-i18n="moveLegend"]').innerText(),"Gediş qiymətləndirmələri nə deməkdir?");
    await page.locator("#nav-play").click();
   });
+  await check("four tabs include offline-safe PvP board and 64 accessible squares",async()=>{
+   assert.equal(await page.locator('.game-tabs [role="tab"]').count(),4);
+   await page.locator("#nav-pvp").click();
+   assert.equal(await page.locator("#pvp-view").isVisible(),true);
+   assert.equal(await page.locator("#pvp-board .square").count(),64);
+   assert.equal(await page.locator("#pvp-create").isVisible(),true);
+   assert.equal(await page.locator("#pvp-resign").isDisabled(),true);
+   assert.match(await page.locator("#pvp-game-status").textContent(),/daxil olun|Войдите|Sign in/i);
+   await page.locator("#pvp-flip").click();
+   assert.equal(await page.locator("#pvp-board button").first().getAttribute("data-square"),"h1");
+   await page.locator("#pvp-flip").click();
+   assert.equal(await page.locator("#pvp-board button").first().getAttribute("data-square"),"a8");
+   await page.locator("#nav-progress").click();
+   await page.locator("#nav-play").click();
+  });
   await check("both setting menus start collapsed and are independent",async()=>{
    assert.equal(await page.locator("#board-theme-details").evaluate(x=>x.open),false);
    assert.equal(await page.locator("#piece-style-details").evaluate(x=>x.open),false);
@@ -66,12 +81,41 @@ function startServer(){
    assert.equal(await page.locator("#m-board").getAttribute("data-theme"),"sea");
    await page.locator("#nav-play").click();
   });
-  await check("10 selectable piece styles, apply metallic finish",async()=>{
+  await check("10 real SVG styles, apply Golden Elite",async()=>{
    await page.locator("#piece-style-details summary").click();
    assert.equal(await page.locator("#piece-options button").count(),10);
    await page.locator('#piece-options [data-value="metal"]').click();
    assert.equal(await page.locator("#piece-style-details").evaluate(x=>x.open),false);
    assert.equal(await page.locator("#board").getAttribute("data-pieces"),"metal");
+   assert.equal(await page.locator("#board .piece[data-code]").count(),32);
+   assert.match(await page.locator("#board .piece[data-code=wN]").first().evaluate(x=>getComputedStyle(x).backgroundImage),/fantasy\/wN\.svg/);
+  });
+  await check("all ten real SVG piece sets load on Practice and Masters",async()=>{
+   const variants=["staunton","tournament","neo","minimal","outline","wood","marble","metal","soft3d","highcontrast"];
+   const inspect=()=>page.locator("#board .piece[data-code=wN]").first().evaluate(async el=>{
+      const css=getComputedStyle(el).backgroundImage,match=css.match(/^url\(["']?(.*?)["']?\)$/);
+      if(!match)return {loaded:false,css};
+      return await new Promise(resolve=>{
+       const picture=new Image();
+       picture.onload=()=>resolve({loaded:true,width:picture.naturalWidth,src:match[1]});
+       picture.onerror=()=>resolve({loaded:false,src:match[1]});
+       picture.src=match[1];
+      });
+   });
+   for(const id of variants){
+      await page.locator("#piece-style-details > summary").click();
+      await page.locator('#piece-options [data-value="'+id+'"]').click();
+      const r=await inspect();
+      assert.equal(r.loaded,true,id+": "+JSON.stringify(r));
+      assert.ok(r.width>0,id+": invalid SVG dimensions");
+   }
+   await page.locator("#piece-style-details > summary").click();
+   await page.locator('#piece-options [data-value="metal"]').click();
+   await page.locator("#nav-masters").click();
+   assert.equal(await page.locator("#m-board").getAttribute("data-pieces"),"metal");
+   const sprite=await page.locator("#m-board .piece[data-code=wN]").first().evaluate(x=>getComputedStyle(x).backgroundImage);
+   assert.match(sprite,/fantasy\/wN\.svg/);
+   await page.locator("#nav-play").click();
   });
   await check("board and pieces persist after reload",async()=>{
    await page.reload();
@@ -139,9 +183,11 @@ function startServer(){
   });
   await check("independent game blocks engine suggestions while still running",async()=>{
    await seed(page,["e4","e5"],"independent");
-   await page.locator("#full-review-details > summary").click();
-   assert.equal(await page.locator("#start-review").isDisabled(),true);
+   // The owner explicitly requested hiding analysis/assistant controls in independent play.
+   assert.equal(await page.locator("#full-review-details").isVisible(),false);
+   assert.equal(await page.locator("#hint").isVisible(),false);
    assert.equal(await page.locator("#hint").isDisabled(),true);
+   assert.equal(await page.locator("#academy-dock").isVisible(),false);
   });
   await check("real Stockfish UCI postgame review on localhost, no mocked results",async()=>{
    server=await startServer();

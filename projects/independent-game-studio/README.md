@@ -7,9 +7,15 @@ Independent, AI-assisted game projects by Konstantin Oreshnikov. This directory 
 | [Caribbean Merchant](games/caribbean-merchant/README.md) | Offline Caribbean trading and strategy; inspired by a remembered Port Royale mobile experience | Latest real HTML v1.2; current documented v1.1 release, v1.2 QA pending |
 | [Kingdoms of Ember](games/kingdoms-of-ember/README.md) | Independent 16×12 fantasy turn-based tactics inspired by Ancient Empires II | v1.1 development candidate; original v1.0 preserved; offline launch QA open |
 | [Lord of Ultima-inspired strategy](games/lord-of-ultima/README.md) | Calm solo economy, city, army and continental strategy | Research/specification only; no build |
-| [Chess Odyssey — Academy & Arena](games/chess-odyssey/README.md) | Chess education, AI and friend PvP development | v0.9.0 P0–P2 development preview and source in `main` ([ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111/artifacts/14796195974), [QA 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080)); historical v0.8.0 archive kept, Neon PvP OPEN |
+| [Chess Odyssey — Academy & Arena](games/chess-odyssey/README.md) | Public multilingual chess game, Academy, historic games, Stockfish | **v1.0.0 RELEASED** — [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Download](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056) · [Release QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329); accepted cloud/PvP live QA gaps |
 
-## Chess Odyssey — latest verified development source (2026-11-23)
+## Chess Odyssey — public v1.0.0 (2026-11-24)
+
+[Play Chess Odyssey](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Windows package](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056) · [Release notes](games/chess-odyssey/docs/RELEASE_V1_0_0.md).
+
+33 Academy lessons, 300 historical full-score games (31 annotated, 269 sourced records), responsive mobile chess, RU/EN/AZ and Stockfish. The owner approved immediate public release with actual two-device cloud/PvP outsider-security QA expressly deferred; those checks remain **OPEN**. No other game project was changed for this release.
+
+## Historical Chess Odyssey source checkpoint (2026-11-23)
 
 [PR #18](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/18) merged v0.9.0 P0–P2 source into `main`. [Chess CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080) (27/27 new Node + 16/16 real Chrome) and Studio smoke PASS; [post-merge main CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111); [46-file game ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111/artifacts/14796195974) expires 2026-12-23, while source/build scripts remain on GitHub. Human devices, trilingual editorial and real Neon E2E still OPEN. Production v1.0 has not been deployed.
 

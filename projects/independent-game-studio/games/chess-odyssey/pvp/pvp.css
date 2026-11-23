@@ -1,0 +1,28 @@
+/* Chess Odyssey v1.0 — private, authenticated multiplayer experience */
+.pvp-layout{display:grid;grid-template-columns:minmax(0,700px) minmax(280px,1fr);align-items:start;gap:25px}
+.pvp-play,.pvp-sidebar{min-width:0}.pvp-sidebar{display:grid;gap:14px}
+.pvp-play>h2{font:600 27px Georgia,serif;color:#f2e4c6;margin:3px 0 10px}
+.pvp-play>p{color:#c7d7e4;line-height:1.5}
+.pvp-clockline{display:flex;justify-content:space-between;gap:10px;margin:10px 0;padding:10px;background:#192f40;border:1px solid #486579;border-radius:9px;color:#f2ddae}
+.pvp-board-frame{max-width:680px;margin:0 auto}
+#pvp-board{max-width:100%}
+#pvp-board .square[aria-disabled="true"]{cursor:default}
+#pvp-board .square:focus-visible{outline:3px solid #fff7ad;outline-offset:-4px;z-index:6}
+#pvp-board .square.selected{box-shadow:inset 0 0 0 4px #fff8}
+#pvp-game-status{min-height:28px;margin:12px 0;padding:10px 12px;border-radius:7px;background:#183449;border:1px solid #416072}
+.pvp-actions{display:flex;gap:8px;flex-wrap:wrap;margin:9px 0}
+.pvp-actions button,.pvp-sidebar button{min-height:42px;padding:10px 13px;border-radius:8px;background:#25475d;color:#f3f5f8;border:1px solid #7090a3;font-size:12px;cursor:pointer;font-weight:650}
+.pvp-actions button:hover:not(:disabled),.pvp-sidebar button:hover:not(:disabled){background:#386582}
+.pvp-actions button:disabled,.pvp-sidebar button:disabled{opacity:.42;cursor:not-allowed}
+.pvp-actions button:focus-visible,.pvp-sidebar button:focus-visible{outline:3px solid #ffdf8a;outline-offset:2px}
+.pvp-sidebar .panel{display:grid;gap:10px}
+.pvp-sidebar .panel h2{margin:0;color:#e8cb98}
+.pvp-sidebar input{display:block;width:100%;min-height:42px;padding:9px 11px;background:#0b202e;border:1px solid #597789;border-radius:8px;color:#f6faff}
+.pvp-sidebar #pvp-invite-link{font-size:11px}
+.pvp-primary{border-color:#d8b473!important;background:#3b5264!important}
+.pvp-note{font-size:12px;color:#bdcfdb;overflow-wrap:anywhere}
+#pvp-games{display:grid;gap:8px;max-height:230px;overflow:auto}
+#pvp-games button{display:block;text-align:left;width:100%}
+#pvp-games button[data-active="true"]{border-color:#f1d18b;background:#355b6f}
+@media(max-width:840px){.pvp-layout{grid-template-columns:1fr;gap:16px}.pvp-sidebar{grid-template-columns:repeat(2,minmax(0,1fr))}.pvp-sidebar .panel:last-child{grid-column:1/-1}}
+@media(max-width:570px){.pvp-sidebar{grid-template-columns:1fr}.pvp-sidebar .panel:last-child{grid-column:auto}.pvp-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.pvp-actions button{padding:8px 5px}.game-tabs{gap:5px}.game-tabs button{flex:1 1 calc(50% - 6px);min-width:0;padding:9px 7px;font-size:11px}}

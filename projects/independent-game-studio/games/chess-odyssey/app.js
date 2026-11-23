@@ -45,6 +45,24 @@
     az:{returnLive:"Oyuna qayıt",wide:"Geniş taxta",fullReview:"Partiyanın tam təhlili",analysisQuality:"Təhlil dərinliyi",analysisQuick:"Sürətli",analysisBalanced:"Balanslı",analysisDeep:"Dərin",reviewStart:"Gedişləri təhlil et",reviewCancel:"Təhlili dayandır",moveLegend:"Gediş qiymətləndirmələri nə deməkdir?",reviewOffline:"Tək HTML faylında Stockfish dərin təhlili mövcud deyil. ZIP-i localhost ilə və ya HTTPS saytında açın. Gedişlərə baxmaq mümkündür.",reviewReady:"Dərinliyi seçib təhlilə başlayın.",reviewWait:"Təhlil: {done}/{total} mövqe",reviewDone:"Təhlil tamamlandı: {count}/{total} yarımgediş qiymətləndirilib.",reviewError:"Təhlil mühərriki mövcud deyil. Rəqəmsal dəqiqlik hesablanmayıb.",reviewFairPlay:"Tam təhlil yalnız müstəqil oyun bitdikdən sonra mümkündür.",reviewNoMoves:"Əvvəlcə ən azı bir gediş edin.",reviewPosition:"{ply}/{total} mövqeyinə baxış — əsl oyun ayrıca davam edir.",reviewWhite:"Ağlar",reviewBlack:"Qaralar",reviewAccuracy:"Dəqiqlik (modelin qiyməti)",reviewAnalyzed:"Qiymətləndirilən yarımgedişlər",reviewBest:"Tövsiyə olunan gediş",reviewCurrent:"Oynanılıb",reviewLimited:"Mühərrik tərəfindən qiymətləndirilməyib",reviewUnknown:"Qiymətləndirilməyib",reviewBrilliant:"Parlaq — müstəsna güclü gediş; ayrıca meyar təsdiqlənməyib, buna görə verilməyib",reviewBestTag:"Ən yaxşı",reviewExcellent:"Əla",reviewGood:"Yaxşı",reviewOrdinary:"Adi",reviewInaccuracy:"Qeyri-dəqiqlik",reviewMistake:"Səhv",reviewBlunder:"Kobud səhv",reviewBook:"Debüt gedişi (yalnız təsdiqlənmiş baza)",reviewSource:"Gözlənilən xal dəyişməsi modeli, Elo reytinqi deyil."}
   };
   const UX_ICONS={best:"★",excellent:"!",good:"✓",ordinary:"—",inaccuracy:"?!",mistake:"?",blunder:"??",unknown:"—",brilliant:"!!",book:"⌂"};
+  const POSTGAME_LABELS={
+    ru:{skills:"Разбор по пяти критериям",criterion:"Критерий",white:"Белые",black:"Чёрные",opening:"Дебют",tactics:"Тактическая игра",coordination:"Координация фигур",conversion:"Реализация преимущества",endgame:"Эндшпиль",noData:"Н/Д",method:"Оценка 0–10: сохранение ожидаемых очков по анализу Stockfish для ходов каждой категории. Минимум 2 оценённых хода; иначе Н/Д. Это приближённая метрика, не экспертный рейтинг.",start:"Начальная позиция",winnerW:"Победили белые",winnerB:"Победили чёрные",winnerDraw:"Ничья",youWon:"Вы победили",youLost:"Вы проиграли",youDraw:"Партия завершилась вничью",seeReview:"Разбор партии",close:"Закрыть",reasonMate:"мат",reasonTimeout:"время",reasonResign:"сдача",reasonDraw:"ничья"},
+    en:{skills:"Five-part game assessment",criterion:"Criterion",white:"White",black:"Black",opening:"Opening",tactics:"Tactical play",coordination:"Piece coordination",conversion:"Converting an advantage",endgame:"Endgame",noData:"N/A",method:"0–10 proxy: expected-points retained in Stockfish-evaluated moves of each category. At least 2 assessed moves required; otherwise N/A. Not an expert rating.",start:"Starting position",winnerW:"White won",winnerB:"Black won",winnerDraw:"Draw",youWon:"You won",youLost:"You lost",youDraw:"The game was drawn",seeReview:"Review game",close:"Dismiss",reasonMate:"checkmate",reasonTimeout:"time",reasonResign:"resignation",reasonDraw:"draw"},
+    az:{skills:"Beş meyar üzrə oyun təhlili",criterion:"Meyar",white:"Ağlar",black:"Qaralar",opening:"Açılış",tactics:"Taktiki oyun",coordination:"Fiqur koordinasiyası",conversion:"Üstünlüyü reallaşdırma",endgame:"Endşpil",noData:"M/D",method:"0–10 təxmini bal: Stockfish təhlilində hər meyara aid gedişlər üzrə gözlənilən xalın qorunması. Ən azı 2 qiymətləndirilmiş gediş lazımdır; əks halda M/D. Ekspert reytinqi deyil.",start:"Başlanğıc mövqe",winnerW:"Ağlar qalib gəldi",winnerB:"Qaralar qalib gəldi",winnerDraw:"Heç-heçə",youWon:"Siz qalib gəldiniz",youLost:"Siz məğlub oldunuz",youDraw:"Oyun heç-heçə bitdi",seeReview:"Oyunu təhlil et",close:"Bağla",reasonMate:"mat",reasonTimeout:"vaxt",reasonResign:"təslim olma",reasonDraw:"heç-heçə"}
+  };
+  const MOBILE_SETTINGS_TEXT={
+    ru:{mobileSettings:"Настройки партии",mobileSettingsDone:"Готово — свернуть настройки"},
+    en:{mobileSettings:"Game settings",mobileSettingsDone:"Done — collapse settings"},
+    az:{mobileSettings:"Partiya ayarları",mobileSettingsDone:"Hazırdır — ayarları yığ"}
+  };
+  const ACADEMY_DOCK_TEXT={
+    ru:{heading:"Академия · выбрать урок",previous:"Предыдущий урок",choose:"Выберите урок — доска и подсказки рядом"},
+    en:{heading:"Academy · choose a lesson",previous:"Previous lesson",choose:"Choose a lesson — controls and hints stay by the board"},
+    az:{heading:"Akademiya · dərs seçin",previous:"Əvvəlki dərs",choose:"Dərs seçin — idarəetmə və ipucları lövhənin yanındadır"}
+  };
+  const academyDockText=key=>(ACADEMY_DOCK_TEXT[language]||ACADEMY_DOCK_TEXT.ru)[key]||key;
+  const pl=(key)=>(POSTGAME_LABELS[language]||POSTGAME_LABELS.ru)[key]||key;
+  const GRADE_KEYS={best:"reviewBestTag",excellent:"reviewExcellent",good:"reviewGood",ordinary:"reviewOrdinary",inaccuracy:"reviewInaccuracy",mistake:"reviewMistake",blunder:"reviewBlunder",unknown:"reviewUnknown"};
   function ux(key,values){return (UX_TEXT[language]||UX_TEXT.ru)[key]?.replace(/\{(\w+)\}/g,(_,k)=>values&&values[k]!==undefined?String(values[k]):"?")||key;}
 
   const engine = ENGINE && new ENGINE.Bridge();
@@ -163,6 +181,25 @@
     text("academy-step",task?lessonPrompt(task):"");
     $("next-lesson").hidden=!lastLessonId||!parked||Boolean(lesson);
     text("completed",completed.length+"/"+LESSONS.length);
+    // One canonical Academy control set: fields are physically moved to the board dock.
+    const dock=$("academy-dock");
+    if(dock){
+      const active=Boolean(lesson||lastLessonId&&parked);
+      dock.hidden=matchMode==="independent"&&!active;
+      const heading=task?.title?.[language]||lastLessonId&&ACADEMY.byId[lastLessonId]?.title?.[language]||academyDockText("heading");
+      text("academy-dock-heading",heading);
+      text("academy-dock-count",completed.length+"/"+LESSONS.length);
+      text("academy-dock-instruction",task?lessonPrompt(task):lastLessonId&&parked?at("completed"):academyDockText("choose"));
+      $("academy-dock-prev").disabled=!task&&!lastLessonId||LESSONS.findIndex(x=>x.id===(lesson||lastLessonId))<=0;
+      $("academy-dock-next").disabled=!lastLessonId||!parked||Boolean(lesson);
+      $("academy-dock-hint").hidden=!Boolean(task);
+      $("academy-dock-resume").hidden=!parked;
+      const root=$("practice-view");
+      if(typeof root?.classList?.toggle==="function"){
+        root.classList.toggle("academy-active",active);
+        root.classList.toggle("independent-mode",matchMode==="independent"&&!finalized&&!active);
+      }
+    }
   }
 
   const COACH_TEXT = {
@@ -416,6 +453,7 @@ function hint(){
     if(original)boardFocus(original.from);
   }
   function doMove(from,to,promotion){
+    const completedBefore=completed.length;
     const matches=game.moves({square:from,verbose:true}).filter(x=>x.to===to);
     if(!matches.length) return message(tr("illegal"));
     if(matches.some(m=>m.promotion) && !promotion) {
@@ -473,6 +511,7 @@ function hint(){
       message(assessmentMessage(assessment));
     }else message(prog("loading"));
     render();persist();
+    if(completed.length>completedBefore)notifyCloudProgress();
     if(fromPromotion)boardFocus(to);
     if(game.game_over()) finish();
     else if(!lesson && !finalized && game.turn()!==side) scheduleBot();
@@ -566,6 +605,10 @@ function hint(){
     }
     const at=reviewCursor===null?moves.length:reviewCursor;
     text("h-progress",at+" / "+moves.length);
+    const current=at?game.history({verbose:true})[at-1]:null;
+    const evaluated=analysisResult?.pgn===game.pgn()?analysisResult.entries?.[at-1]:null;
+    const display=current?(Math.floor((at-1)/2)+1)+(at%2?"...":".")+" "+current.san:"";
+    text("h-current-san",display+(evaluated&&evaluated.tag!=="unknown"?"  "+UX_ICONS[evaluated.tag]:"")||pl("start"));
     $("h-first").disabled=!moves.length||at===0;
     $("h-prev").disabled=!moves.length||at===0;
     $("h-next").disabled=!moves.length||at===moves.length;
@@ -618,6 +661,36 @@ function hint(){
     }
     holder.appendChild(svg);
   }
+  function renderSkillTable(report){
+    const holder=$("review-skills");
+    if(!holder)return;
+    holder.replaceChildren();
+    holder.hidden=!report||!REVIEW?.skillReport;
+    if(holder.hidden)return;
+    const data=REVIEW.skillReport(report);
+    const heading=document.createElement("h4");heading.textContent=pl("skills");
+    const table=document.createElement("table");table.className="skills-table";
+    const head=document.createElement("thead"),hrow=document.createElement("tr");
+    for(const name of ["criterion","white","black"]){
+      const th=document.createElement("th");th.scope="col";th.textContent=pl(name);hrow.appendChild(th);
+    }
+    head.appendChild(hrow);table.appendChild(head);
+    const body=document.createElement("tbody");
+    for(const key of REVIEW.SKILL_KEYS){
+      const tr=document.createElement("tr"),label=document.createElement("th");
+      label.scope="row";label.textContent=pl(key);tr.appendChild(label);
+      for(const color of ["w","b"]){
+        const item=data.rows[key][color],cell=document.createElement("td");
+        cell.textContent=item.value===null?pl("noData"):item.value.toFixed(1)+"/10";
+        cell.title=String(item.analyzed)+" / "+String(item.eligible);
+        cell.dataset.skill=key;cell.dataset.side=color;tr.appendChild(cell);
+      }
+      body.appendChild(tr);
+    }
+    table.appendChild(body);
+    const note=document.createElement("p");note.className="skills-method";note.textContent=pl("method");
+    holder.append(heading,table,note);
+  }
   function renderFullReview(){
     const all=game.history({verbose:true}),pgn=game.pgn();
     if(analysisResult?.pgn!==pgn)analysisResult=null;
@@ -638,6 +711,7 @@ function hint(){
         card.appendChild(title);card.appendChild(grade);card.appendChild(count);sum.appendChild(card);
       }
     }
+    renderSkillTable(report);
     const entries=$("review-entries"),frag=document.createDocumentFragment();
     for(let i=0;i<all.length;i++){
       const move=all[i],entry=report?.entries?.[i];
@@ -680,7 +754,7 @@ function hint(){
     finally{
       worker.dispose();
       if(analysisWorker===worker)analysisWorker=null;
-      if(token===analysisGeneration){analysisRunning=false;renderFullReview();}
+      if(token===analysisGeneration){analysisRunning=false;render();}
     }
   }
   function status(){
@@ -693,9 +767,27 @@ function hint(){
     if(game.in_check()) return tr("check") + " " + (game.turn()===side?tr("turn"):tr("bot"));
     return lesson?tr("lesson"):game.turn()===side?tr("turn"):tr("thinking");
   }
+  function hideGameResult(){const toast=$("game-result-toast");if(toast)toast.hidden=true;}
+  function showGameResult(){
+    const toast=$("game-result-toast");if(!toast)return;
+    const winner=endedBy?(endedBy.draw?null:endedBy.loser==="w"?"b":"w"):
+      game.in_checkmate()?(game.turn()==="w"?"b":"w"):null;
+    const title=winner?(winner==="w"?pl("winnerW"):pl("winnerB")):pl("winnerDraw");
+    const mine=winner?(winner===side?pl("youWon"):pl("youLost")):pl("youDraw");
+    const why=endedBy?.type==="timeout"?pl("reasonTimeout"):
+      endedBy?.type==="resign"?pl("reasonResign"):game.in_checkmate()?pl("reasonMate"):pl("reasonDraw");
+    text("game-result-title",title);
+    text("game-result-detail",mine+" · "+why);
+    text("game-result-review",pl("seeReview"));
+    text("game-result-close",pl("close"));
+    toast.hidden=false;
+  }
   function render(){
     const boardElement=$("board");
     const shown=displayBoard(),readOnly=reviewCursor!==null;
+    const currentPly=reviewCursor===null?game.history().length:reviewCursor;
+    const assessed=analysisResult?.pgn===game.pgn()?analysisResult.entries?.[currentPly-1]:null;
+    const assessedMove=assessed&&assessed.tag!=="unknown"?game.history({verbose:true})[currentPly-1]:null;
     const wasFocused=Boolean(document.activeElement&&typeof boardElement.contains==="function"&&boardElement.contains(document.activeElement));
     // Independent games do not reveal candidate destinations before the move.
     const legal=!readOnly&&selected&&!(currentMatch()&&!finalized)?game.moves({square:selected,verbose:true}).map(m=>m.to):[];
@@ -716,7 +808,14 @@ function hint(){
       b.tabIndex=square===keyboardSquare?0:-1;
       b.setAttribute("aria-label",square+" — "+(BOARD_NAMES[language]||BOARD_NAMES.ru)[p?p.color+p.type:"empty"]);
       b.setAttribute("aria-pressed",!readOnly&&selected===square?"true":"false");
-      const mark=document.createElement("span");mark.className="piece";mark.textContent=p?PIECES[p.color+p.type]:"";b.appendChild(mark);
+      const mark=document.createElement("span");mark.className="piece";mark.textContent=p?PIECES[p.color+p.type]:"";if(p)mark.dataset.code=p.color+p.type.toUpperCase();b.appendChild(mark);
+      if(p&&assessedMove&&assessedMove.to===square&&assessed?.to===square&&UX_ICONS[assessed.tag]){
+        const badge=document.createElement("span");badge.className="move-grade-badge";badge.dataset.tag=assessed.tag;
+        badge.dataset.ply=String(currentPly);badge.textContent=UX_ICONS[assessed.tag];
+        badge.setAttribute("aria-hidden","true");badge.title=ux(GRADE_KEYS[assessed.tag]||"reviewUnknown");
+        b.appendChild(badge);
+        b.setAttribute("aria-label",b.getAttribute("aria-label")+" — "+badge.title);
+      }
       if((flipped?r===7:r===0)) {const c=document.createElement("small");c.className="file";c.textContent=square[0];b.appendChild(c);}
       if((flipped?f===7:f===0)) {const c=document.createElement("small");c.className="rank";c.textContent=square[1];b.appendChild(c);}
       b.addEventListener("focus",()=>{keyboardSquare=square;});
@@ -773,8 +872,14 @@ function hint(){
     }
     if(endedBy)ratedMessage=tr(endedBy.type==="resign"?"resignNote":"timeNote");
     else if(clockState?.baseMs)ratedMessage=tr("clockPolicy");
-    playSound("end");persist();render();renderReview();
+    // Finalizing a no-help game unlocks postgame analysis; refresh mode classes before rendering.
+    playSound("end");persist();renderAcademy();render();renderReview();
     message(status()+" — "+ratedMessage);
+    showGameResult();
+    notifyCloudProgress();
+  }
+  function notifyCloudProgress(){
+    if(typeof window.dispatchEvent==="function"&&typeof Event==="function")window.dispatchEvent(new Event("chess-progress-commit"));
   }
   function persist(){
     const session=parked||{pgn:lesson?null:game.pgn(),side,difficulty,flipped:$("flip").checked,finalized:finalized&&!lesson,notes};
@@ -783,6 +888,8 @@ function hint(){
   }
   function restore(){
     try {
+      // A prior signed-in account is never inferred from stale offline browser storage.
+      if(localStorage.getItem("chess-odyssey-cloud-owner-v1"))return;
       const raw=localStorage.getItem(KEY);if(!raw)return;
       const data=JSON.parse(raw);
       language=["ru","en","az"].includes(data.language)?data.language:"ru";
@@ -844,9 +951,32 @@ function hint(){
       restoreMatchNotice();message(tr("restored"));
     }catch(e){message("Saved state is invalid; a fresh game was started.");}
   }
+  function applyCloudAccount(doc){
+    // Authenticated, server-owned data only. Never import pre-registration local test results.
+    const known=new Set(LESSONS.map(x=>x.id));
+    const nextCompleted=Array.isArray(doc?.practiceCompleted)
+      ?[...new Set(doc.practiceCompleted.filter(id=>typeof id==="string"&&known.has(id)))]:[];
+    const rawStats=doc?.practiceStats;
+    const nextStats=rawStats&&["wins","losses","draws"].every(k=>Number.isSafeInteger(rawStats[k])&&rawStats[k]>=0&&rawStats[k]<=100000)
+      ?{wins:rawStats.wins,losses:rawStats.losses,draws:rawStats.draws}:{wins:0,losses:0,draws:0};
+    clearTimeout(aiTimer);++epoch;engine.cancel();cancelFullAnalysis();clearHints();hideGameResult();
+    game=new Chess();completed=nextCompleted;stats=nextStats;lesson=null;lessonStep=0;lastLessonId=null;parked=null;
+    selected=null;last=null;pendingPromotion=null;finalized=false;notes=[];showReview=false;reviewCursor=null;endedBy=null;matchSession=null;
+    matchMode="practice";academyTrack="all";
+    $("lesson").value="";$("academy-track").value="all";$("match-mode").value="practice";
+    if($("academy-dock"))$("academy-dock").open=typeof window.matchMedia==="function"&&!window.matchMedia("(max-width: 720px)").matches;
+    if(CLOCK)clockState=CLOCK.start(CLOCK.config("none"),Date.now());
+    if($("time-control"))$("time-control").value="none";
+    if($("custom-clock"))$("custom-clock").hidden=true;
+    if($("promotion"))$("promotion").hidden=true;
+    render();renderReview();renderAcademy();persist();
+    if(typeof document.dispatchEvent==="function"&&typeof Event==="function")document.dispatchEvent(new Event("chess-progress-change"));
+    return {completed:completed.length,stats:{...stats}};
+  }
   function newGame(){
-    cancelFullAnalysis();analysisResult=null;reviewCursor=null;clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();endedBy=null;lowAlerted=null;lesson=null;lessonStep=0;lastLessonId=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
+    hideGameResult();cancelFullAnalysis();analysisResult=null;reviewCursor=null;clearTimeout(aiTimer);++epoch;engine.cancel();game=new Chess();endedBy=null;lowAlerted=null;lesson=null;lessonStep=0;lastLessonId=null;parked=null;selected=null;last=null;finalized=false;notes=[];showReview=false;clearHints();renderReview();
     $("lesson").value="";
+    if($("academy-dock")&&typeof window.matchMedia==="function"&&window.matchMedia("(max-width: 720px)").matches)$("academy-dock").open=false;
     side=$("side").value;difficulty=$("level").value;language=$("lang").value;
     matchMode=$("match-mode").value==="independent"?"independent":"practice";
     if(CLOCK){
@@ -865,6 +995,7 @@ function hint(){
     if(side==="b")scheduleBot();
   }
   function undo(){
+    hideGameResult();
     if(currentMatch())return message(prog("assistBlocked"));
     if(reviewCursor!==null)return message(ux("returnLive"));
     if(endedBy)return message(tr("gameOver"));
@@ -884,6 +1015,7 @@ function hint(){
     if(game.turn()!==side)scheduleBot();
   }
   function startLesson(id){
+    hideGameResult();
     if(currentMatch()&&!finalized){$("lesson").value="";return message(prog("assistBlocked"));}
     const task=ACADEMY.byId[id];if(!task)return;
     cancelFullAnalysis();analysisResult=null;reviewCursor=null;
@@ -894,6 +1026,7 @@ function hint(){
     game=ACADEMY.createPosition(task,Chess);
     lesson=id;lessonStep=0;lastLessonId=null;side=game.turn();selected=null;last=null;finalized=false;
     $("side").value=side;$("lesson").value=id;
+    if($("academy-dock"))$("academy-dock").open=true;
     render();renderAcademy();
     message(task.intro[language]);learnMessage(lessonPrompt(task));
     persist();
@@ -907,6 +1040,7 @@ function hint(){
     startLesson(next.id);
   }
     function resumeGame(){
+    hideGameResult();
     if(!parked)return;
     const previous=parked, restored=new Chess();
     if(previous.pgn && !restored.load_pgn(previous.pgn))return message("Cannot restore saved PGN.");
@@ -916,6 +1050,7 @@ function hint(){
     clearHints();showReview=finalized&&(game.game_over()||Boolean(endedBy));renderReview();
     if(CLOCK&&clockState?.baseMs&&clockState.paused)clockState=CLOCK.resume(clockState,Date.now());
     $("side").value=side;$("level").value=difficulty;$("flip").checked=previous.flipped;$("lesson").value="";
+    if($("academy-dock")&&typeof window.matchMedia==="function"&&window.matchMedia("(max-width: 720px)").matches)$("academy-dock").open=false;
     updateEngineAvailability();
     learnMessage("");message(tr("restored"));render();renderAcademy();persist();
     if(!finalized&&!game.game_over()&&game.turn()!==side)scheduleBot();
@@ -923,9 +1058,10 @@ function hint(){
   function refreshLabels(){
     document.documentElement.lang=language;
     if(APPEARANCE)APPEARANCE.setLanguage(language,document);
+    if($("academy-dock-prev"))text("academy-dock-prev",academyDockText("previous"));
     for(const node of document.querySelectorAll("[data-i18n]")){
       const name=node.getAttribute("data-i18n");
-      node.textContent=LABELS[language][name]||(B8_TEXT[language]||B8_TEXT.ru)[name]||(UX_TEXT[language]||UX_TEXT.ru)[name]||LABELS.ru[name]||B8_TEXT.ru[name]||UX_TEXT.ru[name]||name;
+      node.textContent=(MOBILE_SETTINGS_TEXT[language]||MOBILE_SETTINGS_TEXT.ru)[name]||LABELS[language][name]||(B8_TEXT[language]||B8_TEXT.ru)[name]||(UX_TEXT[language]||UX_TEXT.ru)[name]||LABELS.ru[name]||B8_TEXT.ru[name]||UX_TEXT.ru[name]||name;
     }
     const task=lessonTask();
     if(task){learnMessage(lessonPrompt(task));message(task.intro[language]);}
@@ -939,6 +1075,7 @@ function hint(){
       else message(tr("select"));
     }
     renderAcademy();showHints();renderReview();render();renderFullReview();
+    if($("game-result-toast")&&!$("game-result-toast").hidden)showGameResult();
     if($("clock-policy"))text("clock-policy",clockState?.baseMs?tr("clockPolicy"):"");
     if($("sound-enabled"))$("sound-enabled").checked=soundEnabled;
     if($("clock-panel")){
@@ -965,6 +1102,61 @@ function hint(){
     en:{title:"Chess Odyssey",boardHelp:"Use arrow keys to move focus across the board. Enter or Space selects a square.",promotionHelp:"Choose the new piece for the pawn. Press Escape to cancel.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Learn by playing",newGame:"New game",undo:"Undo move",hint:"Hint",game:"Practice game",level:"AI difficulty",side:"My pieces",language:"Language",flip:"Flip board",lessons:"Academy",chooseLesson:"Choose a lesson…",resume:"Return to game",academyTrack:"Learning track",allTracks:"All tracks",trackBasics:"Rules and essentials",trackTactics:"Tactics and combinations",trackOpenings:"Opening ideas",trackEndgames:"Endgame",academyLesson:"Lesson or challenge",nextLesson:"Next lesson",reviewButton:"Review moves",reviewTitle:"Key moments",record:"Wins / losses / draws",done:"Lessons completed",moves:"Move history",about:"Practice does not affect rating; set clocks before playing",white:"White",black:"Black",beginner:"Beginner",novice:"Novice",intermediate:"Intermediate",advanced:"Advanced",expert:"Expert",grandmaster:"Grandmaster Challenge"},
     az:{title:"Chess Odyssey",boardHelp:"Ox düymələri ilə taxtada hərəkət edin. Xanəni seçmək üçün Enter və ya boşluq basın.",promotionHelp:"Piyadanın çevriləcəyi fiquru seçin. Ləğv etmək üçün Escape basın.",subtitle:"ACADEMY & ARENA",coach:"AI Coach · Oynayaraq öyrənin",newGame:"Yeni oyun",undo:"Gedişi ləğv et",hint:"İpucu",game:"Məşq oyunu",level:"AI çətinliyi",side:"Mənim fiqurlarım",language:"Dil",flip:"Taxtanı çevir",lessons:"Akademiya",chooseLesson:"Dərs seçin…",resume:"Oyuna qayıt",academyTrack:"Təlim bölməsi",allTracks:"Bütün bölmələr",trackBasics:"Qaydalar və əsaslar",trackTactics:"Taktika və kombinasiyalar",trackOpenings:"Debüt ideyaları",trackEndgames:"Endşpil",academyLesson:"Dərs və ya tapşırıq",nextLesson:"Növbəti dərs",reviewButton:"Gedişləri təhlil et",reviewTitle:"Əsas məqamlar",record:"Qələbə / məğlubiyyət / heç-heçə",done:"Tamamlanmış dərslər",moves:"Gedişlərin tarixçəsi",about:"Məşq reytinqə təsir etmir; saatı oyundan əvvəl seçin",white:"Ağlar",black:"Qaralar",beginner:"Başlanğıc",novice:"Həvəskar",intermediate:"Orta",advanced:"İrəliləmiş",expert:"Ekspert",grandmaster:"Qrossmeyster sınağı"}
   };
+  function setupAcademyDock(){
+    if(typeof document.querySelector!=="function")return; // Node synthetic fixture
+    const dock=$("academy-dock"),host=$("academy-dock-fields");
+    const panel=document.querySelector("#practice-view .academy-panel");
+    const track=panel?.querySelector(".academy-filter-label");
+    const select=panel?.querySelector(".academy-lesson-label");
+    if(!dock||!host||!track||!select)return;
+    // Reparent existing native selects and labels: no duplicated IDs or progress state.
+    host.append(track,select);
+    $("academy-dock-next").addEventListener("click",nextLesson);
+    $("academy-dock-hint").addEventListener("click",hint);
+    $("academy-dock-resume").addEventListener("click",resumeGame);
+    $("academy-dock-prev").addEventListener("click",()=>{
+      const id=lesson||lastLessonId,index=LESSONS.findIndex(x=>x.id===id);
+      if(index<=0)return;
+      const previous=LESSONS[index-1];
+      academyTrack=previous.track;$("academy-track").value=academyTrack;
+      startLesson(previous.id);
+    });
+    // Desktop retains visible selectors for legacy keyboard workflows; phone stays compact.
+    if(lesson||lastLessonId&&parked||typeof window.matchMedia==="function"&&!window.matchMedia("(max-width: 720px)").matches)dock.open=true;
+  }
+  function setupMobileSettings(){
+    // Headless chess-rule fixtures may supply a minimal document without DOM query APIs.
+    if(typeof document.querySelector!=="function"||typeof window.matchMedia!=="function")return;
+    const panel=$("mobile-game-settings"),host=$("mobile-settings-fields"),done=$("mobile-settings-done");
+    const sidebar=document.querySelector("#practice-view > .sidebar");
+    const appearance=sidebar?.querySelector(":scope > .appearance-panel");
+    const settings=sidebar?.querySelector(":scope > .settings-panel");
+    if(!panel||!host||!done||!appearance||!settings||typeof window.matchMedia!=="function")return;
+    // Move the original controls instead of creating duplicate IDs or parallel state.
+    const appearanceAnchor=document.createComment("appearance desktop position");
+    const settingsAnchor=document.createComment("settings desktop position");
+    sidebar.insertBefore(appearanceAnchor,appearance);
+    sidebar.insertBefore(settingsAnchor,settings);
+    const viewport=window.matchMedia("(max-width: 720px)");
+    const relocate=()=>{
+      if(viewport.matches){
+        host.append(appearance,settings);
+      }else{
+        sidebar.insertBefore(appearance,appearanceAnchor.nextSibling);
+        sidebar.insertBefore(settings,settingsAnchor.nextSibling);
+        panel.open=false;
+      }
+    };
+    relocate();
+    if(typeof viewport.addEventListener==="function")viewport.addEventListener("change",relocate);
+    else if(typeof viewport.addListener==="function")viewport.addListener(relocate);
+    done.addEventListener("click",()=>{
+      panel.open=false;
+      const summary=panel.querySelector("summary");
+      if(summary)summary.focus({preventScroll:true});
+    });
+    document.body.classList.add("mobile-settings-ready");
+  }
   function init(){
     if(typeof Chess!=="function")throw new Error("Rules Engine missing");
     if(!COACH||typeof COACH.analyze!=="function")throw new Error("Chess Coach Engine missing");
@@ -974,6 +1166,13 @@ function hint(){
       if(!["ru","en","az"].includes(lang))return;
       $("lang").value=lang;$("lang").dispatchEvent(new Event("change",{bubbles:true}));
     }});
+    setupMobileSettings();
+    setupAcademyDock();
+    if($("game-result-close"))$("game-result-close").addEventListener("click",hideGameResult);
+    if($("game-result-review"))$("game-result-review").addEventListener("click",()=>{
+      hideGameResult();$("full-review-details").open=true;
+      if(typeof $("full-review-details").scrollIntoView==="function")$("full-review-details").scrollIntoView({block:"start",behavior:"smooth"});
+    });
     $("h-first").addEventListener("click",()=>jumpHistory(0));
     $("h-prev").addEventListener("click",()=>jumpHistory((reviewCursor===null?game.history().length:reviewCursor)-1));
     $("h-next").addEventListener("click",()=>jumpHistory((reviewCursor===null?game.history().length:reviewCursor)+1));
@@ -1032,6 +1231,7 @@ function hint(){
     if(game.turn()!==side && !game.game_over() && !finalized)scheduleBot();
     clockTick();render();
   }
+  window.ChessOdysseyAccount=Object.freeze({apply:applyCloudAccount,summary:()=>({completed:completed.length,stats:{...stats}})});
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init); else init();
   // Stable test surface without providing a user-facing debug console.
   window.ChessOdysseyQA={academy:()=>({total:LESSONS.length,tracks:ACADEMY.tracks.map(x=>x.id),active:lesson,step:lessonStep}),levels:()=>ENGINE.ids.slice(),engineStatus:()=>lastEngineKind,legalUci:(fen,uci)=>{const c=new Chess(fen);return ENGINE.legalUci(c,uci);},legalCount:(fen)=>{const c=new Chess();if(fen&&!c.load(fen))throw new Error("invalid FEN");return c.moves().length;},lessonIds:()=>LESSONS.map(x=>x.id),evaluate:()=>scorePosition(),coach:()=>COACH.version,notes:()=>notes.length,clock:()=>({clockState,endedBy}),match:()=>({mode:matchMode,session:matchSession&&{...matchSession},finalized}),ux:()=>({cursor:reviewCursor,ply:game.history().length,lang:language,appearance:APPEARANCE?.snapshot(),analysisReady:Boolean(analysisResult),analysisRunning}),progress:()=>window.ChessProgress.snapshot().summary};

@@ -15,7 +15,7 @@ function startServer(){
   if(!file.startsWith(root+path.sep)){res.writeHead(403);res.end("Forbidden");return;}
   fs.readFile(file,(error,contents)=>{
    if(error){res.writeHead(404);res.end("Not found");return;}
-   const type=file.endsWith(".wasm")?"application/wasm":file.endsWith(".js")?"text/javascript":file.endsWith(".html")?"text/html; charset=utf-8":file.endsWith(".css")?"text/css":"application/octet-stream";
+   const type=file.endsWith(".wasm")?"application/wasm":file.endsWith(".svg")?"image/svg+xml":file.endsWith(".js")?"text/javascript":file.endsWith(".html")?"text/html; charset=utf-8":file.endsWith(".css")?"text/css":"application/octet-stream";
    res.writeHead(200,{"Content-Type":type,"Cache-Control":"no-store"});
    res.end(contents);
   });

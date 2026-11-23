@@ -1,0 +1,88 @@
+name: Chess Odyssey — GitHub Pages production
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "projects/independent-game-studio/games/chess-odyssey/**"
+      - ".github/workflows/chess-odyssey-pages.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "projects/independent-game-studio/games/chess-odyssey/**"
+      - ".github/workflows/chess-odyssey-pages.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: chess-odyssey-pages-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    name: Build and inspect isolated static package
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Confirm static game/engine bundle, privacy and licensing
+        run: node projects/independent-game-studio/games/chess-odyssey/tests/pages-package.cjs
+  readiness:
+    name: Verify user-configured GitHub Pages before deployment
+    needs: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    permissions:
+      contents: read
+    outputs:
+      enabled: ${{ steps.inspect.outputs.enabled }}
+    steps:
+      - id: inspect
+        name: Check Pages without changing repository settings
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          code=$(curl -sS -L --max-time 20 -o "$RUNNER_TEMP/pages.json" -w '%{http_code}' \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/pages")
+          if [ "$code" = "200" ]; then
+            node -e 'const p=require(process.argv[1]);if(p.build_type!=="workflow")process.exit(2);console.log("PAGES_READY "+p.html_url)' "$RUNNER_TEMP/pages.json"
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          elif [ "$code" = "404" ]; then
+            echo "BLOCKED_PAGES_ACTIVATION: repository owner must enable Pages > Build and deployment > GitHub Actions once"
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "PAGES_AUDIT_HTTP=$code";exit 1
+          fi
+  deploy:
+    name: Deploy Chess Odyssey v1.0 public HTTPS site
+    needs: [validate, readiness]
+    if: needs.readiness.outputs.enabled == 'true' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Build reviewed static files
+        run: node projects/independent-game-studio/games/chess-odyssey/scripts/build-pages.cjs "${{ runner.temp }}/chess-pages-site"
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/chess-pages-site
+      - name: Deploy v1.0 public site
+        id: deployment
+        uses: actions/deploy-pages@v4

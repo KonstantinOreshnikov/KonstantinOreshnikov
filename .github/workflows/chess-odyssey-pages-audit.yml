@@ -1,0 +1,33 @@
+name: Chess Odyssey — Pages Read-only Audit
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/chess-odyssey-pages-audit.yml"
+      - ".github/workflows/chess-odyssey-pages.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - name: Report current Pages configuration without changing it
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          status=$(curl -sS --max-time 15 -L -o "$RUNNER_TEMP/pages.json" -w '%{http_code}' \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/pages")
+          echo "PAGES_API_HTTP=$status"
+          if [ "$status" = "200" ]; then
+            node -e 'const p=require(process.argv[1]); console.log(JSON.stringify({enabled:true,url:p.html_url,build_type:p.build_type,source:p.source,status:p.status,https_enforced:p.https_enforced}))' "$RUNNER_TEMP/pages.json"
+          elif [ "$status" = "404" ]; then
+            echo "PAGES_NOT_CONFIGURED: no existing Pages site to preserve"
+          else
+            echo "PAGES_AUDIT_BLOCKED: cannot assume missing site"
+            exit 1
+          fi

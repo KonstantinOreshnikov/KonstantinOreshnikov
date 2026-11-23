@@ -1,5 +1,13 @@
 # Chess Odyssey — Changelog
 
+## 2026-11-24 — v1.0.0 public release
+
+- [Play online](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Windows Stockfish v1.0.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056) · [Release notes](docs/RELEASE_V1_0_0.md).
+- 33 Academy lessons, contextual/mobile game controls, 300 historic score records (31 original annotated plus 269 World Championship games), Stockfish review and RU/EN/AZ.
+- [Full automated QA 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329); [live public UI smoke PASS](https://agent.tinyfish.ai/runs/ad1e13fb-00f5-4e26-a235-cd9013ae371d).
+- **Owner-approved early release** with outstanding live multi-device CAS, 2-player PvP, third-user security and human localization/device tests disclosed in release notes. Neon backend stays on existing staging instance and existing account progress is preserved.
+- Historical v0.9.0 entries below are preserved as source evidence, not current release state.
+
 ## 2026-11-23 — Post-merge main QA and authoritative v0.9 artifact
 
 - [Actual `main` run #45126130111](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45126130111) **3/3 JOBS PASS** on merge commit `a81c5132e6bf0570744720551e857ec2f5f432c9`: offline/unit, real Chromium, Windows launcher/WASM. P0–P2 new UX Chrome 16/16; B9 synthetic two-Chrome 11/11.

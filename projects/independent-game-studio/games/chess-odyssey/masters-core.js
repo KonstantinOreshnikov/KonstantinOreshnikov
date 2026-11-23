@@ -31,13 +31,21 @@ function compile(Chess,source,commentaries){
    if(!g||typeof g.id!=="string"||totalSet.has(g.id)){failures.push("Duplicate/empty game ID");continue;}
    totalSet.add(g.id);
    const note=byId.get(g.id);
-   if(!note){failures.push(g.id+": missing original annotated lesson");continue;}
+   const expanded=g.collection==="championship-score";
+   if(!note&&!expanded){failures.push(g.id+": missing original annotated lesson");continue;}
+   if(note&&expanded)failures.push(g.id+": candidate must not masquerade as authored annotation");
    if(!["1-0","0-1","1/2-1/2"].includes(g.result))failures.push(g.id+": invalid recorded result");
-   if(!/^https:\/\/chessgator\.com\/games\/[a-z0-9-]+$/.test(g.source))failures.push(g.id+": invalid historical score source URL");
+   const provenance=expanded?
+     g.source==="https://raw.githubusercontent.com/bgard68/ClaudeChessApp/main/public/games/world-championship-title-matches.pgn"&&
+       Number.isSafeInteger(g.sourceIndex)&&g.sourceIndex>=0&&g.sourceIndex<1164&&/^wcc-/.test(g.id):
+     /^https:\/\/chessgator\.com\/games\/[a-z0-9-]+$/.test(g.source);
+   if(!provenance)failures.push(g.id+": invalid score provenance");
    const year=Number(g.year),match=g.id.match(/(\d{4})$/);
-   if(!Number.isInteger(year)||year<1800||year>2026||(match&&Number(match[1])!==year))failures.push(g.id+": date mismatch");
+   if(!Number.isInteger(year)||year<1800||year>2026||(!expanded&&match&&Number(match[1])!==year))failures.push(g.id+": date mismatch");
    if(!g.white||!g.black||!g.event||!Array.isArray(g.moves)||g.moves.length<12||g.plies!==g.moves.length)failures.push(g.id+": incomplete source record");
-   if(!languages.every(k=>note.title&&note.title[k]&&note.summary&&note.summary[k]&&note.title[k].length>=12&&note.summary[k].length>=60))failures.push(g.id+": incomplete RU/EN/AZ lesson title/summary");
+   const display=note||g;
+   if(!languages.every(k=>display.title&&display.title[k]&&display.summary&&display.summary[k]&&display.title[k].length>=12&&display.summary[k].length>=60))
+     failures.push(g.id+": incomplete RU/EN/AZ title/summary");
    const key=g.moves.join(" ");
    if(scoreSet.has(key))failures.push(g.id+": duplicate full game moves");
    scoreSet.add(key);
@@ -58,7 +66,7 @@ function compile(Chess,source,commentaries){
    if(g.moves[g.moves.length-1].includes("#")&&!board.in_checkmate())failures.push(g.id+": # without checkmate");
    const selected=[];
    const seen=new Set();
-   for(const m of note.moments||[]){
+   for(const m of note?.moments||[]){
      const a=referencePly(m.anchor);
      if(!a||a.ply>g.moves.length||g.moves[a.ply-1]!==a.san){failures.push(g.id+": wrong annotated move "+m.anchor);continue;}
      if(seen.has(a.ply))failures.push(g.id+": duplicate annotation ply "+a.ply);
@@ -66,22 +74,24 @@ function compile(Chess,source,commentaries){
      if(!languages.every(k=>m.explain&&typeof m.explain[k]==="string"&&m.explain[k].length>=40))failures.push(g.id+": missing/inadequate translation at "+m.anchor);
      selected.push(Object.freeze({ply:a.ply,san:a.san,anchor:m.anchor,explain:m.explain}));
    }
-   if(selected.length<3)failures.push(g.id+": fewer than three original critical-move lessons");
+   if(!expanded&&selected.length<3)failures.push(g.id+": fewer than three original critical-move lessons");
    selected.sort((a,b)=>a.ply-b.ply);
-   const group=category[note.theme];
+   const group=expanded?"championship":category[note.theme];
    if(!group)failures.push(g.id+": unknown pedagogical theme "+note.theme);
-   if(!["beginner","intermediate","advanced"].includes(note.difficulty))failures.push(g.id+": unknown teaching level");
+   if(!expanded&&!["beginner","intermediate","advanced"].includes(note.difficulty))failures.push(g.id+": unknown teaching level");
    games.push(Object.freeze({
-     id:g.id,title:note.title,summary:note.summary,theme:note.theme,category:group,
-     difficulty:note.difficulty,white:g.white,black:g.black,event:g.event,year:g.year,result:g.result,source:g.source,
+     id:g.id,title:display.title,summary:display.summary,theme:expanded?"championship":note.theme,category:group,
+     difficulty:expanded?"intermediate":note.difficulty,collection:expanded?"champions":"legends",
+     white:g.white,black:g.black,event:g.event,year:g.year,result:g.result,source:g.source,
      totalPlies:g.plies,moves:Object.freeze(moves),positions:Object.freeze(positions),
      moments:Object.freeze(selected),isCheckmate:board.in_checkmate(),endFen:board.fen()
    }));
  }
- if(all.length!==library.length||byId.size!==all.length)failures.push("Game/annotation count mismatch or duplicate annotation IDs");
+ if(all.length!==library.filter(x=>x.collection!=="championship-score").length||byId.size!==all.length)
+   failures.push("Curated lesson/annotation count mismatch or duplicate annotation IDs");
  if(library.length<20)failures.push("Under-curated master games library");
  const totalPlies=games.reduce((sum,g)=>sum+g.totalPlies,0),moments=games.reduce((sum,g)=>sum+g.moments.length,0);
- return Object.freeze({ok:failures.length===0,games:Object.freeze(games),byId:Object.freeze(Object.fromEntries(games.map(g=>[g.id,g]))),problems:Object.freeze(failures),totalPlies,moments,checkmates:games.filter(g=>g.isCheckmate).length,version:"B5-31-v1"});
+ return Object.freeze({ok:failures.length===0,games:Object.freeze(games),byId:Object.freeze(Object.fromEntries(games.map(g=>[g.id,g]))),problems:Object.freeze(failures),totalPlies,moments,checkmates:games.filter(g=>g.isCheckmate).length,version:games.length===31?"B5-31-v1":"B5-300-v2"});
 }
 function exerciseChoices(Chess,game,moment){
  if(!game||!moment||moment.ply<1||moment.ply>game.totalPlies)throw new Error("Invalid historic exercise");

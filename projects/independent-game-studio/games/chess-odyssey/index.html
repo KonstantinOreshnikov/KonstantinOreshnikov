@@ -7,6 +7,9 @@
   <meta name="description" content="Chess Odyssey: learn chess while playing with a gentle AI opponent.">
   <title>Chess Odyssey — Academy & Arena</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="pieces/piece-sets.css">
+  <link rel="stylesheet" href="cloud/cloud.css">
+  <link rel="stylesheet" href="pvp/pvp.css">
   <script defer src="vendor/chess.js"></script>
   <script defer src="coach-engine.js"></script>
   <script defer src="engine-bridge.js"></script>
@@ -17,12 +20,15 @@
   <script defer src="game-review-core.js"></script>
   <script defer src="app.js"></script>
   <script defer src="masters-library.js"></script>
+  <script defer src="masters-expanded.js"></script>
   <script defer src="masters-notes-a.js"></script>
   <script defer src="masters-notes-b.js"></script>
   <script defer src="masters-notes-c.js"></script>
   <script defer src="masters-core.js"></script>
   <script defer src="masters-ui.js"></script>
   <script defer src="progress-ui.js"></script>
+  <script defer src="cloud/cloud-client.js"></script>
+  <script defer src="pvp/pvp-ui.js"></script>
 </head>
 <body>
   <main class="shell">
@@ -30,15 +36,36 @@
       <div class="brand"><span class="brand-mark" aria-hidden="true">♞</span><div>
         <h1 data-i18n="title">Chess Odyssey</h1><p data-i18n="subtitle">ACADEMY & ARENA</p>
       </div></div>
-      <div class="top-actions"><label class="global-language"><span data-i18n="language">Язык</span><select id="global-language" aria-label="Site language"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label><div class="version">B9 / UX DEVELOPMENT <span>v0.9 · NOT RELEASED</span><small>Last tested preview: v0.8.0</small></div></div>
+      <div class="top-actions"><label class="global-language"><span data-i18n="language">Язык</span><select id="global-language" aria-label="Site language"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label><div class="version">Chess Odyssey <span>v1.0.0 · RELEASED</span><small>300 historical games · 33 Academy lessons</small></div></div>
     </header>
     <nav class="game-tabs" role="tablist" aria-label="Chess Odyssey sections">
       <button type="button" id="nav-play" role="tab" aria-selected="true" aria-controls="practice-view" data-master-label="practiceTab">Практика и Академия</button>
       <button type="button" id="nav-masters" role="tab" aria-selected="false" aria-controls="masters-view" data-master-label="mastersTab">Мастера и легенды</button>
       <button type="button" id="nav-progress" role="tab" aria-selected="false" aria-controls="progress-view" data-master-label="progressTab">Мой прогресс</button>
+      <button type="button" id="nav-pvp" role="tab" aria-selected="false" aria-controls="pvp-view" data-master-label="pvpTab">Онлайн с другом</button>
     </nav>
     <section class="workspace" id="practice-view" role="tabpanel" aria-labelledby="nav-play" aria-label="Chess game and coach">
+      <details id="mobile-game-settings" class="mobile-game-settings">
+        <summary><span data-i18n="mobileSettings">Настройки партии</span></summary>
+        <div class="mobile-settings-content">
+          <div id="mobile-settings-fields"></div>
+          <button type="button" id="mobile-settings-done" class="action primary" data-i18n="mobileSettingsDone">Готово — свернуть настройки</button>
+        </div>
+      </details>
       <div class="play-section">
+        <details id="academy-dock" class="academy-dock" aria-label="Academy lesson controls">
+          <summary><span id="academy-dock-heading" data-academy-dock="heading">Академия · выбрать урок</span><small id="academy-dock-count">0/33</small></summary>
+          <div class="academy-dock-content">
+            <div id="academy-dock-fields" class="academy-dock-fields"></div>
+            <p id="academy-dock-instruction" class="academy-dock-instruction" aria-live="polite"></p>
+            <div class="academy-dock-actions">
+              <button type="button" id="academy-dock-prev" class="action" data-academy-dock="prev">Предыдущий урок</button>
+              <button type="button" id="academy-dock-hint" class="action accent" data-i18n="hint">Подсказка</button>
+              <button type="button" id="academy-dock-next" class="action primary" data-i18n="nextLesson">Следующий урок</button>
+              <button type="button" id="academy-dock-resume" class="action" data-i18n="resume">Вернуться к партии</button>
+            </div>
+          </div>
+        </details>
         <div class="board-topline">
           <div><p class="eyebrow" data-i18n="game">Тренировочная партия</p><h2 id="game-status" aria-live="polite">Ваш ход</h2></div>
           <div class="board-top-actions"><label class="flip-control"><input type="checkbox" id="flip"><span data-i18n="flip">Повернуть доску</span></label><button type="button" id="wide-view" class="compact-action" aria-label="Wide board view">Широкая доска</button></div>
@@ -48,14 +75,7 @@
           <div class="clock-card" id="clock-white"><span class="clock-player" data-i18n="whiteClock">Белые</span><span class="sandglass" aria-hidden="true">⌛</span><strong id="clock-white-time" class="clock-time" aria-label="White time remaining">00:00</strong></div>
         </div>
         <div class="board-frame"><div id="board" class="board" role="group" aria-label="Chessboard" aria-describedby="board-keyboard-hint"></div></div>
-        <p id="board-keyboard-hint" class="chess-keyboard-help" data-i18n="boardHelp">Клавиши ← ↑ → ↓ — перемещение по доске; Enter или пробел — выбрать клетку.</p>
-        <div class="board-controls">
-          <button id="new-game" class="action primary" data-i18n="newGame">Новая партия</button>
-          <button id="undo" class="action" data-i18n="undo">Отменить ход</button>
-          <button id="hint" class="action accent" data-i18n="hint">Подсказка</button>
-        </div>
-        <div class="b8-controls"><button id="resign" type="button" class="action" data-i18n="resign">Сдаться</button><button id="rematch" type="button" class="action" data-i18n="rematch">Реванш</button></div>
-        <div class="moves-panel"><h3 data-i18n="moves">История ходов</h3>
+        <div class="board-replay-dock" role="region" aria-label="Move navigation and notation">
           <div class="replay-toolbar" role="group" aria-label="Move replay controls">
             <button id="h-first" type="button" aria-label="First position" title="First position">|◀</button>
             <button id="h-prev" type="button" aria-label="Previous move" title="Previous move">◀</button>
@@ -64,6 +84,21 @@
             <button id="h-last" type="button" aria-label="Last / live position" title="Last / live position">▶|</button>
             <button id="h-return" type="button" class="replay-live" data-i18n="returnLive" hidden>К партии</button>
           </div>
+          <output id="h-current-san" class="replay-current" aria-live="polite">Начальная позиция</output>
+        </div>
+        <aside id="game-result-toast" class="game-result-toast" role="status" aria-live="polite" hidden>
+          <div class="game-result-top"><strong id="game-result-title"></strong><button type="button" id="game-result-close" aria-label="Закрыть уведомление">×</button></div>
+          <p id="game-result-detail"></p>
+          <button id="game-result-review" type="button">Разбор партии</button>
+        </aside>
+        <p id="board-keyboard-hint" class="chess-keyboard-help" data-i18n="boardHelp">Клавиши ← ↑ → ↓ — перемещение по доске; Enter или пробел — выбрать клетку.</p>
+        <div class="board-controls">
+          <button id="new-game" class="action primary" data-i18n="newGame">Новая партия</button>
+          <button id="undo" class="action" data-i18n="undo">Отменить ход</button>
+          <button id="hint" class="action accent" data-i18n="hint">Подсказка</button>
+        </div>
+        <div class="b8-controls"><button id="resign" type="button" class="action" data-i18n="resign">Сдаться</button><button id="rematch" type="button" class="action" data-i18n="rematch">Реванш</button></div>
+        <div class="moves-panel"><h3 data-i18n="moves">История ходов</h3>
           <div id="moves" class="move-timeline" role="group" aria-label="Recorded chess moves">—</div>
         </div>
       </div>
@@ -80,6 +115,7 @@
               <button type="button" id="start-review" class="action accent" data-i18n="reviewStart">Анализировать ходы</button><button type="button" id="cancel-review" class="action" data-i18n="reviewCancel" hidden>Отменить анализ</button></div>
               <p id="review-progress" role="status" aria-live="polite"></p>
               <div id="review-summary" class="review-summary" aria-live="polite"></div>
+              <section id="review-skills" class="review-skills" aria-label="Five-category game assessment" hidden></section>
               <div id="review-chart" class="review-chart" role="img" aria-label="Position advantage after each move"></div>
               <details id="move-legend" class="move-legend"><summary data-i18n="moveLegend">Что означают оценки ходов?</summary><div id="move-legend-list"></div></details>
               <div id="review-entries" class="review-entries" role="group" aria-label="Move-by-move review"></div>
@@ -223,6 +259,14 @@
       <aside class="masters-sidebar">
         <section class="panel masters-catalogue">
           <h2 data-master-label="libraryTitle">Библиотека исторических партий</h2>
+          <label><span data-master-label="groupTitle">Коллекция</span>
+            <select id="m-group" aria-label="Historical game collection">
+              <option value="all" data-master-label="groupAll">Все коллекции</option>
+              <option value="legends" data-master-label="groupLegends">Легенды · подробные разборы</option>
+              <option value="champions" data-master-label="groupChampions">Чемпионы мира · полные партии</option>
+              <option value="modern" data-master-label="groupModern">Современные чемпионаты (2010+)</option>
+            </select>
+          </label>
           <label><span data-master-label="filterTitle">Тема</span>
             <select id="m-filter">
               <option value="all" data-master-label="all">Все темы</option>
@@ -230,6 +274,7 @@
               <option value="strategy" data-master-label="strategy">Стратегия и защита</option>
               <option value="endgame" data-master-label="endgame">Эндшпиль и пешки</option>
               <option value="machine" data-master-label="machine">Человек и машина</option>
+              <option value="championship" data-master-label="championship">Матчи за мировую корону</option>
             </select>
           </label>
           <label><span data-master-label="searchTitle">Поиск по игроку, названию и году</span>
@@ -262,6 +307,53 @@
         </section>
       </aside>
     </section>
+        <section id="pvp-view" class="pvp-layout" role="tabpanel" aria-labelledby="nav-pvp" hidden>
+      <div class="pvp-play">
+        <p class="eyebrow" id="pvp-overline">ОНЛАЙН С ДРУГОМ · STAGING</p>
+        <h2 id="pvp-heading">Шахматная дуэль</h2>
+        <p id="pvp-information">Чтобы начать, войдите через вкладку «Мой прогресс». Для партий нужен HTTPS-сайт.</p>
+        <div class="pvp-clockline">
+          <strong id="pvp-black-time">Чёрные: —</strong><strong id="pvp-white-time">Белые: —</strong>
+        </div>
+        <div class="board-frame pvp-board-frame"><div id="pvp-board" class="board" role="group" aria-label="Online chessboard"></div></div>
+        <p id="pvp-game-status" role="status" aria-live="polite">Ожидание входа в аккаунт</p>
+        <div class="pvp-actions">
+          <button type="button" id="pvp-refresh">Обновить</button>
+          <button type="button" id="pvp-flip">Повернуть доску</button>
+          <button type="button" id="pvp-resign" disabled>Сдаться</button>
+          <button type="button" id="pvp-draw" disabled>Предложить ничью</button>
+          <button type="button" id="pvp-accept-draw" disabled>Принять ничью</button>
+          <button type="button" id="pvp-rematch" disabled>Реванш</button>
+        </div>
+        <p class="pvp-note" id="pvp-moves">Ходы появятся после начала партии.</p>
+      </div>
+      <aside class="pvp-sidebar">
+        <section class="panel">
+          <h2 id="pvp-invite-heading">Пригласить друга</h2>
+          <label><span id="pvp-time-label">Контроль времени</span>
+            <select id="pvp-time"><option value="none">Без часов</option><option value="blitz5" selected>Блиц 5+0</option><option value="blitz3">Блиц 3+0</option><option value="rapid10">Рапид 10+0</option><option value="rapid1510">Рапид 15+10</option><option value="rapid30">Рапид 30+0</option></select>
+          </label>
+          <label><span id="pvp-color-label">Ваш цвет</span><select id="pvp-color"><option value="w">Белые</option><option value="b">Чёрные</option></select></label>
+          <label><span id="pvp-friend-label">ID друга (необязательно)</span><input id="pvp-friend" placeholder="User ID" maxlength="255" autocomplete="off"></label>
+          <button type="button" class="pvp-primary" id="pvp-create">Создать приглашение</button>
+          <label><span id="pvp-link-label">Ссылка для друга</span><input id="pvp-invite-link" readonly aria-label="Private invitation link"></label>
+          <button type="button" id="pvp-copy">Скопировать ссылку</button>
+        </section>
+        <section class="panel">
+          <h2 id="pvp-join-heading">Принять приглашение</h2>
+          <label><span id="pvp-token-label">Секретный код приглашения</span><input id="pvp-invite-token" maxlength="43" autocomplete="off" autocapitalize="none" spellcheck="false"></label>
+          <button type="button" class="pvp-primary" id="pvp-accept">Принять и начать</button>
+        </section>
+        <section class="panel">
+          <h2 id="pvp-games-heading">Мои партии</h2>
+          <div id="pvp-games" role="group" aria-label="My active and finished games"></div>
+          <p class="pvp-note" id="pvp-invites"></p>
+          <label><span id="pvp-promotion-label">Превращение пешки</span>
+            <select id="pvp-promotion"><option value="q">Ферзь</option><option value="r">Ладья</option><option value="b">Слон</option><option value="n">Конь</option></select>
+          </label>
+        </section>
+      </aside>
+    </section>
     <section id="progress-view" class="progress-layout" role="tabpanel" aria-labelledby="nav-progress" hidden>
       <div class="progress-hero">
         <p class="eyebrow" id="progress-eyebrow">ВАШ ПУТЬ В ШАХМАТАХ</p>
@@ -284,7 +376,7 @@
         </article>
         <article class="panel progress-metric">
           <p id="progress-masters-label">Мастера и легенды</p>
-          <strong id="progress-masters">0 / 31</strong>
+          <strong id="progress-masters">0 / 300</strong>
           <small id="progress-masters-note">Полностью изученные партии</small>
         </article>
         <article class="panel progress-metric">
@@ -313,6 +405,32 @@
         <h3 id="progress-achievements-title">Достижения</h3>
         <p id="progress-achievements-count" class="progress-note"></p>
         <div id="progress-awards" class="progress-awards"></div>
+      </section>
+      <section class="panel cloud-account" id="cloud-account" aria-label="Chess Odyssey cloud account">
+        <h3 id="cloud-heading">Аккаунт и облачный прогресс</h3>
+        <p class="cloud-note" id="cloud-explanation">Локальная игра работает без аккаунта. Синхронизация запускается только вручную; данные не удаляются без подтверждения.</p>
+        <form id="cloud-auth-form" class="cloud-auth-form" autocomplete="on">
+          <label><span id="cloud-email-label">Email</span><input id="cloud-email" name="email" type="email" autocomplete="email" required maxlength="254"></label>
+          <label><span id="cloud-password-label">Пароль</span><input id="cloud-password" name="password" type="password" autocomplete="current-password" required minlength="8"></label>
+          <div class="cloud-actions">
+            <button type="button" id="cloud-login">Войти</button>
+            <button type="button" id="cloud-signup">Регистрация</button>
+          </div>
+          <label><span id="cloud-otp-label">Код подтверждения из письма</span><input id="cloud-otp" name="otp" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="12"></label>
+          <div class="cloud-actions">
+            <button type="button" id="cloud-verify">Подтвердить email</button>
+            <button type="button" id="cloud-send-otp">Отправить код</button>
+          </div>
+        </form>
+        <div id="cloud-signed-in" hidden>
+          <p id="cloud-identity"></p>
+          <div class="cloud-actions">
+            <button type="button" id="cloud-upload">Сохранить локальный прогресс</button>
+            <button type="button" id="cloud-download">Загрузить облачный прогресс</button>
+            <button type="button" id="cloud-logout">Выйти</button>
+          </div>
+        </div>
+        <p class="cloud-note" id="cloud-status" role="status" aria-live="polite">Облачная синхронизация доступна только на защищённом HTTPS-сайте.</p>
       </section>
       <section class="panel progress-history">
         <h3 id="progress-history-title">Последние самостоятельные матчи</h3>
