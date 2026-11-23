@@ -111,7 +111,7 @@ function startServer(){
   });
   await check("full review collapsible and multilingual legend explains positive Brilliant",async()=>{
    assert.equal(await page.locator("#full-review-details").evaluate(x=>x.open),false);
-   await page.locator("#full-review-details summary").click();
+   await page.locator("#full-review-details > summary").click();
    assert.equal(await page.locator("#move-legend").evaluate(x=>x.open),false);
    await page.locator("#move-legend summary").click();
    assert.equal(await page.locator("#move-legend-list div").count(),9);
@@ -139,7 +139,7 @@ function startServer(){
   });
   await check("independent game blocks engine suggestions while still running",async()=>{
    await seed(page,["e4","e5"],"independent");
-   await page.locator("#full-review-details summary").click();
+   await page.locator("#full-review-details > summary").click();
    assert.equal(await page.locator("#start-review").isDisabled(),true);
    assert.equal(await page.locator("#hint").isDisabled(),true);
   });
@@ -150,7 +150,7 @@ function startServer(){
    await online.goto("http://127.0.0.1:"+server.address().port+"/index.html");
    await online.waitForFunction(()=>Boolean(window.ChessOdysseyQA?.ux));
    await seed(online,["e4","e5"]);
-   await online.locator("#full-review-details summary").click();
+   await online.locator("#full-review-details > summary").click();
    await online.locator("#start-review").click();
    await online.waitForFunction(()=>/завершён|complete|tamamlandı/.test(document.getElementById("review-progress").textContent),null,{timeout:75000});
    const report=await online.evaluate(()=>({ready:ChessOdysseyQA.ux().analysisReady,unknown:document.querySelectorAll('#review-entries [data-tag="unknown"]').length,summary:document.querySelectorAll("#review-summary .side-report").length}));
