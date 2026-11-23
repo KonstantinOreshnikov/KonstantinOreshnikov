@@ -145,6 +145,26 @@ export function createCloud({env,fetchImpl=fetch,now=()=>Date.now()}){
     },token);
     return asJson(200,{...rec,inviteToken},cors);
    }
+   // A lost HTTP response must not turn a committed move into an apparent failure.
+   // Scope replay lookup to both the authenticated player's game and the request ID.
+   if(action==="play"&&(!uuid(args.requestId)||typeof args.from!=="string"||typeof args.to!=="string"||
+      !/^[a-h][1-8]$/.test(args.from)||!/^[a-h][1-8]$/.test(args.to)||
+      (args.promotion!==undefined&&!["q","r","b","n"].includes(args.promotion))))
+     return asJson(422,{error:"INVALID_MOVE"},cors);
+   if(action==="play"&&(game.state!=="active"||Number(game.version)!==args.expectedVersion)){
+     const previous=await fromDb("/moves?select=actor_user_id,from_square,to_square,promotion,san"+
+       "&game_id=eq."+encodeURIComponent(args.gameId)+
+       "&request_id=eq."+encodeURIComponent(args.requestId)+"&limit=1",token);
+     if(previous?.length){
+       const past=previous[0];
+       const samePromotion=past.promotion==null||past.promotion===(args.promotion||"q");
+       if(past.actor_user_id!==claims.sub||past.from_square!==args.from||
+          past.to_square!==args.to||!samePromotion)
+         return asJson(409,{error:"REQUEST_ID_REUSED"},cors);
+       return asJson(200,{game_id:game.game_id,version:Number(game.version),
+         fen:game.canonical_fen,san:past.san,duplicate:true},cors);
+     }
+   }
    if(game.state!=="active")return asJson(409,{error:"GAME_FINISHED"},cors);
    if(Number(game.version)!==args.expectedVersion)return asJson(409,{error:"STALE_GAME_VERSION"},cors);
    const chess=new Chess();
@@ -160,10 +180,6 @@ export function createCloud({env,fetchImpl=fetch,now=()=>Date.now()}){
     return asJson(200,await callRpc("draw_game",{p_game_id:args.gameId,p_expected_version:args.expectedVersion,p_action:args.action},token),cors);
    }
    if(action!=="play")return asJson(404,{error:"NOT_FOUND"},cors);
-   if(!uuid(args.requestId)||typeof args.from!=="string"||typeof args.to!=="string"||
-     !/^[a-h][1-8]$/.test(args.from)||!/^[a-h][1-8]$/.test(args.to)||
-     (args.promotion!==undefined&&!["q","r","b","n"].includes(args.promotion)))
-     return asJson(422,{error:"INVALID_MOVE"},cors);
    if(chess.turn()!==color)return asJson(409,{error:"NOT_YOUR_TURN"},cors);
    const opponent=color==="w"?"b":"w";
    const noMate=Clock.cannotMate(opponent,chess.board());

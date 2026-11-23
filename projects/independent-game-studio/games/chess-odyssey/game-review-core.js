@@ -65,6 +65,7 @@ function results(moves,evals){
  const entries=moves.map((move,i)=>{
    const grade=classify(evals[i],evals[i+1],move);
    return {ply:i+1,color:move.color,san:move.san,from:move.from,to:move.to,
+     piece:move.piece,captured:move.captured||null,promotion:move.promotion||null,flags:move.flags||"",
      bestUci:evals[i]?.bestUci||null,depth:Math.min(evals[i]?.depth||0,evals[i+1]?.depth||0),
      cpBefore:evals[i]?.cpWhite??null,cpAfter:evals[i+1]?.cpWhite??null,...grade};
  });
@@ -79,6 +80,54 @@ function results(moves,evals){
  }
  return {method:METHOD,entries,summary:sides,analyzed:entries.filter(x=>x.loss!==null).length,total:entries.length};
 }
+/* Five transparent, sample-gated Stockfish move-quality proxies (not human/Elo ratings).
+ * Each category scores 10 * (1 - mean drop in expected points), for the eligible
+ * moves of that side only. Never score an engine-unknown move or a sparse phase.
+ * Opening = first 10 full moves; tactics = captures/checks/promotions; coordination
+ * = quiet non-pawn piece moves; conversion = moves starting with >= +2.00 pawn
+ * advantage for that side; endgame = queenless and <=6 non-pawn pieces total.
+ */
+const SKILL_KEYS=Object.freeze(["opening","tactics","coordination","conversion","endgame"]);
+const SKILL_METHOD="CO-SKILLS-EXPECTED-POINTS-V1";
+function isConservativeEndgame(fen){
+ if(typeof fen!=="string")return false;
+ const rows=fen.split(" ")[0];
+ if(!/^[rnbqkpRNBQKP1-8/]+$/.test(rows)||rows.includes("q")||rows.includes("Q"))return false;
+ return (rows.match(/[rnbRNB]/g)||[]).length<=6;
+}
+function skillReport(report){
+ const entries=report?.entries||[],positions=report?.positions||[];
+ const rows={};
+ for(const key of SKILL_KEYS){
+   rows[key]={w:{value:null,eligible:0,analyzed:0},b:{value:null,eligible:0,analyzed:0}};
+ }
+ for(const entry of entries){
+   if(!["w","b"].includes(entry.color))continue;
+   const sign=entry.color==="w"?1:-1;
+   const filters={
+     opening:entry.ply<=20,
+     tactics:Boolean(entry.captured||entry.promotion||/[+#]/.test(entry.san||"")),
+     coordination:["n","b","r","q"].includes(entry.piece)&&!entry.captured&&!/[+#]/.test(entry.san||""),
+     conversion:Number.isFinite(entry.cpBefore)&&entry.cpBefore*sign>=200,
+     endgame:isConservativeEndgame(positions[entry.ply-1])
+   };
+   for(const key of SKILL_KEYS){
+     if(!filters[key])continue;
+     const bucket=rows[key][entry.color];bucket.eligible++;
+     if(Number.isFinite(entry.loss)&&entry.depth>=5){
+       bucket.analyzed++;bucket.sum=(bucket.sum||0)+Math.max(0,Math.min(1,entry.loss));
+     }
+   }
+ }
+ for(const key of SKILL_KEYS)for(const side of ["w","b"]){
+   const bucket=rows[key][side];
+   // Require at least two assessed moves per category; otherwise score is N/A.
+   if(bucket.analyzed>=2)bucket.value=Math.round(100*(1-(bucket.sum||0)/bucket.analyzed))/10;
+   delete bucket.sum;
+ }
+ return {method:SKILL_METHOD,rows,minimumSamples:2};
+}
+
 class UciAnalyzer{
  constructor(options={}){
    this.factory=options.factory||(path=>new Worker(path));
@@ -163,5 +212,5 @@ async function analyzeGame(Chess,pgn,{quality="quick",onProgress=()=>{},worker}=
    return { ...results(source.moves,evals),quality,engine:"Stockfish 19 Lite",positions:source.positions };
  }finally{if(ownWorker)engine.dispose();}
 }
-return Object.freeze({ENGINE_PATH,METHOD,LEVELS,LIMIT,timeline,atPly,info,probability,classify,results,UciAnalyzer,analyzeGame});
+return Object.freeze({ENGINE_PATH,METHOD,SKILL_METHOD,SKILL_KEYS,LEVELS,LIMIT,timeline,atPly,info,probability,classify,results,skillReport,UciAnalyzer,analyzeGame});
 });

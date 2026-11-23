@@ -287,3 +287,45 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
  .review-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(prefers-reduced-motion:reduce){.appearance-option,.move-timeline button{transition:none}}
+
+
+/* v1.0 reviewed game: keep replay control and notation immediately next to the board. */
+.play-section .board-frame{width:min(100%,650px,calc(100dvh - 200px))}
+.board-replay-dock{position:sticky;bottom:8px;z-index:20;width:min(100%,650px);margin:6px auto 10px;padding:7px 10px;border:1px solid #556c7b;border-radius:10px;background:rgba(16,29,42,.98);box-shadow:0 7px 22px #0008;backdrop-filter:blur(8px)}
+.board-replay-dock .replay-toolbar{display:flex;justify-content:center;align-items:center;flex-wrap:nowrap;gap:6px;margin:0}
+.board-replay-dock .replay-toolbar button{flex:0 0 auto;min-width:40px;min-height:38px}
+.board-replay-dock #h-progress{min-width:52px;text-align:center;font-variant-numeric:tabular-nums}
+.board-replay-dock .replay-current{display:block;text-align:center;min-height:21px;color:#f7d59a;font-size:13px;font-weight:650;letter-spacing:.02em}
+.board-replay-dock .replay-live{white-space:nowrap}
+.move-grade-badge{position:absolute;top:0;right:-2px;z-index:5;display:grid;place-items:center;min-width:21px;height:21px;padding:0 3px;border:1px solid #cbd4df;border-radius:7px;background:#275b52;color:white;font:bold 14px/1 system-ui,sans-serif;box-shadow:0 1px 4px #071019c9;pointer-events:none}
+.move-grade-badge[data-tag="inaccuracy"]{background:#806817}
+.move-grade-badge[data-tag="mistake"]{background:#a66329}
+.move-grade-badge[data-tag="blunder"]{background:#ac333b}
+.move-grade-badge[data-tag="ordinary"],.move-grade-badge[data-tag="good"]{background:#47657a}
+.review-skills{padding:10px 10px 9px;border:1px solid #455d6d;border-radius:9px;background:#182c3b;min-width:0}
+.review-skills[hidden]{display:none!important}
+.review-skills h4{font-size:14px;margin:0 0 9px;color:#f3d29c}
+.skills-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:12px}
+.skills-table th,.skills-table td{padding:7px 6px;border:1px solid #465969;text-align:center;font-variant-numeric:tabular-nums}
+.skills-table th:first-child{width:56%;text-align:left;overflow-wrap:anywhere}
+.skills-table thead th{font-weight:700;background:#253746;color:#f0f4f8}
+.skills-table tbody td{font-weight:650;color:#f0d7a4}
+.skills-method{font-size:11px;line-height:1.45;color:#bdcbd4;margin:8px 0 0}
+.game-result-toast{position:fixed;z-index:150;right:16px;top:16px;width:min(340px,calc(100vw - 32px));padding:14px 16px;border:1px solid #e1bd73;border-radius:13px;background:#152c3b;box-shadow:0 18px 55px #000b;color:#f2f4f7}
+.game-result-toast[hidden]{display:none!important}
+.game-result-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.game-result-top strong{font-size:17px;color:#f2d59d}
+.game-result-toast p{margin:8px 0;color:#d5e2ee}
+.game-result-toast button{min-height:36px;padding:5px 13px;border:1px solid #bfa472;background:#284557;color:white;border-radius:8px}
+.game-result-top button{font-size:21px;line-height:1;min-width:36px;padding:0}
+@media(max-width:570px){
+ .play-section .board-frame{width:min(100%,calc(100dvh - 180px))}
+ .board-replay-dock{padding:5px 5px;bottom:4px}
+ .board-replay-dock .replay-toolbar{gap:3px}
+ .board-replay-dock .replay-toolbar button{min-width:35px;min-height:38px;padding:3px 6px;font-size:12px}
+ .board-replay-dock #h-progress{min-width:42px;font-size:11px}
+ .board-replay-dock .replay-current{font-size:12px}
+ .move-grade-badge{min-width:17px;height:17px;font-size:11px;right:-1px}
+ .skills-table{font-size:11px}
+ .skills-table th,.skills-table td{padding:6px 4px}
+}

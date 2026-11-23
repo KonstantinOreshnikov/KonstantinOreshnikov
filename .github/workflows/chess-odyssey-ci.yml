@@ -2,6 +2,7 @@ name: Chess Odyssey QA
 on:
   push:
     branches:
+      - "feature/chess-odyssey-v1-auth-hardening-20261123"
       - "game/chess-odyssey-v0.1"
       - "main"
       - "chore/independent-game-studio-reconcile-20261121"
@@ -84,6 +85,10 @@ jobs:
           node --check projects/independent-game-studio/games/chess-odyssey/game-review-core.js
           node --check projects/independent-game-studio/games/chess-odyssey/tests/p0p2-ui-core.cjs
           node --check projects/independent-game-studio/games/chess-odyssey/tests/p0p2-browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/v1-postgame-ux-browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/v1-postgame-skills.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/v1-appearance-matrix-browser.cjs
+          node --check projects/independent-game-studio/games/chess-odyssey/tests/v1-cloud-ui-browser.cjs
           node --check projects/independent-game-studio/games/chess-odyssey/tests/clock-core.cjs
           node --check projects/independent-game-studio/games/chess-odyssey/pvp/match-service.cjs
           node --check projects/independent-game-studio/games/chess-odyssey/pvp/dev-server.cjs
@@ -132,7 +137,9 @@ jobs:
           node tests/p0p2-ui-core.cjs
           node tests/v1-auth-boundary.cjs
           node tests/v1-cloud-api.cjs
+          node tests/v1-cloud-client-contract.cjs
           node tests/v1-pvp-cloud.cjs
+          node tests/v1-postgame-skills.cjs
           node tests/b8-translation-structure.cjs
           node tests/b9-match-service.cjs
           node tests/b9-http.cjs
@@ -176,6 +183,9 @@ jobs:
           node scripts/build-standalone.cjs 0.8.0
           node scripts/build-standalone.cjs 0.9.0
           node tests/p0p2-browser.cjs
+          node tests/v1-appearance-matrix-browser.cjs
+          node tests/v1-cloud-ui-browser.cjs
+          node tests/v1-postgame-ux-browser.cjs
           node tests/browser.cjs
           node tests/stockfish-browser.cjs
           node tests/academy-browser.cjs
