@@ -81,7 +81,7 @@ const fixture=async(actor,browser)=>{
 };
 (async()=>{
  const browser=await chromium.launch({headless:true,channel:process.env.CHESS_CHROME_CHANNEL||undefined,args:["--no-sandbox"]});
- const a=await fixture("alice",browser),b=await fixture("bob",browser),c=await fixture("charlie",browser);
+ const a=await fixture("alice",browser),b=await fixture("bob",browser),c=await fixture("charlie",browser),anonymous=await fixture(null,browser);
  const problems=[];for(const x of [a.page,b.page,c.page])x.on("pageerror",e=>problems.push(e.message));
  let checks=0;const pass=n=>{console.log("PASS v1.1 Header/PvP "+(++checks)+" "+n)};
  try{
@@ -107,6 +107,14 @@ const fixture=async(actor,browser)=>{
   }
   assert.ok(bounds.every(x=>x.width===bounds[0].width&&x.x===bounds[0].x));
   pass("locale selector has stable position and width RU EN AZ");
+  for(const width of [720,390,320]){
+   await a.page.setViewportSize({width,height:850});
+   const overflow=await a.page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+2);
+   assert.equal(overflow,false,"Unexpected horizontal scroll at "+width+"px");
+   assert.equal(await a.page.locator("#header-login").isVisible(),true);
+  }
+  await a.page.setViewportSize({width:1280,height:860});
+  pass("320/390/720 responsive header: no clipping or horizontal page scroll");
   await a.page.locator("#global-language").selectOption("ru");
   await a.page.locator("#header-login").click();
   assert.equal(await a.page.locator("#header-account-dialog").evaluate(x=>x.open),true);
@@ -126,6 +134,16 @@ const fixture=async(actor,browser)=>{
   assert.ok(link.endsWith("#invite="+"x".repeat(43)));
   assert.equal(await a.page.locator("#pvp-waiting").isVisible(),true);
   pass("creator gets shareable 43-char invite URL and visible waiting state");
+  await anonymous.page.goto(link,{waitUntil:"domcontentloaded"});
+  await anonymous.page.waitForFunction(()=>window.ChessHeader&&document.querySelector("#pvp-invite-token")?.value.length===43);
+  assert.equal(await anonymous.page.locator("#pvp-view").isVisible(),true);
+  assert.equal(await anonymous.page.locator("#pvp-login").isVisible(),true);
+  assert.equal(await anonymous.page.locator("#pvp-accept").isDisabled(),true);
+  await anonymous.page.locator("#pvp-login").click();
+  assert.equal(await anonymous.page.locator("#header-account-dialog").evaluate(x=>x.open),true);
+  await anonymous.page.locator("#header-account-close").click();
+  assert.equal(await anonymous.page.locator("#pvp-invite-token").inputValue(),"x".repeat(43));
+  pass("signed-out recipient follows share URL, sees login without losing invite");
   await b.page.goto(link,{waitUntil:"domcontentloaded"});
   await b.page.waitForFunction(()=>window.ChessCloud?.authenticated?.()&&document.querySelector("#pvp-invite-token")?.value.length===43);
   assert.equal(await b.page.locator("#pvp-view").isVisible(),true);
