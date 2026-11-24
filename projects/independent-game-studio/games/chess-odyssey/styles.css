@@ -413,7 +413,7 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
 #academy-dock-instruction,#learn-feedback,#learn-message,#coach-message,
 #pvp-information,#pvp-join-help,#pvp-invite-help,#pvp-waiting,#pvp-game-status,
 #cloud-explanation,#cloud-status,.progress-note,.progress-lead,
-#m-summary,#m-explanation,#m-moment-text,.masters-note,.master-lesson-text,
+#m-summary,#m-explain,#m-question,#m-feedback,#m-moments .masters-moment,.masters-meta,#m-explanation,#m-moment-text,.masters-note,.master-lesson-text,
 .lesson-message,.coach-explanation,.academy-instruction,.pvp-note,
 #progress-storage-note,.move-analysis-explanation{
  font-size:calc(14px * var(--chess-reading-scale))!important;

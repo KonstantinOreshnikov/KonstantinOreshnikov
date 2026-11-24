@@ -94,6 +94,10 @@ const fixture=async(actor,browser)=>{
   assert.ok(parseFloat(larger)>parseFloat(baseText));
   const boardAfter=await a.page.locator("#board").boundingBox();
   assert.equal(boardAfter.width,boardBefore.width);assert.equal(boardAfter.height,boardBefore.height);
+  await a.page.locator("#nav-masters").click();
+  const mastersText=await a.page.locator("#m-explain").evaluate(x=>getComputedStyle(x).fontSize);
+  assert.ok(parseFloat(mastersText)>14,"Masters instructional comments should zoom");
+  await a.page.locator("#nav-play").click();
   pass("text-only zoom scales explanations, not chessboard");
   await a.page.reload({waitUntil:"domcontentloaded"});await a.page.waitForFunction(()=>window.ChessHeader&&window.ChessCloud?.authenticated?.());
   assert.equal(await a.page.locator("#header-zoom-value").innerText(),"120%");
