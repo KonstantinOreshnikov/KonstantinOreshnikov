@@ -117,6 +117,16 @@ const fixture=async(actor,browser)=>{
    assert.equal(overflow,false,"Unexpected horizontal scroll at "+width+"px");
    assert.equal(await a.page.locator("#header-login").isVisible(),true);
   }
+  await a.page.setViewportSize({width:320,height:850});
+  const mobileBoardBefore=await a.page.locator("#board").boundingBox();
+  for(let i=0;i<3;i++)await a.page.locator("#header-zoom-in").click();
+  assert.equal(await a.page.locator("#header-zoom-value").innerText(),"130%");
+  assert.equal(await a.page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+2),false);
+  const mobileBoardAfter=await a.page.locator("#board").boundingBox();
+  assert.equal(mobileBoardAfter.width,mobileBoardBefore.width);
+  assert.equal(mobileBoardAfter.height,mobileBoardBefore.height);
+  await a.page.locator("#header-zoom-value").click();
+  pass("maximum 130% reading zoom at 320px does not resize chess board or overflow");
   await a.page.setViewportSize({width:1280,height:860});
   pass("320/390/720 responsive header: no clipping or horizontal page scroll");
   await a.page.locator("#global-language").selectOption("ru");
