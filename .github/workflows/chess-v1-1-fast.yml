@@ -27,3 +27,6 @@ jobs:
       - name: v1.1 Header, Text Zoom, invite mock E2E
         working-directory: projects/independent-game-studio/games/chess-odyssey
         run: node tests/v1-header-pvp-browser.cjs
+      - name: Neon QA Function live public-surface security checks
+        working-directory: projects/independent-game-studio/games/chess-odyssey
+        run: node tests/v1-neon-qa-public-http.cjs
