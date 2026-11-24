@@ -2,7 +2,7 @@
 /* One-user JWT diagnostic of QA Neon Data API SQL auth.user_id, never emits credentials. */
 const crypto=require("node:crypto");
 const AUTH="https://ep-long-water-b9d3jvwb.neonauth.c-7.eu-central-1.aws.neon.tech/chess_odyssey/auth";
-const API="https://br-muddy-truth-b96hxtdg-chesscloud.compute.c-7.eu-central-1.aws.neon.tech";
+const DATA="https://ep-long-water-b9d3jvwb.apirest.c-7.eu-central-1.aws.neon.tech/chess_odyssey/rest/v1";
 const ORIGIN="https://konstantinoreshnikov.github.io";
 const email="chess-actor-probe-"+crypto.randomBytes(7).toString("hex")+"@example.test";
 const password=crypto.randomBytes(22).toString("base64url");
@@ -33,14 +33,9 @@ async function request(path,body){
  }
  if(jwt.split(".").length!==3)throw Error("PROBE_JWT_BAD_SHAPE");
  console.log("QA_PROBE_JWT real JWT minted, token not logged");
- const me=await fetch(API+"/api/me",{headers:{"Origin":ORIGIN,"Authorization":"Bearer "+jwt},signal:AbortSignal.timeout(11000)});
- if(me.status!==200)throw Error("TOKEN_NOT_VALID_AT_FUNCTION_"+me.status);
- console.log("PASS QA AUTH /api/me valid JWT");
- const response=await fetch(API+"/api/pvp/invite",{method:"POST",headers:{"Origin":ORIGIN,"Authorization":"Bearer "+jwt,"Content-Type":"application/json"},body:JSON.stringify({color:"w",preset:"none"}),signal:AbortSignal.timeout(11000)});
- const data=await response.json().catch(()=>({}));
- console.log("QA_PVP_GATE_PROBE status="+response.status+" code="+String(data.error||"none"));
- if(response.status===200){console.log("PASS QA authenticated invite RPC and secret gate");return}
- if(response.status===403)throw Error("ACTOR_REQUIRED_OR_OTHER_28000");
- if(response.status===502)throw Error("SERVICE_KEY_MISMATCH_OR_OTHER_DB_ERROR");
- throw Error("UNEXPECTED_GATE_RESPONSE_"+response.status);
+ const request=await fetch(DATA+"/rpc/qa_actor_present",{method:"POST",headers:{"Origin":ORIGIN,"Authorization":"Bearer "+jwt,"Content-Type":"application/json","Content-Profile":"chess_odyssey","Accept-Profile":"chess_odyssey"},body:"{}",signal:AbortSignal.timeout(11000)});
+ let outcome;try{outcome=await request.json()}catch{outcome=null}
+ console.log("QA_SQL_ACTOR status="+request.status+" actorPresent="+String(outcome===true)+" errorCode="+(outcome?.code||"none"));
+ if(request.status!==200||outcome!==true)throw Error("DATA_API_ACTOR_MISSING_OR_DENIED");
+ console.log("PASS real Neon Auth JWT actor visible in PostgREST QA");
 })().catch(e=>{console.error("FAIL QA SQL ACTOR "+e.message);process.exitCode=1});
