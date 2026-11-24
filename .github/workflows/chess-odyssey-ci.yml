@@ -2,6 +2,7 @@ name: Chess Odyssey QA
 on:
   push:
     branches:
+      - "feature/chess-odyssey-v1-1-pvp-header-zoom-20261124"
       - "feature/chess-odyssey-v1-integration-20261123"
       - "game/chess-odyssey-v0.1"
       - "main"
@@ -10,6 +11,7 @@ on:
       - "projects/independent-game-studio/games/chess-odyssey/index.html"
       - "projects/independent-game-studio/games/chess-odyssey/styles.css"
       - "projects/independent-game-studio/games/chess-odyssey/app.js"
+      - "projects/independent-game-studio/games/chess-odyssey/header-controls.js"
       - "projects/independent-game-studio/games/chess-odyssey/clock-core.js"
       - "projects/independent-game-studio/games/chess-odyssey/chess-appearance.js"
       - "projects/independent-game-studio/games/chess-odyssey/game-review-core.js"
@@ -40,6 +42,7 @@ on:
       - "projects/independent-game-studio/games/chess-odyssey/index.html"
       - "projects/independent-game-studio/games/chess-odyssey/styles.css"
       - "projects/independent-game-studio/games/chess-odyssey/app.js"
+      - "projects/independent-game-studio/games/chess-odyssey/header-controls.js"
       - "projects/independent-game-studio/games/chess-odyssey/clock-core.js"
       - "projects/independent-game-studio/games/chess-odyssey/chess-appearance.js"
       - "projects/independent-game-studio/games/chess-odyssey/game-review-core.js"
@@ -193,6 +196,7 @@ jobs:
           node tests/b8-clock-browser.cjs
           node tests/b9-browser.cjs
           node tests/v1-cloud-ui-browser.cjs
+          node tests/v1-header-pvp-browser.cjs
       - name: Build and verify Stockfish preview ZIP with full GPL license
         working-directory: projects/independent-game-studio/games/chess-odyssey
         run: python3 scripts/package-preview.py
