@@ -195,7 +195,7 @@ function init(){
  bind("pvp-flip",()=>{state.flip=!state.flip;render()});
  bind("pvp-create",()=>command("invite",{color:$("pvp-color").value,preset:$("pvp-time").value,
   ...( $("pvp-friend").value.trim()?{toUserId:$("pvp-friend").value.trim()}:{})}));
- bind("pvp-accept",()=>{const token=$("pvp-invite-token").value.trim();if(!/^[A-Za-z0-9_-]{43}$/.test(token)){status(tr("invalid"),true);return}if(root.confirm(tr("confirmJoin")))command("accept",{inviteToken:token},true)});
+ bind("pvp-accept",()=>{const token=$("pvp-invite-token").value.trim();if(!/^[A-Za-z0-9_-]{43}$/.test(token)){status(tr("invalid"),true);return}command("accept",{inviteToken:token},true)});
  bind("pvp-copy",async()=>{const link=$("pvp-invite-link").value;if(!link)return;try{await navigator.clipboard.writeText(link);status(tr("copied"))}catch{$("pvp-invite-link").select();status(tr("copy"))}});
  bind("pvp-resign",()=>{if(state.game&&root.confirm(tr("confirmResign")))command("resign",{gameId:state.id,expectedVersion:Number(state.game.version)})});
  bind("pvp-draw",()=>{if(state.game&&root.confirm(tr("confirmDraw")))command("draw",{gameId:state.id,expectedVersion:Number(state.game.version),action:"offer"})});
