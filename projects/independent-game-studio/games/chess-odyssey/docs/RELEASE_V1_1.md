@@ -20,7 +20,7 @@
 
 Only one real production account was available. Acceptance by a second real player, both turns and outsider denial on **production** remain **NOT VERIFIED**; owner expressly approved v1.1 release with this check open. Physical mobile/desktop devices and cross-device progress conflict also require human testing. Do not treat isolated JWT or synthetic browser results as production two-user PASS.
 
-The existing [v1.0.0 Windows ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.0.0) remains a v1.0.0 artifact; this v1.1 release is the public web deployment. No v1.1 Windows ZIP or official GitHub release tag is claimed.
+The official [Chess Odyssey v1.1.0 GitHub Release](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.0) includes the [permanent Windows/Stockfish ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.0/ChessOdyssey_v1.1.0_Stockfish_Preview.zip), 2,038,545 bytes, SHA-256 `869cea06cf40d37ac0173a3be8842aa9679fa33d2a074288e49b6d0a169de111`, verified by [build/publish workflow](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45481263004). The v1.0.0 tag and archive remain historical and unchanged. This standalone package is not a substitute for the production HTTPS cloud backend.
 
 ## Rollback
 

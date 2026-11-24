@@ -5,7 +5,8 @@
 - [Live game](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) shows `v1.1 · RELEASED`, Login near language and reading-only zoom; [release notes](RELEASE_V1_1.md).
 - [PR #24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/24) merged into `main` at `83c89f35cb05da2c057ee182ab6285f4e5c5a652`; [final CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45475469995); [Pages main deployment 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45478092288).
 - Neon Function #6 and gate hash match. Owner authentication, production invitation creation and 33/33 progress preservation verified. Second real-player production accept/moves remain **NOT VERIFIED**, expressly accepted for this release. Physical devices and cross-device conflicts remain open.
-- Earlier v1.0.0 sections below are historical. The v1.0.0 Windows ZIP and official tag remain version 1.0.0.
+- [Official GitHub Release v1.1.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.0) with [Windows/Stockfish ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.0/ChessOdyssey_v1.1.0_Stockfish_Preview.zip), SHA-256 `869cea06cf40d37ac0173a3be8842aa9679fa33d2a074288e49b6d0a169de111`, 2,038,545 bytes. [Main release CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45481263004) PASS; source build/tag commit `78b6eeefbcdef345ede6b7b3f6d14c57a06a910d`; v1.0.0 release remains historical and intact.
+- [Independent v1.1 anonymous browser smoke](https://agent.tinyfish.ai/runs/15d1010a-114f-4b00-a17c-9e026086704e) PASS: 8×8 board, 33 lessons, 300 games, RU/EN/AZ, 100→120% reading zoom without board scaling, invite UI. F5 persistence and real two-player production flow NOT VERIFIED.
 
 
 ## 2026-11-24 — OWNER-AUTHORIZED PUBLIC v1.0.0 RELEASE (LATEST)
