@@ -1,4 +1,5 @@
 "use strict";
+/* Live backend gate retest: isolated Neon Function deployment #3 matches QA api_gate SHA-256. */
 /* Real Neon Auth+PvP on isolated QA only. Verifications of synthetic QA fixtures are performed by authorized QA admin, not email OTP. */
 const assert=require("node:assert/strict");
 const crypto=require("node:crypto");
