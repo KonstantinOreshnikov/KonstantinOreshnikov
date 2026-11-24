@@ -1,13 +1,17 @@
-"""Build an inspectable, playable Chess Odyssey v1.0 package with Stockfish.
+"""Build an inspectable, playable versioned Chess Odyssey package with Stockfish.
 Only project-local files; includes GPL license and exact upstream hashes.
 This is a QA release candidate; cloud accounts need separate live E2E acceptance.
 """
 from pathlib import Path
 import zipfile
 import hashlib
+import re
+import sys
 
 ROOT = Path(__file__).resolve().parent.parent
-VERSION = "1.0.0"
+VERSION = sys.argv[1] if len(sys.argv) == 2 else "1.0.0"
+if len(sys.argv) > 2 or not re.fullmatch(r"\d+\.\d+\.\d+", VERSION):
+    raise SystemExit("Usage: python3 scripts/package-preview.py [MAJOR.MINOR.PATCH]")
 NAME = f"ChessOdyssey_v{VERSION}_Stockfish_Preview.zip"
 OUTPUT = ROOT / "dist" / NAME
 FILES = [
@@ -30,8 +34,10 @@ FILES = [
     "docs/DEVELOPMENT_PROTOCOL.md",
     "docs/QA_LOG.md", "docs/ROADMAP.md",
     "tests/clock-core.cjs", "tests/p0p2-ui-core.cjs", "tests/p0p2-browser.cjs", "tests/release-rules.cjs", "tests/release-browser.cjs", "tests/release-live-match-browser.cjs", "tests/release-accessibility.cjs",
-    "dist/ChessOdyssey_v1.0.0_PREVIEW.html",
+    f"dist/ChessOdyssey_v{VERSION}_PREVIEW.html",
 ]
+if VERSION == "1.1.0":
+    FILES.append("docs/RELEASE_V1_1_0_PACKAGE.md")
 FILES += [f"pieces/{style}/{side}{piece}.svg" for style in ("fantasy","spatial","celtic","chessnut","rhosgfx","kiwen-suwi","totoy","papercut") for side in "bw" for piece in "KQRBNP"]
 for rel in FILES:
     target = ROOT / rel
