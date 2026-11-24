@@ -107,10 +107,10 @@ async function activateAccount(){
   // Preserve the already-owned unsent work. Never silently overwrite the server after a conflict.
   const doc=validateDoc(JSON.parse(oldPending));
   applyAccountDocument(doc);syncBlocked=true;
-  accountReady=true;buttons();document.dispatchEvent(new Event("chess-progress-change"));show(t("conflict"),true);return;
+  accountReady=true;buttons();document.dispatchEvent(new Event("chess-progress-change"));window.dispatchEvent(new Event("chess-cloud-session"));show(t("conflict"),true);return;
  }
  applyAccountDocument(remote.progressDoc||null);
- accountReady=true;buttons();document.dispatchEvent(new Event("chess-progress-change"));
+ accountReady=true;buttons();document.dispatchEvent(new Event("chess-progress-change"));window.dispatchEvent(new Event("chess-cloud-session"));
  show(remote.progressDoc?t("loaded"):t("empty"));
 }
 function queueAutoSave(){

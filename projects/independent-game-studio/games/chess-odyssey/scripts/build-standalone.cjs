@@ -26,7 +26,7 @@ out=out.replace('<link rel="stylesheet" href="cloud/cloud.css">','<style>\n'+clo
 const pvpCss=fs.readFileSync(path.join(root,"pvp/pvp.css"),"utf8");
 out=out.replace('<link rel="stylesheet" href="pvp/pvp.css">','<style>\n'+pvpCss+'\n</style>');
 if(!includeExpansion)out=out.replace('<script defer src="masters-expanded.js"></script>',"");
-for(const file of ["vendor/chess.js","coach-engine.js","engine-bridge.js","academy.js","progress-core.js","clock-core.js","chess-appearance.js","game-review-core.js","app.js","masters-library.js",...(includeExpansion?["masters-expanded.js"]:[]),"masters-notes-a.js","masters-notes-b.js","masters-notes-c.js","masters-core.js","masters-ui.js","progress-ui.js","cloud/cloud-client.js","pvp/pvp-ui.js"]){
+for(const file of ["vendor/chess.js","coach-engine.js","engine-bridge.js","academy.js","progress-core.js","clock-core.js","chess-appearance.js","game-review-core.js","app.js","masters-library.js",...(includeExpansion?["masters-expanded.js"]:[]),"masters-notes-a.js","masters-notes-b.js","masters-notes-c.js","masters-core.js","masters-ui.js","progress-ui.js","cloud/cloud-client.js","pvp/pvp-ui.js","header-controls.js"]){
  const src=fs.readFileSync(path.join(root,file),"utf8");
  assert.ok(!src.includes("</script"),"unsafe script boundary "+file);
  const link='<script defer src="'+file+'"></script>';

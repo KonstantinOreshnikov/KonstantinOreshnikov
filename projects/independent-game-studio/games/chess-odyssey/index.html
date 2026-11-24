@@ -29,6 +29,7 @@
   <script defer src="progress-ui.js"></script>
   <script defer src="cloud/cloud-client.js"></script>
   <script defer src="pvp/pvp-ui.js"></script>
+  <script defer src="header-controls.js"></script>
 </head>
 <body>
   <main class="shell">
@@ -36,7 +37,18 @@
       <div class="brand"><span class="brand-mark" aria-hidden="true">♞</span><div>
         <h1 data-i18n="title">Chess Odyssey</h1><p data-i18n="subtitle">ACADEMY & ARENA</p>
       </div></div>
-      <div class="top-actions"><label class="global-language"><span data-i18n="language">Язык</span><select id="global-language" aria-label="Site language"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label><div class="version">Chess Odyssey <span>v1.0.0 · RELEASED</span><small>300 historical games · 33 Academy lessons</small></div></div>
+      <div class="top-actions">
+        <div class="header-toolbar">
+          <label class="global-language"><span data-i18n="language">Язык</span><select id="global-language" aria-label="Site language"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label>
+          <div class="header-zoom" role="group" aria-label="Text zoom">
+            <button type="button" id="header-zoom-out" aria-label="Уменьшить текст">A−</button>
+            <button type="button" id="header-zoom-value" aria-label="Обычный размер текста" title="Reset">100%</button>
+            <button type="button" id="header-zoom-in" aria-label="Увеличить текст">A+</button>
+          </div>
+          <button type="button" id="header-login" aria-haspopup="dialog" aria-controls="header-account-dialog">Войти</button>
+        </div>
+        <div class="version">Chess Odyssey <span>v1.1 · RELEASED</span><small>300 historical games · 33 Academy lessons</small></div>
+      </div>
     </header>
     <nav class="game-tabs" role="tablist" aria-label="Chess Odyssey sections">
       <button type="button" id="nav-play" role="tab" aria-selected="true" aria-controls="practice-view" data-master-label="practiceTab">Практика и Академия</button>
@@ -309,7 +321,7 @@
     </section>
         <section id="pvp-view" class="pvp-layout" role="tabpanel" aria-labelledby="nav-pvp" hidden>
       <div class="pvp-play">
-        <p class="eyebrow" id="pvp-overline">ОНЛАЙН С ДРУГОМ · STAGING</p>
+        <p class="eyebrow" id="pvp-overline">ОНЛАЙН С ДРУГОМ</p>
         <h2 id="pvp-heading">Шахматная дуэль</h2>
         <p id="pvp-information">Чтобы начать, войдите через вкладку «Мой прогресс». Для партий нужен HTTPS-сайт.</p>
         <div class="pvp-clockline">
@@ -334,14 +346,21 @@
             <select id="pvp-time"><option value="none">Без часов</option><option value="blitz5" selected>Блиц 5+0</option><option value="blitz3">Блиц 3+0</option><option value="rapid10">Рапид 10+0</option><option value="rapid1510">Рапид 15+10</option><option value="rapid30">Рапид 30+0</option></select>
           </label>
           <label><span id="pvp-color-label">Ваш цвет</span><select id="pvp-color"><option value="w">Белые</option><option value="b">Чёрные</option></select></label>
-          <label><span id="pvp-friend-label">ID друга (необязательно)</span><input id="pvp-friend" placeholder="User ID" maxlength="255" autocomplete="off"></label>
+          <details id="pvp-advanced">
+            <summary id="pvp-advanced-title">Дополнительно: ограничить приглашение по ID</summary>
+            <label><span id="pvp-friend-label">ID друга (необязательно)</span><input id="pvp-friend" placeholder="User ID" maxlength="255" autocomplete="off"></label>
+          </details>
+          <p id="pvp-invite-help" class="pvp-note">Создайте ссылку и отправьте её другу. ID вводить не нужно.</p>
           <button type="button" class="pvp-primary" id="pvp-create">Создать приглашение</button>
           <label><span id="pvp-link-label">Ссылка для друга</span><input id="pvp-invite-link" readonly aria-label="Private invitation link"></label>
           <button type="button" id="pvp-copy">Скопировать ссылку</button>
+          <p id="pvp-waiting" class="pvp-note" role="status" aria-live="polite" hidden></p>
         </section>
-        <section class="panel">
+        <section class="panel" id="pvp-accept-card">
           <h2 id="pvp-join-heading">Принять приглашение</h2>
+          <p id="pvp-join-help" class="pvp-note">Откройте ссылку от друга. После входа нажмите «Принять и начать».</p>
           <label><span id="pvp-token-label">Секретный код приглашения</span><input id="pvp-invite-token" maxlength="43" autocomplete="off" autocapitalize="none" spellcheck="false"></label>
+          <button type="button" id="pvp-login" hidden>Войти, чтобы принять</button>
           <button type="button" class="pvp-primary" id="pvp-accept">Принять и начать</button>
         </section>
         <section class="panel">
@@ -439,6 +458,13 @@
       </section>
     </section>
   </main>
+  <dialog id="header-account-dialog" class="header-account-dialog" aria-labelledby="header-account-title">
+    <div class="header-dialog-bar">
+      <h2 id="header-account-title">Вход в Chess Odyssey</h2>
+      <button type="button" id="header-account-close" aria-label="Закрыть вход">×</button>
+    </div>
+    <div class="header-dialog-content"></div>
+  </dialog>
   <div id="promotion" class="promotion-backdrop" hidden>
     <div class="promotion-box" role="dialog" aria-modal="true" aria-labelledby="promotion-label">
       <button id="promotion-close" class="close" aria-label="Закрыть">×</button>

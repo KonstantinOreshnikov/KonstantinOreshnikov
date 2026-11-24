@@ -158,7 +158,9 @@ const URL_FOR=file=>"file://"+path.resolve(__dirname,"../"+file);
    assert.equal(await page.locator("#undo").isEnabled(),true);
   });
   await test("master historical full-game replay visits every original Morphy SAN ply",async()=>{
-   await page.locator("#nav-masters").click();await page.selectOption("#m-game","opera-game");
+   await page.locator("#nav-masters").focus();await page.keyboard.press("Enter");
+   assert.equal(await page.locator("#masters-view").isVisible(),true);
+   await page.selectOption("#m-game","opera-game");
    if(await page.evaluate(()=>window.ChessMastersQA.snapshot().ply)>0)await page.locator("#m-first").click();
    assert.equal(await page.evaluate(()=>window.ChessMastersQA.snapshot().ply),0);
    for(let n=1;n<=33;n++){
