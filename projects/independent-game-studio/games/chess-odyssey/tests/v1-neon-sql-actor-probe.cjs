@@ -33,9 +33,9 @@ async function request(path,body){
  }
  if(jwt.split(".").length!==3)throw Error("PROBE_JWT_BAD_SHAPE");
  console.log("QA_PROBE_JWT real JWT minted, token not logged");
- const request=await fetch(DATA+"/rpc/qa_actor_present",{method:"POST",headers:{"Origin":ORIGIN,"Authorization":"Bearer "+jwt,"Content-Type":"application/json","Content-Profile":"chess_odyssey","Accept-Profile":"chess_odyssey"},body:"{}",signal:AbortSignal.timeout(11000)});
- let outcome;try{outcome=await request.json()}catch{outcome=null}
- console.log("QA_SQL_ACTOR status="+request.status+" actorPresent="+String(outcome===true)+" errorCode="+(outcome?.code||"none"));
- if(request.status!==200||outcome!==true)throw Error("DATA_API_ACTOR_MISSING_OR_DENIED");
+ const probeResponse=await fetch(DATA+"/rpc/qa_actor_present",{method:"POST",headers:{"Origin":ORIGIN,"Authorization":"Bearer "+jwt,"Content-Type":"application/json","Content-Profile":"chess_odyssey","Accept-Profile":"chess_odyssey"},body:"{}",signal:AbortSignal.timeout(11000)});
+ let outcome;try{outcome=await probeResponse.json()}catch{outcome=null}
+ console.log("QA_SQL_ACTOR status="+probeResponse.status+" actorPresent="+String(outcome===true)+" errorCode="+(outcome?.code||"none"));
+ if(probeResponse.status!==200||outcome!==true)throw Error("DATA_API_ACTOR_MISSING_OR_DENIED");
  console.log("PASS real Neon Auth JWT actor visible in PostgREST QA");
 })().catch(e=>{console.error("FAIL QA SQL ACTOR "+e.message);process.exitCode=1});
