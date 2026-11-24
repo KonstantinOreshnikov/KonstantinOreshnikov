@@ -59,7 +59,7 @@ jobs:
             echo "PAGES_AUDIT_HTTP=$code";exit 1
           fi
   deploy:
-    name: Deploy Chess Odyssey v1.0 public HTTPS site
+    name: Deploy Chess Odyssey public HTTPS site
     needs: [validate, readiness]
     if: needs.readiness.outputs.enabled == 'true' && github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-24.04
@@ -104,6 +104,6 @@ jobs:
           done
           echo "BLOCKED_PAGES_ARTIFACT_NOT_INDEXED"
           exit 1
-      - name: Deploy v1.0 public site
+      - name: Deploy public chess site
         id: deployment
         uses: actions/deploy-pages@v4

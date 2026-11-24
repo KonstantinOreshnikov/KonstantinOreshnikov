@@ -53,7 +53,7 @@ A multilingual professional learning and assessment platform: structured content
 
 ### [Independent Game Studio](projects/independent-game-studio/README.md)
 
-Independent game projects: Caribbean Merchant, Kingdoms of Ember, Lord of Ultima-inspired strategy, and **[Chess Odyssey v1.0.0 — play online](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/)**. The chess game includes 33 Academy lessons and 300 historic games with Stockfish analysis. [Release notes](projects/independent-game-studio/games/chess-odyssey/docs/RELEASE_V1_0_0.md) · [Game registry](projects/independent-game-studio/GAME_REGISTRY.md). Cloud/PvP follow-up QA remains open.
+Independent game projects: Caribbean Merchant, Kingdoms of Ember, Lord of Ultima-inspired strategy, and **[Chess Odyssey v1.1 — play online](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/)**. The chess game includes 33 Academy lessons and 300 historic games with Stockfish analysis. [Release notes](projects/independent-game-studio/games/chess-odyssey/docs/RELEASE_V1_1.md) · [Game registry](projects/independent-game-studio/GAME_REGISTRY.md). [Official v1.1.0 Windows/Stockfish ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.0/ChessOdyssey_v1.1.0_Stockfish_Preview.zip) (SHA-256 `869cea06cf40d37ac0173a3be8842aa9679fa33d2a074288e49b6d0a169de111`). Real second-player production acceptance and physical-device QA remain open.
 
 ### [Secret Santa 2026 — Private Gift Exchange](projects/secret-santa-2026/README.md)
 

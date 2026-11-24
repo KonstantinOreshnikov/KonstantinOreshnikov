@@ -1,5 +1,11 @@
 # Studio development history
 
+## 2026-11-25 — Chess Odyssey v1.1 web and official Windows/Stockfish v1.1.0 archive
+
+- [Production v1.1](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [official v1.1.0 Release](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.0) · [ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.0/ChessOdyssey_v1.1.0_Stockfish_Preview.zip) · SHA-256 `869cea06cf40d37ac0173a3be8842aa9679fa33d2a074288e49b6d0a169de111` ([CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45481263004)). Web v1.1 code PR #24 merged, ZIP pipeline PR #25 merged; v1.0.0 archive preserved.
+- [Independent public browser smoke](https://agent.tinyfish.ai/runs/15d1010a-114f-4b00-a17c-9e026086704e) verified language, board, 33 lessons, 300 games, zoom and invite prompts. Real second-account production acceptance, cross-device and physical UAT still open; no account/progress/security-policy changes in package completion.
+
+
 ## 2026-11-24 — Chess Odyssey public v1.0.0 release
 
 - [Play live](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Windows / Stockfish package](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056) · [release notes](games/chess-odyssey/docs/RELEASE_V1_0_0.md).
