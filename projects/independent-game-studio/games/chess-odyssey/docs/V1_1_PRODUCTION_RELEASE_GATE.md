@@ -1,5 +1,8 @@
 # Chess Odyssey v1.1 — production release gate and operational rollout
 
+**Release closure, 2026-11-25:** [PR #24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/24) merged at `83c89f35cb05da2c057ee182ab6285f4e5c5a652`; [release-head CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45475469995); [main Pages 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45478092288). Public page visibly reports `v1.1 · RELEASED` with Login and text zoom. Production secret/hash matched and owner invite/progress verified. Owner accepted release with actual second-player production acceptance **NOT VERIFIED**. The checklist below records pre-release planning and is historical where it still says HOLD.
+
+
 **Date:** 2026-11-24. **Status:** RELEASE HOLD — owner approval confirmed; final CI and production backend E2E pending. **Branch:** `feature/chess-odyssey-v1-1-pvp-header-zoom-20261124`, [PR #24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/24). Never treat QA staging configuration as production.
 
 ## Release scope and evidence

@@ -1,6 +1,9 @@
 # Chess Odyssey — Academy, Arena & Legends
 
-[**Play Chess Odyssey v1.0.0**](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [**Windows / Stockfish ZIP**](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.0.0/ChessOdyssey_v1.0.0_Stockfish_Preview.zip) · [Release notes](docs/RELEASE_V1_0_0.md)
+**Public web v1.1 (2026-11-25):** [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Release notes](docs/RELEASE_V1_1.md) · [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45475469995). Header Login/Account, friend invitation and reading-only text zoom are deployed. Owner login/invitation and 33/33 progress preservation verified; production second-player play remains open by owner decision. The Windows ZIP and official GitHub Release linked below are historical v1.0.0 artifacts.
+
+
+[**Play Chess Odyssey v1.1**](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [**Windows / Stockfish ZIP**](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.0.0/ChessOdyssey_v1.0.0_Stockfish_Preview.zip) · [Release notes](docs/RELEASE_V1_0_0.md)
 
 **[Official GitHub Release v1.0.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.0.0)** — published 24 November 2026. Permanent Windows package SHA-256: `f115a80859502a0c9c5610813a1d513a17c7b3314559f6a273002367b85193a4`.
 

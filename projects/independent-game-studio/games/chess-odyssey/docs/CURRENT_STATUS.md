@@ -1,5 +1,13 @@
 # Chess Odyssey — CURRENT STATUS / project entrypoint
 
+## 2026-11-25 — v1.1 PUBLIC WEB RELEASE (CURRENT)
+
+- [Live game](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) shows `v1.1 · RELEASED`, Login near language and reading-only zoom; [release notes](RELEASE_V1_1.md).
+- [PR #24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/24) merged into `main` at `83c89f35cb05da2c057ee182ab6285f4e5c5a652`; [final CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45475469995); [Pages main deployment 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45478092288).
+- Neon Function #6 and gate hash match. Owner authentication, production invitation creation and 33/33 progress preservation verified. Second real-player production accept/moves remain **NOT VERIFIED**, expressly accepted for this release. Physical devices and cross-device conflicts remain open.
+- Earlier v1.0.0 sections below are historical. The v1.0.0 Windows ZIP and official tag remain version 1.0.0.
+
+
 ## 2026-11-24 — OWNER-AUTHORIZED PUBLIC v1.0.0 RELEASE (LATEST)
 
 - **Approval:** owner explicitly authorized **merge into `main` and production GitHub Pages deployment before remaining live QA**. This overrides the previous staging-only release boundary **for this release**; not an authorization to modify existing player progress, destructive production DB operations, or runtime auth/security policy.
