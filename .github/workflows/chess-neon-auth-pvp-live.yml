@@ -1,0 +1,22 @@
+name: Chess Odyssey — Isolated Neon Auth PvP Live E2E
+on:
+  push:
+    branches:
+      - "qa/chess-odyssey-v1-1-fast-20261124"
+    paths:
+      - ".github/workflows/chess-neon-auth-pvp-live.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live-pvp:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Real Neon Auth and isolated PvP test
+        working-directory: projects/independent-game-studio/games/chess-odyssey
+        run: node tests/v1-neon-auth-pvp-live.cjs
