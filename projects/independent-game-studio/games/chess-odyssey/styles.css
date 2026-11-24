@@ -377,3 +377,59 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
  .academy-dock-actions button{min-width:0}
 }
 @media(max-width:370px){.academy-dock-actions{grid-template-columns:1fr}}
+
+/* v1.1: fixed-size localized header controls and account dialog. */
+.masthead{flex-wrap:wrap;column-gap:18px;row-gap:12px}
+.masthead .top-actions{display:flex;flex-direction:column;align-items:flex-end;gap:6px;min-width:0;flex:1}
+.header-toolbar{display:flex;justify-content:flex-end;align-items:end;gap:9px;flex-wrap:nowrap;max-width:100%}
+.header-toolbar .global-language{display:grid;gap:4px;flex:0 0 156px;width:156px;min-width:156px}
+.header-toolbar .global-language span{white-space:nowrap;font-size:11px}
+.header-toolbar .global-language select{display:block;width:100%;min-width:0;height:41px;white-space:nowrap}
+.header-zoom{display:flex;align-items:center;flex:0 0 auto;gap:2px;border:1px solid #7790a3;border-radius:9px;background:#172a39;padding:2px}
+.header-zoom button{min-width:38px;height:36px;font-size:13px;border:0;background:transparent;color:#f5ddaa;border-radius:7px;white-space:nowrap}
+.header-zoom button:hover:not(:disabled){background:#2c4b60}
+.header-zoom button:disabled{opacity:.4;cursor:default}
+.header-zoom #header-zoom-value{min-width:49px;color:#dae8f0;font-size:11px;font-variant-numeric:tabular-nums}
+#header-login{height:41px;min-width:80px;padding:5px 12px;border:1px solid #bb975d;border-radius:9px;background:#54452e;color:#faeac3;font-size:13px;font-weight:700;white-space:nowrap}
+#header-login:hover{background:#72572e}
+.header-toolbar :is(button,select):focus-visible,.header-account-dialog button:focus-visible{outline:3px solid #f5d08c;outline-offset:2px}
+.header-account-dialog{position:fixed;inset:0;margin:auto;width:min(94vw,480px);max-height:min(90dvh,740px);padding:15px;border:1px solid #ae956c;border-radius:14px;background:#132635;color:#f0f5f8;box-shadow:0 20px 70px #000a;overflow-y:auto}
+.header-account-dialog::backdrop{background:#080e17dd}
+.header-account-dialog:not([open]){display:none}
+.header-dialog-bar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.header-dialog-bar h2{font:600 21px Georgia,serif;margin:0}
+.header-dialog-bar button{min-width:44px;min-height:44px;background:#27475b;color:white;border:1px solid #597d91;border-radius:8px;font-size:24px}
+.header-dialog-content .cloud-account{margin:9px 0 0;padding:14px}
+.header-dialog-content .cloud-account h3{display:none}
+.header-dialog-content .cloud-auth-form input{max-width:100%}
+#pvp-advanced{border:1px solid #415e72;border-radius:8px;padding:9px 10px}
+#pvp-advanced summary{cursor:pointer;color:#d9c48e;font-size:12px;min-height:23px}
+#pvp-advanced label{margin-top:12px}
+#pvp-accept-card:focus-within{outline:1px solid #aa995f}
+#pvp-waiting{padding:10px 12px;border-left:3px solid #e6bd73;background:#263e50;border-radius:5px}
+
+/* Only reading copy scales: never the board, pieces, clocks, arrows, inputs or tile geometry. */
+:root{--chess-reading-scale:1}
+#academy-dock-instruction,#learn-feedback,#learn-message,#coach-message,
+#pvp-information,#pvp-join-help,#pvp-invite-help,#pvp-waiting,#pvp-game-status,
+#cloud-explanation,#cloud-status,.progress-note,.progress-lead,
+#m-summary,#m-explanation,#m-moment-text,.masters-note,.master-lesson-text,
+.lesson-message,.coach-explanation,.academy-instruction,.pvp-note,
+#progress-storage-note,.move-analysis-explanation{
+ font-size:calc(14px * var(--chess-reading-scale))!important;
+ line-height:1.55;
+}
+@media(max-width:720px){
+ .masthead{align-items:flex-start}
+ .masthead .top-actions{flex:1 1 100%;align-items:flex-start}
+ .header-toolbar{width:100%;justify-content:flex-start}
+ .top-actions .version{text-align:left}
+ .header-toolbar .global-language{flex-basis:146px;width:146px;min-width:146px}
+}
+@media(max-width:440px){
+ .header-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;row-gap:6px;column-gap:10px}
+ .header-toolbar .global-language{grid-row:1;grid-column:1;width:100%;min-width:0}
+ #header-login{grid-row:1;grid-column:2}
+ .header-zoom{grid-row:2;grid-column:1/-1;justify-self:start}
+ .header-account-dialog{padding:10px}
+}
