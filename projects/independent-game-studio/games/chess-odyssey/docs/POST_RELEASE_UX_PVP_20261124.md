@@ -1,5 +1,15 @@
 # Chess Odyssey v1.0 — Header UX and broken friend invitation (2026-11-24)
 
+## 2026-11-24 — UPDATE: isolated Neon QA secret configured and public API security verified
+
+- **Resolved on nonproduction branch:** Neon project `wild-hall-05832800`, isolated branch `br-muddy-truth-b96hxtdg` (`qa-chess-odyssey-v1-1-20261124`). Function `chesscloud` deployment **#2 COMPLETED**, with five environment variables `CHESS_ALLOWED_ORIGINS`, `CHESS_RPC_SECRET`, `NEON_AUTH_BASE_URL`, `NEON_AUTH_JWKS_URL`, `NEON_DATA_API_URL`. A 96-character cryptographically randomized RPC key was provisioned; database `chess_odyssey.api_gate` SHA-256 matches the Function key. The raw key is **not** stored in GitHub, docs or QA logs.
+- **Production preservation verified:** default branch `br-still-credit-b9voxawu` remains Function deployment **#4** and unchanged `api_gate` key. Existing public v1.0.0 UI still targets the *default* Neon branch and **will require a separate coordinated key/hash update as part of a separately authorized production release**. Deploying UI code alone to `main` would not fix production PvP.
+- **Live unauthenticated API security 8/8 PASS:** [GitHub QA run #45448520540](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45448520540): `/health` 200, unauthenticated `/api/me` and `/api/progress` and `/api/pvp/dashboard` each 401; malformed Bearer 401; disallowed Origin 403; allowlisted Origin CORS preflight 204; `x-demo-user` spoof rejected 400. This uses the **real configured isolated Neon Function #2**, not mock transport. [Browser 13/13 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45448520540) remains mock for two-person flows. [Full source CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45413190812).
+- **Current blocking acceptance gate:** two **genuine** Neon Auth JWT identities + third-party negative checks have not been exercised with server-side invitation/acceptance/legal moves. These require controlled verified test accounts; the HTTP security checks above do **not** establish successful authenticated PvP. Email/OTP verification must be independently evidenced, not inferred from an admin-created user or a synthetic JWT. No new test account, invite, move, or user-progress mutation was performed during this secret work package.
+- Earlier section describing the secret as missing on the cloned QA branch is now **superseded for that branch only**. The original production-linked Function #4 missing the user-defined secret remains a real release blocker until coordinated production setup and smoke tests are explicitly authorized.
+
+---
+
 ## Implementation checkpoint — 2026-11-24 (current)
 
 - **Combined P0/P1/P2 implementation completed on isolated feature branch** `feature/chess-odyssey-v1-1-pvp-header-zoom-20261124`, commit `fcbb5c2182bfa8d09ef21a62c54711b242e36a80`, [draft PR #24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/24). Original v1.0 `main` and public Pages unchanged, no release approval requested at this checkpoint.
