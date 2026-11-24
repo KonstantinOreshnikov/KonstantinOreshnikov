@@ -38,4 +38,12 @@ async function request(path,body){
  console.log("QA_SQL_ACTOR status="+probeResponse.status+" actorPresent="+String(outcome===true)+" errorCode="+(outcome?.code||"none"));
  if(probeResponse.status!==200||outcome!==true)throw Error("DATA_API_ACTOR_MISSING_OR_DENIED");
  console.log("PASS real Neon Auth JWT actor visible in PostgREST QA");
+ const badSecretProbe=await fetch(DATA+"/rpc/create_invite",{method:"POST",
+  headers:{"Origin":ORIGIN,"Authorization":"Bearer "+jwt,"Content-Type":"application/json","Content-Profile":"chess_odyssey","Accept-Profile":"chess_odyssey"},
+  body:JSON.stringify({p_secret:"invalid-test-key",p_invite_token:"a".repeat(43),p_creator_color:"w",p_preset:"none",p_base_ms:0,p_increment_ms:0,p_invited_user_id:null}),
+  signal:AbortSignal.timeout(11000)});
+ const diag=await badSecretProbe.json().catch(()=>({}));
+ console.log("QA_ACTOR_IN_CREATE_INVITE status="+badSecretProbe.status+" code="+String(diag.code||"none")+" message="+String(diag.message||"").slice(0,55));
+ if(diag.code==="28001")console.log("PASS real JWT actor visible inside create_invite; invalid service key rejected");
+ else throw Error("CREATE_INVITE_ACTOR_NOT_VISIBLE_OR_WRONG_CODE_"+String(diag.code||badSecretProbe.status));
 })().catch(e=>{console.error("FAIL QA SQL ACTOR "+e.message);process.exitCode=1});
