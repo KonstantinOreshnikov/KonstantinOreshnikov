@@ -139,6 +139,7 @@ jobs:
           node tests/v1-cloud-client-contract.cjs
           node tests/v1-cloud-api.cjs
           node tests/v1-pvp-cloud.cjs
+          node tests/chesscloud-package.cjs
           node tests/b8-translation-structure.cjs
           node tests/b9-match-service.cjs
           node tests/b9-http.cjs
