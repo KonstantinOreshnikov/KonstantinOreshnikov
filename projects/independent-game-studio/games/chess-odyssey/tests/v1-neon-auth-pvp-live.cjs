@@ -11,7 +11,23 @@ const pause=ms=>new Promise(done=>setTimeout(done,ms));
 async function call(base,route,body,token){
  const res=await fetch(base+route,{method:body?"POST":"GET",headers:{"Content-Type":"application/json","Origin":ORIGIN,...(token?{Authorization:"Bearer "+token}:{})},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(11000)});
  let data;try{data=await res.json()}catch{data={error:"INVALID_JSON"}}
- return {status:res.status,data};
+ const cookies=(res.headers.getSetCookie?.()||[]).map(v=>v.split(";")[0]).join("; ");
+ return {status:res.status,data,cookies,jwtHeader:res.headers.get("set-auth-jwt")};
+}
+const jwtShape=value=>typeof value==="string"&&value.split(".").length===3;
+async function extractJwt(login){
+ const opaque=login.data?.session?.token||login.data?.token;
+ for(const item of [login.jwtHeader,opaque])if(jwtShape(item))return item;
+ const cookie=login.cookies;
+ const outcomes=[];
+ for(const endpoint of ["/token","/get-session"]){
+  const result=await fetch(AUTH+endpoint,{headers:{"Origin":ORIGIN,...(cookie?{Cookie:cookie}:{}),...(opaque?{Authorization:"Bearer "+opaque}:{})},signal:AbortSignal.timeout(11000)});
+  let data;try{data=await result.json()}catch{data={}}
+  outcomes.push(endpoint+":"+result.status);
+  const token=data?.token||result.headers.get("set-auth-jwt");
+  if(jwtShape(token))return token;
+ }
+ throw Error("JWT_EXCHANGE_UNAVAILABLE_"+outcomes.join("_"));
 }
 (async()=>{
  for(const u of users){
@@ -27,13 +43,19 @@ async function call(base,route,body,token){
    if(u.token)continue;
    const r=await call(AUTH,"/sign-in/email",{email:u.email,password:u.password});
    const token=r.data?.token||r.data?.session?.token;
-   if(r.status===200&&typeof token==="string"){u.token=token}else ok=false;
+   if(r.status===200&&typeof token==="string"){u.token=await extractJwt(r)}else ok=false;
   }
   if(ok&&users.every(u=>u.token)){signed=true;break}
   await pause(5000);
  }
  if(!signed)throw Error("AUTH_SIGNIN_NOT_READY_AFTER_VERIFICATION");
  console.log("PASS QA AUTH signed in 3 independent identities; OTP method not validated");
+ for(const u of users){
+  const parts=u.token.split(".");
+  const head=JSON.parse(Buffer.from(parts[0],"base64url").toString("utf8"));
+  const claims=JSON.parse(Buffer.from(parts[1],"base64url").toString("utf8"));
+  console.log("QA_JWT_METADATA "+u.name+" alg="+head.alg+" role="+String(claims.role)+" verified="+String(claims.emailVerified)+" audPresent="+Boolean(claims.aud)+" expPresent="+Boolean(claims.exp));
+ }
  for(const u of users){
   const m=await call(API,"/api/me",null,u.token);
   if(m.status!==200)throw Error("JWT_"+u.name+"_REJECTED_"+m.status+"_"+String(m.data?.error||""));
