@@ -1,6 +1,6 @@
 # Chess Odyssey v1.1 — production release gate and operational rollout
 
-**Date:** 2026-11-24. **Status:** RELEASE HOLD — separate owner approval required. **Branch:** `feature/chess-odyssey-v1-1-pvp-header-zoom-20261124`, [PR #24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/24). Never treat QA staging configuration as production.
+**Date:** 2026-11-24. **Status:** RELEASE HOLD — owner approval confirmed; final CI and production backend E2E pending. **Branch:** `feature/chess-odyssey-v1-1-pvp-header-zoom-20261124`, [PR #24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/24). Never treat QA staging configuration as production.
 
 ## Release scope and evidence
 
@@ -12,9 +12,9 @@
 
 ## Production boundary
 
-The published v1.0.0 GitHub Pages currently targets the Neon **default** branch `br-still-credit-b9voxawu`. Its Function `chesscloud` is **#4**, with `CHESS_ALLOWED_ORIGINS` only and no custom `CHESS_RPC_SECRET` — **live invites remain unconfigured**. The QA branch's new secret/hash and Function source must not be assumed available on the default branch.
+The published v1.0.0 GitHub Pages currently targets the Neon **default** branch `br-still-credit-b9voxawu`. Its Function `chesscloud` is **#6** with `CHESS_RPC_SECRET` and the branch service URLs. The owner updated the narrowly scoped `api_gate` hash, and readback matches the SHA-256 of the provisioned secret. Health is 200; authenticated production invite/accept/move remains unverified. The QA branch's new secret/hash and Function source must not be assumed available on the default branch.
 
-**Explicit owner permission must name:** merge PR #24 into `main` and GitHub Pages deployment; update production-linked Neon Function source and its scoped env; generate/configure a fresh private `CHESS_RPC_SECRET` and matching default-branch `chess_odyssey.api_gate` SHA-256; non-destructive smoke/test records in production only if separately approved. Do not touch authentication/security policy, existing account progression, production data outside the narrowly approved gate.
+**Explicit owner permission recorded in this conversation:** merge PR #24 into `main` and GitHub Pages deployment after gates; update production-linked Neon Function secret and matching narrowly scoped default-branch `chess_odyssey.api_gate` hash; production backend verification. This approval does not authorize destructive data or authentication-policy changes. Do not touch authentication/security policy, existing account progression, production data outside the narrowly approved gate.
 
 ## Coordinated deployment checklist (AFTER owner approval)
 
