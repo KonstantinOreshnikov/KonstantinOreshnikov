@@ -1,0 +1,29 @@
+name: Chess Odyssey v1.1 — Fast browser acceptance
+on:
+  push:
+    branches:
+      - "qa/chess-odyssey-v1-1-fast-20261124"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  quick-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Setup browser
+        working-directory: projects/independent-game-studio/games/chess-odyssey
+        run: |
+          npm install --no-audit --no-fund --no-save playwright@1.57.0
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "CHESS_CHROME_CHANNEL=chrome" >> "$GITHUB_ENV"
+          else
+            npx playwright install chromium
+          fi
+      - name: v1.1 Header, Text Zoom, invite mock E2E
+        working-directory: projects/independent-game-studio/games/chess-odyssey
+        run: node tests/v1-header-pvp-browser.cjs
