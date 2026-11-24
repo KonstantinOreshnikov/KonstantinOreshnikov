@@ -8,7 +8,7 @@ const BAD="https://untrusted.qa.example";
 let count=0;const check=async(name,path,options,expected)=>{
  const r=await fetch(ROOT+path,{...options,signal:AbortSignal.timeout(10000)});
  assert.equal(r.status,expected,name+": expected "+expected+", observed "+r.status);
- assert.match(r.headers.get("content-type")||"",/application\\/json/);count++;
+ assert.ok((r.headers.get("content-type")||"").includes("application/json"));count++;
  console.log("PASS QA LIVE HTTP "+count+" "+name+" => "+r.status);
 };
 const health=await fetch(ROOT+"/health",{signal:AbortSignal.timeout(10000)});
