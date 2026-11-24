@@ -5,6 +5,7 @@ on:
       - "qa/chess-odyssey-v1-1-fast-20261124"
     paths:
       - ".github/workflows/chess-neon-auth-pvp-live.yml"
+      - "projects/independent-game-studio/games/chess-odyssey/tests/v1-neon-auth-pvp-live.cjs"
   workflow_dispatch:
 permissions:
   contents: read
