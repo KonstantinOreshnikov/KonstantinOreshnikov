@@ -44,7 +44,8 @@ function closeAccount(){
  const dialog=$("header-account-dialog");
  if(!dialog)return;
  if(dialog.open&&typeof dialog.close==="function")dialog.close();
- else {dialog.removeAttribute("open");restoreAccount()}
+ else dialog.removeAttribute("open");
+ restoreAccount(); // restore synchronously; the native close event is asynchronous
 }
 function restoreAccount(){
  if(account&&origin&&account.parentNode!==origin){
