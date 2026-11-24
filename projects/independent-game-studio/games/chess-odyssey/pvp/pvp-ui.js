@@ -190,7 +190,7 @@ function init(){
   else refresh();
  });
  bind("pvp-refresh",refresh);
- bind("pvp-login",()=>root.ChessHeader?.openAccount?.()||$("header-login")?.click());
+ bind("pvp-login",()=>{$("header-login")?.click()});
  bind("pvp-flip",()=>{state.flip=!state.flip;render()});
  bind("pvp-create",()=>command("invite",{color:$("pvp-color").value,preset:$("pvp-time").value,
   ...( $("pvp-friend").value.trim()?{toUserId:$("pvp-friend").value.trim()}:{})}));
