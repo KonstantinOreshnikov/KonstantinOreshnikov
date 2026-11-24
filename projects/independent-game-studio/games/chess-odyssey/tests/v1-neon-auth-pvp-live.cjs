@@ -92,6 +92,7 @@ async function extractJwt(login){
  if(r.status!==200)throw Error("ALICE_MOVE_FAILED_"+r.status+"_"+String(r.data?.error||""));
  console.log("PASS QA PVP Alice e2-e4");
  const retry=await call(API,"/api/pvp/play",{gameId,expectedVersion:version,requestId:aliceRequestId,from:"e2",to:"e4"},users[0].token);
+ console.log("QA_IDEMPOTENT_RETRY status="+retry.status+" code="+String(retry.data?.error||"none"));
  assert.equal(retry.status,200);assert.equal(retry.data.duplicate,true);
  console.log("PASS QA PVP lost-response replay is idempotent");
  const stale=await call(API,"/api/pvp/play",{gameId,expectedVersion:version,requestId:crypto.randomUUID(),from:"d2",to:"d4"},users[0].token);
