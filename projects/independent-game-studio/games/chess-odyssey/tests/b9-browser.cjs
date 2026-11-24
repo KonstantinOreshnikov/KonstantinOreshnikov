@@ -56,8 +56,12 @@ const {createDemoServer}=require("../pvp/dev-server.cjs");
    });
    await check("both can reload without losing game",async()=>{
      await alice.reload();await bob.reload();
-     await alice.waitForFunction(()=>window.ChessPvPDevQA.get()?.ply===2);
-     await bob.waitForFunction(()=>window.ChessPvPDevQA.get()?.ply===2);
+     await alice.locator("#matches button").first().waitFor({timeout:15000});
+     await bob.locator("#matches button").first().waitFor({timeout:15000});
+     await alice.locator("#matches button").first().click();
+     await bob.locator("#matches button").first().click();
+     await alice.waitForFunction(()=>window.ChessPvPDevQA.get()?.ply===2,{timeout:15000});
+     await bob.waitForFunction(()=>window.ChessPvPDevQA.get()?.ply===2,{timeout:15000});
      assert.equal(await alice.locator("#board .square").count(),64);
    });
    await check("Bob mobile width keeps all actions reachable",async()=>{
