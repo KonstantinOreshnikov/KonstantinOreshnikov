@@ -1,0 +1,89 @@
+name: Chess Odyssey — Official v1.1.0 GitHub Release
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/chess-odyssey-v1-1-release.yml"
+      - "projects/independent-game-studio/games/chess-odyssey/scripts/package-preview.py"
+      - "projects/independent-game-studio/games/chess-odyssey/docs/RELEASE_V1_1_0_PACKAGE.md"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/chess-odyssey-v1-1-release.yml"
+      - "projects/independent-game-studio/games/chess-odyssey/scripts/package-preview.py"
+      - "projects/independent-game-studio/games/chess-odyssey/docs/RELEASE_V1_1_0_PACKAGE.md"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: chess-odyssey-v1-1-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify-and-publish:
+    name: Verify v1.0 compatibility, package v1.1.0 and publish if on main
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify chess core and public Pages package
+        working-directory: projects/independent-game-studio/games/chess-odyssey
+        run: |
+          set -euo pipefail
+          node tests/masters-expansion.cjs
+          node tests/pages-package.cjs
+      - name: Build original v1.0.0 and current v1.1.0 preview packages
+        working-directory: projects/independent-game-studio/games/chess-odyssey
+        run: |
+          set -euo pipefail
+          node scripts/build-standalone.cjs 1.0.0
+          python3 scripts/package-preview.py
+          node scripts/build-standalone.cjs 1.1.0
+          python3 scripts/package-preview.py 1.1.0
+      - name: Validate ZIP integrity, version marker, licensing and checksum
+        run: |
+          set -euo pipefail
+          pkg="projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v1.1.0_Stockfish_Preview.zip"
+          test -s "$pkg"
+          unzip -t "$pkg" | tail -n 2
+          sha256sum "$pkg"
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          package = Path("projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v1.1.0_Stockfish_Preview.zip")
+          pfx = "ChessOdyssey_v1.1.0/"
+          with ZipFile(package) as z:
+              assert z.testzip() is None
+              names = set(z.namelist())
+              for file in ("START_WINDOWS.cmd", "index.html", "header-controls.js", "dist/ChessOdyssey_v1.1.0_PREVIEW.html", "engine/stockfish-19-lite-single.wasm", "engine/Copying.txt", "docs/RELEASE_V1_1_0_PACKAGE.md"):
+                  assert pfx + file in names, file
+              html = z.read(pfx + "index.html").decode("utf-8")
+              assert "v1.1 · RELEASED" in html
+              assert "header-controls.js" in html
+              assert b"GNU GENERAL PUBLIC LICENSE" in z.read(pfx + "engine/Copying.txt")
+              assert not any(".env" in name or "api_gate" in name or "functions/" in name for name in names)
+          print("PASS v1.1.0 ZIP contract")
+          PY
+      - name: Publish official permanent v1.1.0 GitHub Release (main only)
+        if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="chess-odyssey-v1.1.0"
+          pkg="projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v1.1.0_Stockfish_Preview.zip"
+          notes="projects/independent-game-studio/games/chess-odyssey/docs/RELEASE_V1_1_0_PACKAGE.md"
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            gh release create "$tag" \
+              --target "$GITHUB_SHA" \
+              --title "Chess Odyssey v1.1.0 — Academy & Arena" \
+              --notes-file "$notes" \
+              --latest
+          fi
+          gh release upload "$tag" "$pkg" --clobber
+          gh release view "$tag" --json url,tagName,isDraft,isPrerelease,assets --jq '{url,tagName,isDraft,isPrerelease,assets:[.assets[].name]}'
