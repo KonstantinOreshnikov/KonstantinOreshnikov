@@ -1,0 +1,22 @@
+name: Chess Odyssey — QA Neon SQL Auth Actor Probe
+on:
+  push:
+    branches:
+      - "qa/chess-odyssey-v1-1-fast-20261124"
+    paths:
+      - ".github/workflows/chess-neon-actor-probe.yml"
+      - "projects/independent-game-studio/games/chess-odyssey/tests/v1-neon-sql-actor-probe.cjs"
+permissions:
+  contents: read
+jobs:
+  actor-probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Verify real Neon JWT actor in isolated Data API
+        working-directory: projects/independent-game-studio/games/chess-odyssey
+        run: node tests/v1-neon-sql-actor-probe.cjs
