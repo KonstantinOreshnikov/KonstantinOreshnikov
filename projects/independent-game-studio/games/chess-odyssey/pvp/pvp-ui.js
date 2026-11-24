@@ -125,6 +125,7 @@ async function pick(sq){
 async function command(name,body,load=false){
  if(state.pending||!api()?.authenticated()){status(tr("wait"),true);return}
  state.pending=true;render();
+ let feedback=null,failed=false;
  try{
   const resp=await api().api("/api/pvp/"+name,{method:"POST",body});
   if(load&&resp?.game_id){state.id=resp.game_id;await loadGame(state.id)}
@@ -134,17 +135,17 @@ async function command(name,body,load=false){
    state.waitingInviteId=resp.invite_id||null;
    $("pvp-waiting").hidden=false;
    $("pvp-waiting").textContent=tr("waitingFriend");
-   status(tr("created"));
+   status(tr("created"));feedback=tr("created");
   }
   if(name==="accept"){
-   state.id=resp.game_id;await loadGame(state.id);status(tr("accepted"));
+   state.id=resp.game_id;await loadGame(state.id);status(tr("accepted"));feedback=tr("accepted");
    history.replaceState(null,"",location.pathname+location.search);
    $("pvp-invite-token").value="";
   }
-  if(["draw","resign","rematch"].includes(name)){if(name==="rematch"){const link=location.origin+location.pathname+"#invite="+encodeURIComponent(resp.inviteToken);$("pvp-invite-link").value=link;status(tr("created"))}else await loadGame(state.id)}
+  if(["draw","resign","rematch"].includes(name)){if(name==="rematch"){const link=location.origin+location.pathname+"#invite="+encodeURIComponent(resp.inviteToken);$("pvp-invite-link").value=link;status(tr("created"));feedback=tr("created")}else await loadGame(state.id)}
   await dashboard();
- }catch(e){status(errorMessage(e),true)}
- finally{state.pending=false;render()}
+ }catch(e){feedback=errorMessage(e);failed=true}
+ finally{state.pending=false;render();if(feedback)status(feedback,failed)}
 }
 async function loadGame(id){
  const result=await api().api("/api/pvp/game?id="+encodeURIComponent(id));
