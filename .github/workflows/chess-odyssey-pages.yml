@@ -104,6 +104,9 @@ jobs:
           done
           echo "BLOCKED_PAGES_ARTIFACT_NOT_INDEXED"
           exit 1
+      - name: Allow Pages artifact metadata to propagate
+        shell: bash
+        run: sleep 15
       - name: Deploy public chess site
         id: deployment
         uses: actions/deploy-pages@v4
