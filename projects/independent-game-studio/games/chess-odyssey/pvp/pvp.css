@@ -26,3 +26,17 @@
 #pvp-games button[data-active="true"]{border-color:#f1d18b;background:#355b6f}
 @media(max-width:840px){.pvp-layout{grid-template-columns:1fr;gap:16px}.pvp-sidebar{grid-template-columns:repeat(2,minmax(0,1fr))}.pvp-sidebar .panel:last-child{grid-column:1/-1}}
 @media(max-width:570px){.pvp-sidebar{grid-template-columns:1fr}.pvp-sidebar .panel:last-child{grid-column:auto}.pvp-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.pvp-actions button{padding:8px 5px}.game-tabs{gap:5px}.game-tabs button{flex:1 1 calc(50% - 6px);min-width:0;padding:9px 7px;font-size:11px}}
+
+/* v1.1.2: orientation-aware captured pieces, clocks and turn. */
+.pvp-board-zone{display:grid;grid-template-columns:minmax(105px,150px) minmax(0,1fr);gap:10px;align-items:stretch}
+.pvp-board-zone .pvp-board-frame{width:100%;min-width:0;margin:0;align-self:start}
+.pvp-board-zone .pvp-clockline{margin:0;display:flex;flex-direction:column;justify-content:space-between;min-width:0;padding:7px;gap:8px}
+.pvp-clockline[data-bottom="b"] #pvp-black-card{order:3}.pvp-clockline[data-bottom="b"] #pvp-white-card{order:-1}
+.pvp-player{border:1px solid #486579;border-radius:7px;padding:7px;min-width:0;overflow-wrap:anywhere;font-size:12px}
+.pvp-player[data-active="true"]{border-color:#e9cb7b;background:#335d4c;box-shadow:inset 3px 0 #e9cb7b}
+.pvp-player[data-active="true"] strong::before{content:"▶ ";color:#ffe6a3}
+#pvp-turn{font-size:12px;text-align:center;font-weight:700;overflow-wrap:anywhere}
+.pvp-captures{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;align-items:center}.pvp-capture{font-size:14px;white-space:nowrap;background:#111e29;border-radius:4px;padding:2px 3px;color:#f4e6c6}
+#pvp-result{max-width:min(420px,calc(100vw - 28px));padding:18px;color:#f2e4c6;background:#192f40;border:1px solid #ad925f;border-radius:10px}#pvp-result::backdrop{background:#0008}
+#pvp-review-panel[hidden],#pvp-review-cancel[hidden]{display:none!important}#pvp-review-panel{margin:10px 0}#pvp-review-summary p{margin:7px 0;font-size:12px}.pvp-replay{align-items:center}#pvp-review-position{font-size:12px}
+@media(max-width:570px){.pvp-board-zone{grid-template-columns:1fr;gap:6px}.pvp-board-zone .pvp-clockline{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5px}.pvp-clockline #pvp-turn{grid-column:1/-1;grid-row:1}.pvp-player{padding:5px}.pvp-replay{display:flex;justify-content:center;gap:4px}.pvp-replay button{min-width:32px}}
