@@ -97,7 +97,23 @@
       "current_web_version": "v1.1.2",
       "production_acceptance": "OPEN",
       "current_web_release_candidate": true
+    },
+    {
+      "id": "genesis-of-worlds",
+      "canonical_path": "projects/independent-game-studio/games/genesis-of-worlds",
+      "current_verified_release": null,
+      "latest_development_candidate": null,
+      "latest_verified_artifact": null,
+      "source_path": null,
+      "sha256": null,
+      "qa_status": "NOT STARTED — research/concept only; no playable build",
+      "known_blockers": "Implementation not authorized; candidate source/data licenses and science/balance assumptions require validation before reuse",
+      "last_verified": "2026-11-25 — concept registration only",
+      "origin_branch": "docs/genesis-of-worlds-concept-20261125",
+      "status_path": "projects/independent-game-studio/games/genesis-of-worlds/STATUS.md",
+      "design_path": "projects/independent-game-studio/games/genesis-of-worlds/docs/GAME_DESIGN.md",
+      "project_stage": "RESEARCH_CONCEPT"
     }
   ],
-  "latest_update": "2026-11-25 Chess Odyssey v1.1.2 docs reconciliation; other game rows unchanged"
+  "latest_update": "2026-11-25 Genesis of Worlds registered as fifth project; existing four game records unchanged"
 }

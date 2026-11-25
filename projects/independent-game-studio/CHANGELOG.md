@@ -1,5 +1,9 @@
 # Studio development history
 
+## 2026-11-25 — Genesis of Worlds concept registration
+
+- Fifth independent project: original offline-first planetary terraforming strategy inspired by classic TerraGenesis. [Concept](games/genesis-of-worlds/README.md) · [Design](games/genesis-of-worlds/docs/GAME_DESIGN.md) · [Research register](games/genesis-of-worlds/docs/RESEARCH.md) · [Status](games/genesis-of-worlds/STATUS.md). Documentation only; no runtime, assets, build, test execution, release or deployment. Existing four game baselines and ten backlog concepts preserved.
+
 ## 2026-11-25 — Chess Odyssey v1.1.2 deployed for real UAT
 
 **Current web version: v1.1.2 — deployed production UAT candidate (25 November 2026).** [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [PR #28](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/28) · [Focused QA 24/24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812948) · [Full regression 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812883) · [Production Pages 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45627594965). Real v1.1.2 two-player UAT, measured production latency and full human/device acceptance remain open. Latest permanent package is [v1.1.1 prerelease](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.1); latest non-prerelease tagged package is [v1.1.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.0). v1.1.2 ZIP is a verified temporary CI artifact, not a permanent GitHub Release.

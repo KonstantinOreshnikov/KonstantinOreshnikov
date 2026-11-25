@@ -14,6 +14,7 @@ Independent, AI-assisted game projects by Konstantin Oreshnikov. This directory 
 | [Kingdoms of Ember](games/kingdoms-of-ember/README.md) | Independent 16×12 fantasy turn-based tactics inspired by Ancient Empires II | v1.1 development candidate; original v1.0 preserved; offline launch QA open |
 | [Lord of Ultima-inspired strategy](games/lord-of-ultima/README.md) | Calm solo economy, city, army and continental strategy | Research/specification only; no build |
 | [Chess Odyssey — Academy & Arena](games/chess-odyssey/README.md) | Public multilingual chess game, Academy, historic games, Stockfish | **v1.1.2 WEB DEPLOYED FOR UAT** — [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Development history](games/chess-odyssey/docs/DEVELOPMENT_HISTORY.md) · [QA 24/24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812948) · [Permanent v1.1.1 prerelease](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.1); real acceptance open |
+| [Genesis of Worlds](games/genesis-of-worlds/README.md) | Offline-first planetary terraforming and colony simulation inspired by TerraGenesis (classic era) | Research/concept only; no source, build or release |
 
 ## Historical Chess Odyssey v1.1 web release (2026-11-25)
 
@@ -33,9 +34,9 @@ Independent, AI-assisted game projects by Konstantin Oreshnikov. This directory 
 
 ## Nostalgic game concepts (ideas only)
 
-[**Browse 10 future game ideas →**](IDEAS_BACKLOG.md) — Iron Bastion, Worms, Dr. Mario, Mega Bomberman, Lode Runner, Block Breaker Deluxe 2, Asphalt: Urban GT, Tower Bloxx, a **Townsmen 1–5 best-of** and a separate **City Builder + SimCity** hybrid. These are concepts inspired by 1990s/2000s console and Java-mobile classics; **no source code, release, or active development is implied**. The four active game projects and QA statuses above are unchanged.
+[**Browse 10 future game ideas →**](IDEAS_BACKLOG.md) — Iron Bastion, Worms, Dr. Mario, Mega Bomberman, Lode Runner, Block Breaker Deluxe 2, Asphalt: Urban GT, Tower Bloxx, a **Townsmen 1–5 best-of** and a separate **City Builder + SimCity** hybrid. These are concepts inspired by 1990s/2000s console and Java-mobile classics; **no source code, release, or active development is implied**. The five registered game projects and their distinct QA statuses are listed above.
 
-Each game README has a **How the project changed** section with linked milestone evidence: [Caribbean Merchant](games/caribbean-merchant/README.md#how-the-project-changed) · [Kingdoms of Ember](games/kingdoms-of-ember/README.md#how-the-project-changed) · [Chess Odyssey](games/chess-odyssey/README.md#how-the-project-changed) · [Lord of Ultima-inspired strategy](games/lord-of-ultima/README.md#how-the-project-changed). The latter is a research/design history because there is no game build yet.
+Each game README has a **How the project changed** section with linked milestone evidence: [Caribbean Merchant](games/caribbean-merchant/README.md#how-the-project-changed) · [Kingdoms of Ember](games/kingdoms-of-ember/README.md#how-the-project-changed) · [Chess Odyssey](games/chess-odyssey/README.md#how-the-project-changed) · [Lord of Ultima-inspired strategy](games/lord-of-ultima/README.md#how-the-project-changed). [Genesis of Worlds](games/genesis-of-worlds/README.md#how-the-project-changed). Lord of Ultima and Genesis of Worlds are research/design projects with no game build yet.
 
 **Before starting work in a new chat:** read [GAME_REGISTRY.md](GAME_REGISTRY.md), the selected game's `STATUS.md`, its technical authority and QA. Check current branch HEAD and actual artifact. Log discrepancies rather than guessing the latest version. On a significant release update registry and status together, verify file and hash, then read back. GitHub does not automatically synchronize chat context.
 

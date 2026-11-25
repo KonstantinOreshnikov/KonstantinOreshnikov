@@ -1,6 +1,6 @@
 # Nostalgic game ideas — future concepts
 
-**Status:** IDEA BACKLOG / CONCEPT ONLY · 2026-11-21. These are **10 potential games**, not active projects, release commitments, or evidence that playable builds or source code exist. The four existing projects and their verified versions remain listed in [GAME_REGISTRY.md](GAME_REGISTRY.md).
+**Status:** IDEA BACKLOG / CONCEPT ONLY · 2026-11-21. These are **10 potential games**, not active projects, release commitments, or evidence that playable builds or source code exist. The five registered projects (including research-only projects) and their verified versions, where available, remain listed in [GAME_REGISTRY.md](GAME_REGISTRY.md).
 
 ## Vision
 
@@ -34,5 +34,7 @@ Create original, self-contained 2D HTML5 games inspired by the NES/Dendy, Sega M
 ## Status and navigation
 
 - This document contains **no playable builds, implementation branches, delivery schedules, or authorization to begin development**.
-- The four established games remain independent: [Game Registry](GAME_REGISTRY.md) · [Studio README](README.md).
+- The five registered games remain independent: [Game Registry](GAME_REGISTRY.md) · [Studio README](README.md).
 - Before implementation, approve the chosen concept's scope and original title, then create a separate game directory with source, STATUS, QA evidence, and version history. This document is an **idea backlog**, not a release-status authority.
+
+Genesis of Worlds is a separately registered fifth project, not an eleventh backlog item: [concept and research](games/genesis-of-worlds/README.md). No implementation authorization is implied.
