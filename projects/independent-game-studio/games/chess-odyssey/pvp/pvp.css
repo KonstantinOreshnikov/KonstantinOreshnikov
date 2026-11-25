@@ -40,3 +40,5 @@
 #pvp-result{max-width:min(420px,calc(100vw - 28px));padding:18px;color:#f2e4c6;background:#192f40;border:1px solid #ad925f;border-radius:10px}#pvp-result::backdrop{background:#0008}
 #pvp-review-panel[hidden],#pvp-review-cancel[hidden]{display:none!important}#pvp-review-panel{margin:10px 0}#pvp-review-summary p{margin:7px 0;font-size:12px}.pvp-replay{align-items:center}#pvp-review-position{font-size:12px}
 @media(max-width:570px){.pvp-board-zone{grid-template-columns:1fr;gap:6px}.pvp-board-zone .pvp-clockline{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5px}.pvp-clockline #pvp-turn{grid-column:1/-1;grid-row:1}.pvp-player{padding:5px}.pvp-replay{display:flex;justify-content:center;gap:4px}.pvp-replay button{min-width:32px}}
+
+.pvp-loss-label{display:block;font-size:10px;color:#c8d5de;margin-top:6px}.pvp-captures{margin-top:2px}

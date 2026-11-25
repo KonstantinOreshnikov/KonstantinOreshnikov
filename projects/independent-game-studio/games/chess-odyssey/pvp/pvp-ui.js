@@ -24,6 +24,9 @@ const panelLocale={
  en:{turnW:"White to move",turnB:"Black to move",captured:"Captured pieces",noCaptures:"No captured pieces",win:"You won",loss:"You lost",drawResult:"Draw",whiteWins:"White wins",blackWins:"Black wins",mate:"Checkmate",timeout:"Time expired",resignation:"Resignation",agreedDraw:"Draw by agreement",stalemate:"Stalemate",repetition:"Repetition",fiftyMove:"50-move rule",insufficient:"Insufficient material",otherReason:"Game finished",review:"Game review",close:"Close",analyze:"Stockfish analysis",cancel:"Cancel analysis",analyzing:"Analyzing",analysisError:"Analysis failed",accuracy:"Accuracy (Stockfish estimate)",unknownGrade:"Not assessed",bestMove:"Best move",first:"First position",prev:"Previous move",next:"Next move",last:"Last position",reviewTitle:"Post-game review",best:"Best",excellent:"Excellent",good:"Good",ordinary:"Ordinary",inaccuracy:"Inaccuracy",mistake:"Mistake",blunder:"Blunder",unknown:"Not assessed"},
  az:{turnW:"Ağların gedişi",turnB:"Qaraların gedişi",captured:"İtirilmiş fiqurlar",noCaptures:"Vurulmuş fiqur yoxdur",win:"Qalib gəldiniz",loss:"Məğlub oldunuz",drawResult:"Heç-heçə",whiteWins:"Ağlar qalib gəldi",blackWins:"Qaralar qalib gəldi",mate:"Mat",timeout:"Vaxt bitdi",resignation:"Təslim olma",agreedDraw:"Razılaşma ilə heç-heçə",stalemate:"Pat",repetition:"Mövqenin təkrarlanması",fiftyMove:"50 gediş qaydası",insufficient:"Fiqurlar kifayət etmir",otherReason:"Oyun başa çatdı",review:"Partiyanın təhlili",close:"Bağla",analyze:"Stockfish təhlili",cancel:"Təhlili dayandır",analyzing:"Təhlil edilir",analysisError:"Təhlil alınmadı",accuracy:"Dəqiqlik (Stockfish qiymətləndirməsi)",unknownGrade:"Qiymətləndirilməyib",bestMove:"Ən yaxşı gediş",first:"İlkin mövqe",prev:"Əvvəlki gediş",next:"Növbəti gediş",last:"Son mövqe",reviewTitle:"Partiyadan sonrakı təhlil",best:"Ən yaxşı",excellent:"Əla",good:"Yaxşı",ordinary:"Adi",inaccuracy:"Qeyri-dəqiqlik",mistake:"Səhv",blunder:"Kobud səhv",unknown:"Qiymətləndirilməyib"}
 };
+Object.assign(panelLocale.ru,{abandoned:"Партия прервана",noMate:"Недостаточно материала для мата",done:"Анализ завершён",analysisCount:"Разобрано ходов"});
+Object.assign(panelLocale.en,{abandoned:"Game abandoned",noMate:"No mating potential",done:"Analysis complete",analysisCount:"Moves analyzed"});
+Object.assign(panelLocale.az,{abandoned:"Oyun yarımçıq qalıb",noMate:"Mat etmək mümkün deyil",done:"Təhlil tamamlandı",analysisCount:"Təhlil edilən gedişlər"});
 for(const k of ["ru","en","az"])Object.assign(locale[k],panelLocale[k]);
 locale.ru.info="Войдите в аккаунт, создайте ссылку и отправьте её другу. Друг должен войти в свой аккаунт и принять приглашение.";
 const captions={overline:"pvp-overline",heading:"pvp-heading",info:"pvp-information",invite:"pvp-invite-heading",time:"pvp-time-label",color:"pvp-color-label",friend:"pvp-friend-label",create:"pvp-create",link:"pvp-link-label",copy:"pvp-copy",join:"pvp-join-heading",token:"pvp-token-label",accept:"pvp-accept",games:"pvp-games-heading",promote:"pvp-promotion-label",refresh:"pvp-refresh",flip:"pvp-flip",resign:"pvp-resign",draw:"pvp-draw",acceptDraw:"pvp-accept-draw",rematch:"pvp-rematch"};
@@ -113,7 +116,7 @@ function captured(moves,color){
  if(!holder.children.length){const empty=document.createElement("span");empty.textContent="—";empty.title=tr("noCaptures");holder.append(empty)}
  holder.setAttribute("aria-label",tr(color==="w"?"white":"black")+" · "+tr("captured"));
 }
-function reasonKey(reason){return ({"checkmate":"mate","mate":"mate","timeout":"timeout","time-forfeit":"timeout","resignation":"resignation","agreed-draw":"agreedDraw","chess-draw":"drawResult","stalemate":"stalemate","threefold-repetition":"repetition","repetition":"repetition","fifty-move":"fiftyMove","50-move":"fiftyMove","insufficient-material":"insufficient"})[reason]||"otherReason"}
+function reasonKey(reason){return ({"checkmate":"mate","mate":"mate","timeout":"timeout","time-forfeit":"timeout","flag-fall":"timeout","no-mating-potential":"noMate","abandoned":"abandoned","resignation":"resignation","agreed-draw":"agreedDraw","chess-draw":"drawResult","stalemate":"stalemate","threefold-repetition":"repetition","repetition":"repetition","fifty-move":"fiftyMove","50-move":"fiftyMove","insufficient-material":"insufficient"})[reason]||"otherReason"}
 function renderResult(g){
  const d=$("pvp-result"),finished=g?.state==="finished",valid=finished&&["1-0","0-1","1/2-1/2"].includes(g.result);
  $("pvp-review-open").disabled=!finished||!g.canonical_pgn;
@@ -134,7 +137,7 @@ function renderReview(moves){
  $("pvp-review-first").disabled=$("pvp-review-prev").disabled=at===0;
  $("pvp-review-next").disabled=$("pvp-review-last").disabled=at===moves.length;
  $("pvp-analyze").disabled=!!reviewWorker||!moves.length;$("pvp-review-cancel").hidden=!reviewWorker;
- $("pvp-review-status").textContent=reviewProgress?.error?tr("analysisError"):reviewProgress?tr("analyzing")+" "+reviewProgress.done+" / "+reviewProgress.total:"";
+ $("pvp-review-status").textContent=reviewProgress?.error?tr("analysisError"):reviewProgress?tr("analyzing")+" "+reviewProgress.done+" / "+reviewProgress.total:reviewReport?tr("done")+" · "+tr("analysisCount")+": "+reviewReport.analyzed+" / "+reviewReport.total:"";
  const summary=$("pvp-review-summary"),entries=$("pvp-review-entries");summary.replaceChildren();entries.replaceChildren();
  if(!reviewReport)return;
  for(const c of ["w","b"]){const x=reviewReport.summary[c];const el=document.createElement("p");el.textContent=tr(c==="w"?"white":"black")+" · "+tr("accuracy")+": "+(x.accuracy==null?"—":x.accuracy+"%")+" ("+x.analyzed+"/"+x.total+")";summary.append(el)}
@@ -166,7 +169,7 @@ function render(){
   for(let visualFile=0;visualFile<8;visualFile++){
    const rank=reversed?visualRank:7-visualRank,file=reversed?7-visualFile:visualFile;
    const sq=FILES[file]+String(rank+1),p=rows[7-rank][file];
-   const cell=document.createElement("button");cell.type="button";cell.className="square "+((file+rank)%2?"dark":"light");
+   const cell=document.createElement("button");cell.type="button";cell.className="square "+((file+rank)%2?"light":"dark");
    cell.dataset.square=sq;cell.tabIndex=sq===state.keyboardSquare?0:-1;
    cell.addEventListener("keydown",event=>{
     const jumps={ArrowUp:[0,1],ArrowDown:[0,-1],ArrowLeft:[-1,0],ArrowRight:[1,0]};
@@ -197,7 +200,7 @@ function render(){
  if(keepFocus)board.querySelector("button[data-square="+state.keyboardSquare+"]")?.focus();
  root.ChessAppearance?.apply?.(document);
  $("pvp-clockline").dataset.bottom=bottom;
- for(const c of ["w","b"]){const key=c==="w"?"white":"black";$("pvp-"+key+"-card").dataset.active=String(turn===c);captured(shownMoves,c)}
+ for(const c of ["w","b"]){const key=c==="w"?"white":"black";$("pvp-"+key+"-card").dataset.active=String(turn===c);$("pvp-"+key+"-losses").textContent=tr("captured");captured(shownMoves,c)}
  $("pvp-turn").textContent=turn?tr(turn==="w"?"turnW":"turnB"):g?.state==="finished"?tr("finished"):tr("noGame");
  renderResult(g);renderReview(moves);
  if(g){
@@ -235,7 +238,7 @@ function renderClocks(){
  for(const [color,key,id] of [["w","white","pvp-white-time"],["b","black","pvp-black-time"]]){
   const raw=g[key+"_remaining_ms"];
   const ms=Number(raw)-(clockAnchor?.running===color?elapsed:0);
-  $(id).textContent=tr(key)+": "+(!timed||raw==null?"—":root.ChessClock?.format?.(Math.max(0,ms))||"—");
+  const value=tr(key)+": "+(!timed||raw==null?"—":root.ChessClock?.format?.(Math.max(0,ms))||"—");if($(id).textContent!==value)$(id).textContent=value;
  }
 }
 let games=[],invites=[];
@@ -275,7 +278,7 @@ async function loadGame(id,e=epoch,who=owner){
  }
  if(g.state==="active")remember(id);else if(remembered()===id)forget();
  if(changed||recovering){recovering=false;notice=null;render();renderList();}
- else renderClocks();
+ else {renderClocks();renderResult(g);}
  return true;
 }
 async function dashboard(e=epoch,who=owner){

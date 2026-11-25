@@ -222,17 +222,18 @@ const fixture=async(actor,browser)=>{
   pass("three-language absolute turn and non-sticky aligned responsive Practice controls");
   const captureGame=new Chess();assert.ok(captureGame.load_pgn("1. e4 d5 2. exd5 Qxd5 3. Nc3 Qe5+ 4. Be2"));
   await a.page.locator("#global-language").selectOption("en");await b.page.locator("#global-language").selectOption("ru");
-  game={...game,canonical_pgn:captureGame.pgn(),canonical_fen:captureGame.fen(),state:"finished",result:"1-0",reason:"timeout",version:game.version+1,running_color:null,move_count:captureGame.history().length};
+  game={...game,canonical_pgn:captureGame.pgn(),canonical_fen:captureGame.fen(),state:"finished",result:"1-0",reason:"flag-fall",version:game.version+1,running_color:null,move_count:captureGame.history().length};
   for(const [player,lang,title] of [[a,"en","You won"],[b,"ru","Вы проиграли"]]){
    await player.page.waitForFunction(()=>document.querySelector("#pvp-result")?.open,null,{timeout:15000});
-   assert.equal(await player.page.locator("#pvp-result-title").innerText(),title);
+   assert.equal(await player.page.locator("#pvp-result-title").innerText(),title);assert.match(await player.page.locator("#pvp-result-detail").innerText(),lang==="en"?/Time expired/:/Время истекло/);
    assert.equal(await player.page.locator("#pvp-white-captured [data-piece=p]").getAttribute("data-count"),"1");assert.equal(await player.page.locator("#pvp-black-captured [data-piece=p]").getAttribute("data-count"),"1");
    await player.page.locator("#pvp-result-review").click();assert.equal(await player.page.locator("#pvp-review-panel").isVisible(),true);
    await player.page.locator("#pvp-review-first").click();assert.equal(await player.page.locator("#pvp-board .last").count(),0);assert.equal(await player.page.locator("#pvp-white-captured [data-piece=p]").count(),0);
    await player.page.locator("#pvp-review-last").click();assert.equal(await player.page.locator("#pvp-board .last").count(),2);
+   if(player===a){await player.page.locator("#pvp-analyze").click();await player.page.waitForFunction(()=>document.querySelector("#pvp-review-status")?.textContent.includes("Analysis complete"),null,{timeout:75000});assert.equal(await player.page.locator("#pvp-review-entries button").count(),captureGame.history().length);assert.equal(await player.page.locator("#pvp-review-summary p").count(),2);}
    await player.page.locator("#pvp-review-close").click();
   }
-  pass("both-player terminal result, captured counts and read-only finished-game replay");
+  pass("both-player terminal result, captured counts, read-only replay and real Stockfish analysis");
   const timing=await a.page.evaluate(()=>window.ChessPvp.latency());assert.ok(timing.read.count>0&&timing.read.p95>=0&&timing.move.count>0);console.log("Synthetic latency (ms): "+JSON.stringify(timing));
   pass("bounded local timing diagnostics");
   await c.page.goto(BASE,{waitUntil:"domcontentloaded"});await c.page.waitForFunction(()=>window.ChessCloud?.authenticated?.());
