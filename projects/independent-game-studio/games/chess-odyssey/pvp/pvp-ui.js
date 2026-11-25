@@ -171,13 +171,14 @@ function renderList(){
  const frag=document.createDocumentFragment();
  for(const g of games){
   const button=document.createElement("button");button.type="button";
-  button.textContent=tr("match")+" "+g.game_id.slice(0,8)+" · "+tr(g.state==="active"?"stateActive":"stateFinished")+" · "+(g.result||"");
+  button.textContent=tr("match")+" "+g.game_id.slice(0,8)+" · "+(g.state==="active"?tr("stateActive"):tr("stateFinished"))+" · "+(g.result||"");
   button.dataset.active=String(g.game_id===state.id);
   button.addEventListener("click",()=>openGame(g.game_id));frag.appendChild(button);
  }
  list.replaceChildren(frag);
  if(!list.children.length)list.textContent=tr("none");
- $("pvp-invites").textContent=tr("pendingInvites").replace("{count}",String(invites.filter(x=>x.state==="pending").length));
+ const pending=invites.filter(x=>x.state==="pending").length;
+ $("pvp-invites").textContent=tr("pendingInvites").replace("{count}",String(pending));
 }
 function validateGame(result,id){
  const g=result?.game;
