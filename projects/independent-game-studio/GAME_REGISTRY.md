@@ -1,5 +1,7 @@
 # Game registry — Chess Odyssey v1.1 public web release (2026-11-25)
 
+**v1.1.1 hotfix candidate — automated QA passed; approval pending (2026-11-25).** [PR #27](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/27) · [Full CI 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653763) · [Focused hotfix QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790) · [Verified candidate ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790/artifacts/14997604931). Published web v1.1 and permanent v1.1.0 archive remain unchanged. Real v1.1 two-account UAT reported stalls, slow synchronization and loss of room after F5; incomplete localization was also reported. The candidate fixes these paths and passes synthetic 40-ply PvP, both-browser F5, lost-response replay, clocks and tested RU/EN/AZ controls. Actual production acceptance and full human locale coverage remain open. No merge or deployment authorized yet.
+
 Historical 2026-11-21 migration cutoff main was: `5bc3496152e2dd49db2cb60e2e0216926cbd9d91` (15:59:49 Baku). No repository tags or GitHub Releases were found. [Machine-readable details](games.json).
 
 | Game ID | Latest identified artifact | Current documented release | Source / QA / next gate |

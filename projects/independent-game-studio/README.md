@@ -1,5 +1,7 @@
 # Independent Game Studio
 
+**v1.1.1 hotfix candidate — automated QA passed; approval pending (2026-11-25).** [PR #27](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/27) · [Full CI 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653763) · [Focused hotfix QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790) · [Verified candidate ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790/artifacts/14997604931). Published web v1.1 and permanent v1.1.0 archive remain unchanged. Real v1.1 two-account UAT reported stalls, slow synchronization and loss of room after F5; incomplete localization was also reported. The candidate fixes these paths and passes synthetic 40-ply PvP, both-browser F5, lost-response replay, clocks and tested RU/EN/AZ controls. Actual production acceptance and full human locale coverage remain open. No merge or deployment authorized yet.
+
 Independent, AI-assisted game projects by Konstantin Oreshnikov. This directory is the single navigation point for all game materials in this portfolio. Every game has independent design, code, release history and QA. The historical games that inspired these projects are references, not claimed licenses or shared source modules.
 
 | Game | What it is | Verified status |
@@ -7,7 +9,7 @@ Independent, AI-assisted game projects by Konstantin Oreshnikov. This directory 
 | [Caribbean Merchant](games/caribbean-merchant/README.md) | Offline Caribbean trading and strategy; inspired by a remembered Port Royale mobile experience | Latest real HTML v1.2; current documented v1.1 release, v1.2 QA pending |
 | [Kingdoms of Ember](games/kingdoms-of-ember/README.md) | Independent 16×12 fantasy turn-based tactics inspired by Ancient Empires II | v1.1 development candidate; original v1.0 preserved; offline launch QA open |
 | [Lord of Ultima-inspired strategy](games/lord-of-ultima/README.md) | Calm solo economy, city, army and continental strategy | Research/specification only; no build |
-| [Chess Odyssey — Academy & Arena](games/chess-odyssey/README.md) | Public multilingual chess game, Academy, historic games, Stockfish | **v1.1 WEB RELEASED** — [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Download](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.0/ChessOdyssey_v1.1.0_Stockfish_Preview.zip) · [Release QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329); accepted cloud/PvP live QA gaps |
+| [Chess Odyssey — Academy & Arena](games/chess-odyssey/README.md) | Public multilingual chess game, Academy, historic games, Stockfish | **v1.1 WEB RELEASED** — [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Download](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.0/ChessOdyssey_v1.1.0_Stockfish_Preview.zip) · [Release QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329); v1.1 real PvP UAT FAIL; v1.1.1 candidate QA passed, approval pending |
 
 ## Chess Odyssey — public v1.1 web release (2026-11-25)
 

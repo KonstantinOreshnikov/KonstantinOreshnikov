@@ -232,5 +232,24 @@
       "origin_path": "libfile_4cb35f5a27408191b98291763ea3f883",
       "source_created_at": "2026-11-19T21:20:42Z"
     }
+  ],
+  "versioned_archive_candidates": [
+    {
+      "game_id": "chess-odyssey",
+      "version": "v1.1.1",
+      "state": "RELEASE_CANDIDATE",
+      "file": "ChessOdyssey_v1.1.1_Stockfish_Preview.zip",
+      "bytes": 2047853,
+      "files": 152,
+      "sha256": "96a6035446ccd3053cf3a954120a43d3c1a9bd96188db81d030873c843662cac",
+      "outer_artifact_sha256": "56b7d8fcecfa64b7787b5b8d1da84bb7cde6fefef559f392cc3276d0727182fa",
+      "artifact_id": 14997604931,
+      "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790/artifacts/14997604931",
+      "origin_commit": "c42e1c16b379405c1029b9088c4648176f13f11f",
+      "qa_run": 45561653790,
+      "full_regression_run": 45561653763,
+      "permanent_release": null,
+      "production_acceptance": "NOT_VERIFIED — prior v1.1 FAIL"
+    }
   ]
 }

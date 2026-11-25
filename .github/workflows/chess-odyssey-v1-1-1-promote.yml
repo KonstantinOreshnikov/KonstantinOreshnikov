@@ -1,0 +1,84 @@
+name: Chess Odyssey — Promote verified v1.1.1 candidate
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/chess-odyssey-v1-1-1-promote.yml"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/chess-odyssey-v1-1-1-promote.yml"
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: chess-v1-1-1-promote-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check that tested application and build inputs are unchanged
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin c42e1c16b379405c1029b9088c4648176f13f11f
+          git diff --exit-code c42e1c16b379405c1029b9088c4648176f13f11f HEAD -- 'projects/independent-game-studio/games/chess-odyssey/' ':(exclude)projects/independent-game-studio/games/chess-odyssey/docs/**' ':(exclude)projects/independent-game-studio/games/chess-odyssey/README.md' ':(exclude)projects/independent-game-studio/games/chess-odyssey/CHANGELOG.md'
+      - uses: actions/download-artifact@v4
+        with:
+          name: ChessOdyssey-v1.1.1-focused-QA
+          run-id: 45561653790
+          github-token: ${{ github.token }}
+          path: verified
+      - name: Verify exact candidate archive bytes and content
+        run: |
+          set -euo pipefail
+          echo '96a6035446ccd3053cf3a954120a43d3c1a9bd96188db81d030873c843662cac  verified/ChessOdyssey_v1.1.1_Stockfish_Preview.zip' | sha256sum -c -
+          test "$(stat -c %s verified/ChessOdyssey_v1.1.1_Stockfish_Preview.zip)" = 2047853
+          python3 - <<'PY'
+          from zipfile import ZipFile
+          with ZipFile("verified/ChessOdyssey_v1.1.1_Stockfish_Preview.zip") as z:
+              assert z.testzip() is None
+              assert len(z.namelist()) == 152
+              prefix = "ChessOdyssey_v1.1.1/"
+              for name in ["index.html", "START_WINDOWS.cmd", "pvp/pvp-ui.js", "cloud/cloud-client.js", "engine/Copying.txt", "dist/ChessOdyssey_v1.1.1_PREVIEW.html"]:
+                  assert prefix + name in z.namelist(), name
+              assert b"v1.1.1" in z.read(prefix + "index.html")
+              assert b"GNU GENERAL PUBLIC LICENSE" in z.read(prefix + "engine/Copying.txt")
+          print("PASS verified exact v1.1.1 candidate archive")
+          PY
+  publish:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: ChessOdyssey-v1.1.1-focused-QA
+          run-id: 45561653790
+          github-token: ${{ github.token }}
+          path: verified
+      - name: Publish permanent prerelease only after owner-authorized main merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag=chess-odyssey-v1.1.1
+          pkg=verified/ChessOdyssey_v1.1.1_Stockfish_Preview.zip
+          notes=projects/independent-game-studio/games/chess-odyssey/docs/RELEASE_V1_1_1.md
+          echo '96a6035446ccd3053cf3a954120a43d3c1a9bd96188db81d030873c843662cac  '"$pkg" | sha256sum -c -
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release already exists; do not overwrite an existing artifact."
+            gh release view "$tag" --json tagName,isPrerelease,assets
+            exit 1
+          fi
+          gh release create "$tag" "$pkg" --target "$GITHUB_SHA" --title "Chess Odyssey v1.1.1 — Hotfix (production acceptance candidate)" --notes-file "$notes" --prerelease
+          gh release view "$tag" --json url,tagName,isPrerelease,assets
