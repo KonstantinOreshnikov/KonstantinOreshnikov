@@ -1,5 +1,7 @@
 # Chess Odyssey v1.1.1 — hotfix release candidate
 
+**Historical published prerelease:** owner authorized release; [PR #27](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/27) merged at `eb535fd863f3450a160454cc7d386c178db55445`; [Pages 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45571962966); [permanent prerelease](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.1) and [exact ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.1/ChessOdyssey_v1.1.1_Stockfish_Preview.zip). Real five-minute UAT reported playable with residual lag and further UX gaps. Current website is v1.1.2. All original pre-approval rows below are historical.
+
 Date: 2026-11-25. **Automated QA PASS; owner authorization and production acceptance pending.**
 Current public version remains v1.1 / official archive v1.1.0 until deployment.
 

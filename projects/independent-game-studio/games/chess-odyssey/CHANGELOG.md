@@ -1,6 +1,23 @@
 # Chess Odyssey — Changelog
 
-## 2026-11-25 — Chess Odyssey v1.1.1 hotfix candidate (not released)
+## 2026-11-25 — v1.1.2 deployed for production UAT
+
+- Owner/colleague real v1.1.1 five-minute PvP playtest: playable, reduced freezes, residual lag; eight UX requirements. PR #28 implements coordinates, active side, last move, captured figures, result, postgame Stockfish, Practice dock and trilingual controls; adds bounded latency diagnostics. [Feedback and repair register](docs/DEVELOPMENT_HISTORY.md).
+- Tested source: `fcf88bfaaf096ad42e468e15967f3df970c29964`; merged at `09224c6dd9bcae0aad86dd80694969578cda99d2`, zero file delta from tested PR head.
+- [Focused run 45624812948](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812948): 24/24 two-browser mocked-transport PvP, actual Stockfish analysis, 40 half-moves, F5, lost-response idempotency, terminal dialog, captured pawn grouping, localized turn, Practice layout, outsider denial; scope limited to executed cases.
+- [Full regression 45624812883](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812883): 3/3 (offline, Chromium, Windows compatibility launcher/Stockfish). [Studio smoke](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812899) and [Pages package](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812924) PASS.
+- [Production deployment 45627594965](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45627594965): 3/3 PASS. Direct independent public-browser readback not recorded for v1.1.2; no runtime/database/security change in this documentation audit.
+- [Verified v1.1.2 CI ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812948/artifacts/15028348210): 152 files, 2,058,248 bytes, SHA-256 `ce58b5da0687ebe2cdd7b0e29c0683b154dd646ffcc201ecacee8e71576729c2`; outer artifact digest `1580be6dd4ad0f5a8eef24ac75cdc6c3fa4c65096675d65dd8df49b08904f67b`. Permanent publication not authorized.
+
+## 2026-11-25 — v1.1.1 hotfix published prerelease
+
+- [PR #27](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/27) merged at `eb535fd863f3450a160454cc7d386c178db55445`; [Pages 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45571962966), [permanent prerelease](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.1) with exact ZIP SHA-256 `96a6035446ccd3053cf3a954120a43d3c1a9bd96188db81d030873c843662cac`. Earlier v1.1 FAIL preserved; real v1.1.1 game playable with remaining issues. [Release note](docs/RELEASE_V1_1_1.md).
+
+## 2026-11-25 — v1.1.0 public web and official archive
+
+- [PR #24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/24) friend invites, Login, text-only zoom; [PR #25](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/25) official archive; [PR #26](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/26) portfolio and Pages race repair. [Official v1.1.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.0), [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45475469995). Later real UAT exposed BUG-01–04; no claim of complete production acceptance.
+
+## 2026-11-25 — v1.1.1 pre-publication hotfix checkpoint (historical)
 
 - Production v1.1 defects: stalls after 1–2 moves, slow sync, lost room on refresh, incomplete locale labels. Candidate adds 1.2s polling, serialized refresh, version guards, account-bound restoration, bounded requests, idempotent replay, clock rendering and RU/EN/AZ fixes.
 - Tested source `c42e1c16b379405c1029b9088c4648176f13f11f`: [full CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653763), [focused QA PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790) including 19/19 PvP/header and 9/9 cloud UI, 26/26 mock cloud API; 40 half-moves; exact candidate ZIP 152 files, 2,047,853 bytes, SHA-256 `96a6035446ccd3053cf3a954120a43d3c1a9bd96188db81d030873c843662cac`. [Artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790/artifacts/14997604931).
@@ -28,7 +45,7 @@
 - [v0.9.0 46-file development ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45125453080/artifacts/14796265039) inner SHA256 `fc6db2dcc41d9515414d73de2a0442e9a7ee8bff9c360c8f1d21fd187f208e66`, outer artifact SHA256 `80db5319d0ae2252cc796c511dfb7f4fbeefddb0a46adf40b91ac0336b73e04f`; ZIP not checked into git, expires 2026-12-23. Source/build scripts permanent. v0.8.0 ZIP archived in repo, unchanged.
 - Production v1.0, genuine authenticated Neon OTP/two-user PvP, independent tri-language semantic review, 100-pair theme/style and real-device UAT remain open.
 
-**CURRENT: B9 / v0.9 Development**, not an idea and not yet a shipped v0.9 binary. At the 2026-11-21 baseline, last archived in-repo preview was **v0.8.0** (feature PR #18 separately has verified v0.9.0 development preview); actual CI: [#403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) (3/3 PASS). See [canonical current status](docs/CURRENT_STATUS.md). The entries below are intentionally chronological and do not supersede newer gates.
+**Historical B9 / v0.9 Development checkpoint**, not an idea and not yet a shipped v0.9 binary. At the 2026-11-21 baseline, last archived in-repo preview was **v0.8.0** (feature PR #18 separately has verified v0.9.0 development preview); actual CI: [#403](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44893035027) (3/3 PASS). See [canonical current status](docs/CURRENT_STATUS.md). The entries below are intentionally chronological and do not supersede newer gates.
 
 ## 2026-11-21 — Development Preview v0.1
 - Started dedicated branch game/chess-odyssey-v0.1 from earlier docs concept branch.
@@ -133,7 +150,7 @@
 - CI red→green: #361/#362 failed only on new browser test's millisecond-exact comparison; #369 failed on double-escaped time-display regex; both tests corrected with realistic bounded real-browser assertions. [#372](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44888424604): unit, Chrome, native Windows all SUCCESS; **B8 18/18 unit + 12/12 browser**, earlier browser suites all green. Reproducible 42-file GPL ZIP SHA256 `d89214184b7e2cd9a45b2d8c17d01c8049d6d4e70fb40fb823974164f7d55daa`.
 - **Historical status at the B8-only #372 checkpoint:** NOT v1.0 production; owner real-device/screen-reader/language QA outstanding; openings and deeper post-game UI optional. B9 was **not started at that historical checkpoint** but has subsequently progressed to local synthetic PvP and configured Neon staging; see the newer B9 entry below. No main merge or deploy.
 
-## 2026-11-21 — B9 / v0.9 Development: local PvP, Neon staging and Better Auth (CURRENT)
+## 2026-11-21 — B9 / v0.9 Development: local PvP, Neon staging and Better Auth (historical)
 - Owner confirmed **human Player-vs-Player is required for v1.0** for 5–10 invited friends/colleagues, with Academy and Stockfish AI as training. v0.9 refers to **development stage**, not a released binary.
 - Implemented server-authoritative **in-memory** `pvp/match-service.cjs`: turn/legal move verification via chess.js, invites, canonical FEN/PGN, two clocks, server-time/flag fall, resignation, agreed draws, rematch, replay/idempotency and per-player privacy checks.
 - Implemented deliberately **unsafe loopback-only** synthetic `pvp/dev-server.cjs` plus `demo.html`, `demo-client.js`, `demo.css`: test-only `X-Demo-User` must never be deployed. CI #403: **27/27 domain, 15/15 HTTP, 11/11 real dual-browser Chrome** PASS. Existing B0–B8 regression and actual Windows smoke remain green.
