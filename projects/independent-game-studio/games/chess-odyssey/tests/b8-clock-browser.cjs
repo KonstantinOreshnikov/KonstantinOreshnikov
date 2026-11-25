@@ -10,9 +10,12 @@ const {chromium}=require("playwright"),assert=require("node:assert/strict"),path
    await page.clock.install({time:new Date("2026-11-21T12:00:00.000Z")});
    await page.goto("file://"+path.resolve(__dirname,"../index.html"));
    await page.waitForFunction(()=>Boolean(window.ChessOdysseyQA?.clock));
-   await check("untimed is default and does not show clocks",async()=>{
+   await check("untimed is default; HUD remains visible without running clocks",async()=>{
      assert.equal(await page.locator("#time-control").inputValue(),"none");
-     assert.equal(await page.locator("#clock-panel").isVisible(),false);
+     assert.equal(await page.locator("#clock-panel").isVisible(),true);
+     assert.equal(await page.locator("#clock-white-time").innerText(),"—");
+     assert.equal(await page.locator("#clock-black-time").innerText(),"—");
+     assert.equal(await page.locator("#clock-white").getAttribute("data-active"),"false");
    });
    await check("select 15+10 starts two real clocks",async()=>{
      await page.selectOption("#time-control","rapid1510");
