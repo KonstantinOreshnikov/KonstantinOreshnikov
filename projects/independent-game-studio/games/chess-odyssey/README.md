@@ -1,26 +1,10 @@
 # Chess Odyssey — Academy, Arena & Legends
 
-**v1.1.1 hotfix candidate — automated QA passed; approval pending (2026-11-25).** [PR #27](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/27) · [Full CI 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653763) · [Focused hotfix QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790) · [Verified candidate ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790/artifacts/14997604931). Published web v1.1 and permanent v1.1.0 archive remain unchanged. Real v1.1 two-account UAT reported stalls, slow synchronization and loss of room after F5; incomplete localization was also reported. The candidate fixes these paths and passes synthetic 40-ply PvP, both-browser F5, lost-response replay, clocks and tested RU/EN/AZ controls. Actual production acceptance and full human locale coverage remain open. No merge or deployment authorized yet. [Candidate release notes](docs/RELEASE_V1_1_1.md).
+**Current web version: v1.1.2 — deployed production UAT candidate (25 November 2026).** [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [PR #28](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/28) · [Focused QA 24/24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812948) · [Full regression 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812883) · [Production Pages 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45627594965). Real v1.1.2 two-player UAT, measured production latency and full human/device acceptance remain open. Latest permanent package is [v1.1.1 prerelease](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.1); latest non-prerelease tagged package is [v1.1.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.0). v1.1.2 ZIP is a verified temporary CI artifact, not a permanent GitHub Release.
 
-**Public web v1.1 (2026-11-25):** [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Release notes](docs/RELEASE_V1_1.md) · [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45475469995). Header Login/Account, friend invitation and reading-only text zoom are deployed. Owner login/invitation and 33/33 progress preservation verified; subsequent real two-player production UAT failed; v1.1.1 candidate retest pending. Current [official Windows/Stockfish ZIP v1.1.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.0/ChessOdyssey_v1.1.0_Stockfish_Preview.zip) · [GitHub Release](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.0) · SHA-256 `869cea06cf40d37ac0173a3be8842aa9679fa33d2a074288e49b6d0a169de111` ([build proof](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45481263004)). Older v1.0.0 remains preserved in history below.
+**[Development history & feedback/fix register](docs/DEVELOPMENT_HISTORY.md)** · [Roadmap](docs/ROADMAP.md) · [Changelog](CHANGELOG.md) · [Current status](STATUS.md) · [v1.1.2 release notes](docs/RELEASE_V1_1_2.md).
 
-
-[**Play Chess Odyssey v1.1**](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [**Windows / Stockfish ZIP**](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.0/ChessOdyssey_v1.1.0_Stockfish_Preview.zip) · [Release notes](docs/RELEASE_V1_1.md)
-
-**[Official GitHub Release v1.0.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.0.0)** — published 24 November 2026. Permanent Windows package SHA-256: `f115a80859502a0c9c5610813a1d513a17c7b3314559f6a273002367b85193a4`.
-
-**Public v1.0.0 — 24 November 2026.** Chess learning for RU/EN/AZ: 33 interactive Academy lessons, 300 historical games (31 fully annotated + 269 historical scores), six AI levels, Stockfish reviews, 10 board themes and 10 piece styles.
-
-| Module | What's included |
-| --- | --- |
-| Practice & Academy | Lesson navigation beside the board, modes, hints, timers and AI |
-| Masters & Legends | Full replay with era/collection filters and historical source attribution |
-| My Progress | Email + OTP account UI and server progress; **two-device conflict E2E still open** |
-| Play a Friend | Invite-based PvP UI; **live 2-user/third-user security E2E still open** |
-
-[Automated QA: 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329) · [Independent public smoke: PASS](https://agent.tinyfish.ai/runs/ad1e13fb-00f5-4e26-a235-cd9013ae371d) · [Known risks and rollback](docs/RELEASE_V1_0_0.md) · [Post-release QA register](docs/POST_RELEASE_QA_V1_0_0.md). Released on public GitHub Pages at the owner's explicit direction; the cloud provider continues to use an existing staging Neon backend, without claiming a separately verified production-isolated cloud service.
-
----
+Chess learning and play in RU/EN/AZ: 33 interactive Academy lessons, 300 historical full-score games (31 annotated + 269 sourced), six AI levels, Stockfish, timed and untimed play, account-owned progress, private PvP and postgame review. Ten board themes and ten piece appearances. The previous official archives remain downloadable: [v1.0.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.0.0/ChessOdyssey_v1.0.0_Stockfish_Preview.zip), [v1.1.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.0/ChessOdyssey_v1.1.0_Stockfish_Preview.zip), [v1.1.1 prerelease](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.1/ChessOdyssey_v1.1.1_Stockfish_Preview.zip); [v1.1.2 CI artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812948/artifacts/15028348210) is temporary.
 
 ## Historical checkpoint: v0.9.0 development (2026-11-23; superseded)
 
@@ -127,26 +111,25 @@ node scripts/serve-local.cjs
 ## How the project changed
 
 ```mermaid
-flowchart TB
- A[B0–B2 legal chess and coaching] --> B[B3 real Stockfish and six levels]
- B --> C[B4 Academy: 33 lessons]
- C --> D[B5 Legends: 31 games]
- D --> E[B6 private progress and 16 achievements]
- E --> F[B7 release-candidate QA]
- F --> G[B8 clocks and v0.8.0 preview]
- G --> H[B9 local PvP and Neon staging]
- H --> I[Real authenticated cloud PvP still open]
+flowchart TD
+ A["20 Nov: original learning-first concept"] --> B["B0–B1 · v0.1 / v0.1.1 · legal chess, practice"]
+ B --> C["B2 · v0.2.0 / v0.2.1 · Coach"]
+ C --> D["B3 · v0.3.0 · Stockfish"]
+ D --> E["B4 · v0.4.0 · 33 Academy lessons"]
+ E --> F["B5 · v0.5.0 · 31 Legends games"]
+ F --> G["B6 · v0.6.0 · progress, achievements"]
+ G --> H["B7 · v0.7.0 · release-candidate QA"]
+ H --> I["B8 · v0.8.0 · clocks, sound, replay"]
+ I --> J["B9 · v0.9.0 · local PvP / Neon staging"]
+ J --> K["P0–P2 · trilingual UI, themes, review"]
+ K --> L["v1.0.0 · 300 games, cloud progress, public release"]
+ L --> M["v1.1.0 · friend invites, Login, text zoom"]
+ M --> N["Real PvP feedback: stalls, F5, localization"]
+ N --> O["v1.1.1 · sync and recovery hotfix"]
+ O --> P["Real playtest: playable, residual lag, UX feedback"]
+ P --> Q["v1.1.2 · HUD, captures, result, review, Practice layout"]
+ Q --> R["Production UAT candidate deployed · automated PASS"]
+ R --> S["Open: real two-player acceptance and latency"]
 ```
 
-| Stage | Preserved artifact / evidence | What it means now |
-| --- | --- | --- |
-| **B0–B2 · v0.1, v0.1.1, v0.2.0, v0.2.1** | [Archived preview HTML builds](dist/) · [full change history](CHANGELOG.md) | Legal chess, beginner practice, coaching and postgame review; historical development previews. |
-| **B3 · v0.3.0** | [Stockfish preview](dist/ChessOdyssey_v0.3.0_PREVIEW.html) · [QA log](docs/QA_LOG.md) | Genuine Stockfish Worker/WASM at four stronger levels, with explicit offline fallback. |
-| **B4 · v0.4.0** | [Academy preview](dist/ChessOdyssey_v0.4.0_PREVIEW.html) · [roadmap](docs/ROADMAP.md) | 33 RU/EN/AZ lessons across rules, tactics, openings and endgames. |
-| **B5 · v0.5.0** | [Masters preview](dist/ChessOdyssey_v0.5.0_PREVIEW.html) · [source register](docs/MASTERS_B5_SOURCE_REGISTER.md) | 31 replayable historical games and 116 original key moments. |
-| **B6 · v0.6.0** | [Progress preview](dist/ChessOdyssey_v0.6.0_PREVIEW.html) · [design](docs/PROGRESS_B6_DESIGN.md) | 16 achievements, learning progress and private AI Ladder Index. |
-| **B7 · v0.7.0 RC** | [Candidate preview](dist/ChessOdyssey_v0.7.0_PREVIEW.html) · [238/238 historic QA](docs/RELEASE_B7_QA.md) | Automated release-candidate gates passed; independent human acceptance remained open. |
-| **B8 · v0.8.0 preview** | [Last packaged playable ZIP](releases/ChessOdyssey_v0.8.0_Stockfish_Preview.zip) · [main CI #407](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/44901266865) | Playable clocks and Stockfish; 3/3 CI jobs PASS, manual/device review open. |
-| **B9 · v0.9 development** | [Current source and staging status](docs/CURRENT_STATUS.md) · [Neon checkpoint](docs/B9_NEON_STAGING_CHECKPOINT_2026-11-21.md) | Local synthetic PvP and isolated Auth/database staging. **No v0.9 packaged release; no real authenticated cloud match verified.** |
-
-The earlier previews are retained as development history. The B9 stage is source development, while v0.8.0 remains the last packaged playable preview; [v1.0 gates](docs/ROADMAP.md) are still open.
+[Complete version-by-version timeline, historical red-to-green repairs and current issue register](docs/DEVELOPMENT_HISTORY.md). Original v0.1–v0.8 previews, v0.9 development evidence, official v1.0.0 and v1.1.0 releases, v1.1.1 prerelease, and v1.1.2 deployed candidate are all tracked separately. Real user feedback and outstanding acceptance are explicitly distinguished from automated PASS.

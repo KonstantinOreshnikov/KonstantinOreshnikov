@@ -1,6 +1,12 @@
 # Studio development history
 
-## 2026-11-25 — Chess Odyssey v1.1.1 hotfix candidate (not released)
+## 2026-11-25 — Chess Odyssey v1.1.2 deployed for real UAT
+
+**Current web version: v1.1.2 — deployed production UAT candidate (25 November 2026).** [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [PR #28](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/28) · [Focused QA 24/24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812948) · [Full regression 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812883) · [Production Pages 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45627594965). Real v1.1.2 two-player UAT, measured production latency and full human/device acceptance remain open. Latest permanent package is [v1.1.1 prerelease](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.1); latest non-prerelease tagged package is [v1.1.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.0). v1.1.2 ZIP is a verified temporary CI artifact, not a permanent GitHub Release.
+
+[Development history and feedback/fix register](games/chess-odyssey/docs/DEVELOPMENT_HISTORY.md) · [release notes](games/chess-odyssey/docs/RELEASE_V1_1_2.md). v1.1.1 published as permanent prerelease at `eb535fd863f3450a160454cc7d386c178db55445` and partial real UAT informed v1.1.2. Earlier release records below are historical.
+
+## 2026-11-25 — v1.1.1 pre-publication hotfix checkpoint (historical)
 
 - Production v1.1 defects: stalls after 1–2 moves, slow sync, lost room on refresh, incomplete locale labels. Candidate adds 1.2s polling, serialized refresh, version guards, account-bound restoration, bounded requests, idempotent replay, clock rendering and RU/EN/AZ fixes.
 - Tested source `c42e1c16b379405c1029b9088c4648176f13f11f`: [full CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653763), [focused QA PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790) including 19/19 PvP/header and 9/9 cloud UI, 26/26 mock cloud API; 40 half-moves; exact candidate ZIP 152 files, 2,047,853 bytes, SHA-256 `96a6035446ccd3053cf3a954120a43d3c1a9bd96188db81d030873c843662cac`. [Artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790/artifacts/14997604931).

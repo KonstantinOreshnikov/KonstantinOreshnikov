@@ -1,4 +1,4 @@
-> **ARCHIVED ORIGINAL IDEA — NOT CURRENT PROJECT STATUS.** This file preserves the owner's initial 20 November 2026 concept verbatim as historical evidence. The project has since moved to **B9 / v0.9 Development**: B0–B8 chess training/clock features implemented, local PvP automated QA PASS, Neon staging PostgreSQL and Better Auth configured; **real authenticated cloud PvP and v1.0 release remain blocked**. Read [CURRENT STATUS](CURRENT_STATUS.md) and [ROADMAP](ROADMAP.md) before using or quoting any status below. The original “idea-only / no clocks / no engine” statements describe only the **2026-11-20 snapshot**, not the product today.
+> **ARCHIVED ORIGINAL IDEA — NOT CURRENT PROJECT STATUS.** Original 20 November 2026 concept retained below. Current site is v1.1.2 production UAT candidate; see [development history](DEVELOPMENT_HISTORY.md), [current status](CURRENT_STATUS.md) and [roadmap](ROADMAP.md). All original idea-only statements describe the original snapshot, not today's product.
 
 # Chess Odyssey — Academy & Arena
 

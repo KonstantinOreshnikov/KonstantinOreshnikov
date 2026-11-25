@@ -237,7 +237,7 @@
     {
       "game_id": "chess-odyssey",
       "version": "v1.1.1",
-      "state": "RELEASE_CANDIDATE",
+      "state": "PUBLISHED_PRERELEASE",
       "file": "ChessOdyssey_v1.1.1_Stockfish_Preview.zip",
       "bytes": 2047853,
       "files": 152,
@@ -248,8 +248,59 @@
       "origin_commit": "c42e1c16b379405c1029b9088c4648176f13f11f",
       "qa_run": 45561653790,
       "full_regression_run": 45561653763,
+      "permanent_release": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.1",
+      "production_acceptance": "PARTIAL REAL UAT; residual lag and UX feedback; superseded web by v1.1.2",
+      "permanent_asset_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.1/ChessOdyssey_v1.1.1_Stockfish_Preview.zip",
+      "release_target": "eb535fd863f3450a160454cc7d386c178db55445"
+    },
+    {
+      "game_id": "chess-odyssey",
+      "version": "v1.1.2",
+      "state": "WEB_DEPLOYED_UAT_CANDIDATE",
+      "file": "ChessOdyssey_v1.1.2_Stockfish_Preview.zip",
+      "bytes": 2058248,
+      "files": 152,
+      "sha256": "ce58b5da0687ebe2cdd7b0e29c0683b154dd646ffcc201ecacee8e71576729c2",
+      "outer_artifact_sha256": "1580be6dd4ad0f5a8eef24ac75cdc6c3fa4c65096675d65dd8df49b08904f67b",
+      "artifact_id": 15028348210,
+      "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812948/artifacts/15028348210",
+      "origin_commit": "fcf88bfaaf096ad42e468e15967f3df970c29964",
+      "qa_run": 45624812948,
+      "full_regression_run": 45624812883,
+      "production_commit": "09224c6dd9bcae0aad86dd80694969578cda99d2",
+      "production_pages_run": 45627594965,
       "permanent_release": null,
-      "production_acceptance": "NOT_VERIFIED — prior v1.1 FAIL"
+      "production_acceptance": "NOT_VERIFIED",
+      "artifact_kind": "TEMPORARY_CI"
+    }
+  ],
+  "permanent_chess_releases": [
+    {
+      "version": "v1.0.0",
+      "tag": "chess-odyssey-v1.0.0",
+      "target": "5882431af32d75b83caad565d08c41bda5a40cf0",
+      "prerelease": false,
+      "archive_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.0.0/ChessOdyssey_v1.0.0_Stockfish_Preview.zip",
+      "sha256": "f115a80859502a0c9c5610813a1d513a17c7b3314559f6a273002367b85193a4",
+      "bytes": 2027337
+    },
+    {
+      "version": "v1.1.0",
+      "tag": "chess-odyssey-v1.1.0",
+      "target": "78b6eeefbcdef345ede6b7b3f6d14c57a06a910d",
+      "prerelease": false,
+      "archive_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.0/ChessOdyssey_v1.1.0_Stockfish_Preview.zip",
+      "sha256": "869cea06cf40d37ac0173a3be8842aa9679fa33d2a074288e49b6d0a169de111",
+      "bytes": 2038545
+    },
+    {
+      "version": "v1.1.1",
+      "tag": "chess-odyssey-v1.1.1",
+      "target": "eb535fd863f3450a160454cc7d386c178db55445",
+      "prerelease": true,
+      "archive_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.1/ChessOdyssey_v1.1.1_Stockfish_Preview.zip",
+      "sha256": "96a6035446ccd3053cf3a954120a43d3c1a9bd96188db81d030873c843662cac",
+      "bytes": 2047853
     }
   ]
 }
