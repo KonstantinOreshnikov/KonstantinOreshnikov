@@ -26,7 +26,7 @@ jobs:
         run: |
           set -euo pipefail
           git fetch --no-tags origin c42e1c16b379405c1029b9088c4648176f13f11f
-          git diff --exit-code c42e1c16b379405c1029b9088c4648176f13f11f HEAD -- 'projects/independent-game-studio/games/chess-odyssey/' ':(exclude)projects/independent-game-studio/games/chess-odyssey/docs/**' ':(exclude)projects/independent-game-studio/games/chess-odyssey/README.md' ':(exclude)projects/independent-game-studio/games/chess-odyssey/CHANGELOG.md'
+          git diff --exit-code c42e1c16b379405c1029b9088c4648176f13f11f HEAD -- 'projects/independent-game-studio/games/chess-odyssey/' ':(exclude)projects/independent-game-studio/games/chess-odyssey/docs/**' ':(exclude)projects/independent-game-studio/games/chess-odyssey/README.md' ':(exclude)projects/independent-game-studio/games/chess-odyssey/CHANGELOG.md' ':(exclude)projects/independent-game-studio/games/chess-odyssey/STATUS.md'
       - uses: actions/download-artifact@v4
         with:
           name: ChessOdyssey-v1.1.1-focused-QA
