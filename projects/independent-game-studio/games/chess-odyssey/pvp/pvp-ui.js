@@ -113,7 +113,7 @@ function captured(moves,color){
  if(!holder.children.length){const empty=document.createElement("span");empty.textContent="—";empty.title=tr("noCaptures");holder.append(empty)}
  holder.setAttribute("aria-label",tr(color==="w"?"white":"black")+" · "+tr("captured"));
 }
-function reasonKey(reason){return ({"checkmate":"mate","mate":"mate","timeout":"timeout","time-forfeit":"timeout","resignation":"resignation","agreed-draw":"agreedDraw","stalemate":"stalemate","threefold-repetition":"repetition","repetition":"repetition","fifty-move":"fiftyMove","50-move":"fiftyMove","insufficient-material":"insufficient"})[reason]||"otherReason"}
+function reasonKey(reason){return ({"checkmate":"mate","mate":"mate","timeout":"timeout","time-forfeit":"timeout","resignation":"resignation","agreed-draw":"agreedDraw","chess-draw":"drawResult","stalemate":"stalemate","threefold-repetition":"repetition","repetition":"repetition","fifty-move":"fiftyMove","50-move":"fiftyMove","insufficient-material":"insufficient"})[reason]||"otherReason"}
 function renderResult(g){
  const d=$("pvp-result"),finished=g?.state==="finished",valid=finished&&["1-0","0-1","1/2-1/2"].includes(g.result);
  $("pvp-review-open").disabled=!finished||!g.canonical_pgn;
@@ -123,7 +123,7 @@ function renderResult(g){
  $("pvp-result-detail").textContent=tr(winner===null?"drawResult":winner==="w"?"whiteWins":"blackWins")+" · "+tr(reasonKey(g.reason))+" · "+g.result;
  $("pvp-result-review").textContent=tr("review");$("pvp-result-review").disabled=!g.canonical_pgn;$("pvp-result-close").textContent=tr("close");
  const key=g.game_id+":"+g.version;
- if(resultSeen!==key&&!$("pvp-view").hidden){resultSeen=key;d.showModal()}
+ if(resultSeen!==key&&!$("pvp-view").hidden){resultSeen=key;if(!d.open)d.showModal()}
 }
 function openReview(){if(state.game?.state!=="finished"||!state.game.canonical_pgn)return;$("pvp-result").close();$("pvp-review-panel").hidden=false;reviewPly=canonical(state.game).moves.length;render();$("pvp-review-panel").scrollIntoView({block:"nearest"})}
 function renderReview(moves){
@@ -195,7 +195,7 @@ function render(){
  }
  board.replaceChildren(frag);
  if(keepFocus)board.querySelector("button[data-square="+state.keyboardSquare+"]")?.focus();
- root.ChessAppearance?.apply?.(board);
+ root.ChessAppearance?.apply?.(document);
  $("pvp-clockline").dataset.bottom=bottom;
  for(const c of ["w","b"]){const key=c==="w"?"white":"black";$("pvp-"+key+"-card").dataset.active=String(turn===c);captured(shownMoves,c)}
  $("pvp-turn").textContent=turn?tr(turn==="w"?"turnW":"turnB"):g?.state==="finished"?tr("finished"):tr("noGame");
@@ -265,7 +265,7 @@ async function loadGame(id,e=epoch,who=owner){
  if(!current(e,who))return false;
  const g=validateGame(result,id);
  if(state.id===id&&state.game&&Number(g.version)<Number(state.game.version))return false;
- const changed=state.id!==id||!state.game||Number(state.game.version)!==Number(g.version);
+ const changed=state.id!==id||!state.game||Number(state.game.version)!==Number(g.version)||state.game.state!==g.state||state.game.canonical_fen!==g.canonical_fen||state.game.canonical_pgn!==g.canonical_pgn;
  if(state.id!==id||(state.game?.state==="finished"&&changed)){resetReview();}
  state.game=g;state.id=id;state.color=result.playerColor;state.connected=true;
  if(changed){
