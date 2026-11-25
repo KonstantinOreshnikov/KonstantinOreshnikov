@@ -272,6 +272,27 @@
       "permanent_release": null,
       "production_acceptance": "NOT_VERIFIED",
       "artifact_kind": "TEMPORARY_CI"
+    },
+    {
+      "game_id": "chess-odyssey",
+      "version": "v1.1.3",
+      "state": "WEB_DEPLOYED_UAT_CANDIDATE",
+      "file": "ChessOdyssey_v1.1.3_Stockfish_Preview.zip",
+      "bytes": 2063096,
+      "files": 152,
+      "sha256": "406a0650327912f24b5fbd332e4de097ce07078e387072a442d912eb9a26bcf6",
+      "outer_artifact_sha256": "7c33e12a3cde5c2ddb1feebe1474982d6b6f3c33cd673e609c2d9bfa8ae5a262",
+      "artifact_id": 15049262390,
+      "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670474986/artifacts/15049262390",
+      "artifact_expires_on": "2026-12-25T18:02:02Z",
+      "origin_commit": "54bbf41a0c509c88dfa75b9dad8deeec22f6fb92",
+      "qa_run": 45670474986,
+      "full_regression_run": 45670473640,
+      "permanent_release": null,
+      "production_acceptance": "NOT_VERIFIED",
+      "artifact_kind": "TEMPORARY_CI",
+      "production_commit": "adf7132d79f60066e2cd528cbe446ff22e94abad",
+      "production_pages_run": 45673333733
     }
   ],
   "permanent_chess_releases": [
