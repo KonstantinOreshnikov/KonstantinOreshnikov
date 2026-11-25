@@ -1,0 +1,28 @@
+# Genesis of Worlds
+
+**Independent Game Studio — Project 05 | RESEARCH / CONCEPT | 2026-11-25**
+
+A calm, original single-player planetary strategy and terraforming simulator inspired by the classic 2016–2018 TerraGenesis experience. The player turns a hostile world into a living, self-sustaining civilization and can continue playing after victory. Genesis of Worlds is a provisional working title, not a claim of affiliation, license, or access to the original game's source code.
+
+## Vision
+
+- Interactive rotating 3D globe with visible, continuous environmental transformation: barren terrain, ice, water, clouds, vegetation and city lights.
+- Manage temperature, pressure, oxygen, water, biomass, population, economy, research and culture as interdependent systems.
+- Establish cities and mining outposts, build facilities, unlock technology, respond to events, and eventually automate planetary equilibrium.
+- Start with Mars and add progressively harder worlds; real scientific baselines where feasible, explicitly simplified game physics.
+- Desktop browsers and Android; RU / EN / AZ; offline-first saves, adjustable simulation speed, optional offline progression. No advertising, purchases, subscription, mandatory login or pay-to-win.
+- Original code, UI, art and balancing; third-party code/data only after provenance and license approval.
+
+## Documentation
+
+| Document | Purpose |
+| --- | --- |
+| [Game design](docs/GAME_DESIGN.md) | Full proposed systems, rules, features, UX and scope |
+| [Research and source register](docs/RESEARCH.md) | Original game references, candidate open-source repositories, scientific data, license gates |
+| [Technical architecture and QA](docs/ARCHITECTURE_QA.md) | Implementation options, state model, persistence, tests and release requirements |
+| [Roadmap](docs/ROADMAP.md) | Ordered milestones and acceptance criteria |
+| [Status](STATUS.md) | Authoritative current stage and next action |
+
+## How the project changed
+
+- **2026-11-25:** Owner requested a detailed GitHub concept as the fifth independent studio project following a nostalgic recollection of TerraGenesis. Research and design recorded; no game implementation or public release authorized. See [studio registry](../../GAME_REGISTRY.md).

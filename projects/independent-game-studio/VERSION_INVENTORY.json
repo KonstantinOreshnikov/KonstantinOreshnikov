@@ -302,5 +302,18 @@
       "sha256": "96a6035446ccd3053cf3a954120a43d3c1a9bd96188db81d030873c843662cac",
       "bytes": 2047853
     }
+  ],
+  "concept_only_projects": [
+    {
+      "game_id": "genesis-of-worlds",
+      "state": "RESEARCH_CONCEPT",
+      "version": null,
+      "artifact": null,
+      "sha256": null,
+      "release": null,
+      "qa": "NOT_STARTED",
+      "status_path": "projects/independent-game-studio/games/genesis-of-worlds/STATUS.md",
+      "registered_on": "2026-11-25"
+    }
   ]
 }
