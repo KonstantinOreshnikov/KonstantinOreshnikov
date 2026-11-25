@@ -16,12 +16,19 @@ const dict={
 let neon=null,session=null,revision=0,busy=false,locale="ru";
 let accountReady=false,syncBlocked=false,syncTimer=null,syncActive=false;
 const t=(key,params={})=>((dict[locale]||dict.ru)[key]||key).replace(/\{(\w+)\}/g,(_,k)=>params[k]===undefined?"":String(params[k]));
-const show=(message,err=false)=>{const p=$("cloud-status");if(p){p.textContent=message;p.dataset.error=String(err)}};
+let statusMemo=null;
+function paintStatus(message,err=false){const p=$("cloud-status");if(p){p.textContent=message;p.dataset.error=String(err)}}
+const show=(message,err=false)=>{
+ const key=Object.keys(dict[locale]||dict.ru).find(k=>t(k)===message);
+ statusMemo=key?{key,params:{},err}:message===t("saved",{rev:revision})?{key:"saved",params:{rev:revision},err}:null;
+ paintStatus(message,err);
+};
 function translate(){
  locale=["ru","en","az"].includes($("global-language")?.value)?$("global-language").value:"ru";
  const pairs=[["cloud-heading","heading"],["cloud-explanation","explanation"],["cloud-email-label","email"],["cloud-password-label","password"],["cloud-otp-label","otp"],["cloud-login","login"],["cloud-signup","signup"],["cloud-verify","verify"],["cloud-send-otp","send"],["cloud-upload","upload"],["cloud-download","download"],["cloud-logout","logout"]];
  for(const [id,key] of pairs)if($(id))$(id).textContent=t(key);
  if(session)$("cloud-identity").textContent=t("signed",{email:session.user?.email||""});
+ if(statusMemo)paintStatus(t(statusMemo.key,statusMemo.params),statusMemo.err);
 }
 function buttons(){
  for(const id of ["cloud-login","cloud-signup","cloud-verify","cloud-send-otp","cloud-upload","cloud-download","cloud-logout"]){
@@ -38,7 +45,7 @@ async function updateSession(){
  if(signed)$("cloud-identity").textContent=t("signed",{email:session.user?.email||""});
  buttons();window.dispatchEvent(new Event("chess-cloud-session"));return signed;
 }
-async function run(work){if(busy||!neon)return;busy=true;buttons();try{await work()}catch(e){show((e?.message&&e.message.length<160)?e.message:t("bad"),true)}finally{busy=false;buttons()}}
+async function run(work){if(busy||!neon)return;busy=true;buttons();try{await work()}catch(e){show(e?.status===409?t("conflict"):t("bad"),true)}finally{busy=false;buttons()}}
 const email=()=>$("cloud-email").value.trim();
 async function token(){
  const {data,error}=await neon.auth.getSession();
@@ -55,10 +62,22 @@ async function refreshRevision(){
  return response;
 }
 async function api(path,{method="GET",body}={}){
- const response=await fetch(API+path,{method,headers:{Authorization:"Bearer "+await token(),...(body?{"Content-Type":"application/json"}:{})},body:body?JSON.stringify(body):undefined,cache:"no-store",credentials:"omit"});
- const data=await response.json().catch(()=>({}));
- if(!response.ok){if(response.status===409)throw Error(t("conflict"));throw Error((data.error||"API_ERROR")+" ("+response.status+")");}
- return data;
+ const controller=new AbortController();
+ let timer;
+ const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(Error("REQUEST_TIMEOUT"))},10000)});
+ try{
+  return await Promise.race([deadline,(async()=>{
+   const jwt=await token();
+   if(controller.signal.aborted)throw Error("REQUEST_TIMEOUT");
+   const response=await fetch(API+path,{method,headers:{Authorization:"Bearer "+jwt,...(body?{"Content-Type":"application/json"}:{})},body:body?JSON.stringify(body):undefined,cache:"no-store",credentials:"omit",signal:controller.signal});
+   const data=await response.json().catch(()=>({}));
+   if(!response.ok){
+    if(response.status===409&&path==="/api/progress")throw Object.assign(Error("STALE_PROGRESS_REVISION"),{status:409});
+    throw Object.assign(Error((data.error||"API_ERROR")+" ("+response.status+")"),{status:response.status});
+   }
+   return data;
+  })()]);
+ }catch(e){if(controller.signal.aborted)throw Error("REQUEST_TIMEOUT");throw e}finally{clearTimeout(timer)}
 }
 function snapshot(){
  if(!accountReady||!session?.user?.id||localStorage.getItem(OWNER_KEY)!==session.user.id)return null;
@@ -133,8 +152,8 @@ async function flushPending(){
   if(localStorage.getItem(key)===raw)localStorage.removeItem(key);
   show(t("saved",{rev:revision}));
  }catch(error){
-  if(error.message===t("conflict"))syncBlocked=true;
-  show(error.message||t("bad"),true);
+  if(error.status===409||error.message==="STALE_PROGRESS_REVISION")syncBlocked=true;
+  show(syncBlocked?t("conflict"):t("bad"),true);
  }finally{
   syncActive=false;
   if(accountReady&&!syncBlocked&&localStorage.getItem(key)!==raw&&localStorage.getItem(key))

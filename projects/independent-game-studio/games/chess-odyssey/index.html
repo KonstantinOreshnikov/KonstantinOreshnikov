@@ -39,24 +39,24 @@
       </div></div>
       <div class="top-actions">
         <div class="header-toolbar">
-          <label class="global-language"><span data-i18n="language">Язык</span><select id="global-language" aria-label="Site language"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label>
-          <div class="header-zoom" role="group" aria-label="Text zoom">
+          <label class="global-language"><span data-i18n="language">Язык</span><select id="global-language" aria-label="Site language" data-ui-aria="s0"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select></label>
+          <div class="header-zoom" role="group" aria-label="Text zoom" data-ui-aria="s1">
             <button type="button" id="header-zoom-out" aria-label="Уменьшить текст">A−</button>
-            <button type="button" id="header-zoom-value" aria-label="Обычный размер текста" title="Reset">100%</button>
+            <button type="button" id="header-zoom-value" aria-label="Обычный размер текста" title="Reset" data-ui-title="s2">100%</button>
             <button type="button" id="header-zoom-in" aria-label="Увеличить текст">A+</button>
           </div>
           <button type="button" id="header-login" aria-haspopup="dialog" aria-controls="header-account-dialog">Войти</button>
         </div>
-        <div class="version">Chess Odyssey <span>v1.1 · RELEASED</span><small>300 historical games · 33 Academy lessons</small></div>
+        <div class="version">Chess Odyssey <span id="version-label">v1.1.1 · RELEASE CANDIDATE</span><small id="version-summary">300 historical games · 33 Academy lessons</small></div>
       </div>
     </header>
-    <nav class="game-tabs" role="tablist" aria-label="Chess Odyssey sections">
+    <nav class="game-tabs" role="tablist" aria-label="Chess Odyssey sections" data-ui-aria="s3">
       <button type="button" id="nav-play" role="tab" aria-selected="true" aria-controls="practice-view" data-master-label="practiceTab">Практика и Академия</button>
       <button type="button" id="nav-masters" role="tab" aria-selected="false" aria-controls="masters-view" data-master-label="mastersTab">Мастера и легенды</button>
       <button type="button" id="nav-progress" role="tab" aria-selected="false" aria-controls="progress-view" data-master-label="progressTab">Мой прогресс</button>
       <button type="button" id="nav-pvp" role="tab" aria-selected="false" aria-controls="pvp-view" data-master-label="pvpTab">Онлайн с другом</button>
     </nav>
-    <section class="workspace" id="practice-view" role="tabpanel" aria-labelledby="nav-play" aria-label="Chess game and coach">
+    <section class="workspace" id="practice-view" role="tabpanel" aria-labelledby="nav-play" aria-label="Chess game and coach" data-ui-aria="s4">
       <details id="mobile-game-settings" class="mobile-game-settings">
         <summary><span data-i18n="mobileSettings">Настройки партии</span></summary>
         <div class="mobile-settings-content">
@@ -65,7 +65,7 @@
         </div>
       </details>
       <div class="play-section">
-        <details id="academy-dock" class="academy-dock" aria-label="Academy lesson controls">
+        <details id="academy-dock" class="academy-dock" aria-label="Academy lesson controls" data-ui-aria="s5">
           <summary><span id="academy-dock-heading" data-academy-dock="heading">Академия · выбрать урок</span><small id="academy-dock-count">0/33</small></summary>
           <div class="academy-dock-content">
             <div id="academy-dock-fields" class="academy-dock-fields"></div>
@@ -80,26 +80,26 @@
         </details>
         <div class="board-topline">
           <div><p class="eyebrow" data-i18n="game">Тренировочная партия</p><h2 id="game-status" aria-live="polite">Ваш ход</h2></div>
-          <div class="board-top-actions"><label class="flip-control"><input type="checkbox" id="flip"><span data-i18n="flip">Повернуть доску</span></label><button type="button" id="wide-view" class="compact-action" aria-label="Wide board view">Широкая доска</button></div>
+          <div class="board-top-actions"><label class="flip-control"><input type="checkbox" id="flip"><span data-i18n="flip">Повернуть доску</span></label><button type="button" id="wide-view" class="compact-action" aria-label="Wide board view" data-ui-aria="s6">Широкая доска</button></div>
         </div>
         <div id="clock-panel" class="clock-panel" role="group" aria-label="Chess game clocks" hidden>
           <div class="clock-card" id="clock-black"><span class="clock-player" data-i18n="blackClock">Чёрные</span><span class="sandglass" aria-hidden="true">⌛</span><strong id="clock-black-time" class="clock-time" aria-label="Black time remaining">00:00</strong></div>
           <div class="clock-card" id="clock-white"><span class="clock-player" data-i18n="whiteClock">Белые</span><span class="sandglass" aria-hidden="true">⌛</span><strong id="clock-white-time" class="clock-time" aria-label="White time remaining">00:00</strong></div>
         </div>
-        <div class="board-frame"><div id="board" class="board" role="group" aria-label="Chessboard" aria-describedby="board-keyboard-hint"></div></div>
-        <div class="board-replay-dock" role="region" aria-label="Move navigation and notation">
-          <div class="replay-toolbar" role="group" aria-label="Move replay controls">
-            <button id="h-first" type="button" aria-label="First position" title="First position">|◀</button>
-            <button id="h-prev" type="button" aria-label="Previous move" title="Previous move">◀</button>
+        <div class="board-frame"><div id="board" class="board" role="group" aria-label="Chessboard" aria-describedby="board-keyboard-hint" data-ui-aria="s7"></div></div>
+        <div class="board-replay-dock" role="region" aria-label="Move navigation and notation" data-ui-aria="s8">
+          <div class="replay-toolbar" role="group" aria-label="Move replay controls" data-ui-aria="s9">
+            <button id="h-first" type="button" aria-label="First position" title="First position" data-ui-aria="s10" data-ui-title="s10">|◀</button>
+            <button id="h-prev" type="button" aria-label="Previous move" title="Previous move" data-ui-aria="s11" data-ui-title="s11">◀</button>
             <span id="h-progress" aria-live="polite">0 / 0</span>
-            <button id="h-next" type="button" aria-label="Next move" title="Next move">▶</button>
-            <button id="h-last" type="button" aria-label="Last / live position" title="Last / live position">▶|</button>
+            <button id="h-next" type="button" aria-label="Next move" title="Next move" data-ui-aria="s12" data-ui-title="s12">▶</button>
+            <button id="h-last" type="button" aria-label="Last / live position" title="Last / live position" data-ui-aria="s13" data-ui-title="s13">▶|</button>
             <button id="h-return" type="button" class="replay-live" data-i18n="returnLive" hidden>К партии</button>
           </div>
           <output id="h-current-san" class="replay-current" aria-live="polite">Начальная позиция</output>
         </div>
         <aside id="game-result-toast" class="game-result-toast" role="status" aria-live="polite" hidden>
-          <div class="game-result-top"><strong id="game-result-title"></strong><button type="button" id="game-result-close" aria-label="Закрыть уведомление">×</button></div>
+          <div class="game-result-top"><strong id="game-result-title"></strong><button type="button" id="game-result-close" aria-label="Закрыть уведомление" data-ui-aria="s14">×</button></div>
           <p id="game-result-detail"></p>
           <button id="game-result-review" type="button">Разбор партии</button>
         </aside>
@@ -111,14 +111,14 @@
         </div>
         <div class="b8-controls"><button id="resign" type="button" class="action" data-i18n="resign">Сдаться</button><button id="rematch" type="button" class="action" data-i18n="rematch">Реванш</button></div>
         <div class="moves-panel"><h3 data-i18n="moves">История ходов</h3>
-          <div id="moves" class="move-timeline" role="group" aria-label="Recorded chess moves">—</div>
+          <div id="moves" class="move-timeline" role="group" aria-label="Recorded chess moves" data-ui-aria="s15">—</div>
         </div>
       </div>
       <aside class="sidebar">
         <section class="panel coach-panel">
           <div class="panel-head"><span class="coach-icon" aria-hidden="true">✦</span><h2 data-i18n="coach">AI Coach · Учимся играя</h2></div>
           <p id="coach-message" class="coach-message" aria-live="polite">Выберите фигуру, затем доступную клетку.</p>
-          <ol id="coach-variations" class="coach-variations" aria-label="Legal move choices" hidden></ol>
+          <ol id="coach-variations" class="coach-variations" aria-label="Legal move choices" hidden data-ui-aria="s16"></ol>
           <button id="review-button" class="review-button" data-i18n="reviewButton">Разбор ключевых ходов</button>
           <details id="full-review-details" class="full-review-details">
             <summary data-i18n="fullReview">Полный разбор партии</summary>
@@ -127,10 +127,10 @@
               <button type="button" id="start-review" class="action accent" data-i18n="reviewStart">Анализировать ходы</button><button type="button" id="cancel-review" class="action" data-i18n="reviewCancel" hidden>Отменить анализ</button></div>
               <p id="review-progress" role="status" aria-live="polite"></p>
               <div id="review-summary" class="review-summary" aria-live="polite"></div>
-              <section id="review-skills" class="review-skills" aria-label="Five-category game assessment" hidden></section>
-              <div id="review-chart" class="review-chart" role="img" aria-label="Position advantage after each move"></div>
+              <section id="review-skills" class="review-skills" aria-label="Five-category game assessment" hidden data-ui-aria="s17"></section>
+              <div id="review-chart" class="review-chart" role="img" aria-label="Position advantage after each move" data-ui-aria="s18"></div>
               <details id="move-legend" class="move-legend"><summary data-i18n="moveLegend">Что означают оценки ходов?</summary><div id="move-legend-list"></div></details>
-              <div id="review-entries" class="review-entries" role="group" aria-label="Move-by-move review"></div>
+              <div id="review-entries" class="review-entries" role="group" aria-label="Move-by-move review" data-ui-aria="s19"></div>
             </div>
           </details>
           <div id="coach-review" class="coach-review" aria-live="polite" hidden>
@@ -140,8 +140,8 @@
           <p class="footnote" data-i18n="about">Рейтинг отключён в тренировке; без таймера</p>
         </section>
         <section class="panel appearance-panel">
-          <details id="board-theme-details" class="appearance-details"><summary><span data-appearance="boardTheme">Тема доски</span> <small id="theme-current">Классическое дерево</small></summary><div id="theme-options" class="appearance-options" role="group" aria-label="Board palettes"></div></details>
-          <details id="piece-style-details" class="appearance-details"><summary><span data-appearance="pieces">Набор фигур</span> <small id="piece-current">Классика Staunton</small></summary><div id="piece-options" class="appearance-options" role="group" aria-label="Piece styles"></div></details>
+          <details id="board-theme-details" class="appearance-details"><summary><span data-appearance="boardTheme">Тема доски</span> <small id="theme-current">Классическое дерево</small></summary><div id="theme-options" class="appearance-options" role="group" aria-label="Board palettes" data-ui-aria="s20"></div></details>
+          <details id="piece-style-details" class="appearance-details"><summary><span data-appearance="pieces">Набор фигур</span> <small id="piece-current">Классика Staunton</small></summary><div id="piece-options" class="appearance-options" role="group" aria-label="Piece styles" data-ui-aria="s21"></div></details>
         </section>
         <section class="panel settings-panel">
           <div class="two-fields">
@@ -150,7 +150,7 @@
           </div>
           <p id="engine-status" class="engine-status" role="status" aria-live="polite">Локальный AI для обучения</p>
           <label class="match-mode-label"><span id="match-mode-label">Тип партии</span>
-            <select id="match-mode" aria-label="Match type">
+            <select id="match-mode" aria-label="Match type" data-ui-aria="s22">
               <option value="practice">Тренировка с подсказками</option>
               <option value="independent">Самостоятельный матч без помощи</option>
             </select>
@@ -173,7 +173,7 @@
         <section class="panel academy-panel">
           <h2 data-i18n="lessons">Академия</h2>
           <label class="academy-filter-label"><span data-i18n="academyTrack">Раздел обучения</span>
-            <select id="academy-track" aria-label="Academy track">
+            <select id="academy-track" aria-label="Academy track" data-ui-aria="s23">
               <option value="all" data-i18n="allTracks">Все разделы</option>
               <option value="basics" data-i18n="trackBasics">Основы и правила</option>
               <option value="tactics" data-i18n="trackTactics">Тактика и комбинации</option>
@@ -183,7 +183,7 @@
           </label>
           <p id="academy-track-status" class="academy-track-status" aria-live="polite"></p>
           <label class="academy-lesson-label"><span data-i18n="academyLesson">Урок или задача</span>
-            <select id="lesson" aria-label="Choose lesson">
+            <select id="lesson" aria-label="Choose lesson" data-ui-aria="s24">
               <option value="" data-i18n="chooseLesson">Выбрать урок…</option>
             <option value="pawn">1. Пешка занимает центр</option>
             <option value="knight">2. Конь перепрыгивает фигуры</option>
@@ -247,16 +247,16 @@
         <div class="board-frame masters-board-frame">
           <div id="m-board" class="board masters-board" role="img" aria-label="Historical chess game board"></div>
         </div>
-        <div class="masters-navigation" role="group" aria-label="Historical game move controls">
-          <button type="button" id="m-first" aria-label="First move">|◀</button>
-          <button type="button" id="m-prev" aria-label="Previous move">◀</button>
+        <div class="masters-navigation" role="group" aria-label="Historical game move controls" data-ui-aria="s25">
+          <button type="button" id="m-first" aria-label="First move" data-ui-aria="s26">|◀</button>
+          <button type="button" id="m-prev" aria-label="Previous move" data-ui-aria="s11">◀</button>
           <button type="button" id="m-play" aria-label="Autoplay historical game">▶</button>
-          <button type="button" id="m-next" aria-label="Next move">▶</button>
-          <button type="button" id="m-last" aria-label="Last move">▶|</button>
+          <button type="button" id="m-next" aria-label="Next move" data-ui-aria="s12">▶</button>
+          <button type="button" id="m-last" aria-label="Last move" data-ui-aria="s27">▶|</button>
         </div>
         <label class="masters-range-label">
           <span id="m-progress" aria-live="polite">0 / 0</span>
-          <input id="m-slider" type="range" min="0" max="1" step="1" value="0" aria-label="Go to recorded move">
+          <input id="m-slider" type="range" min="0" max="1" step="1" value="0" aria-label="Go to recorded move" data-ui-aria="s28">
         </label>
         <div class="masters-toolbar">
           <button type="button" id="m-quiz" class="action accent" data-master-label="guessMove">Найти ход мастера</button>
@@ -265,14 +265,14 @@
         </div>
         <div class="masters-move-panel">
           <h3 data-master-label="scoreTitle">Полная запись партии · нажми на любой ход</h3>
-          <div id="m-moves" class="masters-moves" role="group" aria-label="Historical moves"></div>
+          <div id="m-moves" class="masters-moves" role="group" aria-label="Historical moves" data-ui-aria="s29"></div>
         </div>
       </div>
       <aside class="masters-sidebar">
         <section class="panel masters-catalogue">
           <h2 data-master-label="libraryTitle">Библиотека исторических партий</h2>
           <label><span data-master-label="groupTitle">Коллекция</span>
-            <select id="m-group" aria-label="Historical game collection">
+            <select id="m-group" aria-label="Historical game collection" data-ui-aria="s30">
               <option value="all" data-master-label="groupAll">Все коллекции</option>
               <option value="legends" data-master-label="groupLegends">Легенды · подробные разборы</option>
               <option value="champions" data-master-label="groupChampions">Чемпионы мира · полные партии</option>
@@ -290,10 +290,10 @@
             </select>
           </label>
           <label><span data-master-label="searchTitle">Поиск по игроку, названию и году</span>
-            <input id="m-search" type="search" placeholder="Morphy, Fischer, Kasparov..." autocomplete="off" aria-label="Search master games">
+            <input id="m-search" type="search" placeholder="Morphy, Fischer, Kasparov..." autocomplete="off" aria-label="Search master games" data-ui-aria="s31">
           </label>
           <label><span data-master-label="chooseTitle">Историческая партия</span>
-            <select id="m-game" aria-label="Select historical master game"></select>
+            <select id="m-game" aria-label="Select historical master game" data-ui-aria="s32"></select>
           </label>
           <p id="m-catalogue-count" class="masters-meta" aria-live="polite"></p>
           <label class="legacy-language-control" hidden><span data-master-label="language">Язык объяснений</span>
@@ -307,10 +307,10 @@
           <p id="m-explain" class="masters-explain" aria-live="polite"></p>
           <div id="m-quiz-panel" class="masters-quiz" hidden>
             <p id="m-question" class="masters-question"></p>
-            <div id="m-options" class="masters-options" role="group" aria-label="Legal historical move options"></div>
+            <div id="m-options" class="masters-options" role="group" aria-label="Legal historical move options" data-ui-aria="s33"></div>
             <p id="m-feedback" aria-live="polite"></p>
           </div>
-          <ol id="m-moments" class="masters-moments" aria-label="Annotated key moments"></ol>
+          <ol id="m-moments" class="masters-moments" aria-label="Annotated key moments" data-ui-aria="s34"></ol>
           <p class="footnote" data-master-label="teachingNote">Задача — угадать исторический ход, не обязательно объективно лучший. Другие варианты могут быть допустимы.</p>
         </section>
         <section class="panel masters-bookmarks">
@@ -379,7 +379,7 @@
         <h2 id="progress-title">Мой прогресс</h2>
         <p id="progress-lead" class="progress-lead">Обучение и самостоятельная игра измеряются отдельно.</p>
         <label class="progress-lang-control legacy-language-control" hidden><span id="progress-lang-label">Язык</span>
-          <select id="progress-lang" aria-label="Progress language"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select>
+          <select id="progress-lang" aria-label="Progress language" data-ui-aria="s35"><option value="ru">Русский</option><option value="en">English</option><option value="az">Azərbaycanca</option></select>
         </label>
       </div>
       <div class="progress-metrics">
@@ -425,7 +425,7 @@
         <p id="progress-achievements-count" class="progress-note"></p>
         <div id="progress-awards" class="progress-awards"></div>
       </section>
-      <section class="panel cloud-account" id="cloud-account" aria-label="Chess Odyssey cloud account">
+      <section class="panel cloud-account" id="cloud-account" aria-label="Chess Odyssey cloud account" data-ui-aria="s36">
         <h3 id="cloud-heading">Аккаунт и облачный прогресс</h3>
         <p class="cloud-note" id="cloud-explanation">Локальная игра работает без аккаунта. Синхронизация запускается только вручную; данные не удаляются без подтверждения.</p>
         <form id="cloud-auth-form" class="cloud-auth-form" autocomplete="on">

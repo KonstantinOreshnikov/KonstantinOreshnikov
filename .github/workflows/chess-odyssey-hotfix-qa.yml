@@ -1,0 +1,59 @@
+name: Chess Odyssey v1.1.1 focused hotfix QA
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "projects/independent-game-studio/games/chess-odyssey/**"
+      - ".github/workflows/chess-odyssey-hotfix-qa.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: chess-hotfix-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  hotfix:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Targeted source and cloud contracts
+        working-directory: projects/independent-game-studio/games/chess-odyssey
+        run: |
+          node --check pvp/pvp-ui.js
+          node --check cloud/cloud-client.js
+          node --check app.js
+          node --check masters-ui.js
+          node tests/v1-cloud-client-contract.cjs
+          node tests/v1-pvp-cloud.cjs
+          node tests/pages-package.cjs
+          node tests/b8-translation-structure.cjs
+      - name: Install browser test runner
+        working-directory: projects/independent-game-studio/games/chess-odyssey
+        run: |
+          npm install --no-audit --no-fund --no-save playwright@1.57.0
+          if command -v google-chrome >/dev/null 2>&1; then
+            echo "CHESS_CHROME_CHANNEL=chrome" >> "$GITHUB_ENV"
+          else
+            npx playwright install chromium
+          fi
+      - name: Two-browser synthetic PvP and account regressions
+        working-directory: projects/independent-game-studio/games/chess-odyssey
+        run: |
+          node tests/v1-header-pvp-browser.cjs
+          node tests/v1-cloud-ui-browser.cjs
+      - name: Build hotfix preview package
+        working-directory: projects/independent-game-studio/games/chess-odyssey
+        run: |
+          node scripts/build-standalone.cjs 1.1.1
+          python3 scripts/package-preview.py 1.1.1
+          unzip -t dist/ChessOdyssey_v1.1.1_Stockfish_Preview.zip | tail -n 2
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ChessOdyssey-v1.1.1-focused-QA
+          path: projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v1.1.1_Stockfish_Preview.zip
+          if-no-files-found: error
+          retention-days: 30

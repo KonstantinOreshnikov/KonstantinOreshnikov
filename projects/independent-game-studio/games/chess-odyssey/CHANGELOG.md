@@ -1,5 +1,11 @@
 # Chess Odyssey — Changelog
 
+## 2026-11-25 — Chess Odyssey v1.1.1 hotfix candidate (not released)
+
+- Production v1.1 defects: stalls after 1–2 moves, slow sync, lost room on refresh, incomplete locale labels. Candidate adds 1.2s polling, serialized refresh, version guards, account-bound restoration, bounded requests, idempotent replay, clock rendering and RU/EN/AZ fixes.
+- Tested source `c42e1c16b379405c1029b9088c4648176f13f11f`: [full CI 3/3 PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653763), [focused QA PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790) including 19/19 PvP/header and 9/9 cloud UI, 26/26 mock cloud API; 40 half-moves; exact candidate ZIP 152 files, 2,047,853 bytes, SHA-256 `96a6035446ccd3053cf3a954120a43d3c1a9bd96188db81d030873c843662cac`. [Artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790/artifacts/14997604931).
+- Production real users, full language acceptance and physical-device UAT remain open; no merge, deployment, DB writes or security-policy change. Existing v1.1.0 official release preserved.
+
 ## 2026-11-24 — v1.0.0 public release
 
 - [Play online](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Windows Stockfish v1.0.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056) · [Release notes](docs/RELEASE_V1_0_0.md).

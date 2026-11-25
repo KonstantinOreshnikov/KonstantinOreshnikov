@@ -48,13 +48,13 @@
       "id": "chess-odyssey",
       "canonical_path": "projects/independent-game-studio/games/chess-odyssey",
       "current_verified_release": "v1.1 public web; v1.1.0 official tagged Windows/Stockfish release",
-      "latest_development_candidate": null,
+      "latest_development_candidate": "v1.1.1 — automated QA PASS, owner release authorization pending",
       "latest_verified_artifact": "https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/",
       "source_path": "projects/independent-game-studio/games/chess-odyssey",
       "sha256": null,
-      "qa_status": "Release-head CI #45475469995 3/3 PASS; main Pages #45478092288 3/3 PASS; live v1.1 UI readback PASS; owner auth/invite/progress PASS; production second-player accept/moves NOT VERIFIED (accepted open); official v1.1.0 ZIP packaging PR CI #45480720753 PASS and main #45481263004 PASS; anonymous v1.1 site smoke PASS",
-      "known_blockers": "second real production account needed for invite accept, two turns and outsider access; physical mobile/desktop and cross-device progress conflict checks open",
-      "last_verified": "2026-11-25 public web + versioned v1.1.0 ZIP GitHub Release, signed checksum and QA evidence",
+      "qa_status": "v1.1 real production UAT FAIL (stalls, room loss, slow sync, incomplete localization); v1.1.1 synthetic/CI PASS (full 3/3, focused 19/19 PvP, 9/9 account, 26/26 API); actual production retest and full human locale coverage open; previous released baseline retained",
+      "known_blockers": "Owner authorization for main merge/public UAT deployment and permanent candidate artifact; live two-account 40-ply acceptance, physical/cross-device and full localization review",
+      "last_verified": "2026-11-25 v1.1.1 automated candidate QA; v1.1 production UAT FAIL",
       "origin_branch": "main",
       "origin_commit": "83c89f35cb05da2c057ee182ab6285f4e5c5a652",
       "release_artifact_url": "https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/",
@@ -64,11 +64,11 @@
       "artifact_outer_sha256": "869cea06cf40d37ac0173a3be8842aa9679fa33d2a074288e49b6d0a169de111",
       "artifact_files": null,
       "artifact_expires_on": null,
-      "latest_development_artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45250410329/artifacts/14857182056",
-      "latest_source_qa_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45475469995",
+      "latest_development_artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790/artifacts/14997604931",
+      "latest_source_qa_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653763",
       "main_post_merge_ci_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45475469995",
       "reproducible_build": "node scripts/build-standalone.cjs 1.1.0; python3 scripts/package-preview.py 1.1.0; node scripts/build-pages.cjs (legacy package default remains 1.0.0)",
-      "postmerge_main_ci_status": "PR release-head 3/3 PASS; main CI follow-up pending separately",
+      "postmerge_main_ci_status": "v1.1 main previously deployed; v1.1.1 PR pre-merge full CI PASS; no merge/deployment",
       "public_url": "https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/",
       "release_notes_url": "projects/independent-game-studio/games/chess-odyssey/docs/RELEASE_V1_1.md",
       "production_pages_deploy_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45478092288",
@@ -78,8 +78,13 @@
       "official_release_build_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45481263004",
       "release_archive_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.0/ChessOdyssey_v1.1.0_Stockfish_Preview.zip",
       "release_archive_sha256": "869cea06cf40d37ac0173a3be8842aa9679fa33d2a074288e49b6d0a169de111",
-      "release_archive_size_bytes": 2038545
+      "release_archive_size_bytes": 2038545,
+      "candidate_source_commit": "c42e1c16b379405c1029b9088c4648176f13f11f",
+      "candidate_zip_sha256": "96a6035446ccd3053cf3a954120a43d3c1a9bd96188db81d030873c843662cac",
+      "candidate_zip_size_bytes": 2047853,
+      "candidate_artifact_outer_sha256": "56b7d8fcecfa64b7787b5b8d1da84bb7cde6fefef559f392cc3276d0727182fa",
+      "candidate_qa_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790"
     }
   ],
-  "latest_update": "2026-11-25 Chess Odyssey official v1.1.0 tagged GitHub Release and Windows Stockfish ZIP; live v1.1 web; real two-player production UAT still accepted open; other games unchanged"
+  "latest_update": "2026-11-25 Chess Odyssey v1.1.1 hotfix candidate automated QA PASS; release authorization and real production acceptance pending; other games unchanged"
 }
