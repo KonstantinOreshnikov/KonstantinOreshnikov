@@ -1,5 +1,9 @@
 # Chess Odyssey — Academy, Arena & Legends
 
+**v1.1.3 Practice HUD — production publication authorized; final regression/deployment evidence pending.** [PR #31](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/31) · [Focused CI PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670474986) · [Full regression](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670473640). Published v1.1.2 remains the verified web baseline until deployment succeeds. Owner requests PvP-style Practice conveniences; no runtime server or database policy changes.
+
+[Practice HUD feedback and QA](docs/PRACTICE_HUD_V1_1_3.md).
+
 **Current web version: v1.1.2 — deployed production UAT candidate (25 November 2026).** [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [PR #28](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/28) · [Focused QA 24/24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812948) · [Full regression 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812883) · [Production Pages 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45627594965). Real v1.1.2 two-player UAT, measured production latency and full human/device acceptance remain open. Latest permanent package is [v1.1.1 prerelease](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.1); latest non-prerelease tagged package is [v1.1.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.0). v1.1.2 ZIP is a verified temporary CI artifact, not a permanent GitHub Release.
 
 **[Development history & feedback/fix register](docs/DEVELOPMENT_HISTORY.md)** · [Roadmap](docs/ROADMAP.md) · [Changelog](CHANGELOG.md) · [Current status](STATUS.md) · [v1.1.2 release notes](docs/RELEASE_V1_1_2.md).
@@ -129,7 +133,9 @@ flowchart TD
  O --> P["Real playtest: playable, residual lag, UX feedback"]
  P --> Q["v1.1.2 · HUD, captures, result, review, Practice layout"]
  Q --> R["Production UAT candidate deployed · automated PASS"]
- R --> S["Open: real two-player acceptance and latency"]
+ R --> T["Practice feedback: clocks, turn, captures, replay convenience"]
+ T --> U["v1.1.3 · Practice HUD parity, thinner arrows"]
+ U --> S["Open: real production acceptance and latency"]
 ```
 
 [Complete version-by-version timeline, historical red-to-green repairs and current issue register](docs/DEVELOPMENT_HISTORY.md). Original v0.1–v0.8 previews, v0.9 development evidence, official v1.0.0 and v1.1.0 releases, v1.1.1 prerelease, and v1.1.2 deployed candidate are all tracked separately. Real user feedback and outstanding acceptance are explicitly distinguished from automated PASS.

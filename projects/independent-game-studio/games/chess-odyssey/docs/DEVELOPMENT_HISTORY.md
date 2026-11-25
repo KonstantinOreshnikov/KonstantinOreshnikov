@@ -1,5 +1,9 @@
 # Chess Odyssey — Development history, feedback and defect register
 
+**v1.1.3 Practice HUD — production publication authorized; final regression/deployment evidence pending.** [PR #31](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/31) · [Focused CI PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670474986) · [Full regression](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670473640). Published v1.1.2 remains the verified web baseline until deployment succeeds. Owner requests PvP-style Practice conveniences; no runtime server or database policy changes.
+
+[Practice HUD feedback and QA](PRACTICE_HUD_V1_1_3.md).
+
 **Current web version: v1.1.2 — deployed production UAT candidate (25 November 2026).** [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [PR #28](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/28) · [Focused QA 24/24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812948) · [Full regression 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812883) · [Production Pages 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45627594965). Real v1.1.2 two-player UAT, measured production latency and full human/device acceptance remain open. Latest permanent package is [v1.1.1 prerelease](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.1); latest non-prerelease tagged package is [v1.1.0](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.0). v1.1.2 ZIP is a verified temporary CI artifact, not a permanent GitHub Release.
 
 This is the consolidated public engineering history, derived from the original concept, preserved version artifacts, [changelog](../CHANGELOG.md), [QA ledger](QA_LOG.md), [roadmap](ROADMAP.md), Git commits and PRs, historical release notes and actual owner/colleague playtest feedback. Dates use Asia/Baku for project milestones; GitHub UTC timestamps may fall on the preceding date. Historical PASS is scoped and preserved; a deployment PASS is not user acceptance. No personal details or private game records are reproduced.
@@ -25,7 +29,9 @@ flowchart TD
  O --> P["Real playtest: playable, residual lag, UX feedback"]
  P --> Q["v1.1.2 · HUD, captures, result, review, Practice layout"]
  Q --> R["Production UAT candidate deployed · automated PASS"]
- R --> S["Open: real two-player acceptance and latency"]
+ R --> T["Practice feedback: clocks, turn, captures, replay convenience"]
+ T --> U["v1.1.3 · Practice HUD parity, thinner arrows"]
+ U --> S["Open: real production acceptance and latency"]
 ```
 
 ## Version-by-version delivery
@@ -47,6 +53,8 @@ flowchart TD
 | v1.1.0 · 25 Nov | Friend-invite flow, header Login, persistent text-only zoom; official Windows archive | [PRs #24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/24), [#25](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/25), [#26](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/26); [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45475469995); [release](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.0) |
 | v1.1.1 · 25 Nov | First real PvP failure → serialized sync, recovery, bounded requests, idempotent retries, clock and translation fixes | [PR #27](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/27), [19/19](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653790), [full CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45561653763), [Pages](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45571962966), [prerelease](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.1); real feedback partial improvement |
 | v1.1.2 · 25 Nov | Real playtest UX delta: coordinates, turn indicator, captured pieces, last move, finish dialog, both-player Stockfish review, non-sticky Practice replay, RU/EN/AZ and timing diagnostics | [PR #28](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/28), [24/24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812948), [3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812883), [deployed](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45627594965); real acceptance open |
+
+| v1.1.3 · 25 Nov | Practice/AI HUD parity with PvP: clocks, turn, captured pieces, latest move, replay context and thinner arrows | [PR #31](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/31) · [Focused QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670474986) · [full regression](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670473640); publication authorized, final gate pending |
 
 ## Historical engineering defects and red-to-green trail
 
@@ -89,7 +97,27 @@ The full [QA ledger](QA_LOG.md) remains the detailed record, including failed/ca
 
 Source: [v1.1 failure record](POST_RELEASE_UAT_2026-11-25.md) and [v1.1.1 feedback / v1.1.2 requirements](POST_RELEASE_UAT_V1_1_1_2026-11-25.md). The real match report is attributed to owner/colleague testing, not a fabricated independent reviewer. All historical fails remain evidence; implemented is not synonymous with production-verified closed.
 
-## Latest delivery evidence
+## Practice feedback → fix → retest (v1.1.3)
+
+| ID | Owner feedback / requirement | Implementation and scope | Verification |
+| --- | --- | --- | --- |
+| UX-113-01 | Practice clocks and player information above board use space inefficiently | Desktop left HUD; compact above board on smaller screens, orientation-aware White/Black order; same canonical clock state | Full browser gate pending; physical PC/mobile UAT open |
+| UX-113-02 | Need clear turn and move information as in PvP | Absolute side to move, active-color arrow, latest SAN with correct side, existing from/to highlight; no active turn at finished position | Targeted Practice E2E in full suite pending |
+| UX-113-03 | Show captured figures by original color with ×N | Counts derived from verbose history, cut at replay cursor; no material-count guesses; untimed games and lessons retain HUD | Grouped pawn/queen and history cursor cases in full suite pending; special capture/promotion coverage not exhaustive |
+| UX-113-04 | Make review and replay easier | Board and controls share column, thinner arrows, capture/turn reflect viewed position. Clock remains actual live/final time, never fabricated historical snapshots | Full replay and clock regression pending |
+| UX-113-05 | RU/EN/AZ and mobile consistency | New labels, piece tooltips/aria, active turn, clock captions, wrap chips; compact layout | 3-language and 1440/1280/390/320 viewport checks in full suite pending; independent semantic review open |
+
+Source: owner feedback from completed Practice screenshot, 25 November 2026. [Implementation and evidence](PRACTICE_HUD_V1_1_3.md).
+
+## v1.1.3 delivery evidence
+
+- Runtime source `54bbf41a0c509c88dfa75b9dad8deeec22f6fb92` ([PR #31](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/31)); owner authorized production website update and detailed documentation.
+- [Focused CI 45670474986](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670474986): 24/24 mocked-transport PvP/header E2E PASS; includes real Stockfish analysis, two-browser recovery, grouped captures and targeted localization. This does not prove real Neon production PvP acceptance.
+- [Full CI 45670473640](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670473640): offline PASS; Chromium/Windows final conclusion pending at this checkpoint. [PR Pages package](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670473790) and [studio smoke](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670473820) PASS. PR deploy skipped as expected.
+- [Verified temporary v1.1.3 ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670474986/artifacts/15049262390): 152 files, 2,063,096 bytes, SHA-256 `406a0650327912f24b5fbd332e4de097ce07078e387072a442d912eb9a26bcf6`; outer CI archive SHA-256 `7c33e12a3cde5c2ddb1feebe1474982d6b6f3c33cd673e609c2d9bfa8ae5a262`. Artifact expires 2026-12-25 18:02:02 UTC. No permanent v1.1.3 archive claimed.
+- Production deployment and final user acceptance: pending at this checkpoint. Existing v1.1.2 remains published.
+
+## Historical v1.1.2 delivery evidence
 
 - Tested source: `fcf88bfaaf096ad42e468e15967f3df970c29964`; merged at `09224c6dd9bcae0aad86dd80694969578cda99d2`, zero file delta from tested PR head.
 - [Focused run 45624812948](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812948): 24/24 two-browser mocked-transport PvP, actual Stockfish analysis, 40 half-moves, F5, lost-response idempotency, terminal dialog, captured pawn grouping, localized turn, Practice layout, outsider denial; scope limited to executed cases.
@@ -105,6 +133,8 @@ Source: [v1.1 failure record](POST_RELEASE_UAT_2026-11-25.md) and [v1.1.1 feedba
 | v1.1.0 | PR #24; Pages PASS | [Permanent tagged release](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.0) · [ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.0/ChessOdyssey_v1.1.0_Stockfish_Preview.zip) · 2,038,545 bytes · SHA-256 `869cea06cf40d37ac0173a3be8842aa9679fa33d2a074288e49b6d0a169de111` |
 | v1.1.1 | PR #27, merge `eb535fd863f3450a160454cc7d386c178db55445`; Pages PASS | [Permanent prerelease](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/tag/chess-odyssey-v1.1.1) · [ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/releases/download/chess-odyssey-v1.1.1/ChessOdyssey_v1.1.1_Stockfish_Preview.zip) · 2,047,853 bytes · SHA-256 `96a6035446ccd3053cf3a954120a43d3c1a9bd96188db81d030873c843662cac` |
 | v1.1.2 | PR #28; deployed for UAT | [Temporary verified CI artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45624812948/artifacts/15028348210); no permanent release/tag yet |
+
+| v1.1.3 | PR #31, publication authorized; pending final gate/deployment | [Temporary verified CI artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670474986/artifacts/15049262390); no permanent release/tag yet |
 
 ## Open acceptance and next step
 
