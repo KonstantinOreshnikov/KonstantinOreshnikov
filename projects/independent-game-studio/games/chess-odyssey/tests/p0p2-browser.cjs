@@ -24,7 +24,7 @@ function startServer(){
    const game=new Chess();for(const x of sans){if(!game.move(x))throw Error("Illegal QA PGN "+x);}
    const old=JSON.parse(localStorage.getItem("chess-odyssey-v01")||"{}");
    localStorage.setItem("chess-odyssey-v01",JSON.stringify({...old,pgn:game.pgn(),side:"w",difficulty:"beginner",language:"ru",flipped:false,
-      finalized:false,notes:[],academy:null,matchMode:mode,stats:{wins:0,losses:0,draws:0},
+      finalized:false,endedBy:null,reviewCursor:null,notes:[],academy:null,matchMode:mode,stats:{wins:0,losses:0,draws:0},
       matchSession:mode==="independent"?{id:"g-p0p2-fixture",mode:"independent",side:"w",level:"beginner",assisted:false,undone:false,restarted:false,fallback:false}:null}));
   },{sans,mode});
   await target.reload();
@@ -152,6 +152,42 @@ function startServer(){
    const after=await page.evaluate(()=>({p:JSON.parse(localStorage.getItem("chess-odyssey-v01")).pgn,clock:ChessOdysseyQA.clock().clockState}));
    assert.equal(after.p,before.p);assert.deepEqual(after.clock,before.clock);
    await page.locator("#h-return").click();
+  });
+  await check("Practice HUD uses historical captures, absolute turn and flip without changing live game",async()=>{
+   await seed(page,["e4","d5","exd5","Qxd5","Nc3","Qxg2","Bxg2","Nf6"]);
+   await page.selectOption("#global-language","en");
+   assert.equal(await page.locator("#practice-turn").innerText(),"White to move");
+   assert.equal(await page.locator("#clock-white").getAttribute("data-turn"),"true");
+   assert.equal(await page.locator("#practice-white-captured [data-piece=p]").getAttribute("data-count"),"2");
+   assert.equal(await page.locator("#practice-black-captured [data-piece=q]").getAttribute("data-count"),"1");
+   assert.equal(await page.locator("#practice-black-captured [data-piece=p]").getAttribute("data-count"),"1");
+   assert.equal(await page.locator("#practice-last").innerText(),"Last move: 4... Nf6");
+   assert.equal(await page.locator("#board .last").count(),2);
+   await page.locator("#flip").check();
+   assert.equal(await page.locator("#clock-panel").getAttribute("data-bottom"),"b");
+   await page.locator("#h-first").click();
+   assert.equal(await page.locator("#practice-white-captured .practice-capture").count(),0);
+   assert.equal(await page.locator("#practice-black-captured .practice-capture").count(),0);
+   assert.match(await page.locator("#practice-turn").innerText(),/Viewing position/);
+   await page.locator('#moves button[data-ply="3"]').click();
+   assert.equal(await page.locator("#practice-black-captured [data-piece=p]").getAttribute("data-count"),"1");
+   assert.equal(await page.locator("#practice-white-captured .practice-capture").count(),0);
+   assert.match(await page.locator("#practice-turn").innerText(),/Black to move/);
+   await page.locator("#h-last").click();
+   for(const [lang,label] of [["ru","Ход белых"],["en","White to move"],["az","Ağların gedişi"]]){
+    await page.selectOption("#global-language",lang);
+    assert.equal(await page.locator("#practice-turn").innerText(),label);
+   }
+   for(const width of [1440,1280,390,320]){
+    await page.setViewportSize({width,height:880});
+    const board=await page.locator("#practice-view .board-frame").boundingBox(),dock=await page.locator(".board-replay-dock").boundingBox();
+    assert.ok(Math.abs(board.width-dock.width)<3&&Math.abs(board.x-dock.x)<3,"board/replay alignment "+width);
+    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+3),"overflow "+width);
+   }
+   await page.setViewportSize({width:1280,height:880});
+   await page.reload();await page.waitForFunction(()=>Boolean(window.ChessOdysseyQA?.ux));
+   assert.equal(await page.locator("#practice-white-captured [data-piece=p]").getAttribute("data-count"),"2");
+   await seed(page,["e4","e5","Nf3","Nc6"]);
   });
   await check("full review collapsible and multilingual legend explains positive Brilliant",async()=>{
    assert.equal(await page.locator("#full-review-details").evaluate(x=>x.open),false);

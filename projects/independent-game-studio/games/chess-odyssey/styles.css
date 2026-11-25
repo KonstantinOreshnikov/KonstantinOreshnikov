@@ -439,3 +439,30 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
 @media(max-width:920px){.wide-board-mode .board-replay-dock{width:min(100%,calc(100vh - 210px));max-width:100%}}@media(max-width:570px){.board-replay-dock{width:min(100%,calc(100dvh - 180px));padding:4px}.board-replay-dock .replay-toolbar button{min-height:32px;min-width:32px}}
 
 .play-section .board-frame{margin-inline:auto}
+
+/* Practice HUD: same color-grouped information as PvP; keep board and replay in one column. */
+.practice-board-zone{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;align-items:start}
+.practice-board-column{width:min(100%,650px,calc(100dvh - 200px));min-width:0;margin-inline:auto}
+#practice-view .practice-board-column .board-frame,#practice-view .practice-board-column .board-replay-dock{width:100%;max-width:100%;margin-inline:auto}
+#practice-view .practice-hud{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0;min-width:0}
+#practice-view .practice-hud[hidden]{display:none}
+.practice-hud .clock-card{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:3px;padding:7px;min-width:0}
+.practice-clock-head{display:flex;align-items:center;justify-content:space-between;gap:4px;width:100%}
+.practice-hud .clock-card[data-turn="true"]{border-color:#e1b86a;background:#335d4c;box-shadow:inset 3px 0 #e1b86a}
+.practice-hud .clock-card[data-turn="true"] .clock-player::before{content:"▶ ";color:#ffe6a3}
+.practice-hud-state{grid-column:1/-1;grid-row:1;text-align:center;display:grid;gap:3px;padding:3px 2px;font-size:12px;overflow-wrap:anywhere}
+#practice-turn{font-weight:700}#practice-clock-caption,#practice-last,.practice-loss-label{font-size:11px;color:#c8d5de}
+.practice-captures{display:flex;flex-wrap:wrap;gap:3px;align-items:center;min-height:20px}
+.practice-capture{display:inline-block;font-size:15px;white-space:nowrap;border-radius:4px;padding:2px 4px}
+#practice-black-captured .practice-capture{color:#13242d;background:#d4dbe0}
+#practice-white-captured .practice-capture{color:#fff9e8;background:#111e29}
+.practice-hud[data-bottom="b"] #clock-white{order:-1}.practice-hud[data-bottom="b"] #clock-black{order:3}
+#board .move-arrows path{stroke-width:6;opacity:.78}
+@media(min-width:1151px){
+ .shell:has(#practice-view:not([hidden])){max-width:1390px}
+ #practice-view.workspace{grid-template-columns:minmax(0,800px) minmax(275px,1fr)}
+ #practice-view:not(.wide-board-mode) .practice-board-zone{grid-template-columns:minmax(105px,126px) minmax(0,1fr)}
+ #practice-view:not(.wide-board-mode) .practice-hud{display:flex;flex-direction:column;justify-content:space-between;align-self:stretch}
+ .practice-hud .clock-time{font-size:clamp(18px,1.8vw,26px)}
+}
+@media(max-width:570px){.practice-board-column{width:min(100%,calc(100dvh - 180px))}.practice-hud-state{font-size:11px}.practice-hud .clock-time{font-size:18px}}

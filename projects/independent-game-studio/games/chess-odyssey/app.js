@@ -94,6 +94,39 @@
   function opponentCannotMate(winner){
     return CLOCK.cannotMate(winner,game.board());
   }
+  const PRACTICE_HUD_TEXT={
+    ru:{turnW:"Ход белых",turnB:"Ход чёрных",finished:"Партия завершена",position:"Просмотр позиции",captured:"Взятые фигуры",none:"Нет взятых фигур",untimed:"Без часов",liveClocks:"Часы текущей партии",finalClocks:"Итоговое время",last:"Последний ход",start:"Начальная позиция"},
+    en:{turnW:"White to move",turnB:"Black to move",finished:"Game finished",position:"Viewing position",captured:"Captured pieces",none:"No captured pieces",untimed:"Untimed",liveClocks:"Live game clocks",finalClocks:"Final clock times",last:"Last move",start:"Starting position"},
+    az:{turnW:"Ağların gedişi",turnB:"Qaraların gedişi",finished:"Oyun başa çatdı",position:"Mövqeyə baxış",captured:"Vurulmuş fiqurlar",none:"Vurulmuş fiqur yoxdur",untimed:"Vaxtsız",liveClocks:"Cari oyunun saatları",finalClocks:"Yekun vaxt",last:"Son gediş",start:"İlkin mövqe"}
+  };
+  function renderPracticeHud(shown,history,flipped){
+    if(!$("practice-turn"))return; // historical standalone fixtures
+    const words=PRACTICE_HUD_TEXT[language]||PRACTICE_HUD_TEXT.ru,review=reviewCursor!==null;
+    const shownMoves=review?history.slice(0,reviewCursor):history;
+    const done=shown.game_over()||(!review&&(finalized||endedBy));
+    const turn=done?null:shown.turn();
+    const panel=$("clock-panel");
+    panel.dataset.bottom=flipped?"b":"w";
+    text("practice-turn",(review?words.position+" · ":"")+(turn?words[turn==="w"?"turnW":"turnB"]:words.finished));
+    const previous=shownMoves[shownMoves.length-1];
+    text("practice-last",previous?words.last+": "+Math.ceil(shownMoves.length/2)+(previous.color==="w"?". ":"... ")+previous.san:words.start);
+    for(const color of ["w","b"]){
+      const name=color==="w"?"white":"black",card=$("clock-"+name),holder=$("practice-"+name+"-captured");
+      card.dataset.turn=String(turn===color);
+      text("practice-"+name+"-losses",words.captured);
+      holder.setAttribute("aria-label",(BOARD_NAMES[language]||BOARD_NAMES.ru)[color+"k"].split(" ")[0]+" · "+words.captured);
+      const counts={};for(const m of shownMoves)if(m.color!==color&&m.captured)counts[m.captured]=(counts[m.captured]||0)+1;
+      const frag=document.createDocumentFragment();
+      for(const kind of ["q","r","b","n","p"]){
+        const count=counts[kind];if(!count)continue;
+        const chip=document.createElement("span");chip.className="practice-capture";chip.dataset.piece=kind;chip.dataset.count=String(count);
+        chip.textContent=PIECES[color+kind]+(count>1?" ×"+count:"");
+        chip.title=(BOARD_NAMES[language]||BOARD_NAMES.ru)[color+kind]+" ×"+count;chip.setAttribute("aria-label",chip.title);frag.appendChild(chip);
+      }
+      if(!Object.keys(counts).length){const empty=document.createElement("span");empty.textContent="—";empty.title=words.none;empty.setAttribute("aria-label",words.none);frag.appendChild(empty);}
+      holder.replaceChildren(frag);
+    }
+  }
   function clockTick(){
     if(!CLOCK||!clockState)return;
     if(!lesson&&!parked&&!finalized&&clockState.baseMs){
@@ -105,13 +138,20 @@
       }
     }
     const panel=$("clock-panel");if(!panel)return;
-    panel.hidden=!clockState.baseMs||Boolean(lesson);
-    panel.classList.toggle("hourglass-mode",clockTheme==="hourglass");
+    const hud=Boolean($("practice-turn")),timed=Boolean(clockState.baseMs&&!lesson&&!parked);
+    panel.hidden=hud?false:!clockState.baseMs||Boolean(lesson);
+    panel.classList.toggle("hourglass-mode",clockTheme==="hourglass"&&(!hud||timed));
+    if(hud){
+      const words=PRACTICE_HUD_TEXT[language]||PRACTICE_HUD_TEXT.ru;
+      const caption=timed?(finalized?words.finalClocks:words.liveClocks):words.untimed;
+      if($("practice-clock-caption").textContent!==caption)text("practice-clock-caption",caption);
+    }
     for(const color of ["w","b"]){
       const name=color==="w"?"white":"black",card=$("clock-"+name),ms=clockState.remaining[color];
-      text("clock-"+name+"-time",CLOCK.format(ms));
-      card.dataset.active=String(!finalized&&!clockState.paused&&clockState.active===color);
-      card.dataset.low=String(!finalized&&ms<=10000);
+      const clockLabel=hud&&!timed?"—":CLOCK.format(ms);
+      if($("clock-"+name+"-time").textContent!==clockLabel)text("clock-"+name+"-time",clockLabel);
+      card.dataset.active=String((!hud||timed)&&!finalized&&!clockState.paused&&clockState.active===color);
+      card.dataset.low=String((!hud||timed)&&!finalized&&ms<=10000);
       card.dataset.flip=String(game.history().length%2===1);
     }
     if(!finalized&&clockState.active===side&&clockState.remaining[side]<=10000&&lowAlerted!==side){
@@ -784,10 +824,10 @@ function hint(){
   }
   function render(){
     const boardElement=$("board");
-    const shown=displayBoard(),readOnly=reviewCursor!==null;
-    const currentPly=reviewCursor===null?game.history().length:reviewCursor;
+    const shown=displayBoard(),readOnly=reviewCursor!==null,history=game.history({verbose:true});
+    const currentPly=readOnly?reviewCursor:history.length;
     const assessed=analysisResult?.pgn===game.pgn()?analysisResult.entries?.[currentPly-1]:null;
-    const assessedMove=assessed&&assessed.tag!=="unknown"?game.history({verbose:true})[currentPly-1]:null;
+    const assessedMove=assessed&&assessed.tag!=="unknown"?history[currentPly-1]:null;
     const wasFocused=Boolean(document.activeElement&&typeof boardElement.contains==="function"&&boardElement.contains(document.activeElement));
     // Independent games do not reveal candidate destinations before the move.
     const legal=!readOnly&&selected&&!(currentMatch()&&!finalized)?game.moves({square:selected,verbose:true}).map(m=>m.to):[];
@@ -801,7 +841,7 @@ function hint(){
       if(p)b.classList.add(p.color==="w"?"white-piece":"black-piece");
       if(!readOnly&&selected===square)b.classList.add("selected");
       if(legal.includes(square))b.classList.add("legal");
-      const viewedMove=readOnly?game.history({verbose:true})[reviewCursor-1]:null;
+      const viewedMove=readOnly?history[reviewCursor-1]:null;
       if((readOnly&&viewedMove&&[viewedMove.from,viewedMove.to].includes(square))||(!readOnly&&last&&last.includes(square)))b.classList.add("last");
       if(p && p.type==="k" && p.color===shown.turn() && shown.in_check())b.classList.add("checked");
       b.dataset.square=square;
@@ -835,6 +875,7 @@ function hint(){
       frag.appendChild(b);
     }
     boardElement.replaceChildren(frag);
+    renderPracticeHud(shown,history,flipped);
     drawArrows(boardElement,flipped);
     if(wasFocused)boardFocus(keyboardSquare);
     text("game-status",status());showMoves();
@@ -1065,7 +1106,7 @@ function hint(){
         if(label)node.setAttribute(attr==="aria"?"aria-label":"title",label[langIndex]);
       }
     }
-    if($("version-label"))$("version-label").textContent={ru:"v1.1.2 · КАНДИДАТ В РЕЛИЗ",en:"v1.1.2 · RELEASE CANDIDATE",az:"v1.1.2 · BURAXILIŞ NAMİZƏDİ"}[language];
+    if($("version-label"))$("version-label").textContent={ru:"v1.1.3 · КАНДИДАТ В РЕЛИЗ",en:"v1.1.3 · RELEASE CANDIDATE",az:"v1.1.3 · BURAXILIŞ NAMİZƏDİ"}[language];
     const speed={ru:{bullet:"Пуля",blitz:"Блиц",rapid:"Рапид"},en:{bullet:"Bullet",blitz:"Blitz",rapid:"Rapid"},az:{bullet:"Güllə",blitz:"Blits",rapid:"Rapid"}}[language];
     const presets={bullet1:"1+0",blitz3:"3+0",blitz5:"5+0",rapid10:"10+0",rapid15:"15+0",rapid1510:"15+10",rapid20:"20+0",rapid30:"30+0"};
     for(const o of $("time-control")?.options||[]){if(presets[o.value])o.textContent=speed[o.value.match(/^[a-z]+/)[0]]+" · "+presets[o.value];}
