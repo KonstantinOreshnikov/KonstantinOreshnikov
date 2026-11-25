@@ -19,11 +19,27 @@ const extra={
  az:{untimed:"Vaxtsız",bullet:"Güllə",blitz:"Blits",rapid:"Rapid",q:"Vəzir",r:"Top",b:"Fil",n:"At",k:"Şah",p:"Piyada",board:"Onlayn şahmat lövhəsi",gameList:"Aktiv və bitmiş oyunlarım",userId:"İstifadəçi ID-si",reconnecting:"Bağlantı bərpa olunur…",sending:"Gediş göndərilir…",stale:"Oyun vəziyyəti dəyişdi. Sinxronlaşdırılır…",illegal:"Qaydasız gediş",badState:"Oyun vəziyyəti yoxlanmadı. Yenidən sinxronlaşdırılır.",denied:"Oyuna giriş mümkün deyil",error:"Bağlantı xətası. Sinxronlaşdırılır.",unknown:"Əməliyyat alınmadı. Yenidən cəhd edin.",loginNeeded:"Əvvəl hesabınıza daxil olun.",info:"Hesabınıza daxil olun, link yaradın və dostunuza göndərin. Dostunuz öz hesabına daxil olub dəvəti qəbul etməlidir."}
 };
 for(const k of ["ru","en","az"])Object.assign(locale[k],ux[k],extra[k]);
+const panelLocale={
+ ru:{turnW:"Ход белых",turnB:"Ход чёрных",captured:"Потери",noCaptures:"Нет взятых фигур",win:"Вы победили",loss:"Вы проиграли",drawResult:"Ничья",whiteWins:"Белые победили",blackWins:"Чёрные победили",mate:"Мат",timeout:"Время истекло",resignation:"Сдача",agreedDraw:"Ничья по соглашению",stalemate:"Пат",repetition:"Повторение позиции",fiftyMove:"Правило 50 ходов",insufficient:"Недостаточно материала",otherReason:"Партия завершена",review:"Разбор партии",close:"Закрыть",analyze:"Анализ Stockfish",cancel:"Отменить анализ",analyzing:"Анализ",analysisError:"Не удалось выполнить анализ",accuracy:"Точность (оценка Stockfish)",unknownGrade:"Нет оценки",bestMove:"Лучший ход",first:"Начальная позиция",prev:"Предыдущий ход",next:"Следующий ход",last:"Последняя позиция",reviewTitle:"Послематчевый разбор",best:"Лучший",excellent:"Отличный",good:"Хороший",ordinary:"Обычный",inaccuracy:"Неточность",mistake:"Ошибка",blunder:"Грубая ошибка",unknown:"Нет оценки"},
+ en:{turnW:"White to move",turnB:"Black to move",captured:"Captured pieces",noCaptures:"No captured pieces",win:"You won",loss:"You lost",drawResult:"Draw",whiteWins:"White wins",blackWins:"Black wins",mate:"Checkmate",timeout:"Time expired",resignation:"Resignation",agreedDraw:"Draw by agreement",stalemate:"Stalemate",repetition:"Repetition",fiftyMove:"50-move rule",insufficient:"Insufficient material",otherReason:"Game finished",review:"Game review",close:"Close",analyze:"Stockfish analysis",cancel:"Cancel analysis",analyzing:"Analyzing",analysisError:"Analysis failed",accuracy:"Accuracy (Stockfish estimate)",unknownGrade:"Not assessed",bestMove:"Best move",first:"First position",prev:"Previous move",next:"Next move",last:"Last position",reviewTitle:"Post-game review",best:"Best",excellent:"Excellent",good:"Good",ordinary:"Ordinary",inaccuracy:"Inaccuracy",mistake:"Mistake",blunder:"Blunder",unknown:"Not assessed"},
+ az:{turnW:"Ağların gedişi",turnB:"Qaraların gedişi",captured:"İtirilmiş fiqurlar",noCaptures:"Vurulmuş fiqur yoxdur",win:"Qalib gəldiniz",loss:"Məğlub oldunuz",drawResult:"Heç-heçə",whiteWins:"Ağlar qalib gəldi",blackWins:"Qaralar qalib gəldi",mate:"Mat",timeout:"Vaxt bitdi",resignation:"Təslim olma",agreedDraw:"Razılaşma ilə heç-heçə",stalemate:"Pat",repetition:"Mövqenin təkrarlanması",fiftyMove:"50 gediş qaydası",insufficient:"Fiqurlar kifayət etmir",otherReason:"Oyun başa çatdı",review:"Partiyanın təhlili",close:"Bağla",analyze:"Stockfish təhlili",cancel:"Təhlili dayandır",analyzing:"Təhlil edilir",analysisError:"Təhlil alınmadı",accuracy:"Dəqiqlik (Stockfish qiymətləndirməsi)",unknownGrade:"Qiymətləndirilməyib",bestMove:"Ən yaxşı gediş",first:"İlkin mövqe",prev:"Əvvəlki gediş",next:"Növbəti gediş",last:"Son mövqe",reviewTitle:"Partiyadan sonrakı təhlil",best:"Ən yaxşı",excellent:"Əla",good:"Yaxşı",ordinary:"Adi",inaccuracy:"Qeyri-dəqiqlik",mistake:"Səhv",blunder:"Kobud səhv",unknown:"Qiymətləndirilməyib"}
+};
+Object.assign(panelLocale.ru,{abandoned:"Партия прервана",noMate:"Недостаточно материала для мата",done:"Анализ завершён",analysisCount:"Разобрано ходов"});
+Object.assign(panelLocale.en,{abandoned:"Game abandoned",noMate:"No mating potential",done:"Analysis complete",analysisCount:"Moves analyzed"});
+Object.assign(panelLocale.az,{abandoned:"Oyun yarımçıq qalıb",noMate:"Mat etmək mümkün deyil",done:"Təhlil tamamlandı",analysisCount:"Təhlil edilən gedişlər"});
+for(const k of ["ru","en","az"])Object.assign(locale[k],panelLocale[k]);
+locale.ru.info="Войдите в аккаунт, создайте ссылку и отправьте её другу. Друг должен войти в свой аккаунт и принять приглашение.";
 const captions={overline:"pvp-overline",heading:"pvp-heading",info:"pvp-information",invite:"pvp-invite-heading",time:"pvp-time-label",color:"pvp-color-label",friend:"pvp-friend-label",create:"pvp-create",link:"pvp-link-label",copy:"pvp-copy",join:"pvp-join-heading",token:"pvp-token-label",accept:"pvp-accept",games:"pvp-games-heading",promote:"pvp-promotion-label",refresh:"pvp-refresh",flip:"pvp-flip",resign:"pvp-resign",draw:"pvp-draw",acceptDraw:"pvp-accept-draw",rematch:"pvp-rematch"};
 const lang=()=>["ru","en","az"].includes($("global-language")?.value)?$("global-language").value:"ru";
 const tr=key=>(locale[lang()]||locale.ru)[key]||key;
 const state={id:null,game:null,color:"w",flip:false,selected:null,keyboardSquare:"e2",pending:false,connected:false,waitingInviteId:null};
 let owner=null,epoch=0,refreshing=null,lastDashboard=0,recovering=false,notice=null,clockAnchor=null;
+let cache=null,reviewPly=null,reviewReport=null,reviewWorker=null,reviewToken=0,reviewProgress=null,resultSeen=null;
+const latency={read:[],move:[],render:[]};
+function recordLatency(key,start){const list=latency[key];list.push(Math.max(0,performance.now()-start));if(list.length>120)list.shift()}
+function latencySnapshot(){return Object.fromEntries(Object.entries(latency).map(([key,values])=>{const sorted=values.slice().sort((a,b)=>a-b);return [key,{count:sorted.length,p50:sorted.length?Math.round(sorted[Math.ceil(sorted.length*.5)-1]):null,p95:sorted.length?Math.round(sorted[Math.ceil(sorted.length*.95)-1]):null}]}))}
+function resetReview(){reviewToken++;reviewWorker?.dispose();reviewWorker=null;reviewPly=null;reviewReport=null;reviewProgress=null;resultSeen=null;cache=null;$("pvp-result")?.close();if($("pvp-review-panel"))$("pvp-review-panel").hidden=true}
+
 const ACTIVE_PREFIX="chess-odyssey-pvp-active-v1:";
 const uuid=x=>typeof x==="string"&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(x);
 const accountId=()=>api()?.user()?.id||null;
@@ -36,7 +52,7 @@ function current(e,who){return e===epoch&&who===owner&&who===accountId()}
 function accountChanged(){
  const next=accountId();
  if(next===owner)return false;
- epoch++;owner=next;state.id=null;state.game=null;state.selected=null;state.pending=false;
+ epoch++;resetReview();owner=next;state.id=null;state.game=null;state.selected=null;state.pending=false;
  state.waitingInviteId=null;state.connected=false;lastDashboard=0;notice=null;clockAnchor=null;recovering=false;refreshing=null;
  games=[];invites=[];renderList();$("pvp-invite-link").value="";$("pvp-waiting").hidden=true;
  return true;
@@ -84,18 +100,68 @@ function translate(){
  if(!$("pvp-waiting").hidden)$("pvp-waiting").textContent=tr("waitingFriend");
  renderList();accountCues();render();applyNotice();
 }
-function gameEngine(){
+function canonical(g){
+ if(!g)return {chess:new Chess(),moves:[]};
+ if(cache&&cache.id===g.game_id&&cache.pgn===g.canonical_pgn&&cache.fen===g.canonical_fen)return cache;
  const chess=new Chess();
- const g=state.game;
- if(!g)return chess;
  if(g.canonical_pgn&&!chess.load_pgn(g.canonical_pgn))throw Error("CORRUPT_PGN");
  if(chess.fen()!==g.canonical_fen)throw Error("SERVER_STATE_MISMATCH");
- return chess;
+ return cache={id:g.game_id,pgn:g.canonical_pgn,fen:g.canonical_fen,chess,moves:chess.history({verbose:true})};
 }
+function gameEngine(){return canonical(state.game).chess}
+function captured(moves,color){
+ const counts={};for(const m of moves)if(m.color!==color&&m.captured)counts[m.captured]=(counts[m.captured]||0)+1;
+ const holder=$("pvp-"+(color==="w"?"white":"black")+"-captured");holder.replaceChildren();
+ for(const kind of ["q","r","b","n","p"]){const n=counts[kind];if(!n)continue;const chip=document.createElement("span");chip.className="pvp-capture";chip.dataset.piece=kind;chip.dataset.count=String(n);chip.textContent=PI[color+kind]+(n>1?" ×"+n:"");chip.title=tr(kind)+" ×"+n;chip.setAttribute("aria-label",chip.title);holder.append(chip)}
+ if(!holder.children.length){const empty=document.createElement("span");empty.textContent="—";empty.title=tr("noCaptures");holder.append(empty)}
+ holder.setAttribute("aria-label",tr(color==="w"?"white":"black")+" · "+tr("captured"));
+}
+function reasonKey(reason){return ({"checkmate":"mate","mate":"mate","timeout":"timeout","time-forfeit":"timeout","flag-fall":"timeout","no-mating-potential":"noMate","abandoned":"abandoned","resignation":"resignation","agreed-draw":"agreedDraw","chess-draw":"drawResult","stalemate":"stalemate","threefold-repetition":"repetition","repetition":"repetition","fifty-move":"fiftyMove","50-move":"fiftyMove","insufficient-material":"insufficient"})[reason]||"otherReason"}
+function renderResult(g){
+ const d=$("pvp-result"),finished=g?.state==="finished",valid=finished&&["1-0","0-1","1/2-1/2"].includes(g.result);
+ $("pvp-review-open").disabled=!finished||!g.canonical_pgn;
+ if(!valid){if(d.open)d.close();return}
+ const winner=g.result==="1-0"?"w":g.result==="0-1"?"b":null;
+ $("pvp-result-title").textContent=tr(winner===null?"drawResult":winner===state.color?"win":"loss");
+ $("pvp-result-detail").textContent=tr(winner===null?"drawResult":winner==="w"?"whiteWins":"blackWins")+" · "+tr(reasonKey(g.reason))+" · "+g.result;
+ $("pvp-result-review").textContent=tr("review");$("pvp-result-review").disabled=!g.canonical_pgn;$("pvp-result-close").textContent=tr("close");
+ const key=g.game_id+":"+g.version;
+ if(resultSeen!==key&&!$("pvp-view").hidden){resultSeen=key;if(!d.open)d.showModal()}
+}
+function openReview(){if(state.game?.state!=="finished"||!state.game.canonical_pgn)return;$("pvp-result").close();$("pvp-review-panel").hidden=false;reviewPly=canonical(state.game).moves.length;render();$("pvp-review-panel").scrollIntoView({block:"nearest"})}
+function renderReview(moves){
+ for(const [id,k] of [["pvp-review-open","review"],["pvp-review-title","reviewTitle"],["pvp-analyze","analyze"],["pvp-review-cancel","cancel"],["pvp-review-close","close"]])$(id).textContent=tr(k);
+ for(const [id,k] of [["pvp-review-first","first"],["pvp-review-prev","prev"],["pvp-review-next","next"],["pvp-review-last","last"]]){$(id).title=tr(k);$(id).setAttribute("aria-label",tr(k))}
+ const panel=$("pvp-review-panel");if(state.game?.state!=="finished"){panel.hidden=true;return}if(panel.hidden)return;
+ const at=reviewPly??moves.length;$("pvp-review-position").textContent=at+" / "+moves.length+(at?" · "+moves[at-1].san:"");
+ $("pvp-review-first").disabled=$("pvp-review-prev").disabled=at===0;
+ $("pvp-review-next").disabled=$("pvp-review-last").disabled=at===moves.length;
+ $("pvp-analyze").disabled=!!reviewWorker||!moves.length;$("pvp-review-cancel").hidden=!reviewWorker;
+ $("pvp-review-status").textContent=reviewProgress?.error?tr("analysisError"):reviewProgress?tr("analyzing")+" "+reviewProgress.done+" / "+reviewProgress.total:reviewReport?tr("done")+" · "+tr("analysisCount")+": "+reviewReport.analyzed+" / "+reviewReport.total:"";
+ const summary=$("pvp-review-summary"),entries=$("pvp-review-entries");summary.replaceChildren();entries.replaceChildren();
+ if(!reviewReport)return;
+ for(const c of ["w","b"]){const x=reviewReport.summary[c];const el=document.createElement("p");el.textContent=tr(c==="w"?"white":"black")+" · "+tr("accuracy")+": "+(x.accuracy==null?"—":x.accuracy+"%")+" ("+x.analyzed+"/"+x.total+")";summary.append(el)}
+ for(const e of reviewReport.entries){const btn=document.createElement("button");btn.type="button";btn.className="review-entry";btn.dataset.ply=String(e.ply);btn.setAttribute("aria-current",String(at===e.ply));btn.textContent=Math.ceil(e.ply/2)+(e.color==="w"?". ":"… ")+e.san+" · "+tr(panelLocale[lang()][e.tag]?e.tag:"unknown")+(e.bestUci?" · "+tr("bestMove")+": "+e.bestUci:"");btn.addEventListener("click",()=>{reviewPly=e.ply;render()});entries.append(btn)}
+}
+async function analyzeFinished(){
+ const g=state.game;if(g?.state!=="finished"||!g.canonical_pgn||reviewWorker)return;
+ const core=root.ChessGameReview;if(!core||typeof Worker!=="function"||location.protocol==="file:"){reviewProgress={error:true};render();return}
+ const token=++reviewToken,id=g.game_id,version=g.version,worker=new core.UciAnalyzer();reviewWorker=worker;reviewReport=null;reviewProgress={done:0,total:canonical(g).moves.length+1};render();
+ const valid=()=>token===reviewToken&&state.game?.game_id===id&&state.game?.version===version&&state.game?.state==="finished";
+ try{const result=await core.analyzeGame(Chess,g.canonical_pgn,{quality:"quick",worker,onProgress:s=>{if(valid()){reviewProgress=s;renderReview(canonical(state.game).moves)}}});if(valid()){reviewReport=result;reviewProgress=null}}
+ catch{if(valid())reviewProgress={error:true}}
+ finally{worker.dispose();if(reviewWorker===worker)reviewWorker=null;if(valid())render()}
+}
+function moveReview(delta){if(state.game?.state!=="finished")return;const n=canonical(state.game).moves.length;reviewPly=Math.max(0,Math.min(n,(reviewPly??n)+delta));render()}
+
 function render(){
  const board=$("pvp-board");if(!board)return;
  const keepFocus=board.contains(document.activeElement);
- const chess=gameEngine(),g=state.game;
+ const started=performance.now(),g=state.game,model=canonical(g),moves=model.moves;
+ const reviewing=g?.state==="finished"&&reviewPly!==null;
+ const chess=reviewing?root.ChessGameReview.atPly(Chess,g.canonical_pgn,reviewPly,g.canonical_fen):model.chess;
+ const shownMoves=reviewing?moves.slice(0,reviewPly):moves,lastMove=shownMoves.at(-1);
+ const turn=g?.state==="active"?model.chess.turn():null;
  const legalTargets=new Set(state.selected?chess.moves({square:state.selected,verbose:true}).map(m=>m.to):[]);
  const bottom=state.flip?(state.color==="w"?"b":"w"):state.color; // flipped orientation: invert side
  const reversed=bottom==="b",rows=chess.board(),frag=document.createDocumentFragment();
@@ -103,7 +169,7 @@ function render(){
   for(let visualFile=0;visualFile<8;visualFile++){
    const rank=reversed?visualRank:7-visualRank,file=reversed?7-visualFile:visualFile;
    const sq=FILES[file]+String(rank+1),p=rows[7-rank][file];
-   const cell=document.createElement("button");cell.type="button";cell.className="square "+((file+rank)%2?"dark":"light");
+   const cell=document.createElement("button");cell.type="button";cell.className="square "+((file+rank)%2?"light":"dark");
    cell.dataset.square=sq;cell.tabIndex=sq===state.keyboardSquare?0:-1;
    cell.addEventListener("keydown",event=>{
     const jumps={ArrowUp:[0,1],ArrowDown:[0,-1],ArrowLeft:[-1,0],ArrowRight:[1,0]};
@@ -117,17 +183,26 @@ function render(){
    const legal=legalTargets.has(sq);
    if(sq===state.selected)cell.classList.add("selected");
    if(legal)cell.classList.add("legal");
+   if(lastMove&&(sq===lastMove.from||sq===lastMove.to))cell.classList.add("last");
+   if(p?.type==="k"&&p.color===chess.turn()&&chess.in_check())cell.classList.add("checked");
    const turnOk=!!g&&g.state==="active"&&!state.pending&&!recovering&&chess.turn()===state.color;
    cell.setAttribute("aria-label",sq+" "+(p?(p.color==="w"?tr("white"):tr("black"))+" "+tr(p.type):tr("emptySquare")));
    cell.setAttribute("aria-disabled",String(!turnOk));
    const symbol=document.createElement("span");symbol.className="piece";
    if(p){symbol.textContent=PI[p.color+p.type];symbol.dataset.code=p.color+p.type.toUpperCase();cell.classList.add(p.color==="w"?"white-piece":"black-piece")}
-   cell.appendChild(symbol);cell.addEventListener("click",()=>pick(sq));frag.appendChild(cell);
+   cell.appendChild(symbol);
+   if(visualRank===7){const c=document.createElement("small");c.className="file";c.textContent=sq[0];c.setAttribute("aria-hidden","true");cell.append(c)}
+   if(visualFile===0){const c=document.createElement("small");c.className="rank";c.textContent=sq[1];c.setAttribute("aria-hidden","true");cell.append(c)}
+   cell.addEventListener("click",()=>pick(sq));frag.appendChild(cell);
   }
  }
  board.replaceChildren(frag);
  if(keepFocus)board.querySelector("button[data-square="+state.keyboardSquare+"]")?.focus();
  root.ChessAppearance?.apply?.(document);
+ $("pvp-clockline").dataset.bottom=bottom;
+ for(const c of ["w","b"]){const key=c==="w"?"white":"black";$("pvp-"+key+"-card").dataset.active=String(turn===c);$("pvp-"+key+"-losses").textContent=tr("captured");captured(shownMoves,c)}
+ $("pvp-turn").textContent=turn?tr(turn==="w"?"turnW":"turnB"):g?.state==="finished"?tr("finished"):tr("noGame");
+ renderResult(g);renderReview(moves);
  if(g){
   renderClocks();
   $("pvp-moves").textContent=tr("moves")+": "+(g.canonical_pgn||"—");
@@ -138,6 +213,7 @@ function render(){
  $("pvp-resign").disabled=!active;$("pvp-draw").disabled=!active;
  $("pvp-accept-draw").disabled=!active||!g.draw_offered_by||g.draw_offered_by===api()?.user()?.id;
  $("pvp-rematch").disabled=!finished;
+ recordLatency("render",started);
 }
 async function pick(sq){
  if(state.pending||recovering||!state.game||state.game.state!=="active"||!api()?.authenticated())return;
@@ -162,7 +238,7 @@ function renderClocks(){
  for(const [color,key,id] of [["w","white","pvp-white-time"],["b","black","pvp-black-time"]]){
   const raw=g[key+"_remaining_ms"];
   const ms=Number(raw)-(clockAnchor?.running===color?elapsed:0);
-  $(id).textContent=tr(key)+": "+(!timed||raw==null?"—":root.ChessClock?.format?.(Math.max(0,ms))||"—");
+  const value=tr(key)+": "+(!timed||raw==null?"—":root.ChessClock?.format?.(Math.max(0,ms))||"—");if($(id).textContent!==value)$(id).textContent=value;
  }
 }
 let games=[],invites=[];
@@ -183,17 +259,17 @@ function renderList(){
 function validateGame(result,id){
  const g=result?.game;
  if(!g||g.game_id!==id||!["w","b"].includes(result.playerColor)||!Number.isSafeInteger(Number(g.version)))throw Error("INVALID_GAME_RESPONSE");
- const chess=new Chess();
- if(g.canonical_pgn&&!chess.load_pgn(g.canonical_pgn))throw Error("CORRUPT_PGN");
- if(chess.fen()!==g.canonical_fen)throw Error("SERVER_STATE_MISMATCH");
+ canonical(g);
  return g;
 }
 async function loadGame(id,e=epoch,who=owner){
- const result=await api().api("/api/pvp/game?id="+encodeURIComponent(id));
+ const started=performance.now();
+ const result=await api().api("/api/pvp/game?id="+encodeURIComponent(id));recordLatency("read",started);
  if(!current(e,who))return false;
  const g=validateGame(result,id);
  if(state.id===id&&state.game&&Number(g.version)<Number(state.game.version))return false;
- const changed=state.id!==id||!state.game||Number(state.game.version)!==Number(g.version);
+ const changed=state.id!==id||!state.game||Number(state.game.version)!==Number(g.version)||state.game.state!==g.state||state.game.canonical_fen!==g.canonical_fen||state.game.canonical_pgn!==g.canonical_pgn;
+ if(state.id!==id||(state.game?.state==="finished"&&changed)){resetReview();}
  state.game=g;state.id=id;state.color=result.playerColor;state.connected=true;
  if(changed){
   state.selected=null;
@@ -202,7 +278,7 @@ async function loadGame(id,e=epoch,who=owner){
  }
  if(g.state==="active")remember(id);else if(remembered()===id)forget();
  if(changed||recovering){recovering=false;notice=null;render();renderList();}
- else renderClocks();
+ else {renderClocks();renderResult(g);}
  return true;
 }
 async function dashboard(e=epoch,who=owner){
@@ -221,7 +297,7 @@ async function dashboard(e=epoch,who=owner){
 }
 async function command(name,body,load=false){
  if(state.pending||recovering||!api()?.authenticated()){setNotice("wait",true);return}
- const e=++epoch,who=owner;state.pending=true;notice=null;render();
+ const started=performance.now(),e=++epoch,who=owner;state.pending=true;notice=null;render();
  if(name==="play")setNotice("sending");
  let feedback=null,failed=false;
  try{
@@ -254,6 +330,7 @@ async function command(name,body,load=false){
    try{if(state.id)await loadGame(state.id,e,who)}catch{recovering=true;}
   }
  }finally{
+  if(name==="play")recordLatency("move",started);
   if(current(e,who)){state.pending=false;notice=null;render();if(feedback)setNotice(feedback,failed);}
  }
 }
@@ -293,6 +370,11 @@ function init(){
   else void refresh(true);
  });
  bind("pvp-refresh",()=>refresh(true));
+ bind("pvp-result-close",()=>$("pvp-result").close());bind("pvp-result-review",openReview);bind("pvp-review-open",openReview);
+ bind("pvp-review-first",()=>moveReview(-100000));bind("pvp-review-prev",()=>moveReview(-1));bind("pvp-review-next",()=>moveReview(1));bind("pvp-review-last",()=>moveReview(100000));
+ bind("pvp-review-close",()=>{reviewPly=null;$("pvp-review-panel").hidden=true;render()});
+ bind("pvp-analyze",analyzeFinished);bind("pvp-review-cancel",()=>{reviewToken++;reviewWorker?.dispose();reviewWorker=null;reviewProgress=null;render()});
+
  bind("pvp-login",()=>{$("header-login")?.click()});
  bind("pvp-flip",()=>{state.flip=!state.flip;render()});
  bind("pvp-create",()=>command("invite",{color:$("pvp-color").value,preset:$("pvp-time").value,
@@ -306,7 +388,7 @@ function init(){
  root.addEventListener("hashchange",showInvitation);
  showInvitation();
  accountCues();render();
- root.ChessPvp=Object.freeze({refresh:()=>refresh(true)});
+ root.ChessPvp=Object.freeze({refresh:()=>refresh(true),latency:latencySnapshot});
  root.setInterval(()=>{if(!document.hidden&&$("pvp-view")&&!$("pvp-view").hidden&&!state.pending)void refresh()},1200);
  root.setInterval(()=>{if(!document.hidden&&!$("pvp-view").hidden)renderClocks()},250);
  root.addEventListener("online",()=>refresh(true));

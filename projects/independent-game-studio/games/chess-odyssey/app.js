@@ -1065,7 +1065,7 @@ function hint(){
         if(label)node.setAttribute(attr==="aria"?"aria-label":"title",label[langIndex]);
       }
     }
-    if($("version-label"))$("version-label").textContent={ru:"v1.1.1 · КАНДИДАТ В РЕЛИЗ",en:"v1.1.1 · RELEASE CANDIDATE",az:"v1.1.1 · BURAXILIŞ NAMİZƏDİ"}[language];
+    if($("version-label"))$("version-label").textContent={ru:"v1.1.2 · КАНДИДАТ В РЕЛИЗ",en:"v1.1.2 · RELEASE CANDIDATE",az:"v1.1.2 · BURAXILIŞ NAMİZƏDİ"}[language];
     const speed={ru:{bullet:"Пуля",blitz:"Блиц",rapid:"Рапид"},en:{bullet:"Bullet",blitz:"Blitz",rapid:"Rapid"},az:{bullet:"Güllə",blitz:"Blits",rapid:"Rapid"}}[language];
     const presets={bullet1:"1+0",blitz3:"3+0",blitz5:"5+0",rapid10:"10+0",rapid15:"15+0",rapid1510:"15+10",rapid20:"20+0",rapid30:"30+0"};
     for(const o of $("time-control")?.options||[]){if(presets[o.value])o.textContent=speed[o.value.match(/^[a-z]+/)[0]]+" · "+presets[o.value];}
