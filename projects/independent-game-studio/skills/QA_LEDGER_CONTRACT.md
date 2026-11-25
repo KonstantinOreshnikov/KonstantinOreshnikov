@@ -1,0 +1,9 @@
+# Shared QA ledger contract v1.0.0
+
+Owner-approved 2026-11-25. Applies to CBA and Independent Game Studio. The four common skills are canonical in this studio repository; private project copies must be byte-identical and pinned to the source commit. No CBA private material belongs here.
+
+Every gate row has objectId, gateId, scopeHash, dependencyHash, environment, contractVersion, status, evidence, reviewer, independentRequired, independentVerified. Fingerprints are stable hashes of the exact tested scope and relevant dependencies, not a title. For no dependencies, hash the canonical empty dependency set. Environment and contract are gate-specific, not globally interchangeable. Evidence must be independently readable; validate actual authority and scope before reuse. Allowed statuses: PASS, FAIL, REWORK, BLOCKED, NOT_STARTED, NOT_APPLICABLE, NOT_VERIFIED. A PASS row is append-only historical proof. New results link predecessor and reopening evidence; never change an old verdict. Reuse decisions are not new executed tests.
+
+The validator is a conservative decision helper, not a certification engine. It cannot establish evidence authenticity, independence, semantic equivalence or complete dependency coverage; an agent must establish those from the actual authorities. A verified critical event must identify affected gate, object, reason and evidence; unknown or ambiguous evidence requires targeted investigation, not automatic full recheck. Explicitly required fresh release/security/integration gates remain separate.
+
+Checkpoint: task ID, owner-approved ordered gates, revision/commit/environment, per-status counts and IDs, evidence, exact next object/gate, blocked reason and attempt count, writer/lease, timestamp. Reconcile population; never count duplicate items. On new chat load current authoritative ledger and cursor. Two unsuccessful attempts per unchanged blocker per run maximum; never bypass mandatory stage order.

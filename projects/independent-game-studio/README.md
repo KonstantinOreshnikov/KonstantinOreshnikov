@@ -34,3 +34,7 @@ Each game README has a **How the project changed** section with linked milestone
 **Before starting work in a new chat:** read [GAME_REGISTRY.md](GAME_REGISTRY.md), the selected game's `STATUS.md`, its technical authority and QA. Check current branch HEAD and actual artifact. Log discrepancies rather than guessing the latest version. On a significant release update registry and status together, verify file and hash, then read back. GitHub does not automatically synchronize chat context.
 
 [Migration provenance and conflicts](MIGRATION_REPORT.md) · [History](CHANGELOG.md) · [Machine-readable registry](games.json).
+
+## Agent operating skills
+
+[Versioned skills and QA ledger contract](skills/README.md) — mandatory precheck, final scoped PASS reuse, delta QA, resumable checkpoints, game lifecycle, GitHub governance, reliability and RU/EN/AZ verification. Repository package verification is distinct from actual host invocation.

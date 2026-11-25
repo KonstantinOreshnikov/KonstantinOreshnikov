@@ -1,0 +1,3 @@
+# Independent Game Studio agent instructions
+
+For work inside projects/independent-game-studio or its published game paths, first read projects/independent-game-studio/GAME_REGISTRY.md, games.json, the selected game's STATUS.md and projects/independent-game-studio/skills/README.md. Apply verified-pass-lock, delta-only-qa, checkpoint-resume, priority-execution-guard on substantial tasks; then relevant game skills. Reuse proven scope, retain separate real E2E and release gates. Never change main, deploy, write production DB, change security policy or delete data without applicable explicit authorization. Keep public documentation English and omit private data/secrets. These instructions do not apply game-specific rules to unrelated portfolio projects.
