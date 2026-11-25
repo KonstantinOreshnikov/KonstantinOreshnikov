@@ -437,3 +437,5 @@ label{display:grid;gap:7px}label span{font-size:12px;color:#b6c2ce}.settings-pan
 /* Keep replay controls in normal document flow and match the board width. */
 .board-replay-dock .replay-toolbar{flex-wrap:wrap;gap:4px}.board-replay-dock .replay-toolbar button{min-width:34px;min-height:32px;padding:3px 5px}.board-replay-dock .replay-current{min-height:16px;font-size:12px}.wide-board-mode .board-replay-dock{width:min(100%,calc(100vh - 200px),50vw);max-width:calc(100vw / 2)}
 @media(max-width:920px){.wide-board-mode .board-replay-dock{width:min(100%,calc(100vh - 210px));max-width:100%}}@media(max-width:570px){.board-replay-dock{width:min(100%,calc(100dvh - 180px));padding:4px}.board-replay-dock .replay-toolbar button{min-height:32px;min-width:32px}}
+
+.play-section .board-frame{margin-inline:auto}

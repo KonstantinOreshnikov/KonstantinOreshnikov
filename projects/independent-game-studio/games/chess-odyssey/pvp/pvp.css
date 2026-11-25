@@ -42,3 +42,5 @@
 @media(max-width:570px){.pvp-board-zone{grid-template-columns:1fr;gap:6px}.pvp-board-zone .pvp-clockline{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5px}.pvp-clockline #pvp-turn{grid-column:1/-1;grid-row:1}.pvp-player{padding:5px}.pvp-replay{display:flex;justify-content:center;gap:4px}.pvp-replay button{min-width:32px}}
 
 .pvp-loss-label{display:block;font-size:10px;color:#c8d5de;margin-top:6px}.pvp-captures{margin-top:2px}
+
+#pvp-black-captured .pvp-capture{color:#13242d;background:#d4dbe0}#pvp-white-captured .pvp-capture{color:#fff9e8;background:#111e29}
