@@ -1057,6 +1057,10 @@ function hint(){
   }
   function refreshLabels(){
     document.documentElement.lang=language;
+    const speed={ru:{bullet:"Пуля",blitz:"Блиц",rapid:"Рапид"},en:{bullet:"Bullet",blitz:"Blitz",rapid:"Rapid"},az:{bullet:"Güllə",blitz:"Blits",rapid:"Rapid"}}[language];
+    const presets={bullet1:"1+0",blitz3:"3+0",blitz5:"5+0",rapid10:"10+0",rapid15:"15+0",rapid1510:"15+10",rapid20:"20+0",rapid30:"30+0"};
+    for(const o of $("time-control")?.options||[]){if(presets[o.value])o.textContent=speed[o.value.match(/^[a-z]+/)[0]]+" · "+presets[o.value];}
+    if($("version-summary"))$("version-summary").textContent={ru:"300 исторических партий · 33 урока Академии",en:"300 historical games · 33 Academy lessons",az:"300 tarixi oyun · 33 Akademiya dərsi"}[language];
     if(APPEARANCE)APPEARANCE.setLanguage(language,document);
     if($("academy-dock-prev"))text("academy-dock-prev",academyDockText("previous"));
     for(const node of document.querySelectorAll("[data-i18n]")){

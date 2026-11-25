@@ -185,6 +185,7 @@ jobs:
           node scripts/build-standalone.cjs 0.8.0
           node scripts/build-standalone.cjs 0.9.0
           node scripts/build-standalone.cjs 1.0.0
+          node scripts/build-standalone.cjs 1.1.1
           node tests/p0p2-browser.cjs
           node tests/browser.cjs
           node tests/stockfish-browser.cjs
@@ -200,11 +201,19 @@ jobs:
           node tests/v1-header-pvp-browser.cjs
       - name: Build and verify Stockfish preview ZIP with full GPL license
         working-directory: projects/independent-game-studio/games/chess-odyssey
-        run: python3 scripts/package-preview.py
+        run: |
+          python3 scripts/package-preview.py
+          python3 scripts/package-preview.py 1.1.1
       - uses: actions/upload-artifact@v4
         with:
           name: ChessOdyssey-v1.0.0-RELEASE-CANDIDATE
           path: projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v1.0.0_Stockfish_Preview.zip
+          if-no-files-found: error
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ChessOdyssey-v1.1.1-HOTFIX-CANDIDATE
+          path: projects/independent-game-studio/games/chess-odyssey/dist/ChessOdyssey_v1.1.1_Stockfish_Preview.zip
           if-no-files-found: error
           retention-days: 30
 

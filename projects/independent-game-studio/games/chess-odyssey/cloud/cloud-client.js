@@ -38,7 +38,7 @@ async function updateSession(){
  if(signed)$("cloud-identity").textContent=t("signed",{email:session.user?.email||""});
  buttons();window.dispatchEvent(new Event("chess-cloud-session"));return signed;
 }
-async function run(work){if(busy||!neon)return;busy=true;buttons();try{await work()}catch(e){show((e?.message&&e.message.length<160)?e.message:t("bad"),true)}finally{busy=false;buttons()}}
+async function run(work){if(busy||!neon)return;busy=true;buttons();try{await work()}catch(e){show(e?.status===409?t("conflict"):t("bad"),true)}finally{busy=false;buttons()}}
 const email=()=>$("cloud-email").value.trim();
 async function token(){
  const {data,error}=await neon.auth.getSession();
@@ -55,10 +55,22 @@ async function refreshRevision(){
  return response;
 }
 async function api(path,{method="GET",body}={}){
- const response=await fetch(API+path,{method,headers:{Authorization:"Bearer "+await token(),...(body?{"Content-Type":"application/json"}:{})},body:body?JSON.stringify(body):undefined,cache:"no-store",credentials:"omit"});
- const data=await response.json().catch(()=>({}));
- if(!response.ok){if(response.status===409)throw Error(t("conflict"));throw Error((data.error||"API_ERROR")+" ("+response.status+")");}
- return data;
+ const controller=new AbortController();
+ let timer;
+ const deadline=new Promise((_,reject)=>{timer=setTimeout(()=>{controller.abort();reject(Error("REQUEST_TIMEOUT"))},10000)});
+ try{
+  return await Promise.race([deadline,(async()=>{
+   const jwt=await token();
+   if(controller.signal.aborted)throw Error("REQUEST_TIMEOUT");
+   const response=await fetch(API+path,{method,headers:{Authorization:"Bearer "+jwt,...(body?{"Content-Type":"application/json"}:{})},body:body?JSON.stringify(body):undefined,cache:"no-store",credentials:"omit",signal:controller.signal});
+   const data=await response.json().catch(()=>({}));
+   if(!response.ok){
+    if(response.status===409&&path==="/api/progress")throw Object.assign(Error("STALE_PROGRESS_REVISION"),{status:409});
+    throw Object.assign(Error((data.error||"API_ERROR")+" ("+response.status+")"),{status:response.status});
+   }
+   return data;
+  })()]);
+ }finally{clearTimeout(timer)}
 }
 function snapshot(){
  if(!accountReady||!session?.user?.id||localStorage.getItem(OWNER_KEY)!==session.user.id)return null;
@@ -133,8 +145,8 @@ async function flushPending(){
   if(localStorage.getItem(key)===raw)localStorage.removeItem(key);
   show(t("saved",{rev:revision}));
  }catch(error){
-  if(error.message===t("conflict"))syncBlocked=true;
-  show(error.message||t("bad"),true);
+  if(error.status===409||error.message==="STALE_PROGRESS_REVISION")syncBlocked=true;
+  show(syncBlocked?t("conflict"):t("bad"),true);
  }finally{
   syncActive=false;
   if(accountReady&&!syncBlocked&&localStorage.getItem(key)!==raw&&localStorage.getItem(key))

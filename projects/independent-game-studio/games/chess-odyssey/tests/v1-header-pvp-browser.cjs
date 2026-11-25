@@ -157,7 +157,7 @@ const fixture=async(actor,browser)=>{
   assert.equal(writes,2);assert.equal(await b.page.locator("#pvp-board .square").count(),64);
   pass("friend link auto-opens PvP and one-click accept starts board");
   await a.page.locator("#pvp-refresh").click();
-  await a.page.waitForFunction(()=>document.querySelector("#pvp-game-status")?.textContent?.includes("партия началась"));
+  await a.page.waitForFunction(()=>document.querySelector("#pvp-game-status")?.textContent?.includes("партия началась")||document.querySelector("#pvp-game-status")?.textContent?.includes("Ваш ход"));
   assert.equal(await a.page.locator("#pvp-board .square").count(),64);
   pass("creator auto-enters game after friend accepts without guessing game ID");
   await a.page.locator('#pvp-board [data-square="e2"]').click();
@@ -167,6 +167,19 @@ const fixture=async(actor,browser)=>{
   await b.page.waitForFunction(()=>document.querySelector("#pvp-moves")?.textContent.includes("e4"));
   assert.equal(writes,3);
   pass("server-authoritative legal move visible to both mock players");
+  // No manual refresh for subsequent moves. Wait for opposing automatic synchronization.
+  for(const [player,other,from,to,san] of [[b,a,"e7","e5","e5"],[a,b,"g1","f3","Nf3"],[b,a,"b8","c6","Nc6"],[a,b,"f1","b5","Bb5"],[b,a,"a7","a6","a6"]]){
+   await player.page.locator(`#pvp-board [data-square="${from}"]`).click();
+   await player.page.waitForTimeout(1400); // polling must not clear an unchanged selection
+   await player.page.locator(`#pvp-board [data-square="${to}"]`).click();
+   await other.page.waitForFunction(x=>document.querySelector("#pvp-moves")?.textContent.includes(x),san,{timeout:15000});
+  }
+  assert.equal(game.move_count,6);
+  pass("automatic alternating moves and selection survives polling");
+  for(const player of [a,b]){await player.page.reload({waitUntil:"domcontentloaded"});await player.page.waitForFunction(()=>window.ChessCloud?.authenticated?.()&&!document.querySelector("#pvp-view").hidden&&document.querySelector("#pvp-moves").textContent.includes("a6"),null,{timeout:20000});}
+  pass("both real browser contexts recover same active game after F5");
+  for(const [lang,expected] of [["ru","Блиц · 5+0"],["en","Blitz · 5+0"],["az","Blits · 5+0"]]){await a.page.locator("#global-language").selectOption(lang);assert.equal(await a.page.locator('#pvp-time option[value="blitz5"]').innerText(),expected);}
+  pass("localized online time-control options");
   await c.page.goto(BASE,{waitUntil:"domcontentloaded"});await c.page.waitForFunction(()=>window.ChessCloud?.authenticated?.());
   await c.page.locator("#nav-pvp").click();assert.equal(await c.page.locator("#pvp-games button").count(),0);
   pass("mock outsider cannot see either player's game");
