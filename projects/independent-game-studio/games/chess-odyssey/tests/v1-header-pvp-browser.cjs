@@ -20,7 +20,7 @@ const SDK=[
 ].join("\n");
 const actors={alice:"aaa.bbb.ccc",bob:"ddd.eee.fff",charlie:"ggg.hhh.iii"};
 const inviteId="11111111-1111-4111-8111-111111111111",gameId="22222222-2222-4222-8222-222222222222";
-let invitation=null,game=null,failInvite=true,writes=0;const blocked=[];
+let invitation=null,game=null,failInvite=true,writes=0,dropNextMove=false,failNextRead=false;const blocked=[],committed=new Map();
 const fixture=async(actor,browser)=>{
  const context=await browser.newContext({viewport:{width:1280,height:860}});
  await context.addInitScript(identity=>{window.__mockIdentity=identity}, {id:actor,token:actors[actor]});
@@ -55,23 +55,26 @@ const fixture=async(actor,browser)=>{
     const body=request.postDataJSON();
     if(!invitation||body.inviteToken!=="x".repeat(43)||identity===invitation.inviter_user_id)return reply(409,{error:"INVALID_INVITE"});
     const chess=new Chess();
-    game={game_id:gameId,white_user_id:"alice",black_user_id:identity,state:"active",canonical_pgn:"",canonical_fen:chess.fen(),version:0,white_remaining_ms:300000,black_remaining_ms:300000,move_count:0,result:null};
+    game={game_id:gameId,white_user_id:"alice",black_user_id:identity,state:"active",canonical_pgn:"",canonical_fen:chess.fen(),version:0,base_ms:300000,white_remaining_ms:300000,black_remaining_ms:300000,running_color:"w",last_clock_at:new Date().toISOString(),move_count:0,result:null};
     invitation.state="accepted";invitation.game_id=gameId;writes++;
     return reply(200,{game_id:gameId});
    }
    if(u.pathname==="/api/pvp/game"&&method==="GET"){
+    if(failNextRead){failNextRead=false;return reply(503,{error:"TEMPORARY_NETWORK_ERROR"})}
     if(!game||u.searchParams.get("id")!==gameId||![game.white_user_id,game.black_user_id].includes(identity))return reply(404,{error:"NOT_FOUND"});
     return reply(200,{game,playerColor:game.white_user_id===identity?"w":"b"});
    }
    if(u.pathname==="/api/pvp/play"&&method==="POST"){
     const body=request.postDataJSON();
     if(!game||![game.white_user_id,game.black_user_id].includes(identity))return reply(404,{error:"NOT_FOUND"});
+    if(committed.has(body.requestId)){const old=committed.get(body.requestId);if(old.identity!==identity||old.from!==body.from||old.to!==body.to)return reply(409,{error:"REQUEST_ID_REUSED"});return reply(200,{game_id:gameId,version:game.version,duplicate:true});}
     if(body.expectedVersion!==game.version)return reply(409,{error:"STALE_GAME_VERSION"});
     const chess=new Chess();if(game.canonical_pgn)chess.load_pgn(game.canonical_pgn);
     if(chess.turn()!==(identity==="alice"?"w":"b"))return reply(409,{error:"NOT_YOUR_TURN"});
     if(!chess.move({from:body.from,to:body.to,promotion:body.promotion||"q"}))return reply(422,{error:"ILLEGAL_MOVE"});
-    game={...game,canonical_pgn:chess.pgn(),canonical_fen:chess.fen(),version:game.version+1,move_count:game.move_count+1};
-    writes++;return reply(200,{game_id:gameId,version:game.version});
+    const elapsed=Date.now()-Date.parse(game.last_clock_at);const clockKey=game.running_color==="w"?"white_remaining_ms":"black_remaining_ms";
+    game={...game,[clockKey]:Math.max(0,game[clockKey]-elapsed),canonical_pgn:chess.pgn(),canonical_fen:chess.fen(),version:game.version+1,move_count:game.move_count+1,running_color:chess.turn(),last_clock_at:new Date().toISOString()};
+    committed.set(body.requestId,{identity,from:body.from,to:body.to});writes++;if(dropNextMove){dropNextMove=false;return route.abort("failed")}return reply(200,{game_id:gameId,version:game.version});
    }
    blocked.push("unhandled-api "+method+" "+u.pathname);return reply(404,{error:"NOT_FOUND"});
   }
@@ -178,8 +181,24 @@ const fixture=async(actor,browser)=>{
   pass("automatic alternating moves and selection survives polling");
   for(const player of [a,b]){await player.page.reload({waitUntil:"domcontentloaded"});await player.page.waitForFunction(()=>window.ChessCloud?.authenticated?.()&&!document.querySelector("#pvp-view").hidden&&document.querySelector("#pvp-moves").textContent.includes("a6"),null,{timeout:20000});}
   pass("both real browser contexts recover same active game after F5");
+  const clock1=await a.page.locator("#pvp-white-time").innerText();await a.page.waitForTimeout(1300);assert.notEqual(await a.page.locator("#pvp-white-time").innerText(),clock1);pass("server-clock snapshot counts down between polls");
+  failNextRead=true;await a.page.locator("#pvp-refresh").click();await a.page.waitForFunction(()=>document.querySelector("#pvp-game-status")?.textContent?.includes("Ваш ход"),null,{timeout:15000});pass("temporary read failure recovers active game");
+  dropNextMove=true;
+  for(let i=6;i<40;i++){
+   const c=new Chess();assert.ok(c.load_pgn(game.canonical_pgn));const actor=c.turn()==="w"?a:b,other=actor===a?b:a;
+   const candidates=c.moves({verbose:true});let move;
+   for(const m of candidates){if(m.flags.includes("p"))continue;c.move({from:m.from,to:m.to,promotion:m.promotion||"q"});const good=!c.game_over();c.undo();if(good){move=m;break;}}
+   assert.ok(move,"no non-terminal move at ply "+i);
+   await actor.page.locator(`#pvp-board [data-square="${move.from}"]`).click();await actor.page.locator(`#pvp-board [data-square="${move.to}"]`).click();
+   const next=new Chess();assert.ok(next.load_pgn(c.pgn()));assert.ok(next.move({from:move.from,to:move.to}));const expected=next.pgn();
+   for(const player of [actor,other])await player.page.waitForFunction(pgn=>document.querySelector("#pvp-moves")?.textContent.endsWith(pgn),expected,{timeout:15000});
+   assert.equal(game.move_count,i+1);
+  }
+  assert.equal(writes,42);assert.equal(committed.size,40);pass("40 alternating half-moves with lost-response idempotent replay and no duplicate writes");
   for(const [lang,expected] of [["ru","Блиц · 5+0"],["en","Blitz · 5+0"],["az","Blits · 5+0"]]){await a.page.locator("#global-language").selectOption(lang);assert.equal(await a.page.locator('#pvp-time option[value="blitz5"]').innerText(),expected);}
   pass("localized online time-control options");
+  for(const [lang,preset,piece,aria] of [["ru","Рапид · 15+10","Ферзь","Шахматная доска"],["en","Rapid · 15+10","Queen","Chessboard"],["az","Rapid · 15+10","Vəzir","Şahmat lövhəsi"]]){await a.page.locator("#global-language").selectOption(lang);assert.equal(await a.page.locator('#pvp-time option[value="rapid1510"]').innerText(),preset);assert.equal(await a.page.locator('#pvp-promotion option[value="q"]').innerText(),piece);await a.page.locator("#nav-play").click();assert.equal(await a.page.locator('#time-control option[value="rapid1510"]').innerText(),preset);assert.equal(await a.page.locator("#board").getAttribute("aria-label"),aria);await a.page.locator("#nav-pvp").click();}
+  pass("local and online presets, promotion and board accessibility in all three locales");
   await c.page.goto(BASE,{waitUntil:"domcontentloaded"});await c.page.waitForFunction(()=>window.ChessCloud?.authenticated?.());
   await c.page.locator("#nav-pvp").click();assert.equal(await c.page.locator("#pvp-games button").count(),0);
   pass("mock outsider cannot see either player's game");

@@ -27,6 +27,7 @@ function update(){
  $("header-zoom-in").setAttribute("aria-label",d.zoomIn);
  $("header-zoom-out").setAttribute("aria-label",d.zoomOut);
  $("header-zoom-value").setAttribute("aria-label",d.zoomReset);
+ $("header-zoom-value").title=d.zoomReset;
  $("header-account-title").textContent=d.dialog;
  $("header-account-close").setAttribute("aria-label",d.close);
 }

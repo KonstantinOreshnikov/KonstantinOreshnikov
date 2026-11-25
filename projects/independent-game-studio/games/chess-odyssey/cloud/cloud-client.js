@@ -16,12 +16,19 @@ const dict={
 let neon=null,session=null,revision=0,busy=false,locale="ru";
 let accountReady=false,syncBlocked=false,syncTimer=null,syncActive=false;
 const t=(key,params={})=>((dict[locale]||dict.ru)[key]||key).replace(/\{(\w+)\}/g,(_,k)=>params[k]===undefined?"":String(params[k]));
-const show=(message,err=false)=>{const p=$("cloud-status");if(p){p.textContent=message;p.dataset.error=String(err)}};
+let statusMemo=null;
+function paintStatus(message,err=false){const p=$("cloud-status");if(p){p.textContent=message;p.dataset.error=String(err)}}
+const show=(message,err=false)=>{
+ const key=Object.keys(dict[locale]||dict.ru).find(k=>t(k)===message);
+ statusMemo=key?{key,params:{},err}:message===t("saved",{rev:revision})?{key:"saved",params:{rev:revision},err}:null;
+ paintStatus(message,err);
+};
 function translate(){
  locale=["ru","en","az"].includes($("global-language")?.value)?$("global-language").value:"ru";
  const pairs=[["cloud-heading","heading"],["cloud-explanation","explanation"],["cloud-email-label","email"],["cloud-password-label","password"],["cloud-otp-label","otp"],["cloud-login","login"],["cloud-signup","signup"],["cloud-verify","verify"],["cloud-send-otp","send"],["cloud-upload","upload"],["cloud-download","download"],["cloud-logout","logout"]];
  for(const [id,key] of pairs)if($(id))$(id).textContent=t(key);
  if(session)$("cloud-identity").textContent=t("signed",{email:session.user?.email||""});
+ if(statusMemo)paintStatus(t(statusMemo.key,statusMemo.params),statusMemo.err);
 }
 function buttons(){
  for(const id of ["cloud-login","cloud-signup","cloud-verify","cloud-send-otp","cloud-upload","cloud-download","cloud-logout"]){
@@ -70,7 +77,7 @@ async function api(path,{method="GET",body}={}){
    }
    return data;
   })()]);
- }finally{clearTimeout(timer)}
+ }catch(e){if(controller.signal.aborted)throw Error("REQUEST_TIMEOUT");throw e}finally{clearTimeout(timer)}
 }
 function snapshot(){
  if(!accountReady||!session?.user?.id||localStorage.getItem(OWNER_KEY)!==session.user.id)return null;

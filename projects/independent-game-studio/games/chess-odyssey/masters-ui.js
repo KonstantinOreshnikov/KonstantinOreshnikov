@@ -117,7 +117,8 @@
        // The parent role="img" exposes a localized summary of the entire position.
        button.className="square "+((ri+fi)%2===0?"light":"dark");
        if(last&&(last.from===square||last.to===square))button.classList.add("last");
-       button.setAttribute("aria-label",square+" "+(p?(p.color==="w"?"white ":"black ")+p.type:"empty"));
+       const spoken={ru:{w:"белая фигура",b:"чёрная фигура",p:"пешка",n:"конь",bType:"слон",r:"ладья",q:"ферзь",k:"король",empty:"пустая клетка"},en:{w:"white",b:"black",p:"pawn",n:"knight",bType:"bishop",r:"rook",q:"queen",k:"king",empty:"empty square"},az:{w:"ağ",b:"qara",p:"piyada",n:"at",bType:"fil",r:"top",q:"vəzir",k:"şah",empty:"boş xana"}}[state.lang];
+       button.setAttribute("aria-label",square+" "+(p?spoken[p.color]+" "+spoken[p.type==="b"?"bType":p.type]:spoken.empty));
        button.setAttribute("aria-hidden","true");
        if(p){
          button.classList.add(p.color==="w"?"white-piece":"black-piece");

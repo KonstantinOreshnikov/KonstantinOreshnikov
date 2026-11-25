@@ -38,6 +38,7 @@ function accountChanged(){
  if(next===owner)return false;
  epoch++;owner=next;state.id=null;state.game=null;state.selected=null;state.pending=false;
  state.waitingInviteId=null;state.connected=false;lastDashboard=0;notice=null;clockAnchor=null;recovering=false;refreshing=null;
+ games=[];invites=[];renderList();$("pvp-invite-link").value="";$("pvp-waiting").hidden=true;
  return true;
 }
 
@@ -74,7 +75,7 @@ function translate(){
  $("pvp-advanced-title").textContent=tr("advanced");
  $("pvp-invite-help").textContent=tr("help");
  $("pvp-join-help").textContent=tr("joinHelp");
- if(!state.game&&!$("pvp-invite-token").value)status(api()?.authenticated()?tr("noGame"):tr("wait"));
+ if(!state.game&&!$("pvp-invite-token").value&&!notice)status(api()?.authenticated()?tr("noGame"):tr("wait"));
  for(const o of $("pvp-time").options){const m=o.value.match(/^(blitz|rapid|bullet)(\d+)(10)?$/);o.textContent=o.value==="none"?tr("untimed"):tr(m?.[1]||"rapid")+" · "+({blitz5:"5+0",blitz3:"3+0",rapid10:"10+0",rapid1510:"15+10",rapid30:"30+0"}[o.value]||o.value);}
  for(const o of $("pvp-color").options)o.textContent=tr(o.value==="w"?"white":"black");
  for(const o of $("pvp-promotion").options)o.textContent=tr(o.value);
@@ -231,7 +232,7 @@ async function command(name,body,load=false){
    resp=await api().api("/api/pvp/play",{method:"POST",body});
   }
   if(!current(e,who))return;
-  if(load&&resp?.game_id)await loadGame(resp.game_id,e,who);
+  if(load){if(!uuid(resp?.game_id))throw Error("INVALID_GAME_RESPONSE");await loadGame(resp.game_id,e,who);}
   if(!current(e,who))return;
   if(name==="invite"||name==="rematch"){
    $("pvp-invite-link").value=location.origin+location.pathname+"#invite="+encodeURIComponent(resp.inviteToken);
