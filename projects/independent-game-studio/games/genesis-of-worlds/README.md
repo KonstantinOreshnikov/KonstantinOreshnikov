@@ -8,6 +8,8 @@
 
 *On Mars, you create life. On Earth, you save it.*
 
+<!-- Earth flagship concept art: owner approved the visual direction. Exact reference image and reuse rights must be confirmed before embedding; do not substitute an unverified third-party image. -->
+
 ### From a barren planet to a living world
 
 | Barren Mars | Terraforming in progress | Habitable world |
@@ -39,6 +41,7 @@ A calm, original single-player planetary strategy and terraforming simulator ins
 | [Earth: Save Civilization](docs/EARTH_SAVE_CIVILIZATION.md) | Flagship extreme-difficulty restoration campaign (planned) |
 | [World selection and difficulty](docs/WORLD_SELECTION_AND_DIFFICULTY.md) | Eight worlds, five tiers, three modes, independent local campaigns |
 | [Roadmap](docs/ROADMAP.md) | Ordered milestones and acceptance criteria |
+| [Next development package](docs/V0_2_EXECUTION_PLAN.md) | Proposed implementation order, dependencies, acceptance gates |
 | [Status](STATUS.md) | Authoritative current stage and next action |
 
 ## How the project changed

@@ -1,6 +1,6 @@
 # Genesis of Worlds — current status
 
-2026-11-26. DEVELOPMENT / VERIFIED OFFLINE TECHNICAL CANDIDATE. Owner approved local-only ZIP, no main merge, public release or deployment.
+2026-11-26. DEVELOPMENT / VERIFIED OFFLINE TECHNICAL CANDIDATE. Owner approved local-only ZIP and integration of these primary development materials into main on 2026-11-26. No formal game release or hosted deployment authorized.
 
 Exact tested source 43a553ccb5da1292952a9cb4f8e3c75ceef0e467: [offline package CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048) 2/2 jobs SUCCESS; 12/12 engine, 6/6 terrain synthetic fixtures, 11/11 offline Chromium, 12/12 MOLA Chromium. The two browser suites overlap; do not add their counts as unique scenarios. Actual official MOLA data downloaded, validated and embedded. Both downloaded CI artifact outer SHA-256 and inner ZIP SHA-256 matched; ZIP CRC integrity passed; MOLA HTML, label and embedded grid SHA-256 matched actual provenance. No physical Android, independent human gameplay/linguistic acceptance or performance benchmark claim.
 
@@ -16,3 +16,6 @@ Owner requested multi-world selection and different difficulty levels. [World se
 
 ## Flagship scenario decision (2026-11-26)
 Owner selected **Earth: Save Civilization** as the signature feature, prominently presented in README and future main menu. [Scenario specification](docs/EARTH_SAVE_CIVILIZATION.md). Design only; Mars v0.1 runtime and QA evidence unchanged.
+
+## Integration and next milestone (2026-11-26)
+Owner approved merging PR #33 as development baseline, not a release. Earth remains Coming Soon; owner requested the exact flagship reference image from chat, but the source asset and reuse rights are not verified, so embedding is pending. [Next development package](docs/V0_2_EXECUTION_PLAN.md). Historical QA evidence remains unchanged; no new runtime code in this documentation delta.

@@ -29,3 +29,6 @@ Feature this scenario prominently in the GitHub project heading/README and event
 ## Technical scope
 
 Reuse the shared data-driven world engine and offline campaign saves; extend existing systems for inherited settlements, population, regional hazards, economy and restoration. No server, account, database, monetization or network dependency. Preserve the verified Mars v0.1 candidate unchanged. Earth is planned for the multi-world rollout, not implemented by this documentation update.
+
+## Visual direction and asset gate
+Owner endorsed a cinematic orbital Earth visual contrasting ecological devastation with recovery. The exact chat reference image is not available as a verified file and its publication rights are unconfirmed. Do not republish an unlicensed third-party image or label a replacement as the approved original. Place the confirmed, license-cleared visual under the featured challenge heading in README; label it as concept art, not a screenshot. Pending asset acquisition.
