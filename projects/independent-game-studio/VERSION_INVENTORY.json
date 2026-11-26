@@ -396,6 +396,28 @@
       "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754/artifacts/15095742662",
       "artifact_expires_on": "2027-02-24",
       "bytes": 154998
+    },
+    {
+      "game_id": "genesis-of-worlds",
+      "version": "v0.5",
+      "state": "VERIFIED_DEVELOPMENT_CANDIDATE",
+      "path": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.5.html",
+      "source_commit": "54dd69d82e6a0838747a21c35ed353983bed3a42",
+      "branch": "game/genesis-of-worlds-v0.5-20261126",
+      "qa_run": 45786437348,
+      "sha256": "1164f5c74f7d32e98e9cb15442d7ffa484ae81a89723508396d3b86d76d6367c",
+      "release": null,
+      "qa": "20/20 Node checks, 24/24 fresh campaign model victories, 15/15 real Chromium scenarios PASS on corrected candidate; 24/24 packaged-model victories and 24 local world/locale context checks PASS. Corrected CI ZIP, embedded HTML/MOLA and CRC verified. Independent human/device, balance and deeper maps remain open.",
+      "artifact_id": 15101116049,
+      "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348/artifacts/15101116049",
+      "artifact_expires_on": "2027-02-24",
+      "bytes": 160801,
+      "corrected_source_commit": "54dd69d82e6a0838747a21c35ed353983bed3a42",
+      "corrected_ci_run": 45786437348,
+      "corrected_local_zip_sha256": "69a3acc1462b5b22a889133438ba877ecedabcdb6434f071febf20b438ce9e7d",
+      "corrected_local_zip_bytes": 160801,
+      "initial_artifact_id": 15099959190,
+      "initial_sha256": "b6c65533f2ad6d6953e8450283607a5f9ff79048cb4eb2e968a7be937008896b"
     }
   ]
 }

@@ -1,5 +1,17 @@
 # Studio development history
 
+## 2026-11-26 — Genesis of Worlds v0.5 verified candidate
+
+20/20 Node checks, 24/24 fresh campaign model victories, 15/15 real Chromium scenarios PASS on corrected candidate; 24/24 packaged-model victories and 24 local world/locale context checks PASS. Corrected CI ZIP, embedded HTML/MOLA and CRC verified. Independent human/device, balance and deeper maps remain open. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348/artifacts/15101116049). Exact corrected source 54dd69d82e6a0838747a21c35ed353983bed3a42. No merge/release.
+
+## 2026-11-26 — Genesis of Worlds v0.5 all worlds and Earth rescue
+
+Initial exact v0.5 CI: 20 model assertions, 24/24 fresh model victory paths, 15/15 Chromium scenarios PASS; original archive verified. Visual inspection exposed context-label defect, fixed in UI-only source 54dd69d8. Corrected local package exact Git blob verified; 24 world/locale context checks plus responsive Earth/no HTTP/errors PASS using in-memory Chromium; final file-launch CI still pending. [Initial CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933) · [delta CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348). Historical versions retained; no merge/release.
+
+## 2026-11-26 — Genesis of Worlds v0.5 Solar System development
+
+[PR #37](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/37), exact source 7dbe821bcd2c4db62bae4e387c1e6e713c95b253. Eight scenario profiles, Earth rescue, all 24 fresh deterministic game-action paths achieved victory; [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933) Node and MOLA build steps passed; Chromium pending. Previous versions preserved, no release.
+
 ## 2026-11-26 — Genesis of Worlds v0.4 verified development candidate
 
 22/22 Node assertions; 10/10 Chromium E2E; 3/3 fresh model regression victories with procedural fallback (156/168/179 years); MOLA ZIP, CRC and embedded hashes verified. Independent human/device and long-session balance/performance remain open. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754/artifacts/15095742662). Exact source 174a9f4b972eff38f32f41fcbc88ffc6da1f2a9d. No merge or release; previous candidates retained.
