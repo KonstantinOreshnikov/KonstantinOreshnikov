@@ -102,3 +102,5 @@ Extract the development ZIP and open the HTML directly. No account, server, data
 
 ## v0.8 Living Civilization (development)
 [Scope](docs/V0_8_IMPLEMENTATION.md) · [HTML](play/GenesisOfWorlds_v0.8.html). Combined graphics and society/crisis implementation; QA pending. v0.7 remains verified baseline.
+
+**Latest v0.8 verified development candidate:** [ZIP and actual browser screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45804202713/artifacts/15108139401) · [QA](docs/V0_8_QA.md) · [Fresh campaign paths](docs/V0_8_FRESH_VICTORY.md). Offline. Export earlier JSON saves before upgrading. No formal release. Temporary artifact expires 2027-02-24.
