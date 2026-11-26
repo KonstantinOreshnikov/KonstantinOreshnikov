@@ -32,3 +32,6 @@ Checkpoint GOW-V02-20261126: exact runtime 3c65092f4d9fe29505b4e01696de91d6d0db8
 
 ## Active v0.3 development (2026-11-26)
 Owner authorized next work; stacked branch game/genesis-of-worlds-v0.3-20261126 from verified v0.2 evidence 0e561e076706ae49b8a26489bc81554f0eeae7d9. 22/22 maker model assertions, UI syntax compiled. New research, ecological stages, events, achievements and victory/recovery. Node/Chromium/package QA pending. Prior versions untouched. Next: exact new CI and full fresh campaign balance check. No merge or release approval.
+
+### v0.3 checkpoint
+Exact runtime 17128ebbe6eb91cd674bd630965490470a9c977e; stacked [PR #35](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/35), [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45774541198), job 139754910897. Node assertions and MOLA package step succeeded; Chromium pending. Three fresh campaign paths reach victory in 156/168/179 years (Beginner/Normal/Expert), reproducible maker JS tests in [evidence](docs/V0_3_FRESH_VICTORY.md). Independent human/device and alternative-path balance not verified. v0.2 artifact remains latest verified package until v0.3 browser/archive gate. Next inspect original exact CI; no merge.

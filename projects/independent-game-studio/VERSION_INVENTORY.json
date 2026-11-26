@@ -364,6 +364,18 @@
       "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45772973094/artifacts/15094537949",
       "artifact_expires_on": "2027-02-24",
       "bytes": 143109
+    },
+    {
+      "game_id": "genesis-of-worlds",
+      "version": "v0.3",
+      "state": "DEVELOPMENT_QA_PENDING",
+      "path": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.3.html",
+      "source_commit": "17128ebbe6eb91cd674bd630965490470a9c977e",
+      "branch": "game/genesis-of-worlds-v0.3-20261126",
+      "qa_run": 45774541198,
+      "sha256": null,
+      "release": null,
+      "qa": "22 model assertions, Node step success, MOLA package build step success, 3 fresh model victory paths; browser pending"
     }
   ]
 }
