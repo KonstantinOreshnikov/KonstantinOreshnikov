@@ -53,3 +53,7 @@ A calm, original single-player planetary strategy and terraforming simulator ins
 ## Local-only distribution
 
 Extract the development ZIP and open the HTML directly. No account, server, database or internet required at runtime. Export/import JSON to preserve progress when moving files or changing browser profiles. [Local-only product decision and MOLA build](docs/LOCAL_ONLY_AND_MOLA.md). **Verified development candidate:** [MOLA ZIP and screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092733115) · [procedural fallback](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092374018) · [QA and checksums](docs/P0_OFFLINE_QA.md). Actual MOLA elevation embedded; no runtime network requests. CI archives expire 2027-02-24; no permanent release or deployment.
+
+## v0.2 in development
+
+[Colony prototype](play/GenesisOfWorlds_v0.2.html) — local development branch, QA pending. Eight world entries (Mars playable, others Coming Soon), three modes, separate campaigns, local saves, construction and trade. [Implementation notes](docs/V0_2_IMPLEMENTATION.md). Verified v0.1 package remains preserved.

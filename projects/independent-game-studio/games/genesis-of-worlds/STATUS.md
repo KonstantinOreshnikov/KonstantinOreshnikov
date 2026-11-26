@@ -19,3 +19,6 @@ Owner selected **Earth: Save Civilization** as the signature feature, prominentl
 
 ## Integration and next milestone (2026-11-26)
 Owner approved merging PR #33 as development baseline, not a release. Earth remains Coming Soon; owner requested the exact flagship reference image from chat, but the source asset and reuse rights are not verified, so embedding is pending. [Next development package](docs/V0_2_EXECUTION_PLAN.md). Historical QA evidence remains unchanged; no new runtime code in this documentation delta.
+
+## Active v0.2 work (2026-11-26)
+Owner authorized next implementation milestone. Branch game/genesis-of-worlds-v0.2-20261126; v0.1 main baseline e28a02c3ff2e107179c52676c84708ba066bb5a2 (branch parent for UI work; original tested source retained). New campaign/menu, three economic modes, separate local slots, v1 migration, city economy, construction, upkeep, trade and environmental facilities implemented in separate v0.2 files. Seven future worlds are Coming Soon. Initial 20 maker engine checks passed in JS isolate; expanded Node and browser/packaged MOLA QA pending. No release, merge or deployment authorization for v0.2. Earth hero exact original image still pending rights/source. Next cursor: inspect dedicated v0.2 CI; fix targeted failures; package readback and independent owner acceptance.

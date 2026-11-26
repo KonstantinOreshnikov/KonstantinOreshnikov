@@ -1,0 +1,29 @@
+name: Genesis of Worlds v0.2 QA
+on:
+  pull_request:
+    paths:
+      - 'projects/independent-game-studio/games/genesis-of-worlds/**'
+      - '.github/workflows/genesis-of-worlds-v02.yml'
+jobs:
+  colony:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: projects/independent-game-studio/games/genesis-of-worlds
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/campaign-v0.2.test.cjs
+      - run: python3 scripts/package-v0.2.py --mola
+      - run: npm install --no-save --no-package-lock playwright@1.51.1 && npx playwright install --with-deps chromium
+      - run: GOW_HTML="$PWD/packages/GenesisOfWorlds_v0.2_MOLA.html" GOW_EXPECT_MOLA=1 node tests/browser-v0.2.test.cjs
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: GenesisOfWorlds-v0.2-MOLA-candidate
+          path: |
+            projects/independent-game-studio/games/genesis-of-worlds/packages/GenesisOfWorlds_v0.2_MOLA.zip
+            projects/independent-game-studio/games/genesis-of-worlds/packages/GenesisOfWorlds_v0.2_MOLA.zip.sha256
+            projects/independent-game-studio/games/genesis-of-worlds/qa-v02/
