@@ -1,5 +1,9 @@
 # Studio development history
 
+## 2026-11-26 — Genesis of Worlds v0.3 verified development candidate
+
+22/22 Node assertions; 10/10 Chromium E2E; 3/3 fresh maker model victory paths (156/168/179 years); measured MOLA ZIP and embedded hashes verified. Independent human/device/UAT, alternative-path balance and long-session performance remain open. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45774541198) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45774541198/artifacts/15094714534). Exact source 17128ebbe6eb91cd674bd630965490470a9c977e; v0.1/v0.2 preserved. No merge or release.
+
 ## 2026-11-26 — Genesis of Worlds v0.3 science and restoration development
 
 [PR #35](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/35), stacked on v0.2 without modifying prior artifacts. Six technologies, seven new facilities, events, ecological stages, achievements and victory/recovery. 22 maker model checks and three fresh model paths to victory. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45774541198): Node and MOLA build steps succeeded; browser pending. No merge/release.

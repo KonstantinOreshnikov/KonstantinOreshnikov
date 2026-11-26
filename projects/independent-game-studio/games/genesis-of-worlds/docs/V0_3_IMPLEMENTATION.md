@@ -4,3 +4,6 @@ Separate v0.3 source and standalone HTML based on verified v0.2 branch; prior v0
 
 ## Fresh campaign reachability
 [Three complete deterministic game-action paths](V0_3_FRESH_VICTORY.md) verified in maker JS isolate. No fixture injection. Node and MOLA build steps successful in original CI; browser pending.
+
+## Verified automated outcome
+22/22 Node assertions; 10/10 Chromium E2E; 3/3 fresh maker model victory paths (156/168/179 years); measured MOLA ZIP and embedded hashes verified. Independent human/device/UAT, alternative-path balance and long-session performance remain open. See [QA and exact artifact](V0_3_QA.md).

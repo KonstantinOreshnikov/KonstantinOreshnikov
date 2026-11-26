@@ -368,14 +368,18 @@
     {
       "game_id": "genesis-of-worlds",
       "version": "v0.3",
-      "state": "DEVELOPMENT_QA_PENDING",
+      "state": "VERIFIED_DEVELOPMENT_CANDIDATE",
       "path": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.3.html",
       "source_commit": "17128ebbe6eb91cd674bd630965490470a9c977e",
       "branch": "game/genesis-of-worlds-v0.3-20261126",
       "qa_run": 45774541198,
-      "sha256": null,
+      "sha256": "ae056743025f22427e46730e343c5ea4f953de9c7ef32af430d922fffae88b08",
       "release": null,
-      "qa": "22 model assertions, Node step success, MOLA package build step success, 3 fresh model victory paths; browser pending"
+      "qa": "22/22 Node assertions; 10/10 Chromium E2E; 3/3 fresh maker model victory paths (156/168/179 years); measured MOLA ZIP and embedded hashes verified. Independent human/device/UAT, alternative-path balance and long-session performance remain open.",
+      "artifact_id": 15094714534,
+      "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45774541198/artifacts/15094714534",
+      "artifact_expires_on": "2027-02-24",
+      "bytes": 148903
     }
   ]
 }

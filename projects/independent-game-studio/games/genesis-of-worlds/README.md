@@ -63,3 +63,5 @@ Extract the development ZIP and open the HTML directly. No account, server, data
 ## v0.3 — Science and restoration (development)
 
 [Prototype](play/GenesisOfWorlds_v0.3.html) · [Scope](docs/V0_3_IMPLEMENTATION.md). Dedicated QA pending; older candidates unchanged.
+
+**v0.3 development candidate:** [ZIP + browser screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45774541198/artifacts/15094714534) · [QA and hashes](docs/V0_3_QA.md) · [Fresh campaign reachability](docs/V0_3_FRESH_VICTORY.md). Local-only, Mars playable; remaining worlds planned. No formal release. Archive expires 2027-02-24.
