@@ -18,7 +18,7 @@ Independent, AI-assisted game projects by Konstantin Oreshnikov. This directory 
 | [Kingdoms of Ember](games/kingdoms-of-ember/README.md) | Independent 16×12 fantasy turn-based tactics inspired by Ancient Empires II | v1.1 development candidate; original v1.0 preserved; offline launch QA open |
 | [Lord of Ultima-inspired strategy](games/lord-of-ultima/README.md) | Calm solo economy, city, army and continental strategy | Research/specification only; no build |
 | [Chess Odyssey — Academy & Arena](games/chess-odyssey/README.md) | Public multilingual chess game, Academy, historic games, Stockfish | **v1.1.3 WEB DEPLOYED FOR UAT** — [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [Development history](games/chess-odyssey/docs/DEVELOPMENT_HISTORY.md) · [Full QA 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670473640) · [Pages PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45673333733); real acceptance open |
-| [Genesis of Worlds](games/genesis-of-worlds/README.md) | Offline-first planetary terraforming and colony simulation inspired by TerraGenesis (classic era) | v0.1 technical prototype in development; browser QA open; no release |
+| [Genesis of Worlds](games/genesis-of-worlds/README.md) | Offline-only planetary terraforming and colony simulation inspired by TerraGenesis | v0.1 development prototype; baseline 21/21 automated QA; local ZIP/MOLA delta pending; no release |
 
 ## Historical Chess Odyssey v1.1 web release (2026-11-25)
 

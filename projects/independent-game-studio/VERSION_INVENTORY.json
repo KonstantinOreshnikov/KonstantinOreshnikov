@@ -332,9 +332,10 @@
       "state": "DEVELOPMENT_PROTOTYPE",
       "path": "projects/independent-game-studio/games/genesis-of-worlds/play/MarsPrototype_v0.1.html",
       "sha256": null,
-      "qa": "maker engine assertions only; browser and independent acceptance pending",
+      "qa": "Historical baseline CI 45766650902: 12 Node + 9 Chromium PASS; new offline packaging delta pending",
       "release": null,
-      "branch": "game/genesis-of-worlds-v0.1-20261126"
+      "branch": "game/genesis-of-worlds-v0.1-20261126",
+      "delivery": "ZIP, local file only"
     }
   ]
 }

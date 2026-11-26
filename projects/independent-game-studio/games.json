@@ -104,17 +104,18 @@
       "id": "genesis-of-worlds",
       "canonical_path": "projects/independent-game-studio/games/genesis-of-worlds",
       "current_verified_release": null,
-      "latest_development_candidate": "v0.1 technical prototype (branch only)",
+      "latest_development_candidate": "v0.1 offline package development candidate",
       "latest_verified_artifact": null,
       "source_path": "projects/independent-game-studio/games/genesis-of-worlds/src/engine.js",
       "sha256": null,
-      "qa_status": "12/12 maker simulation assertions in JS isolate; browser/independent/MOLA gates NOT VERIFIED",
-      "known_blockers": "Real browser and Android QA, actual MOLA terrain and data processing, independent acceptance; no release approved",
-      "last_verified": "2026-11-26 — maker simulation assertions only",
+      "qa_status": "Historical exact v0.1 baseline 12/12 Node + 9/9 Chromium PASS; portable save/MOLA delta CI pending; physical device/independent open",
+      "known_blockers": "Measured MOLA acquisition and verification, delta package QA, independent acceptance; no public release or deployment",
+      "last_verified": "2026-11-26 baseline CI 45766650902",
       "origin_branch": "game/genesis-of-worlds-v0.1-20261126",
       "status_path": "projects/independent-game-studio/games/genesis-of-worlds/STATUS.md",
       "design_path": "projects/independent-game-studio/games/genesis-of-worlds/docs/GAME_DESIGN.md",
-      "project_stage": "DEVELOPMENT_PROTOTYPE"
+      "project_stage": "DEVELOPMENT_PROTOTYPE",
+      "delivery_model": "Local ZIP only; no server, database, login or cloud"
     }
   ],
   "latest_update": "2026-11-26 Genesis of Worlds Mars prototype development; previous game records unchanged"

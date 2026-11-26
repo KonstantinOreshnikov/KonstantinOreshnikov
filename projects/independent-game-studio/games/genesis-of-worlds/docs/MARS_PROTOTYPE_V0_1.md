@@ -36,3 +36,7 @@ Node reproduction: `node tests/engine.test.cjs` from project folder. This test h
 
 ## Exact-source correction and recheck
 Initial assembly omitted the clamp binding; corrected before browser verification. Re-evaluated the actual serialized engine: 12/12 checks PASS and inline script syntax compiled in JS isolate. Manual save and autosave now use separate storage keys. Added isolated PR browser test workflow; results remain pending until actually returned. No independent PASS.
+
+## Baseline verification and offline-only delta
+Historical tested source 0b7fa669abb2ca99b4fd808e4913d5e7704953d9: [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45766650902) 12/12 Node + 9/9 Chromium PASS; [screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45766650902/artifacts/15092197150). Physical Android and independent UAT remain open. New delta (portable JSON saves, MOLA adapter/package) requires its own tests.
+See [local-only decision and MOLA build](LOCAL_ONLY_AND_MOLA.md).

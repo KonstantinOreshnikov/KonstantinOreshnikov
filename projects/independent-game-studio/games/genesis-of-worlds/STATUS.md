@@ -1,12 +1,11 @@
 # Genesis of Worlds — current status
 
-2026-11-26. Stage: DEVELOPMENT / TECHNICAL PROTOTYPE. Owner authorized Mars v0.1 implementation and README visuals, not merge or deployment. Baseline main 7a29f0d77107fce3b8a94a2f642f219bb5115c27; isolated branch game/genesis-of-worlds-v0.1-20261126.
+2026-11-26. DEVELOPMENT / OFFLINE TECHNICAL PROTOTYPE. Owner approved local-only ZIP game and remaining P0. No merge or deployment authorization. Branch game/genesis-of-worlds-v0.1-20261126; previous source 0b7fa669abb2ca99b4fd808e4913d5e7704953d9.
 
-- Source: [engine](src/engine.js); [standalone prototype](play/MarsPrototype_v0.1.html); [tests](tests/engine.test.cjs).
-- Initial deterministic five-parameter model, continuously shaded rotating sphere, three presets, time controls and local storage implemented. Original procedural terrain is not real MOLA; the visualization is a software-projected sphere, not Three.js/WebGL.
-- Maker exact-serialized-engine JS isolate assertions: 12/12; initial missing clamp binding corrected before browser QA. Browser, actual Android, independent QA, actual MOLA ingestion and release: NOT VERIFIED. No playable release or deployment. Artifact checksum not independently calculated yet.
-- Three procedural preview illustrations included in README. No proprietary code or assets copied.
-- Next: execute the added isolated PR Node and Chromium tests against exact branch artifact, validate storage/locale/mobile and real MOLA downsampling before promoting v0.1. Retain all historical evidence. No other games modified.
+Historical tested source 0b7fa669abb2ca99b4fd808e4913d5e7704953d9: [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45766650902) 12/12 Node + 9/9 Chromium PASS; [screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45766650902/artifacts/15092197150). Physical Android and independent UAT remain open. New delta (portable JSON saves, MOLA adapter/package) requires its own tests.
 
-## Checkpoint
-Task GOW-MARS-20261126; P0 research and prototype; current environment isolated development branch / maker JS isolate; 12 assertion passes, browser and independent gates open. P1 portfolio visuals deferred in studio backlog. No authorization to merge or deploy.
+- Added portable export/import with validated JSON and no arbitrary filesystem writes. Local storage remains browser/path-specific.
+- MOLA ingestion adapter and reproducible packaging script added; baseline procedural package and measured-data package jobs independent. Actual PDS data acquisition, label validation, package hashes and delta CI pending; do not claim measured terrain until CI evidence.
+- [Local-only decision and terrain source](docs/LOCAL_ONLY_AND_MOLA.md). No runtime server/DB/auth/cloud. No public hosted release.
+- Next cursor: inspect new CI jobs, fix specific failed validation or browser check (max two attempts per unchanged blocker); obtain artifact provenance and archive checksum; independent user acceptance remains open.
+- P1 visual portfolio work deferred. Other game records unchanged.

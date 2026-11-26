@@ -1,5 +1,9 @@
 # Studio development history
 
+## 2026-11-26 — Genesis of Worlds local-only delivery and P0 delta
+
+Owner confirmed personal offline ZIP/HTML, no servers/accounts/DB/cloud or hosted game. Historical 12/12 engine + 9/9 Chromium [PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45766650902). Added portable JSON saves and measured MOLA build pipeline; new package QA pending. No other game changed.
+
 ## 2026-11-26 — Genesis of Worlds Mars v0.1 prototype
 
 Owner-authorized isolated development prototype: five coupled parameters, procedural globe, controls, presets, time and local saves; three original procedural README illustrations. 12/12 maker simulation assertions in JS isolate; browser/independent QA and actual terrain ingestion open. No release/deploy. Other games unchanged.
