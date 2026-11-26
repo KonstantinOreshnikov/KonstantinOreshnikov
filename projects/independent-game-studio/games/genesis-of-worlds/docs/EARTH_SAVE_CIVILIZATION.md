@@ -1,6 +1,6 @@
 # Earth: Save Civilization — flagship scenario
 
-**Difficulty: 5/5 — Extreme. Status: approved concept; implementation and balance not yet verified.**
+**Difficulty: 5/5 — Extreme. Status: v0.5 initial implementation; automated acceptance pending, balance not certified.**
 
 *On Mars, you create life. On Earth, you save it.*
 
@@ -8,7 +8,7 @@ The owner designated Earth as the game's signature feature on 2026-11-26. This i
 
 ## Player-facing presentation
 
-Feature this scenario prominently in the GitHub project heading/README and eventual main menu, with an explicit Coming Soon label until playable.
+Feature this scenario prominently in the GitHub project heading/README and main menu; v0.5 selectable in development, not released.
 
 | Locale | Title | Subtitle |
 | --- | --- | --- |
@@ -28,7 +28,18 @@ Feature this scenario prominently in the GitHub project heading/README and event
 
 ## Technical scope
 
-Reuse the shared data-driven world engine and offline campaign saves; extend existing systems for inherited settlements, population, regional hazards, economy and restoration. No server, account, database, monetization or network dependency. Preserve the verified Mars v0.1 candidate unchanged. Earth is planned for the multi-world rollout, not implemented by this documentation update.
+Reuse the shared data-driven world engine and offline campaign saves; extend existing systems for inherited settlements, population, regional hazards, economy and restoration. No server, account, database, monetization or network dependency. Preserve the verified Mars v0.1 candidate unchanged. Earth initial rescue scenario is implemented in v0.5. See [implementation notes](V0_5_IMPLEMENTATION.md). The full original design remains a future target; climate, pollution, flooding and regional heights are game abstractions.
 
 ## Visual direction and asset gate
 Owner endorsed a cinematic orbital Earth visual contrasting ecological devastation with recovery. The exact chat reference image is not available as a verified file and its publication rights are unconfirmed. Do not republish an unlicensed third-party image or label a replacement as the approved original. Place the confirmed, license-cleared visual under the featured challenge heading in README; label it as concept art, not a screenshot. Pending asset acquisition.
+
+## Implemented v0.5 slice
+Three inherited regions; population 240, biomass 30, fictional crisis temperature 27 °C and hazard index 85. Relocate ten people at a cost; protect regions, choose policy, maintain supply. Collapse below 150 population locks time until restore/new game. Victory needs population at least 270, hazard ≤10, biomass ≥70, temperature 12–19 °C, protection level ≥2 in all regions and sustained resources, plus common objectives for 15 consecutive years. All three modes have deterministic viable model routes. Independent balance and visual acceptance pending. No release.
+
+## QA checkpoint
+Initial fresh deterministic victories 87/96/123 years (Beginner/Normal/Expert), all eight-world 24 paths also reproduced using the packaged model. Initial browser start/persistence, evacuation, collapse/restore and language checks passed. Corrected context labels verified locally across RU/EN/AZ; final CI delta pending. Extreme rating is provisional; elapsed simulated years alone do not establish difficulty. Full Earth map, richer pollution and regional model, independent gameplay QA still open.
+
+**Final corrected automated QA:** 20/20 Node checks, 24/24 fresh campaign model victories, 15/15 real Chromium scenarios PASS on corrected candidate; 24/24 packaged-model victories and 24 local world/locale context checks PASS. Corrected CI ZIP, embedded HTML/MOLA and CRC verified. Independent human/device, balance and deeper maps remain open. [Evidence](V0_5_QA.md). No claim of independent balance.
+
+## v0.6 expansion
+Natural Earth low-resolution land outlines, procedural climate and clouds, dedicated tabs. Three optional paid Earth operations: clean-energy transition lowers hazard by up to 9 (ecology research, base 180 credits + 15 ore), emergency relief supplies 25 food and water (base 100 credits), ecosystem restoration gains up to 4 biomass depending on suitability (ecology research, base 140 credits + 15 water). Mode prices 80/100/120%; no new failure or victory criteria. Regional elevation and risk remain fictional. Automated v0.6 gates passed; detailed crises and independent balance remain open. [QA](V0_6_QA.md).

@@ -1,0 +1,9 @@
+# v0.4 planetary management
+
+Three unique orbital projects: mirror warms, shade cools, station supplies food and water. Construction, research, cost, upkeep and manual enable/disable. Automation uses five editable targets, deadbands/hysteresis, a shared annual upkeep cap for climate facilities and orbital thermal projects; only manually enabled assets participate, no guarantee of equilibrium. Forecast is a pure cloned simulation up to 10 years in UI (50 API), stops at unresolved event. History 120 ticks, five sparklines. MOLA-derived settlement elevation with fictional sea level and three protection levels; loss from unprotected inundation. Procedural elevation is unknown, not falsely measured. Three development policies: balanced, conservation, industry. Schema 4 migrates prior v1/v2/v3; v3 research, buildings, IDs, events and manual saves preserved. Earth remains planned; these systems are reusable groundwork only. Costs and physics are fictional. No servers or login. 22 maker checks passed (first flood fixture exceeded protection; corrected fixture to -3000m and reran). Browser and package QA pending. No merge or release.
+
+## Model regression and exact CI
+22 Node model assertions and MOLA build step PASS; 3/3 fresh model regression paths with procedural fallback (156/168/179 years; 92/129/186 actions). Browser and downloaded package gate pending. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754). The v0.3 fresh campaign action policy was rerun on v0.4 model with procedural fallback, not a complete MOLA browser playthrough. No independent certification.
+
+## Verified result
+22/22 Node assertions; 10/10 Chromium E2E; 3/3 fresh model regression victories with procedural fallback (156/168/179 years); MOLA ZIP, CRC and embedded hashes verified. Independent human/device and long-session balance/performance remain open. See [QA evidence](V0_4_QA.md).

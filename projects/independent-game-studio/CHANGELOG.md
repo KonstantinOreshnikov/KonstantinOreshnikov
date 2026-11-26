@@ -1,5 +1,49 @@
 # Studio development history
 
+## 2026-11-26 — Genesis of Worlds v0.7 visual-first candidate
+
+6/6 renderer assertions + coastline SHA256; 12/12 Chromium file-URL scenarios PASS; exact downloaded ZIP and HTML SHA256 and CRC verified. Seven README previews read back as PNG blobs. Independent visual/device UAT and measured sustained frame rate remain open. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45792360228) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45792360228/artifacts/15103101950). Owner approved publication of project page to main; game remains local-only. Earlier versions preserved.
+
+## 2026-11-26 — Genesis of Worlds v0.6 Living Worlds
+
+11/11 Node assertions plus land-mask SHA256 PASS; 11/11 real Chromium scenarios PASS; 21/21 mission/mode accounting checks in maker JS isolate; exact downloaded ZIP/HTML/MOLA/land-mask hashes and CRC verified. Desktop and 390px screenshot inspection completed. v0.5 model and schema unchanged; prior 24/24 model reachability reused, not newly executed. Independent human/device, balance, deeper regional crises and high-resolution maps open. [PR #38](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/38) · [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45788305057) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45788305057/artifacts/15101726584). Exact source 81849713078bf6ee9109b2eb1f6fe3f566caf0d1. Previous versions retained; no merge or release.
+
+## 2026-11-26 — Genesis of Worlds v0.5 verified candidate
+
+20/20 Node checks, 24/24 fresh campaign model victories, 15/15 real Chromium scenarios PASS on corrected candidate; 24/24 packaged-model victories and 24 local world/locale context checks PASS. Corrected CI ZIP, embedded HTML/MOLA and CRC verified. Independent human/device, balance and deeper maps remain open. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348/artifacts/15101116049). Exact corrected source 54dd69d82e6a0838747a21c35ed353983bed3a42. No merge/release.
+
+## 2026-11-26 — Genesis of Worlds v0.5 all worlds and Earth rescue
+
+Initial exact v0.5 CI: 20 model assertions, 24/24 fresh model victory paths, 15/15 Chromium scenarios PASS; original archive verified. Visual inspection exposed context-label defect, fixed in UI-only source 54dd69d8. Corrected local package exact Git blob verified; 24 world/locale context checks plus responsive Earth/no HTTP/errors PASS using in-memory Chromium; final file-launch CI still pending. [Initial CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933) · [delta CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348). Historical versions retained; no merge/release.
+
+## 2026-11-26 — Genesis of Worlds v0.5 Solar System development
+
+[PR #37](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/37), exact source 7dbe821bcd2c4db62bae4e387c1e6e713c95b253. Eight scenario profiles, Earth rescue, all 24 fresh deterministic game-action paths achieved victory; [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933) Node and MOLA build steps passed; Chromium pending. Previous versions preserved, no release.
+
+## 2026-11-26 — Genesis of Worlds v0.4 verified development candidate
+
+22/22 Node assertions; 10/10 Chromium E2E; 3/3 fresh model regression victories with procedural fallback (156/168/179 years); MOLA ZIP, CRC and embedded hashes verified. Independent human/device and long-session balance/performance remain open. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754/artifacts/15095742662). Exact source 174a9f4b972eff38f32f41fcbc88ffc6da1f2a9d. No merge or release; previous candidates retained.
+
+## 2026-11-26 — Genesis of Worlds v0.4 development
+
+[PR #36](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/36), [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754). 22 Node model assertions and MOLA build step PASS; 3/3 fresh model regression paths with procedural fallback (156/168/179 years; 92/129/186 actions). Browser and downloaded package gate pending. Orbital projects, automation, forecasts, history and regional adaptation. Prior builds unchanged. No merge/release.
+
+## 2026-11-26 — Genesis of Worlds v0.3 verified development candidate
+
+22/22 Node assertions; 10/10 Chromium E2E; 3/3 fresh maker model victory paths (156/168/179 years); measured MOLA ZIP and embedded hashes verified. Independent human/device/UAT, alternative-path balance and long-session performance remain open. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45774541198) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45774541198/artifacts/15094714534). Exact source 17128ebbe6eb91cd674bd630965490470a9c977e; v0.1/v0.2 preserved. No merge or release.
+
+## 2026-11-26 — Genesis of Worlds v0.3 science and restoration development
+
+[PR #35](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/35), stacked on v0.2 without modifying prior artifacts. Six technologies, seven new facilities, events, ecological stages, achievements and victory/recovery. 22 maker model checks and three fresh model paths to victory. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45774541198): Node and MOLA build steps succeeded; browser pending. No merge/release.
+
+## 2026-11-26 — Genesis of Worlds v0.2 verified development candidate
+
+20/20 campaign/economy assertions + 1 compound trade/recruitment check PASS; 13/13 real Chromium checks PASS; measured MOLA package and exact archive integrity PASS. Independent human/device/owner acceptance and long-term balance remain open. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45772973094) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45772973094/artifacts/15094537949). Exact source 3c65092f4d9fe29505b4e01696de91d6d0db8802; v0.1 unchanged. No merge or release.
+
+## 2026-11-26 — Genesis of Worlds v0.2 campaign/colony development
+
+[PR #34](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/34), source 3c65092f4d9fe29505b4e01696de91d6d0db8802. Separate v0.2 implementation, preserves verified v0.1. World/mode catalog, independent local saves, legacy import, three colony sites, economy, production and facility-driven terraforming. [Dedicated CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45772973094): Node and measured MOLA package steps passed at checkpoint; browser acceptance pending. No merge or release approval.
+
 ## 2026-11-26 — Genesis of Worlds multi-world design
 
 Owner requested selectable worlds and difficulty. [Specification](games/genesis-of-worlds/docs/WORLD_SELECTION_AND_DIFFICULTY.md) defines eight planned worlds, five inherent difficulty tiers, independent player modes and separate local saves. Documentation only; verified Mars runtime unchanged.

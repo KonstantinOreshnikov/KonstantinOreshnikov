@@ -1,0 +1,46 @@
+{
+  "contractVersion": "1.0.0",
+  "fingerprintMethod": "SHA256 exact Git blob IDs, joined with LF for ordered dependencies; actual packaged HTML SHA256 for browser dependency",
+  "rows": [
+    {
+      "objectId": "GOW-v0.6",
+      "gateId": "MODEL-DELTA",
+      "scopeHash": "0e18b0b644b2840545d15f1d887236b62b91bd640094a56f13b57cff69d039b2",
+      "dependencyHash": "ccac8cacf2fa34fa0d618e088313ca86af7c9c7df96851e3d5ab361e4ec6d484",
+      "environment": "GitHub Actions ubuntu-24.04 Node 22",
+      "contractVersion": "1.0.0",
+      "status": "PASS",
+      "evidence": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45788305057",
+      "reviewer": "maker-authored CI and maker readback",
+      "independentRequired": false,
+      "independentVerified": false
+    },
+    {
+      "objectId": "GOW-v0.6",
+      "gateId": "BROWSER-DELTA",
+      "scopeHash": "b61da5024ea453d32593af8aa6a27aa62ef7a8739b4c4afdfca0e06072a8d289",
+      "dependencyHash": "79793ce8710ffc4d37bd1ef6e26b38116be3cfbe8484d13493a8c17250c44b3f",
+      "environment": "GitHub Actions Chromium Playwright 1.51.1 file URL",
+      "contractVersion": "1.0.0",
+      "status": "PASS",
+      "evidence": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45788305057",
+      "reviewer": "maker-authored CI and maker readback",
+      "independentRequired": false,
+      "independentVerified": false
+    },
+    {
+      "objectId": "GOW-v0.6",
+      "gateId": "PACKAGE",
+      "scopeHash": "aa26d4dc974ff634b208a4f07a0171de7fea4542220c5bff485862f094378170",
+      "dependencyHash": "72b5ab107c97d9e648f2a21b280047d022db7832fce9becf79ff52a4ba82d966",
+      "environment": "GitHub Actions pinned MOLA build + local ZIP readback",
+      "contractVersion": "1.0.0",
+      "status": "PASS",
+      "evidence": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45788305057",
+      "reviewer": "maker-authored CI and maker readback",
+      "independentRequired": false,
+      "independentVerified": false
+    }
+  ],
+  "independentAcceptance": "NOT_VERIFIED"
+}

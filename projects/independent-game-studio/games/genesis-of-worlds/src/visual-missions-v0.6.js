@@ -1,0 +1,16 @@
+
+const MISSIONS={mercury:{key:"solarShield",cost:120,ore:10,reduce:8,tech:"climate"},luna:{key:"gasRetention",cost:140,ore:10,reduce:8,tech:"atmosphere"},venus:{key:"carbonCapture",cost:180,ore:15,reduce:7,tech:"atmosphere"},europa:{key:"radiationShield",cost:140,ore:12,reduce:8,tech:"energy"},titan:{key:"methaneTreatment",cost:160,ore:12,reduce:8,tech:"ecology"},pluto:{key:"thermalReserve",cost:160,ore:15,reduce:8,tech:"energy"},earth:{key:"cleanTransition",cost:180,ore:15,reduce:9,tech:"ecology"}};
+function missionQuote(c){let d=MISSIONS[c.worldId];return d?{...d,credits:Math.ceil(d.cost*MODES[c.modeId].cost/100)}:null}
+function worldMission(c){let q=missionQuote(c);if(!q||c.world.failed||c.world.hazard<=0)throw Error("badBuild");if(!c.progress.tech.includes(q.tech))throw Error("lockedTech");if(c.credits<q.credits||c.ore<q.ore)throw Error("notEnough");let n=copy(c);n.credits-=q.credits;n.ore-=q.ore;n.world.hazard=Math.max(0,n.world.hazard-q.reduce);return n}
+function reliefQuote(c){return Math.ceil(100*MODES[c.modeId].cost/100)}
+function emergencyRelief(c){if(c.worldId!=="earth"||c.world.failed)throw Error("badBuild");let cost=reliefQuote(c);if(c.credits<cost)throw Error("notEnough");let n=copy(c);n.credits-=cost;n.food=Math.min(1000000000,n.food+25);n.water=Math.min(1000000000,n.water+25);return n}
+function restorationQuote(c){return Math.ceil(140*MODES[c.modeId].cost/100)}
+function restoreEcosystem(c){if(c.worldId!=="earth"||c.world.failed)throw Error("badBuild");if(!c.progress.tech.includes("ecology"))throw Error("lockedTech");let cost=restorationQuote(c),gain=4*suitability(c.planet);if(c.credits<cost||c.water<15||c.planet.b>=100||gain<=0)throw Error("notEnough");let n=copy(c);n.credits-=cost;n.water-=15;n.planet.b=Math.min(100,n.planet.b+gain);return n}
+function renderPlanetPixel(x,y,z,angle,s,id,clouds=true){let u=x*Math.cos(angle)+z*Math.sin(angle),v=-x*Math.sin(angle)+z*Math.cos(angle),lat=Math.asin(clamp(y,-1,1))*180/Math.PI,lon=Math.atan2(u,v)*180/Math.PI;let light=.15+.85*clamp(-.42*x+.39*y+.82*z),noise=.5+.5*Math.sin(87*u+43*y)*Math.cos(67*v-27*y),detail=.82+.24*noise,base=worldPixel(x,y,z,angle,s,id);
+if(id==="earth"){let land=earthLand(lat,lon),ice=Math.abs(lat)>72+clamp((s.t-15)/25)*12,desert=clamp(1-Math.abs(Math.abs(lat)-25)/18),green=clamp(s.b/100),crisis=clamp((s.t-15)/30);let color=ice?[218,230,235]:land?[125+40*desert-40*green+25*crisis,112+55*green-25*desert,65+15*green]:[19,72+17*noise,123+30*noise];base=color.map(q=>q*light*detail)}
+else if(id==="venus"&&s.p>180){let bands=.5+.5*Math.sin(31*y+4*Math.sin(9*u+v));base=base.map((q,i)=>q*.55+[224,177,105][i]*light*(.38+.12*bands))}
+else if(id==="luna"||id==="mercury"){let crater=Math.pow(Math.max(0,Math.cos(18*u+7*y)*Math.cos(21*v-9*y)),12);base=base.map(q=>q*(detail-.28*crater))}
+else if(id==="europa"){let cracks=Math.pow(Math.abs(Math.sin(31*u+12*Math.sin(7*y)+9*v)),28);base=base.map(q=>q*(detail-.35*cracks))}
+else base=base.map(q=>q*detail);
+if(clouds&&s.p>15&&(id==="earth"||s.w>15)){let c=clamp((Math.sin(17*u+3*Math.sin(15*y)+7*v)+.65*Math.cos(24*v-11*y)+.45*Math.sin(33*y+13*u)-.65)*.45)*clamp(s.p/100)*.55;base=base.map(q=>q*(1-c)+235*light*c)}
+return base.map(q=>Math.round(clamp(q,0,255)))}

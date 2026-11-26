@@ -1,0 +1,158 @@
+[
+  {
+    "mode": "beginner",
+    "year": 156,
+    "wonAt": 156,
+    "actions": 92,
+    "credits": 2816,
+    "goals": {
+      "goalTemp": true,
+      "goalPressure": true,
+      "goalOxygen": true,
+      "goalWater": true,
+      "goalBiomass": true,
+      "goalPeople": true,
+      "goalEconomy": true,
+      "goalTech": true
+    },
+    "planet": {
+      "version": 1,
+      "year": 156,
+      "t": 19.936149277574998,
+      "p": 100.50674788639989,
+      "o": 23.6143774515281,
+      "w": 65.45000000000012,
+      "b": 57.2610875871798,
+      "controls": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "last": {
+      "income": 30,
+      "upkeep": 7,
+      "power": 18,
+      "demand": 8,
+      "food": 2,
+      "water": 2,
+      "ore": 0,
+      "shortage": false
+    },
+    "tech": [
+      "energy",
+      "climate",
+      "atmosphere",
+      "hydrology",
+      "ecology",
+      "resilience"
+    ],
+    "pop": 100
+  },
+  {
+    "mode": "normal",
+    "year": 168,
+    "wonAt": 168,
+    "actions": 129,
+    "credits": 2172,
+    "goals": {
+      "goalTemp": true,
+      "goalPressure": true,
+      "goalOxygen": true,
+      "goalWater": true,
+      "goalBiomass": true,
+      "goalPeople": true,
+      "goalEconomy": true,
+      "goalTech": true
+    },
+    "planet": {
+      "version": 1,
+      "year": 168,
+      "t": 20.069768444427567,
+      "p": 100.39404503002446,
+      "o": 23.784477797956797,
+      "w": 65.45000000000012,
+      "b": 57.67550215337659,
+      "controls": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "last": {
+      "income": 30,
+      "upkeep": 12,
+      "power": 18,
+      "demand": 8,
+      "food": 2,
+      "water": 2,
+      "ore": 0,
+      "shortage": false
+    },
+    "tech": [
+      "energy",
+      "climate",
+      "atmosphere",
+      "hydrology",
+      "ecology",
+      "resilience"
+    ],
+    "pop": 100
+  },
+  {
+    "mode": "expert",
+    "year": 179,
+    "wonAt": 179,
+    "actions": 186,
+    "credits": 2102,
+    "goals": {
+      "goalTemp": true,
+      "goalPressure": true,
+      "goalOxygen": true,
+      "goalWater": true,
+      "goalBiomass": true,
+      "goalPeople": true,
+      "goalEconomy": true,
+      "goalTech": true
+    },
+    "planet": {
+      "version": 1,
+      "year": 179,
+      "t": 20.083133395963145,
+      "p": 100.3830955200416,
+      "o": 23.784123142351746,
+      "w": 65.45000000000012,
+      "b": 57.65866205841614,
+      "controls": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "last": {
+      "income": 30,
+      "upkeep": 19,
+      "power": 18,
+      "demand": 8,
+      "food": 2,
+      "water": 2,
+      "ore": 0,
+      "shortage": false
+    },
+    "tech": [
+      "energy",
+      "climate",
+      "atmosphere",
+      "hydrology",
+      "ecology",
+      "resilience"
+    ],
+    "pop": 100
+  }
+]
