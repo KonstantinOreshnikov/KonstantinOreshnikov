@@ -1,0 +1,9 @@
+# v0.2 colony candidate — QA evidence
+
+Exact runtime 3c65092f4d9fe29505b4e01696de91d6d0db8802; CI [45772973094](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45772973094), job 139749762200, SUCCESS. 20/20 campaign/economy assertions + 1 compound trade/recruitment check PASS; 13/13 real Chromium checks PASS; measured MOLA package and exact archive integrity PASS. Independent human/device/owner acceptance and long-term balance remain open.
+
+- Node: 20/20 campaign/economy assertions; one additional compound trade-spread/recruit check. Maker-authored. Three 42-year model paths valid (not balance certification).
+- Chromium: 13/13 (menu, campaign start, mine construction and output, trade spread, climate effect, manual restore, campaign isolation and mode, reload, portable JSON, v1 import + invalid rejection, RU/EN/AZ 390px, measured MOLA, no network/errors).
+- Artifact [15094537949](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45772973094/artifacts/15094537949); temporary, expires 2027-02-24. Inner ZIP `GenesisOfWorlds_v0.2_MOLA.zip`, 143109 bytes, SHA-256 `fa202a459b0f0aaa300b0ef5455b413d1434c51039efc16fd3f203566fa7c2d1`. Outer artifact SHA-256 `372f43c10939e4b2d8d594ed3a0a4e815d5f5a82eac22d63dfbde05be2b7ca05`; embedded HTML `48438b3326b80f6f125f5ec333c51d27a2510e171bbb55bcdd8db0964dcc6aa0`; embedded measured grid `ca5e873a2a283cb717e9433ef3e06b2b4ee211c22eabb522965f5e865ace0e52` (64800 int16 samples). Downloaded bytes matched hashes; ZIP CRC checks passed. Reviewer: maker/runtime CI, independent human acceptance not verified.
+
+Historical v0.1 QA unchanged. No formal release/deployment. Remaining: owner PC, native localization and physical device, longer performance/balance, full victory/failure and later world implementation.

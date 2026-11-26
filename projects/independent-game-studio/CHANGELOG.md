@@ -1,5 +1,9 @@
 # Studio development history
 
+## 2026-11-26 — Genesis of Worlds v0.2 verified development candidate
+
+20/20 campaign/economy assertions + 1 compound trade/recruitment check PASS; 13/13 real Chromium checks PASS; measured MOLA package and exact archive integrity PASS. Independent human/device/owner acceptance and long-term balance remain open. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45772973094) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45772973094/artifacts/15094537949). Exact source 3c65092f4d9fe29505b4e01696de91d6d0db8802; v0.1 unchanged. No merge or release.
+
 ## 2026-11-26 — Genesis of Worlds v0.2 campaign/colony development
 
 [PR #34](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/34), source 3c65092f4d9fe29505b4e01696de91d6d0db8802. Separate v0.2 implementation, preserves verified v0.1. World/mode catalog, independent local saves, legacy import, three colony sites, economy, production and facility-driven terraforming. [Dedicated CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45772973094): Node and measured MOLA package steps passed at checkpoint; browser acceptance pending. No merge or release approval.

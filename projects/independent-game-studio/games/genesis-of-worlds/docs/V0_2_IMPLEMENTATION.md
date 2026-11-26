@@ -6,3 +6,6 @@ Maker checks: 20/20 in JS isolate before UI integration. Additional Node checks 
 
 ## Runtime checkpoint
 Exact source 3c65092f4d9fe29505b4e01696de91d6d0db8802. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45772973094) Node and measured MOLA build steps successful, Chromium pending. Maker stress paths (42 simulated years each, mine → sell ore → heater) valid in Beginner / Normal / Expert; all reached population 100 and temperature about −29.3 / −30.3 / −31.2 °C respectively. Not proof of long-term balance. No archive checksum until log/artifact readback.
+
+## Verified automated outcome
+20/20 campaign/economy assertions + 1 compound trade/recruitment check PASS; 13/13 real Chromium checks PASS; measured MOLA package and exact archive integrity PASS. Independent human/device/owner acceptance and long-term balance remain open. See [QA and exact artifact](V0_2_QA.md).
