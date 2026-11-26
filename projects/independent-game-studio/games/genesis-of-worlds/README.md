@@ -99,3 +99,6 @@ Extract the development ZIP and open the HTML directly. No account, server, data
 [Prototype](play/GenesisOfWorlds_v0.7.html) · [Visual scope](docs/V0_7_VISUAL_SCOPE.md). Final automated QA passed; existing gameplay unchanged.
 
 **Latest v0.7 verified offline development candidate:** [ZIP and actual browser screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45792360228/artifacts/15103101950) · [QA and checksums](docs/V0_7_QA.md). Download and extract `GenesisOfWorlds.html` to play locally. CI artifact is temporary; no account or hosted game server required. Previous builds retained.
+
+## v0.8 Living Civilization (development)
+[Scope](docs/V0_8_IMPLEMENTATION.md) · [HTML](play/GenesisOfWorlds_v0.8.html). Combined graphics and society/crisis implementation; QA pending. v0.7 remains verified baseline.
