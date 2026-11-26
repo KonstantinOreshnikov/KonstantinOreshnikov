@@ -17,7 +17,7 @@ A calm, original single-player planetary strategy and terraforming simulator ins
 - Interactive rotating 3D globe with visible, continuous environmental transformation: barren terrain, ice, water, clouds, vegetation and city lights.
 - Manage temperature, pressure, oxygen, water, biomass, population, economy, research and culture as interdependent systems.
 - Establish cities and mining outposts, build facilities, unlock technology, respond to events, and eventually automate planetary equilibrium.
-- Start with Mars and add progressively harder worlds; real scientific baselines where feasible, explicitly simplified game physics.
+- Eight planned worlds, from beginner Mars to extreme Pluto and Earth scenarios; five inherent difficulty tiers plus independent Relaxed / Normal / Expert modes, freely selectable when implemented.
 - Desktop browsers and Android; RU / EN / AZ; offline-first saves, adjustable simulation speed, optional offline progression. No advertising, purchases, subscription, mandatory login or pay-to-win.
 - Original code, UI, art and balancing; third-party code/data only after provenance and license approval.
 
@@ -28,6 +28,7 @@ A calm, original single-player planetary strategy and terraforming simulator ins
 | [Game design](docs/GAME_DESIGN.md) | Full proposed systems, rules, features, UX and scope |
 | [Research and source register](docs/RESEARCH.md) | Original game references, candidate open-source repositories, scientific data, license gates |
 | [Technical architecture and QA](docs/ARCHITECTURE_QA.md) | Implementation options, state model, persistence, tests and release requirements |
+| [World selection and difficulty](docs/WORLD_SELECTION_AND_DIFFICULTY.md) | Eight worlds, five tiers, three modes, independent local campaigns |
 | [Roadmap](docs/ROADMAP.md) | Ordered milestones and acceptance criteria |
 | [Status](STATUS.md) | Authoritative current stage and next action |
 

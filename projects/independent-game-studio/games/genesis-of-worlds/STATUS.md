@@ -10,3 +10,6 @@ Exact tested source 43a553ccb5da1292952a9cb4f8e3c75ceef0e467: [offline package C
 - Next cursor: owner local PC trial; assess visual polish and performance, then owner-approved next milestone. P1 studio visuals deferred. Other games unchanged.
 
 Checkpoint GOW-MARS-20261126: automated P0 technical gates PASS for exact candidate; independent human/device/UAT and release gates NOT VERIFIED/NOT STARTED. Do not repeat unchanged PASS or claim a full game.
+
+## Next milestone design addition (2026-11-26)
+Owner requested multi-world selection and different difficulty levels. [World selection and difficulty](docs/WORLD_SELECTION_AND_DIFFICULTY.md) records eight planned worlds, five tiers, three independent modes, local campaign saves and data-driven engine contracts. No runtime changes or new QA verdicts; v0.1 remains Mars-only. World/mode foundation targeted for v0.2; playable expansions after core loop. Other projects unchanged.

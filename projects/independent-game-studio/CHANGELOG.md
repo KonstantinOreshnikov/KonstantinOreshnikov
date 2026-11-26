@@ -1,5 +1,9 @@
 # Studio development history
 
+## 2026-11-26 — Genesis of Worlds multi-world design
+
+Owner requested selectable worlds and difficulty. [Specification](games/genesis-of-worlds/docs/WORLD_SELECTION_AND_DIFFICULTY.md) defines eight planned worlds, five inherent difficulty tiers, independent player modes and separate local saves. Documentation only; verified Mars runtime unchanged.
+
 ## 2026-11-26 — Genesis of Worlds verified local technical candidate
 
 [Offline package QA 2/2](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048); [MOLA candidate](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092733115) and [procedural fallback](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092374018). Actual measured grid and portable saves verified; checksums and exact source in [QA evidence](games/genesis-of-worlds/docs/P0_OFFLINE_QA.md). Owner local PC/physical/independent UAT open. No release/deployment or other game changes.
