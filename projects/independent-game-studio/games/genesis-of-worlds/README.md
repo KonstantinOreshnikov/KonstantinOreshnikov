@@ -111,3 +111,6 @@ Extract the development ZIP and open the HTML directly. No account, server, data
 
 
 v0.9 adds optional fusion, logistics and orbital science megaprojects. [Intermediate crisis candidate](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45817386493/artifacts/15115049032) verified; expanded build under [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126). No formal release.
+
+
+**Latest verified development candidate: v0.9 Deep Strategy.** [Offline ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126/artifacts/15118309413) · [QA evidence](docs/V0_9_QA.md). Independent acceptance and v0.9.5 balance pending. No formal release.

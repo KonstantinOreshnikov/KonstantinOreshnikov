@@ -1,0 +1,8 @@
+# v0.9 Deep Strategy — verified automated development candidate
+
+Exact tested revision 85b5e9b91a20e6ccdac18f4bc324438621416005; [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126) job 139921221724 SUCCESS. Prior crisis-slice PASS at c3dc0368bdecea817ddcec361fb6755eccaeef81 retained.
+
+- Node: 15 regression checks; 468 distinct crisis matrix cases + 13 zero-stock cases; 9 project-mode and 4 integration checks. 24 fresh victory routes across 8 worlds × 3 modes, with corrected Venus Expert strategy. Browser: 17 Chromium scenarios, including locale, megaproject construction, reload and offline operation. These are automated/maker gates, not independent acceptance.
+- [Downloaded artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126/artifacts/15118309413): outer SHA-256 467ba966b01a1c34d622570b6535e4ee62d1ecab035ab486134bb8d57b41d3b6; inner ZIP 179571 bytes SHA-256 85b18ca044e1a843d27955441c47997d8b0c6a5629716063f4b0018006f347b6; HTML SHA-256 2c59f13bdd46ed4c77ed1d0508df61faac73de2d4be571d808b67be7ca4e8a0c. Both ZIP CRC checks clean; hashes recomputed from downloaded bytes and matched CI. MOLA provenance present; pinned source and grid verified by build. Expires 2027-02-24; no permanent formal release.
+- Three additional alternative maker victories, including failed initial strategies, recorded in [alternative evidence](V0_9_ALTERNATIVE_STRATEGIES.md). No changes to difficulty/victory conditions to force PASS.
+- Next: v0.9.5 Balance & QA. Independent gameplay and localization acceptance, physical devices, long-session performance and broader alternative-strategy calibration remain NOT VERIFIED. No main merge or release authorized. Public main project remains v0.7.

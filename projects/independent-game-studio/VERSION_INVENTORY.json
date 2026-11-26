@@ -470,21 +470,33 @@
     {
       "game_id": "genesis-of-worlds",
       "version": "v0.9",
-      "state": "VERIFIED_INTERMEDIATE_DEVELOPMENT_CANDIDATE",
+      "state": "VERIFIED_AUTOMATED_DEVELOPMENT_CANDIDATE",
       "path": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.9.html",
-      "source_commit": "c3dc0368bdecea817ddcec361fb6755eccaeef81",
+      "source_commit": "85b5e9b91a20e6ccdac18f4bc324438621416005",
       "branch": "game/genesis-of-worlds-v0.9-20261126",
       "release": null,
-      "qa": "Exact CI: 15 Node, 468+13 crisis, 16 Chromium, downloaded ZIP/HTML hashes and CRC PASS; independent gates open.",
-      "qa_run": 45817386493,
-      "sha256": "1e275a4517c5e3d4e996cf375eb46adc571f7d60d91cdfc4d68979a587791590",
-      "bytes": 178583,
-      "artifact_id": 15115049032,
-      "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45817386493/artifacts/15115049032",
+      "qa": "15 Node + 468 crisis matrix + 13 zero-stock + 9 project-mode + 4 integration; 24/24 fresh victories; 17 Chromium; exact ZIP/HTML SHA256 and CRC PASS. Independent acceptance open.",
+      "qa_run": 45823405126,
+      "sha256": "85b18ca044e1a843d27955441c47997d8b0c6a5629716063f4b0018006f347b6",
+      "bytes": 179571,
+      "artifact_id": 15118309413,
+      "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126/artifacts/15118309413",
       "artifact_expires_on": "2027-02-24",
       "active_development_commit": "85b5e9b91a20e6ccdac18f4bc324438621416005",
       "active_development_ci": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126",
-      "active_development_status": "EXPANSION_VERIFICATION_PENDING"
+      "active_development_status": "BALANCE_QA_NEXT",
+      "historical_candidates": [
+        {
+          "state": "VERIFIED_INTERMEDIATE_DEVELOPMENT_CANDIDATE",
+          "source_commit": "c3dc0368bdecea817ddcec361fb6755eccaeef81",
+          "qa_run": 45817386493,
+          "artifact_id": 15115049032,
+          "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45817386493/artifacts/15115049032",
+          "sha256": "1e275a4517c5e3d4e996cf375eb46adc571f7d60d91cdfc4d68979a587791590",
+          "bytes": 178583,
+          "qa": "Exact CI: 15 Node, 468+13 crisis, 16 Chromium, downloaded ZIP/HTML hashes and CRC PASS; independent gates open."
+        }
+      ]
     }
   ]
 }
