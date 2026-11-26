@@ -466,6 +466,16 @@
       "bytes": 177991,
       "qa": "15/15 Node model checks; 14/14 real Chromium file-URL scenarios; 24/24 fresh deterministic maker model victory routes; downloaded ZIP/HTML hashes and CRC verified. Short 3.5s headless Chromium benchmark at 768px: Earth/Mars v0.7 22.28 FPS each; v0.8 30.17/30.28 FPS respectively. Independent human/device, sustained FPS, crisis differentiation and balance remain open.",
       "release": null
+    },
+    {
+      "game_id": "genesis-of-worlds",
+      "version": "v0.9",
+      "state": "DEVELOPMENT_UNVERIFIED",
+      "path": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.9.html",
+      "source_commit": "c0332d9fc6d96c5a9e50e5fa8a43939983f4758e",
+      "branch": "game/genesis-of-worlds-v0.9-20261126",
+      "release": null,
+      "qa": "Maker isolate 468 matrix + 13 zero-stock cases; HTML syntax; Node/browser/package/balance gates pending"
     }
   ]
 }

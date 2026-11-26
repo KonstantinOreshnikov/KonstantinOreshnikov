@@ -104,7 +104,7 @@
       "id": "genesis-of-worlds",
       "canonical_path": "projects/independent-game-studio/games/genesis-of-worlds",
       "current_verified_release": null,
-      "latest_development_candidate": "v0.8 Living Civilization — verified offline development candidate",
+      "latest_development_candidate": "v0.9 Deep Strategy — first development slice, verification pending",
       "latest_verified_artifact": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45804202713/artifacts/15108139401",
       "source_path": "projects/independent-game-studio/games/genesis-of-worlds/src/campaign-v0.8.js",
       "sha256": "d0fec0a524a652beb19341bafeb8ac512861f05c55f13bdcaf12122c3390d9ab",
@@ -121,12 +121,12 @@
       "artifact_expires_on": "2027-02-24",
       "artifact_provenance": "CI artifact 15108139401; exact downloaded inner ZIP verified",
       "development_history": "projects/independent-game-studio/games/genesis-of-worlds/docs/P0_OFFLINE_QA.md",
-      "active_development_branch": "game/genesis-of-worlds-v0.8-20261126",
-      "active_development_commit": "b273fca09f87f9376d9d091f036dbdc17791ae3b",
-      "active_development_pr": 40,
-      "active_development_ci": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45804202713",
-      "active_development_source": "projects/independent-game-studio/games/genesis-of-worlds/src/campaign-v0.8.js",
-      "active_development_html": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.8.html"
+      "active_development_branch": "game/genesis-of-worlds-v0.9-20261126",
+      "active_development_commit": "11d6c1624eeb6e9af7c9a8d9891d507c1cc5a6ff",
+      "active_development_pr": null,
+      "active_development_ci": null,
+      "active_development_source": "projects/independent-game-studio/games/genesis-of-worlds/src/campaign-v0.9.js",
+      "active_development_html": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.9.html"
     }
   ],
   "latest_update": "2026-11-26 Genesis of Worlds v0.1 verified local technical candidate; other four game records unchanged"

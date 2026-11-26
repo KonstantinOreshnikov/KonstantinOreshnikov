@@ -41,3 +41,7 @@ P0–P2 source [merged to GitHub `main`](https://github.com/KonstantinOreshnikov
 3. After a change update `games.json`, this registry, game README/STATUS and changelog together; rerun relevant QA, verify checksums and GitHub read-back.
 4. When claims disagree, record the conflict in `MIGRATION_REPORT.md` or game QA, state which source is verified, and keep the superseded evidence.
 5. Distinguish latest verified artifact, current release, development candidate, history, specification and BLOCKED/NOT TESTED. No automatic sync across chats.
+
+
+## Genesis of Worlds v0.9 development checkpoint
+First Deep Strategy slice: crisis differentiation. Last verified candidate v0.8; published project page v0.7. See [status](games/genesis-of-worlds/STATUS.md). No release.
