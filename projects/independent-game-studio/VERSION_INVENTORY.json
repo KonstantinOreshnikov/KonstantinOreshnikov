@@ -418,6 +418,22 @@
       "corrected_local_zip_bytes": 160801,
       "initial_artifact_id": 15099959190,
       "initial_sha256": "b6c65533f2ad6d6953e8450283607a5f9ff79048cb4eb2e968a7be937008896b"
+    },
+    {
+      "game_id": "genesis-of-worlds",
+      "version": "v0.6",
+      "state": "VERIFIED_DEVELOPMENT_CANDIDATE",
+      "path": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.6.html",
+      "source_commit": "81849713078bf6ee9109b2eb1f6fe3f566caf0d1",
+      "branch": "game/genesis-of-worlds-v0.6-20261126",
+      "qa_run": 45788305057,
+      "sha256": "dcef56a569402d127cbc11111a2eff6300272fb6eb8b3a4d72b4071726d5a059",
+      "artifact_id": 15101726584,
+      "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45788305057/artifacts/15101726584",
+      "artifact_expires_on": "2027-02-24",
+      "bytes": 165938,
+      "qa": "11/11 Node assertions plus land-mask SHA256 PASS; 11/11 real Chromium scenarios PASS; 21/21 mission/mode accounting checks in maker JS isolate; exact downloaded ZIP/HTML/MOLA/land-mask hashes and CRC verified. Desktop and 390px screenshot inspection completed. v0.5 model and schema unchanged; prior 24/24 model reachability reused, not newly executed. Independent human/device, balance, deeper regional crises and high-resolution maps open.",
+      "release": null
     }
   ]
 }

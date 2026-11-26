@@ -1,5 +1,9 @@
 # Studio development history
 
+## 2026-11-26 — Genesis of Worlds v0.6 Living Worlds
+
+11/11 Node assertions plus land-mask SHA256 PASS; 11/11 real Chromium scenarios PASS; 21/21 mission/mode accounting checks in maker JS isolate; exact downloaded ZIP/HTML/MOLA/land-mask hashes and CRC verified. Desktop and 390px screenshot inspection completed. v0.5 model and schema unchanged; prior 24/24 model reachability reused, not newly executed. Independent human/device, balance, deeper regional crises and high-resolution maps open. [PR #38](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/38) · [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45788305057) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45788305057/artifacts/15101726584). Exact source 81849713078bf6ee9109b2eb1f6fe3f566caf0d1. Previous versions retained; no merge or release.
+
 ## 2026-11-26 — Genesis of Worlds v0.5 verified candidate
 
 20/20 Node checks, 24/24 fresh campaign model victories, 15/15 real Chromium scenarios PASS on corrected candidate; 24/24 packaged-model victories and 24 local world/locale context checks PASS. Corrected CI ZIP, embedded HTML/MOLA and CRC verified. Independent human/device, balance and deeper maps remain open. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348/artifacts/15101116049). Exact corrected source 54dd69d82e6a0838747a21c35ed353983bed3a42. No merge/release.
