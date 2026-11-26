@@ -17,6 +17,8 @@ jobs:
           node-version: '22'
       - run: node tests/civilization-v0.9.test.cjs
       - run: node tests/crisis-v0.9.test.cjs
+      - run: node tests/strategy-v0.9.test.cjs
+      - run: node tests/fresh-victory-v0.9.test.cjs
       - run: python3 scripts/package-v0.9.py --mola
       - run: npm install --no-save --no-package-lock playwright@1.51.1 && npx playwright install --with-deps chromium
       - run: GOW_HTML="$PWD/packages/GenesisOfWorlds_v0.9_MOLA.html" node tests/browser-v0.9.test.cjs
