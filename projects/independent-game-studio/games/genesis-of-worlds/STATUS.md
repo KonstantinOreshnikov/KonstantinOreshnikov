@@ -56,3 +56,6 @@ Eight-world scenario engine, Earth restoration, schema 5 and UI implemented. 17 
 
 ## v0.5 exact checkpoint
 Owner-authorized development only. Exact runtime 7dbe821bcd2c4db62bae4e387c1e6e713c95b253; [PR #37](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/37) stacked on #36; [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933) job 139792986319. 24/24 fresh model victory routes, 20 model assertions authored, Node and pinned MOLA package steps passed; browser/ZIP readback pending. Next exact browser job and artifact hashes. No merge/deploy/release. Earth playable in implementation, initial balance provisional, no verified actual Earth map. Prior candidates preserved.
+
+### Visual delta QA
+Initial runtime 7dbe821bcd2c4db62bae4e387c1e6e713c95b253 CI 45786058933 completed successfully (20 Node checks, 24 fresh model routes, 15 Chromium checks; inner ZIP hash b6c65533f2ad6d6953e8450283607a5f9ff79048cb4eb2e968a7be937008896b verified). Maker screenshot inspection revealed a retained Mars objective heading and recoverable-collapse guidance on Earth. Historical PASS remains scoped to its original tests; this new locale/context defect prompted a targeted UI and browser assertion correction. New runtime UI gate pending; no changes to simulation engine or world profiles.
