@@ -108,3 +108,6 @@ Extract the development ZIP and open the HTML directly. No account, server, data
 
 ## v0.9 development in progress
 [Deep Strategy first slice](docs/V0_9_IMPLEMENTATION.md): differentiated crisis consequences and previews. v0.8 remains the last verified downloadable candidate. v0.9 is not released.
+
+
+v0.9 adds optional fusion, logistics and orbital science megaprojects. [Intermediate crisis candidate](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45817386493/artifacts/15115049032) verified; expanded build under [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126). No formal release.

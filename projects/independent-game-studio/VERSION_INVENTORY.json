@@ -470,12 +470,21 @@
     {
       "game_id": "genesis-of-worlds",
       "version": "v0.9",
-      "state": "DEVELOPMENT_UNVERIFIED",
+      "state": "VERIFIED_INTERMEDIATE_DEVELOPMENT_CANDIDATE",
       "path": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.9.html",
-      "source_commit": "c0332d9fc6d96c5a9e50e5fa8a43939983f4758e",
+      "source_commit": "c3dc0368bdecea817ddcec361fb6755eccaeef81",
       "branch": "game/genesis-of-worlds-v0.9-20261126",
       "release": null,
-      "qa": "Maker isolate 468 matrix + 13 zero-stock cases; HTML syntax; Node/browser/package/balance gates pending"
+      "qa": "Exact CI: 15 Node, 468+13 crisis, 16 Chromium, downloaded ZIP/HTML hashes and CRC PASS; independent gates open.",
+      "qa_run": 45817386493,
+      "sha256": "1e275a4517c5e3d4e996cf375eb46adc571f7d60d91cdfc4d68979a587791590",
+      "bytes": 178583,
+      "artifact_id": 15115049032,
+      "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45817386493/artifacts/15115049032",
+      "artifact_expires_on": "2027-02-24",
+      "active_development_commit": "85b5e9b91a20e6ccdac18f4bc324438621416005",
+      "active_development_ci": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126",
+      "active_development_status": "EXPANSION_VERIFICATION_PENDING"
     }
   ]
 }

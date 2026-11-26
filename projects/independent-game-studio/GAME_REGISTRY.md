@@ -45,3 +45,7 @@ P0–P2 source [merged to GitHub `main`](https://github.com/KonstantinOreshnikov
 
 ## Genesis of Worlds v0.9 development checkpoint
 First Deep Strategy slice: crisis differentiation. Last verified candidate v0.8; published project page v0.7. See [status](games/genesis-of-worlds/STATUS.md). No release.
+
+
+## Genesis of Worlds v0.9 expanded checkpoint
+Intermediate crisis slice verified: [ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45817386493/artifacts/15115049032). Expanded 3 technologies / 3 megaprojects, 24/24 fresh maker victories; [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126) browser/archive pending. Main project page v0.7, no formal release. [Status](games/genesis-of-worlds/STATUS.md).
