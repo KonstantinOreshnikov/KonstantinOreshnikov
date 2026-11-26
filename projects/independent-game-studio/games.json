@@ -104,18 +104,24 @@
       "id": "genesis-of-worlds",
       "canonical_path": "projects/independent-game-studio/games/genesis-of-worlds",
       "current_verified_release": null,
-      "latest_development_candidate": null,
-      "latest_verified_artifact": null,
-      "source_path": null,
-      "sha256": null,
-      "qa_status": "NOT STARTED — research/concept only; no playable build",
-      "known_blockers": "Implementation not authorized; candidate source/data licenses and science/balance assumptions require validation before reuse",
-      "last_verified": "2026-11-25 — concept registration only",
-      "origin_branch": "docs/genesis-of-worlds-concept-20261125",
+      "latest_development_candidate": "v0.1 measured MOLA offline technical candidate",
+      "latest_verified_artifact": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092733115",
+      "source_path": "projects/independent-game-studio/games/genesis-of-worlds/src/engine.js",
+      "sha256": "aa75be7bc955761f026db80ca1edfa271276b0de9c29324eb4f5a8ac01bd41bf",
+      "qa_status": "Exact source 43a553cc: 12/12 engine, 6/6 terrain fixtures, 11/11 procedural Chromium, 12/12 MOLA Chromium; both ZIP hashes verified; independent/physical/owner UAT open",
+      "known_blockers": "Owner local PC trial, visual/performance refinement, independent human/device acceptance; no release/deploy authorization",
+      "last_verified": "2026-11-26 CI 45768735048 and downloaded artifact hash/readback",
+      "origin_branch": "game/genesis-of-worlds-v0.1-20261126",
       "status_path": "projects/independent-game-studio/games/genesis-of-worlds/STATUS.md",
       "design_path": "projects/independent-game-studio/games/genesis-of-worlds/docs/GAME_DESIGN.md",
-      "project_stage": "RESEARCH_CONCEPT"
+      "project_stage": "DEVELOPMENT_PROTOTYPE",
+      "delivery_model": "Local ZIP only; no server, database, login or cloud",
+      "origin_commit": "43a553ccb5da1292952a9cb4f8e3c75ceef0e467",
+      "latest_development_artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092733115",
+      "artifact_expires_on": "2027-02-24",
+      "artifact_provenance": "CI temporary artifact 15092733115; inner ZIP hash; measured MOLA derivative embedded. Not formal release.",
+      "development_history": "projects/independent-game-studio/games/genesis-of-worlds/docs/P0_OFFLINE_QA.md"
     }
   ],
-  "latest_update": "2026-11-25 Genesis of Worlds registered as fifth project; existing four game records unchanged"
+  "latest_update": "2026-11-26 Genesis of Worlds v0.1 verified local technical candidate; other four game records unchanged"
 }

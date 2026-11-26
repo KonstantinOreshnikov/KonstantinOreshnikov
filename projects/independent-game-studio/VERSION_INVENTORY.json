@@ -324,17 +324,30 @@
       "bytes": 2047853
     }
   ],
-  "concept_only_projects": [
+  "concept_only_projects": [],
+  "development_prototypes": [
     {
       "game_id": "genesis-of-worlds",
-      "state": "RESEARCH_CONCEPT",
-      "version": null,
-      "artifact": null,
-      "sha256": null,
+      "version": "v0.1",
+      "state": "VERIFIED_OFFLINE_TECHNICAL_CANDIDATE",
+      "path": "projects/independent-game-studio/games/genesis-of-worlds/play/MarsPrototype_v0.1.html",
+      "sha256": "aa75be7bc955761f026db80ca1edfa271276b0de9c29324eb4f5a8ac01bd41bf",
+      "qa": "12 engine + 6 terrain fixtures; 11 procedural + 12 measured Chromium; verified ZIP; independent acceptance open",
       "release": null,
-      "qa": "NOT_STARTED",
-      "status_path": "projects/independent-game-studio/games/genesis-of-worlds/STATUS.md",
-      "registered_on": "2026-11-25"
+      "branch": "game/genesis-of-worlds-v0.1-20261126",
+      "delivery": "ZIP, local file only",
+      "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092733115",
+      "artifact_id": 15092733115,
+      "origin_commit": "43a553ccb5da1292952a9cb4f8e3c75ceef0e467",
+      "qa_run": 45768735048,
+      "artifact_expires_on": "2027-02-24",
+      "alternate_procedural": {
+        "artifact_id": 15092374018,
+        "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092374018",
+        "sha256": "e95a97d3459e9dda630b30806513bd48210bfbd9aafe2e402f1a0ebec561f32e"
+      },
+      "source_mola_sha256": "25f16fb7aaf857898dcf98bc4f841341a24f8b9f7e98453ca083bc45d897ca2c",
+      "derived_mola_sha256": "ca5e873a2a283cb717e9433ef3e06b2b4ee211c22eabb522965f5e865ace0e52"
     }
   ]
 }

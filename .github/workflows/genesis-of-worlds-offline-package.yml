@@ -1,0 +1,51 @@
+name: Genesis of Worlds offline package QA
+on:
+  pull_request:
+    paths:
+      - 'projects/independent-game-studio/games/genesis-of-worlds/**'
+      - '.github/workflows/genesis-of-worlds-offline-package.yml'
+jobs:
+  portable-offline:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: projects/independent-game-studio/games/genesis-of-worlds
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/engine.test.cjs && node tests/terrain.test.cjs
+      - run: python3 scripts/package-offline.py
+      - run: npm install --no-save --no-package-lock playwright@1.51.1 && npx playwright install --with-deps chromium
+      - run: |
+          GOW_HTML="$PWD/packages/GenesisOfWorlds_v0.1_Offline.html" node tests/browser.test.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GenesisOfWorlds-v0.1-offline-candidate
+          path: |
+            projects/independent-game-studio/games/genesis-of-worlds/packages/*.zip
+            projects/independent-game-studio/games/genesis-of-worlds/packages/*.sha256
+            projects/independent-game-studio/games/genesis-of-worlds/qa-screenshots/
+  measured-mola:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: projects/independent-game-studio/games/genesis-of-worlds
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python3 scripts/package-offline.py --mola
+      - run: npm install --no-save --no-package-lock playwright@1.51.1 && npx playwright install --with-deps chromium
+      - run: |
+          GOW_HTML="$PWD/packages/GenesisOfWorlds_v0.1_MOLA.html" GOW_EXPECT_MOLA=1 node tests/browser.test.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GenesisOfWorlds-v0.1-MOLA-candidate
+          path: |
+            projects/independent-game-studio/games/genesis-of-worlds/packages/*.zip
+            projects/independent-game-studio/games/genesis-of-worlds/packages/*.sha256
+            projects/independent-game-studio/games/genesis-of-worlds/packages/MOLA_*
+            projects/independent-game-studio/games/genesis-of-worlds/qa-screenshots/

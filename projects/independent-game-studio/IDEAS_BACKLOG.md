@@ -37,4 +37,8 @@ Create original, self-contained 2D HTML5 games inspired by the NES/Dendy, Sega M
 - The five registered games remain independent: [Game Registry](GAME_REGISTRY.md) · [Studio README](README.md).
 - Before implementation, approve the chosen concept's scope and original title, then create a separate game directory with source, STATUS, QA evidence, and version history. This document is an **idea backlog**, not a release-status authority.
 
-Genesis of Worlds is a separately registered fifth project, not an eleventh backlog item: [concept and research](games/genesis-of-worlds/README.md). No implementation authorization is implied.
+Genesis of Worlds is a separately registered fifth project, not an eleventh backlog item: [concept and research](games/genesis-of-worlds/README.md). Mars v0.1 implementation was separately authorized on 2026-11-26.
+
+## Deferred studio visual presentation task (2026-11-26)
+
+Owner requested a later, separate documentation work package: place representative visuals directly under the title for all five registered games, actual version-labeled screenshots for implemented titles and clearly labeled original concept art for unimplemented titles. Preserve Caribbean Merchant's existing map; illustrate the ten future concepts as concepts, not delivered games. P1 DEFERRED; Genesis of Worlds P0 takes precedence. Do not start other visual work yet.

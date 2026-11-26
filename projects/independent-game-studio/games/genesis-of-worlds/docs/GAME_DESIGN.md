@@ -42,16 +42,8 @@ Balance resource flows per simulation tick; no negative inventory or unaffordabl
 Technology tree grouped by climate, atmosphere, hydrology, biology, settlements, industry, energy and orbit. Unlock meaningful alternatives rather than linear numerical upgrades. First biosphere mode uses simple biomass; optional deeper mode uses original species traits, environmental tolerances, food webs and extinction/reintroduction. Factions/cultures have transparent strengths and drawbacks; policy changes should be reversible or clearly costly. Independence can be a scenario objective; no mandatory PvP.
 
 ## 7. Worlds and scenarios
-| World | Proposed scenario | Design difficulty |
-| --- | --- | --- |
-| Mars | Warm a cold low-pressure world, retain atmosphere, melt ice and establish seas | Introductory |
-| Moon | Build habitats and atmosphere from near vacuum | Intermediate |
-| Venus | Remove excess atmospheric pressure, cool and restore water | Advanced |
-| Mercury | Heat extremes and solar radiation; shield habitats | Advanced |
-| Europa | Ice-covered moon, radiation and subsurface water | Advanced |
-| Titan | Extreme cold, thick nitrogen-rich atmosphere and exotic chemistry | Advanced |
 
-Future: Ceres, Callisto, Ganymede, Triton, TRAPPIST-1-inspired exoplanets and seed-generated fictional worlds. No claim that real terraforming is currently feasible. Modes: guided campaign, relaxed sandbox, hard/scenario challenges; seeded random events and optional disasters.
+[World selection and difficulty specification](WORLD_SELECTION_AND_DIFFICULTY.md) supersedes the earlier world list. Eight planned worlds span five inherent difficulty tiers, with independent Relaxed / Normal / Expert modes. Mars is the recommended tutorial, not a mandatory unlock gate. All implemented worlds are freely selectable, with separate offline campaigns. Additional worlds remain planned until individually verified. [Earth: Save Civilization](EARTH_SAVE_CIVILIZATION.md) is the owner-selected flagship scenario, featured in the future main menu and project presentation. Unlike colonization, it centers on preserving an existing civilization under fictional ecological crisis.
 
 ## 8. Orbital megaprojects and events
 Proposed projects: solar mirror/shade, orbital transport/space elevator where plausible, artificial magnetic shield, orbital agriculture, volatile delivery and large infrastructure. Fictional engineering is explicitly labeled. Events: dust storms, meteor impacts, equipment failure, scientific breakthroughs, shortages, migration and trade opportunities. Events have readable choices, transparent consequences and recovery options; disable severe disasters in relaxed mode. Forecast flooding, extreme temperature, pressure, resource depletion and ecological collapse. Emergency stop and recovery are core controls.
@@ -63,4 +55,4 @@ Pause, ×1, ×5, ×20, ×100 time (values subject to balance). Offline progressi
 Dashboard: globe center; status and trend indicators; tabs for planet, settlements, economy, research, biosphere, orbit and culture. Contextual actions, construction queue, event inbox, data overlays and tutorial. Immediate RU/EN/AZ switching with persistent locale; all dynamic messages, errors, tooltips, events, numbers and accessibility text localized. Text scaling, contrast, reduced-motion option, keyboard navigation, responsive touch targets. Save slots, autosave, export/import and offline capability; no mandatory account. All names, UI, art, music and copy must be original or license-cleared.
 
 ## 11. Scope control
-Mars-only playable vertical slice first; defer other planets, advanced biosphere, orbit, cloud saves and complex culture until core simulation and persistence are demonstrated. Feature list is a proposal, not completed or owner-authorized implementation.
+Mars-only playable vertical slice first; defer playable additional planets, advanced biosphere, orbit and complex culture until core simulation and persistence are demonstrated. Feature list is a proposal, not completed or owner-authorized implementation.

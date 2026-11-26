@@ -1,15 +1,21 @@
 # Genesis of Worlds — current status
 
-Date: 2026-11-25. Project ID: genesis-of-worlds. Stage: **RESEARCH / CONCEPT**.
+2026-11-26. DEVELOPMENT / VERIFIED OFFLINE TECHNICAL CANDIDATE. Owner approved local-only ZIP and integration of these primary development materials into main on 2026-11-26. No formal game release or hosted deployment authorized.
 
-- Owner approved recording this concept as studio project 05. Working name and design are provisional; implementation, publishing and release require separate authorization.
-- Latest playable artifact, source implementation, candidate version, release, deployment and checksum: none.
-- Runtime QA: NOT_STARTED. No claimed PASS. Documentation is not a game build.
-- Baseline: studio main f4f0384655cf4502beb74beb0c483a1429bec9c5; four prior projects remain unchanged. Documentation branch: docs/genesis-of-worlds-concept-20261125.
-- Evidence: [design](docs/GAME_DESIGN.md), [research](docs/RESEARCH.md), [architecture and QA](docs/ARCHITECTURE_QA.md), [roadmap](docs/ROADMAP.md).
-- Open decisions: confirm original branding; review source/data licenses, exact classic mechanics, globe feasibility and balance; agree on vertical slice scope.
-- Next cursor: owner-approved specification / vertical slice, starting with Mars only. No runtime work until authorized.
+Exact tested source 43a553ccb5da1292952a9cb4f8e3c75ceef0e467: [offline package CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048) 2/2 jobs SUCCESS; 12/12 engine, 6/6 terrain synthetic fixtures, 11/11 offline Chromium, 12/12 MOLA Chromium. The two browser suites overlap; do not add their counts as unique scenarios. Actual official MOLA data downloaded, validated and embedded. Both downloaded CI artifact outer SHA-256 and inner ZIP SHA-256 matched; ZIP CRC integrity passed; MOLA HTML, label and embedded grid SHA-256 matched actual provenance. No physical Android, independent human gameplay/linguistic acceptance or performance benchmark claim.
 
-## Checkpoint
+- [MOLA ZIP candidate](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092733115) · [procedural fallback](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092374018) · [QA and provenance](docs/P0_OFFLINE_QA.md). Temporary CI archives expire 2027-02-24; permanent game release: none.
+- Source/terrain/model and browser storage are local; JSON export/import provides portable backup; no servers, accounts or network required at runtime.
+- Initial three README illustrations remain clearly labeled procedural concept illustrations, not current MOLA screenshots. Real browser screenshots are in CI artifacts.
+- Next cursor: owner local PC trial; assess visual polish and performance, then owner-approved next milestone. P1 studio visuals deferred. Other games unchanged.
 
-Task: GOW-CONCEPT-20261125. Environment: documentation branch only. Scope: project registration and design documents. Gate: documentation consistency/read-back; runtime and release gates not applicable to this work package. No existing PASS gates reopened. No private reference screenshot stored.
+Checkpoint GOW-MARS-20261126: automated P0 technical gates PASS for exact candidate; independent human/device/UAT and release gates NOT VERIFIED/NOT STARTED. Do not repeat unchanged PASS or claim a full game.
+
+## Next milestone design addition (2026-11-26)
+Owner requested multi-world selection and different difficulty levels. [World selection and difficulty](docs/WORLD_SELECTION_AND_DIFFICULTY.md) records eight planned worlds, five tiers, three independent modes, local campaign saves and data-driven engine contracts. No runtime changes or new QA verdicts; v0.1 remains Mars-only. World/mode foundation targeted for v0.2; playable expansions after core loop. Other projects unchanged.
+
+## Flagship scenario decision (2026-11-26)
+Owner selected **Earth: Save Civilization** as the signature feature, prominently presented in README and future main menu. [Scenario specification](docs/EARTH_SAVE_CIVILIZATION.md). Design only; Mars v0.1 runtime and QA evidence unchanged.
+
+## Integration and next milestone (2026-11-26)
+Owner approved merging PR #33 as development baseline, not a release. Earth remains Coming Soon; owner requested the exact flagship reference image from chat, but the source asset and reuse rights are not verified, so embedding is pending. [Next development package](docs/V0_2_EXECUTION_PLAN.md). Historical QA evidence remains unchanged; no new runtime code in this documentation delta.

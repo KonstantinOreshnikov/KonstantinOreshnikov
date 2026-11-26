@@ -19,3 +19,6 @@ Modules: domain state, scenario catalog, simulation clock and tick, resource led
 | Release | Exact pinned source/build, reproducible instructions, versioned package/checksum, regression and owner acceptance; deployment separately authorized |
 
 Use Vitest for deterministic unit tests and Playwright for real browser E2E if chosen. Synthetic tests do not establish physical-device or production acceptance. Keep QA ledger gate identity, evidence, reviewer and scope/dependency fingerprints under studio shared contract; preserve prior PASS evidence and test only delta plus required integration/regression. Independent review before acceptance. No PASS exists for this unimplemented concept.
+
+## Binding delivery decision (2026-11-26)
+The earlier optional Neon/API/PWA hosting suggestions are superseded for Genesis of Worlds: local-only ZIP / HTML, no backend, registration, cloud sync or hosted deployment. Portable JSON backup/import supplements browser-local autosave. See [owner decision](LOCAL_ONLY_AND_MOLA.md).
