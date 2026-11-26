@@ -21,7 +21,7 @@ Five proposed tiers: 1 Easy, 2 Moderate, 3 Medium, 4 Hard, 5 Extreme. These are 
 | europa | Europa | 4 | Radiation shielding, ice reservoir, controlled melting and flooding hazards. |
 | titan | Titan | 4 | Deep cold, nitrogen-rich atmosphere, hydrocarbon chemistry; distinguish methane from water. |
 | pluto | Pluto | 5 | Weak solar energy, low gravity, extreme cold and volatile retention; advanced energy and shielding. |
-| earth | Earth | 5 | Restore an already populated world under fictional ecological crisis; avoid collapse, preserve people and stabilize climate. |
+| earth | [Earth: Save Civilization](EARTH_SAVE_CIVILIZATION.md) | 5 | Flagship scenario: restore an already populated world under fictional ecological crisis; prevent collapse, preserve people and stabilize climate. |
 
 All completed worlds available for free from New Game. Optional campaign/tutorial ordering provides guidance only; no paywalls or forced completion before playing another world. Expansion candidates: Ceres, Io, Ganymede, Callisto, Triton, original fictional ocean/volcanic/frozen worlds, seed-generated exoplanets. Each must have a separate scenario and acceptance gate. Gas giants are not surface-terraformed; future orbital scenarios only if explicitly designed.
 

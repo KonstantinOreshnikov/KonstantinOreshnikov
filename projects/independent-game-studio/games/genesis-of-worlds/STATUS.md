@@ -13,3 +13,6 @@ Checkpoint GOW-MARS-20261126: automated P0 technical gates PASS for exact candid
 
 ## Next milestone design addition (2026-11-26)
 Owner requested multi-world selection and different difficulty levels. [World selection and difficulty](docs/WORLD_SELECTION_AND_DIFFICULTY.md) records eight planned worlds, five tiers, three independent modes, local campaign saves and data-driven engine contracts. No runtime changes or new QA verdicts; v0.1 remains Mars-only. World/mode foundation targeted for v0.2; playable expansions after core loop. Other projects unchanged.
+
+## Flagship scenario decision (2026-11-26)
+Owner selected **Earth: Save Civilization** as the signature feature, prominently presented in README and future main menu. [Scenario specification](docs/EARTH_SAVE_CIVILIZATION.md). Design only; Mars v0.1 runtime and QA evidence unchanged.

@@ -1,5 +1,13 @@
 # Genesis of Worlds
 
+**Create life on new worlds. Save civilization on Earth.**
+
+### Featured challenge — [Earth: Save Civilization](docs/EARTH_SAVE_CIVILIZATION.md)
+
+**Difficulty 5/5 · EXTREME · Coming Soon** — A fictional future Earth on the brink of ecological collapse. Restore the planet, protect its population and rebuild a sustainable civilization.
+
+*On Mars, you create life. On Earth, you save it.*
+
 ### From a barren planet to a living world
 
 | Barren Mars | Terraforming in progress | Habitable world |
@@ -28,6 +36,7 @@ A calm, original single-player planetary strategy and terraforming simulator ins
 | [Game design](docs/GAME_DESIGN.md) | Full proposed systems, rules, features, UX and scope |
 | [Research and source register](docs/RESEARCH.md) | Original game references, candidate open-source repositories, scientific data, license gates |
 | [Technical architecture and QA](docs/ARCHITECTURE_QA.md) | Implementation options, state model, persistence, tests and release requirements |
+| [Earth: Save Civilization](docs/EARTH_SAVE_CIVILIZATION.md) | Flagship extreme-difficulty restoration campaign (planned) |
 | [World selection and difficulty](docs/WORLD_SELECTION_AND_DIFFICULTY.md) | Eight worlds, five tiers, three modes, independent local campaigns |
 | [Roadmap](docs/ROADMAP.md) | Ordered milestones and acceptance criteria |
 | [Status](STATUS.md) | Authoritative current stage and next action |
