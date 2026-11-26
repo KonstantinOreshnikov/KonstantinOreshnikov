@@ -38,3 +38,5 @@ Three inherited regions; population 240, biomass 30, fictional crisis temperatur
 
 ## QA checkpoint
 Initial fresh deterministic victories 87/96/123 years (Beginner/Normal/Expert), all eight-world 24 paths also reproduced using the packaged model. Initial browser start/persistence, evacuation, collapse/restore and language checks passed. Corrected context labels verified locally across RU/EN/AZ; final CI delta pending. Extreme rating is provisional; elapsed simulated years alone do not establish difficulty. Full Earth map, richer pollution and regional model, independent gameplay QA still open.
+
+**Final corrected automated QA:** 20/20 Node checks, 24/24 fresh campaign model victories, 15/15 real Chromium scenarios PASS on corrected candidate; 24/24 packaged-model victories and 24 local world/locale context checks PASS. Corrected CI ZIP, embedded HTML/MOLA and CRC verified. Independent human/device, balance and deeper maps remain open. [Evidence](V0_5_QA.md). No claim of independent balance.

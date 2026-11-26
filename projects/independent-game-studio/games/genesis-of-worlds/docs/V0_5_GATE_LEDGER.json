@@ -53,6 +53,20 @@
       "reviewer": "maker-authored CI pending",
       "independentRequired": false,
       "independentVerified": false
+    },
+    {
+      "objectId": "GOW-v0.5",
+      "gateId": "BROWSER-CORRECTED",
+      "scopeHash": "f61986c10b3e0b7ace03cfb66252d3e1ec89aa0ceccb15c0f1d831a2aaa896fc",
+      "dependencyHash": "c619818846a9b26caea72db241b494272491589a3581de9db11954dcea6a476a",
+      "environment": "GitHub Actions Chromium Playwright 1.51.1 file URL",
+      "contractVersion": "1.0.0",
+      "status": "PASS",
+      "evidence": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348",
+      "reviewer": "maker-authored CI",
+      "independentRequired": false,
+      "independentVerified": false,
+      "predecessor": "BROWSER-CORRECTED NOT_VERIFIED checkpoint"
     }
   ]
 }

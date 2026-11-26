@@ -15,7 +15,7 @@ No dates or implementation commitment. Every milestone requires explicit applica
 
 MVP preference: Mars only, minimal colony economy, 5 core environmental parameters, meaningful planetary visual changes, research subset, stable target victory, pause/speed, reliable local saves. Add other content only after vertical slice demonstrates value. Multi-world local campaign management is required; procedural worlds remain optional. Cloud saves are excluded by the local-only decision.
 
-Current baseline: verified v0.4 offline candidate; v0.5 eight-world implementation in dedicated QA. See [status](../STATUS.md). Next after v0.5 verification: visual polish, balancing, richer regional scenarios and independent acceptance. See [world selection and difficulty](WORLD_SELECTION_AND_DIFFICULTY.md).
+Current baseline: verified v0.4 offline candidate; verified v0.5 eight-world development candidate. See [status](../STATUS.md). Next after v0.5 verification: visual polish, balancing, richer regional scenarios and independent acceptance. See [world selection and difficulty](WORLD_SELECTION_AND_DIFFICULTY.md).
 
 ## Next implementation package
 See [v0.2 execution plan](V0_2_EXECUTION_PLAN.md). Preserve the Mars v0.1 baseline and validate only new scope plus affected integrations. Earth is the signature campaign; plan its shared systems early, without claiming it is implemented or delaying core playable Mars work.
