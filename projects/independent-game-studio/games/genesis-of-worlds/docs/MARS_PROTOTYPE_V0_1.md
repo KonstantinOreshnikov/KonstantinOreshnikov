@@ -33,3 +33,6 @@ Node reproduction: `node tests/engine.test.cjs` from project folder. This test h
 1. Run exact-source Node and real Chromium E2E; capture versioned browser screenshots and metrics.
 2. Ingest validated MOLA derivative with provenance; compare visual/performance and true elevation-derived shoreline.
 3. Calibrate coupled rates, extend tests, evaluate WebGL2/Three.js and add fallback as needed. Only then advance milestone acceptance.
+
+## Exact-source correction and recheck
+Initial assembly omitted the clamp binding; corrected before browser verification. Re-evaluated the actual serialized engine: 12/12 checks PASS and inline script syntax compiled in JS isolate. Manual save and autosave now use separate storage keys. Added isolated PR browser test workflow; results remain pending until actually returned. No independent PASS.

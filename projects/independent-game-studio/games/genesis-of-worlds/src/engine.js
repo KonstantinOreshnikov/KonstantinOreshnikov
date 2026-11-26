@@ -1,4 +1,4 @@
-(v,a=0,z=1)=>Math.min(z,Math.max(a,v))
+const clamp=(v,a=0,z=1)=>Math.min(z,Math.max(a,v));
 function start(){return {version:1,year:0,t:-59,p:.636,o:.0008,w:0,b:0,controls:[0,0,0,0,0]}}
 function valid(s){return !!s&&s.version===1&&Number.isSafeInteger(s.year)&&s.year>=0&&s.year<=1000000&&["t","p","o","w","b"].every(k=>Number.isFinite(s[k]))&&s.t>=-100&&s.t<=70&&s.p>=.01&&s.p<=180&&s.o>=0&&s.o<=s.p&&s.w>=0&&s.w<=100&&s.b>=0&&s.b<=100&&Array.isArray(s.controls)&&s.controls.length===5&&s.controls.every(v=>Number.isFinite(v)&&v>=-1&&v<=1)}
 function liquid(s){return clamp((s.t+12)/28)*clamp((s.p-.61)/12)*s.w}
