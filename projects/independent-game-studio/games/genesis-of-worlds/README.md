@@ -59,3 +59,7 @@ Extract the development ZIP and open the HTML directly. No account, server, data
 [Colony prototype](play/GenesisOfWorlds_v0.2.html) — local development branch, QA pending. Eight world entries (Mars playable, others Coming Soon), three modes, separate campaigns, local saves, construction and trade. [Implementation notes](docs/V0_2_IMPLEMENTATION.md). Verified v0.1 package remains preserved.
 
 **v0.2 development candidate:** [ZIP + real browser screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45772973094/artifacts/15094537949) · [QA and hashes](docs/V0_2_QA.md). Local-only, Mars playable; remaining worlds planned. No formal release. Archive expires 2027-02-24.
+
+## v0.3 — Science and restoration (development)
+
+[Prototype](play/GenesisOfWorlds_v0.3.html) · [Scope](docs/V0_3_IMPLEMENTATION.md). Dedicated QA pending; older candidates unchanged.
