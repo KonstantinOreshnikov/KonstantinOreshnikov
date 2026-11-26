@@ -1,6 +1,6 @@
 # World selection and difficulty — design specification
 
-Date: 2026-11-26. Owner requested multiple worlds with distinctly different difficulty levels and freedom to choose. This is an approved product direction and proposed balancing design, not a claim that worlds are implemented. Preserve verified Mars v0.1 source 43a553ccb5da1292952a9cb4f8e3c75ceef0e467 and its QA evidence.
+Date: 2026-11-26. Owner requested multiple worlds with distinctly different difficulty levels and freedom to choose. This original design remains the specification. v0.5 implements eight profiles and distinct mechanics; exact coverage in [implementation notes](V0_5_IMPLEMENTATION.md), with automated acceptance and final balance separate. Preserve verified Mars v0.1 source 43a553ccb5da1292952a9cb4f8e3c75ceef0e467 and its QA evidence.
 
 ## Reference research
 

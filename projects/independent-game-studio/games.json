@@ -104,7 +104,7 @@
       "id": "genesis-of-worlds",
       "canonical_path": "projects/independent-game-studio/games/genesis-of-worlds",
       "current_verified_release": null,
-      "latest_development_candidate": "v0.4 MOLA planetary management candidate",
+      "latest_development_candidate": "v0.5 Solar System — eight worlds, 24/24 fresh model paths, browser QA pending",
       "latest_verified_artifact": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754/artifacts/15095742662",
       "source_path": "projects/independent-game-studio/games/genesis-of-worlds/src/campaign-v0.4.js",
       "sha256": "849c2446db9a6f45e26bade5d124ed37f5a1e57f349cc936b222d468ed963cbd",
@@ -121,12 +121,12 @@
       "artifact_expires_on": "2027-02-24",
       "artifact_provenance": "Temporary CI artifact 15095742662; inner ZIP verified",
       "development_history": "projects/independent-game-studio/games/genesis-of-worlds/docs/P0_OFFLINE_QA.md",
-      "active_development_branch": "game/genesis-of-worlds-v0.4-20261126",
-      "active_development_commit": "174a9f4b972eff38f32f41fcbc88ffc6da1f2a9d",
-      "active_development_pr": 36,
-      "active_development_ci": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754",
-      "active_development_source": "projects/independent-game-studio/games/genesis-of-worlds/src/campaign-v0.4.js",
-      "active_development_html": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.4.html"
+      "active_development_branch": "game/genesis-of-worlds-v0.5-20261126",
+      "active_development_commit": "7dbe821bcd2c4db62bae4e387c1e6e713c95b253",
+      "active_development_pr": 37,
+      "active_development_ci": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933",
+      "active_development_source": "projects/independent-game-studio/games/genesis-of-worlds/src/campaign-v0.5.js",
+      "active_development_html": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.5.html"
     }
   ],
   "latest_update": "2026-11-26 Genesis of Worlds v0.1 verified local technical candidate; other four game records unchanged"

@@ -53,3 +53,6 @@ Exact source 174a9f4b972eff38f32f41fcbc88ffc6da1f2a9d; [CI](https://github.com/K
 
 ## v0.5 development
 Eight-world scenario engine, Earth restoration, schema 5 and UI implemented. 17 initial maker assertions; 24/24 fresh maker paths, plus three additional Node checks authored. Browser/Node package QA pending; previous candidates preserved. No merge/release. Next exact CI and archive readback.
+
+## v0.5 exact checkpoint
+Owner-authorized development only. Exact runtime 7dbe821bcd2c4db62bae4e387c1e6e713c95b253; [PR #37](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/37) stacked on #36; [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933) job 139792986319. 24/24 fresh model victory routes, 20 model assertions authored, Node and pinned MOLA package steps passed; browser/ZIP readback pending. Next exact browser job and artifact hashes. No merge/deploy/release. Earth playable in implementation, initial balance provisional, no verified actual Earth map. Prior candidates preserved.

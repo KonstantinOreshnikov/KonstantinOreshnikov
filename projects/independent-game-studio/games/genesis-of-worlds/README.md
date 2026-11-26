@@ -4,7 +4,7 @@
 
 ### Featured challenge — [Earth: Save Civilization](docs/EARTH_SAVE_CIVILIZATION.md)
 
-**Difficulty 5/5 · EXTREME · Coming Soon** — A fictional future Earth on the brink of ecological collapse. Restore the planet, protect its population and rebuild a sustainable civilization.
+**Difficulty 5/5 · EXTREME · v0.5 development** — A fictional future Earth on the brink of ecological collapse. Restore the planet, protect its population and rebuild a sustainable civilization.
 
 *On Mars, you create life. On Earth, you save it.*
 
@@ -27,7 +27,7 @@ A calm, original single-player planetary strategy and terraforming simulator ins
 - Interactive rotating 3D globe with visible, continuous environmental transformation: barren terrain, ice, water, clouds, vegetation and city lights.
 - Manage temperature, pressure, oxygen, water, biomass, population, economy, research and culture as interdependent systems.
 - Establish cities and mining outposts, build facilities, unlock technology, respond to events, and eventually automate planetary equilibrium.
-- Eight planned worlds, from beginner Mars to extreme Pluto and Earth scenarios; five inherent difficulty tiers plus independent Relaxed / Normal / Expert modes, freely selectable when implemented.
+- Eight selectable v0.5 worlds, from beginner Mars to extreme Pluto and Earth scenarios; five inherent difficulty tiers plus independent Beginner / Normal / Expert modes. World-specific acceptance and final balance remain separate.
 - Desktop browsers and Android; RU / EN / AZ; offline-first saves, adjustable simulation speed, optional offline progression. No advertising, purchases, subscription, mandatory login or pay-to-win.
 - Original code, UI, art and balancing; third-party code/data only after provenance and license approval.
 
@@ -38,7 +38,7 @@ A calm, original single-player planetary strategy and terraforming simulator ins
 | [Game design](docs/GAME_DESIGN.md) | Full proposed systems, rules, features, UX and scope |
 | [Research and source register](docs/RESEARCH.md) | Original game references, candidate open-source repositories, scientific data, license gates |
 | [Technical architecture and QA](docs/ARCHITECTURE_QA.md) | Implementation options, state model, persistence, tests and release requirements |
-| [Earth: Save Civilization](docs/EARTH_SAVE_CIVILIZATION.md) | Flagship extreme-difficulty restoration campaign (planned) |
+| [Earth: Save Civilization](docs/EARTH_SAVE_CIVILIZATION.md) | Flagship extreme-difficulty restoration campaign (v0.5 development) |
 | [World selection and difficulty](docs/WORLD_SELECTION_AND_DIFFICULTY.md) | Eight worlds, five tiers, three modes, independent local campaigns |
 | [Roadmap](docs/ROADMAP.md) | Ordered milestones and acceptance criteria |
 | [Next development package](docs/V0_2_EXECUTION_PLAN.md) | Proposed implementation order, dependencies, acceptance gates |
@@ -72,4 +72,4 @@ Extract the development ZIP and open the HTML directly. No account, server, data
 **v0.4 development candidate:** [ZIP + browser screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754/artifacts/15095742662) · [QA and hashes](docs/V0_4_QA.md). Mars playable; other worlds planned. Temporary artifact expires 2027-02-24.
 
 ## v0.5 Solar System (development)
-[Prototype](play/GenesisOfWorlds_v0.5.html) · [Scope](docs/V0_5_IMPLEMENTATION.md). Eight selectable worlds, Earth flagship in initial implementation; world-specific browser QA pending.
+[Prototype](play/GenesisOfWorlds_v0.5.html) · [Scope](docs/V0_5_IMPLEMENTATION.md). Eight selectable worlds, Earth flagship in initial implementation; 24/24 fresh model victories; [world-specific CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933) pending browser result. Mars has measured MOLA; all other terrain and regional heights are procedural/game abstractions.
