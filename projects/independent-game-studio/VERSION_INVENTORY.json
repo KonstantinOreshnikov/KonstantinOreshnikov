@@ -465,7 +465,10 @@
       "artifact_expires_on": "2027-02-24",
       "bytes": 177991,
       "qa": "15/15 Node model checks; 14/14 real Chromium file-URL scenarios; 24/24 fresh deterministic maker model victory routes; downloaded ZIP/HTML hashes and CRC verified. Short 3.5s headless Chromium benchmark at 768px: Earth/Mars v0.7 22.28 FPS each; v0.8 30.17/30.28 FPS respectively. Independent human/device, sustained FPS, crisis differentiation and balance remain open.",
-      "release": null
+      "release": null,
+      "development_integration_pr": 40,
+      "integration_target": "main",
+      "integration_authorized": true
     },
     {
       "game_id": "genesis-of-worlds",
@@ -496,7 +499,10 @@
           "bytes": 178583,
           "qa": "Exact CI: 15 Node, 468+13 crisis, 16 Chromium, downloaded ZIP/HTML hashes and CRC PASS; independent gates open."
         }
-      ]
+      ],
+      "development_integration_pr": 41,
+      "integration_target": "main",
+      "integration_authorized": true
     }
   ]
 }

@@ -109,7 +109,7 @@
       "source_path": "projects/independent-game-studio/games/genesis-of-worlds/src/campaign-v0.9.js",
       "sha256": "85b18ca044e1a843d27955441c47997d8b0c6a5629716063f4b0018006f347b6",
       "qa_status": "15 Node + 468 crisis matrix + 13 zero-stock + 9 project-mode + 4 integration; 24/24 fresh victories; 17 Chromium; exact ZIP/HTML SHA256 and CRC PASS. Independent acceptance open.",
-      "known_blockers": "Independent gameplay/device and locale acceptance, sustained performance and broader balance; no merge/release authorization",
+      "known_blockers": "Independent gameplay/device and locale acceptance, sustained performance and broader balance; formal release not authorized",
       "last_verified": "2026-11-26 CI 45823405126 and downloaded ZIP readback",
       "origin_branch": "game/genesis-of-worlds-v0.9-20261126",
       "status_path": "projects/independent-game-studio/games/genesis-of-worlds/STATUS.md",
@@ -126,7 +126,15 @@
       "active_development_pr": 41,
       "active_development_ci": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126",
       "active_development_source": "projects/independent-game-studio/games/genesis-of-worlds/src/campaign-v0.9.js",
-      "active_development_html": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.9.html"
+      "active_development_html": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.9.html",
+      "development_integration_policy": "Owner-authorized main integration of verified Genesis of Worlds development milestones; formal release and deployment require separate approval",
+      "next_development_stage": "v0.9.5 Balance & QA",
+      "development_baseline_branch": "main",
+      "development_integration_prs": [
+        40,
+        41
+      ],
+      "development_integration_status": "OWNER_AUTHORIZED"
     }
   ],
   "latest_update": "2026-11-26 Genesis of Worlds v0.1 verified local technical candidate; other four game records unchanged"

@@ -1,5 +1,7 @@
 # Genesis of Worlds
 
+**Current development baseline: v0.9 Deep Strategy.** [Offline ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126/artifacts/15118309413) · [Automated QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126) · [Source and history](#how-the-project-changed). Eight worlds, three modes, RU/EN/AZ. Independent acceptance and v0.9.5 balance remain open. This is not a formal release. Earlier dated development sections are historical.
+
 **Create life on new worlds. Save civilization on Earth.**
 
 ### Featured challenge — [Earth: Save Civilization](docs/EARTH_SAVE_CIVILIZATION.md)

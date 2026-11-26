@@ -1,5 +1,9 @@
 # Studio development history
 
+## 2026-11-26 — Genesis of Worlds v0.9 Deep Strategy
+
+13 differentiated crisis profiles, three new technologies and three orbital megaprojects; 24/24 fresh model victories, 17 Chromium scenarios, verified offline ZIP. [QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126) · [PR #41](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/41). Owner authorized main integration of verified development milestones; independent acceptance and v0.9.5 balance pending. No formal game release.
+
 ## 2026-11-26 — Genesis of Worlds v0.8 Living Civilization and graphics polish
 
 15/15 Node model checks; 14/14 real Chromium file-URL scenarios; 24/24 fresh deterministic maker model victory routes; downloaded ZIP/HTML hashes and CRC verified. Short 3.5s headless Chromium benchmark at 768px: Earth/Mars v0.7 22.28 FPS each; v0.8 30.17/30.28 FPS respectively. Independent human/device, sustained FPS, crisis differentiation and balance remain open. [PR #40](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/40) · [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45804202713). Previous versions preserved. No merge/release.
