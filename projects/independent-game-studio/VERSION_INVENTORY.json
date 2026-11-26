@@ -400,14 +400,22 @@
     {
       "game_id": "genesis-of-worlds",
       "version": "v0.5",
-      "state": "DEVELOPMENT_QA_PENDING",
+      "state": "DEVELOPMENT_CANDIDATE_DELTA_QA_PENDING",
       "path": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.5.html",
       "source_commit": "7dbe821bcd2c4db62bae4e387c1e6e713c95b253",
       "branch": "game/genesis-of-worlds-v0.5-20261126",
       "qa_run": 45786058933,
-      "sha256": null,
+      "sha256": "b6c65533f2ad6d6953e8450283607a5f9ff79048cb4eb2e968a7be937008896b",
       "release": null,
-      "qa": "20 model assertions authored, 24/24 fresh model victories; Node and MOLA build steps successful, browser pending"
+      "qa": "Initial exact v0.5 CI: 20 model assertions, 24/24 fresh model victory paths, 15/15 Chromium scenarios PASS; original archive verified. Visual inspection exposed context-label defect, fixed in UI-only source 54dd69d8. Corrected local package exact Git blob verified; 24 world/locale context checks plus responsive Earth/no HTTP/errors PASS using in-memory Chromium; final file-launch CI still pending.",
+      "artifact_id": 15099959190,
+      "artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933/artifacts/15099959190",
+      "artifact_expires_on": "2027-02-24",
+      "bytes": 160167,
+      "corrected_source_commit": "54dd69d82e6a0838747a21c35ed353983bed3a42",
+      "corrected_ci_run": 45786437348,
+      "corrected_local_zip_sha256": "69a3acc1462b5b22a889133438ba877ecedabcdb6434f071febf20b438ce9e7d",
+      "corrected_local_zip_bytes": 160801
     }
   ]
 }

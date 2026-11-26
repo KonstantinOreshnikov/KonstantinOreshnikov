@@ -73,3 +73,5 @@ Extract the development ZIP and open the HTML directly. No account, server, data
 
 ## v0.5 Solar System (development)
 [Prototype](play/GenesisOfWorlds_v0.5.html) · [Scope](docs/V0_5_IMPLEMENTATION.md). Eight selectable worlds, Earth flagship in initial implementation; 24/24 fresh model victories; [world-specific CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933) pending browser result. Mars has measured MOLA; all other terrain and regional heights are procedural/game abstractions.
+
+**v0.5 QA:** [initial CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933) · [corrected UI CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348) · [QA details](docs/V0_5_QA.md). Eight playable profiles; Earth rescue implemented, Mars measured MOLA only. Corrected local build tested for world-specific UI; final CI artifact pending. No formal release.

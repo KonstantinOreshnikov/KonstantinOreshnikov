@@ -1,0 +1,58 @@
+{
+  "contractVersion": "1.0.0",
+  "fingerprintMethod": "SHA256 of exact Git blob IDs or newline-separated dependency blob IDs for tests; actual embedded HTML SHA256 for browser dependency",
+  "rows": [
+    {
+      "objectId": "GOW-v0.5",
+      "gateId": "MODEL",
+      "scopeHash": "a448f96178b09e45899cc7aa8477146995acddfd487d4eac95866d0871026e29",
+      "dependencyHash": "a9c59b30c6df7dba01c76ed76321b528ae21257ec9fb7c3d3b2210c84dcfc3e2",
+      "environment": "GitHub Actions ubuntu-24.04 Node 22",
+      "contractVersion": "1.0.0",
+      "status": "PASS",
+      "evidence": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933",
+      "reviewer": "maker-authored CI",
+      "independentRequired": false,
+      "independentVerified": false
+    },
+    {
+      "objectId": "GOW-v0.5",
+      "gateId": "FRESH-VICTORY",
+      "scopeHash": "e97dabc88b12535b28dad7fc76fb9fb43a92a3ecf60e8b1a0d71a2f247d61232",
+      "dependencyHash": "a9c59b30c6df7dba01c76ed76321b528ae21257ec9fb7c3d3b2210c84dcfc3e2",
+      "environment": "GitHub Actions ubuntu-24.04 Node 22 procedural fallback",
+      "contractVersion": "1.0.0",
+      "status": "PASS",
+      "evidence": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933",
+      "reviewer": "maker-authored CI",
+      "independentRequired": false,
+      "independentVerified": false
+    },
+    {
+      "objectId": "GOW-v0.5",
+      "gateId": "BROWSER-INITIAL",
+      "scopeHash": "01e32aacdeeb23c240c9105cf1344b71d8799aee644fc54b7f55978e3d93a496",
+      "dependencyHash": "874e5800a3b1159255a1583993bf5e2bc3e3f95e185d5e4881cd435e9aee59de",
+      "environment": "GitHub Actions Chromium Playwright 1.51.1 file URL",
+      "contractVersion": "1.0.0",
+      "status": "PASS",
+      "evidence": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933",
+      "reviewer": "maker-authored CI",
+      "independentRequired": false,
+      "independentVerified": false
+    },
+    {
+      "objectId": "GOW-v0.5",
+      "gateId": "BROWSER-CORRECTED",
+      "scopeHash": "f61986c10b3e0b7ace03cfb66252d3e1ec89aa0ceccb15c0f1d831a2aaa896fc",
+      "dependencyHash": "c619818846a9b26caea72db241b494272491589a3581de9db11954dcea6a476a",
+      "environment": "GitHub Actions Chromium Playwright 1.51.1 file URL",
+      "contractVersion": "1.0.0",
+      "status": "NOT_VERIFIED",
+      "evidence": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348",
+      "reviewer": "maker-authored CI pending",
+      "independentRequired": false,
+      "independentVerified": false
+    }
+  ]
+}

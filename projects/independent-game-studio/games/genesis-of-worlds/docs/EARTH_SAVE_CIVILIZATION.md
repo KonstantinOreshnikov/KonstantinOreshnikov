@@ -35,3 +35,6 @@ Owner endorsed a cinematic orbital Earth visual contrasting ecological devastati
 
 ## Implemented v0.5 slice
 Three inherited regions; population 240, biomass 30, fictional crisis temperature 27 °C and hazard index 85. Relocate ten people at a cost; protect regions, choose policy, maintain supply. Collapse below 150 population locks time until restore/new game. Victory needs population at least 270, hazard ≤10, biomass ≥70, temperature 12–19 °C, protection level ≥2 in all regions and sustained resources, plus common objectives for 15 consecutive years. All three modes have deterministic viable model routes. Independent balance and visual acceptance pending. No release.
+
+## QA checkpoint
+Initial fresh deterministic victories 87/96/123 years (Beginner/Normal/Expert), all eight-world 24 paths also reproduced using the packaged model. Initial browser start/persistence, evacuation, collapse/restore and language checks passed. Corrected context labels verified locally across RU/EN/AZ; final CI delta pending. Extreme rating is provisional; elapsed simulated years alone do not establish difficulty. Full Earth map, richer pollution and regional model, independent gameplay QA still open.
