@@ -50,3 +50,6 @@ Owner-approved development only. Runtime 174a9f4b972eff38f32f41fcbc88ffc6da1f2a9
 ## v0.4 automated QA result — supersedes pending checkpoint
 22/22 Node assertions; 10/10 Chromium E2E; 3/3 fresh model regression victories with procedural fallback (156/168/179 years); MOLA ZIP, CRC and embedded hashes verified. Independent human/device and long-session balance/performance remain open.
 Exact source 174a9f4b972eff38f32f41fcbc88ffc6da1f2a9d; [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754), [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754/artifacts/15095742662), inner ZIP 154998 bytes SHA-256 `849c2446db9a6f45e26bade5d124ed37f5a1e57f349cc936b222d468ed963cbd`, expires 2027-02-24. [QA details](docs/V0_4_QA.md). Mars only playable. Next milestone v0.5: distinct worlds and Earth flagship restoration; phase requires development scope and world-specific gates. Stacked PR #36 on #35/#34. No merge/deployment/release. Owner UAT and independent QA open.
+
+## v0.5 development
+Eight-world scenario engine, Earth restoration, schema 5 and UI implemented. 17 initial maker assertions; 24/24 fresh maker paths, plus three additional Node checks authored. Browser/Node package QA pending; previous candidates preserved. No merge/release. Next exact CI and archive readback.
