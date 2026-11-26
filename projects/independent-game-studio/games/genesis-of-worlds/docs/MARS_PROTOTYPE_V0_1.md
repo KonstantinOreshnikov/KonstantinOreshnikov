@@ -40,3 +40,7 @@ Initial assembly omitted the clamp binding; corrected before browser verificatio
 ## Baseline verification and offline-only delta
 Historical tested source 0b7fa669abb2ca99b4fd808e4913d5e7704953d9: [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45766650902) 12/12 Node + 9/9 Chromium PASS; [screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45766650902/artifacts/15092197150). Physical Android and independent UAT remain open. New delta (portable JSON saves, MOLA adapter/package) requires its own tests.
 See [local-only decision and MOLA build](LOCAL_ONLY_AND_MOLA.md).
+
+## Measured terrain and portable package delta
+Exact tested source 43a553ccb5da1292952a9cb4f8e3c75ceef0e467: [offline package CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048) 2/2 jobs SUCCESS; 12/12 engine, 6/6 terrain synthetic fixtures, 11/11 offline Chromium, 12/12 MOLA Chromium. The two browser suites overlap; do not add their counts as unique scenarios. Actual official MOLA data downloaded, validated and embedded. Both downloaded CI artifact outer SHA-256 and inner ZIP SHA-256 matched; ZIP CRC integrity passed; MOLA HTML, label and embedded grid SHA-256 matched actual provenance. No physical Android, independent human gameplay/linguistic acceptance or performance benchmark claim.
+[Full evidence](P0_OFFLINE_QA.md).

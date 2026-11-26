@@ -1,5 +1,9 @@
 # Studio development history
 
+## 2026-11-26 — Genesis of Worlds verified local technical candidate
+
+[Offline package QA 2/2](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048); [MOLA candidate](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092733115) and [procedural fallback](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092374018). Actual measured grid and portable saves verified; checksums and exact source in [QA evidence](games/genesis-of-worlds/docs/P0_OFFLINE_QA.md). Owner local PC/physical/independent UAT open. No release/deployment or other game changes.
+
 ## 2026-11-26 — Genesis of Worlds local-only delivery and P0 delta
 
 Owner confirmed personal offline ZIP/HTML, no servers/accounts/DB/cloud or hosted game. Historical 12/12 engine + 9/9 Chromium [PASS](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45766650902). Added portable JSON saves and measured MOLA build pipeline; new package QA pending. No other game changed.
