@@ -43,3 +43,6 @@ Exact runtime 17128ebbe6eb91cd674bd630965490470a9c977e; stacked [PR #35](https:/
 
 ## v0.4 development
 Owner authorized v0.4; stacked on v0.3. 22/22 maker checks; dedicated Node/Chromium/MOLA package gates pending. Orbital infrastructure, automation, forecasts/history, flood risk/adaptation, policy. No merge/release. Next exact CI and artifact verification.
+
+## v0.4 exact checkpoint
+Owner-approved development only. Runtime 174a9f4b972eff38f32f41fcbc88ffc6da1f2a9d; [draft PR #36](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/36) stacked on v0.3; [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754) job 139757704835. 22 Node model assertions and MOLA build step PASS; 3/3 fresh model regression paths with procedural fallback (156/168/179 years; 92/129/186 actions). Browser and downloaded package gate pending. Next: verify original exact CI browser job and downloadable artifact/hash, then update registry. Independent UAT and long-session balance remain open; no merge/deploy. Earth and additional worlds planned for v0.5. Earlier candidates preserved.
