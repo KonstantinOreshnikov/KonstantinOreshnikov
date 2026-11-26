@@ -1,5 +1,13 @@
 # Studio development history
 
+## 2026-11-26 — Genesis of Worlds v0.4 verified development candidate
+
+22/22 Node assertions; 10/10 Chromium E2E; 3/3 fresh model regression victories with procedural fallback (156/168/179 years); MOLA ZIP, CRC and embedded hashes verified. Independent human/device and long-session balance/performance remain open. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754/artifacts/15095742662). Exact source 174a9f4b972eff38f32f41fcbc88ffc6da1f2a9d. No merge or release; previous candidates retained.
+
+## 2026-11-26 — Genesis of Worlds v0.4 development
+
+[PR #36](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/36), [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754). 22 Node model assertions and MOLA build step PASS; 3/3 fresh model regression paths with procedural fallback (156/168/179 years; 92/129/186 actions). Browser and downloaded package gate pending. Orbital projects, automation, forecasts, history and regional adaptation. Prior builds unchanged. No merge/release.
+
 ## 2026-11-26 — Genesis of Worlds v0.3 verified development candidate
 
 22/22 Node assertions; 10/10 Chromium E2E; 3/3 fresh maker model victory paths (156/168/179 years); measured MOLA ZIP and embedded hashes verified. Independent human/device/UAT, alternative-path balance and long-session performance remain open. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45774541198) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45774541198/artifacts/15094714534). Exact source 17128ebbe6eb91cd674bd630965490470a9c977e; v0.1/v0.2 preserved. No merge or release.
