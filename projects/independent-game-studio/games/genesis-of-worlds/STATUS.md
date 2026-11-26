@@ -81,3 +81,6 @@ Owner reprioritized: all eight globes, maps, smooth rotation, prominent existing
 
 ### v0.7 README visual update
 Earth hero and six original renderer-generated planet previews uploaded under assets/v0.7/ and embedded near the top of README. Old Mars transformation artwork retained. New visual scope only; no changes to gameplay or prior releases. Exact final CI and owner visual acceptance pending.
+
+### v0.7 CI checkpoint
+Initial CI 45791951673, job 139812911642: six renderer assertions and coastline SHA256 PASS; MOLA package build PASS; browser stopped at outdated assertion expecting alert hidden after resolving event despite ongoing resource shortage. Updated test now verifies event priority, persistent shortage alert, economy routing and hidden state only after clearing shortage. Runtime and renderer unchanged; new browser gate pending.
