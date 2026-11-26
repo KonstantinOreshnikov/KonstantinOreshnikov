@@ -1,5 +1,9 @@
 # Studio development history
 
+## 2026-11-26 — Genesis of Worlds v0.2 campaign/colony development
+
+[PR #34](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/34), source 3c65092f4d9fe29505b4e01696de91d6d0db8802. Separate v0.2 implementation, preserves verified v0.1. World/mode catalog, independent local saves, legacy import, three colony sites, economy, production and facility-driven terraforming. [Dedicated CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45772973094): Node and measured MOLA package steps passed at checkpoint; browser acceptance pending. No merge or release approval.
+
 ## 2026-11-26 — Genesis of Worlds multi-world design
 
 Owner requested selectable worlds and difficulty. [Specification](games/genesis-of-worlds/docs/WORLD_SELECTION_AND_DIFFICULTY.md) defines eight planned worlds, five inherent difficulty tiers, independent player modes and separate local saves. Documentation only; verified Mars runtime unchanged.

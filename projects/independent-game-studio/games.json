@@ -104,7 +104,7 @@
       "id": "genesis-of-worlds",
       "canonical_path": "projects/independent-game-studio/games/genesis-of-worlds",
       "current_verified_release": null,
-      "latest_development_candidate": "v0.1 measured MOLA offline technical candidate",
+      "latest_development_candidate": "v0.2 Mars colony/economy — development; package and Node CI passed, Chromium pending",
       "latest_verified_artifact": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092733115",
       "source_path": "projects/independent-game-studio/games/genesis-of-worlds/src/engine.js",
       "sha256": "aa75be7bc955761f026db80ca1edfa271276b0de9c29324eb4f5a8ac01bd41bf",
@@ -120,7 +120,13 @@
       "latest_development_artifact_url": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45768735048/artifacts/15092733115",
       "artifact_expires_on": "2027-02-24",
       "artifact_provenance": "CI temporary artifact 15092733115; inner ZIP hash; measured MOLA derivative embedded. Not formal release.",
-      "development_history": "projects/independent-game-studio/games/genesis-of-worlds/docs/P0_OFFLINE_QA.md"
+      "development_history": "projects/independent-game-studio/games/genesis-of-worlds/docs/P0_OFFLINE_QA.md",
+      "active_development_branch": "game/genesis-of-worlds-v0.2-20261126",
+      "active_development_commit": "3c65092f4d9fe29505b4e01696de91d6d0db8802",
+      "active_development_pr": 34,
+      "active_development_ci": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45772973094",
+      "active_development_source": "projects/independent-game-studio/games/genesis-of-worlds/src/campaign-v0.2.js",
+      "active_development_html": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.2.html"
     }
   ],
   "latest_update": "2026-11-26 Genesis of Worlds v0.1 verified local technical candidate; other four game records unchanged"

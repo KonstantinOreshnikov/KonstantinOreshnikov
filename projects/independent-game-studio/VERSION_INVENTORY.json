@@ -348,6 +348,18 @@
       },
       "source_mola_sha256": "25f16fb7aaf857898dcf98bc4f841341a24f8b9f7e98453ca083bc45d897ca2c",
       "derived_mola_sha256": "ca5e873a2a283cb717e9433ef3e06b2b4ee211c22eabb522965f5e865ace0e52"
+    },
+    {
+      "game_id": "genesis-of-worlds",
+      "version": "v0.2",
+      "state": "DEVELOPMENT_QA_PENDING",
+      "path": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.2.html",
+      "source_commit": "3c65092f4d9fe29505b4e01696de91d6d0db8802",
+      "branch": "game/genesis-of-worlds-v0.2-20261126",
+      "qa_run": 45772973094,
+      "sha256": null,
+      "release": null,
+      "qa": "Node and measured MOLA package steps succeeded; browser pending; independent acceptance not verified"
     }
   ]
 }
