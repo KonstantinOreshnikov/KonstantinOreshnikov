@@ -77,3 +77,6 @@ Extract the development ZIP and open the HTML directly. No account, server, data
 **v0.5 QA:** [initial CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786058933) · [corrected UI CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348) · [QA details](docs/V0_5_QA.md). Eight playable profiles; Earth rescue implemented, Mars measured MOLA only. Corrected local build tested for world-specific UI; final CI artifact pending. No formal release.
 
 **Latest v0.5 verified development candidate:** [ZIP and browser screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45786437348/artifacts/15101116049) · [QA and checksums](docs/V0_5_QA.md). Final corrected CI PASS. All eight worlds selectable; no release. Archive expires 2027-02-24.
+
+## v0.6 Living Worlds (development)
+[Prototype](play/GenesisOfWorlds_v0.6.html) · [Scope](docs/V0_6_IMPLEMENTATION.md). Seven tabs, Earth land outlines, refined globe and scenario operations. QA pending.
