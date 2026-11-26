@@ -4,11 +4,23 @@
 
 ### Featured challenge — [Earth: Save Civilization](docs/EARTH_SAVE_CIVILIZATION.md)
 
-**Difficulty 5/5 · EXTREME · v0.5 development** — A fictional future Earth on the brink of ecological collapse. Restore the planet, protect its population and rebuild a sustainable civilization.
+**Difficulty 5/5 · EXTREME · v0.7 visual development** — A fictional future Earth on the brink of ecological collapse. Restore the planet, protect its population and rebuild a sustainable civilization.
 
 *On Mars, you create life. On Earth, you save it.*
 
-<!-- Earth flagship concept art: owner approved the visual direction. Exact reference image and reuse rights must be confirmed before embedding; do not substitute an unverified third-party image. -->
+<p align="center"><img src="assets/v0.7/earth.png" width="520" alt="Earth — Genesis of Worlds v0.7 planetary renderer preview"></p>
+
+*Earth: Save Civilization — original in-engine visual preview, with Natural Earth land outlines and fictional climate.*
+
+### Explore the Solar System
+
+| Venus | Europa | Titan |
+| --- | --- | --- |
+| ![Venus](assets/v0.7/venus.png) | ![Europa](assets/v0.7/europa.png) | ![Titan](assets/v0.7/titan.png) |
+| Pluto | Mercury | Moon |
+| ![Pluto](assets/v0.7/pluto.png) | ![Mercury](assets/v0.7/mercury.png) | ![Moon](assets/v0.7/luna.png) |
+
+*Version 0.7 original renderer previews at initial scenario conditions, not satellite photographs or full-interface screenshots. Mars uses measured MOLA in the offline package; the historical Mars transformation illustrations below remain preserved. Independent visual acceptance and CI are separate gates.*
 
 ### From a barren planet to a living world
 

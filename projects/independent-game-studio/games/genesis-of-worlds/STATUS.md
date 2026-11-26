@@ -78,3 +78,6 @@ Exact runtime 81849713078bf6ee9109b2eb1f6fe3f566caf0d1; [CI](https://github.com/
 
 ## v0.7 visual-first development
 Owner reprioritized: all eight globes, maps, smooth rotation, prominent existing alerts and updated README visuals; gameplay depth deferred. Six maker renderer assertions passed. New HD renderer integrated; CI/visual inspection and gallery publication pending. v0.6 remains verified baseline. No merge/release.
+
+### v0.7 README visual update
+Earth hero and six original renderer-generated planet previews uploaded under assets/v0.7/ and embedded near the top of README. Old Mars transformation artwork retained. New visual scope only; no changes to gameplay or prior releases. Exact final CI and owner visual acceptance pending.
