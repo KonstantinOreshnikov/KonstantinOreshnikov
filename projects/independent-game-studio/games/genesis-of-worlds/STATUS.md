@@ -84,3 +84,7 @@ Earth hero and six original renderer-generated planet previews uploaded under as
 
 ### v0.7 CI checkpoint
 Initial CI 45791951673, job 139812911642: six renderer assertions and coastline SHA256 PASS; MOLA package build PASS; browser stopped at outdated assertion expecting alert hidden after resolving event despite ongoing resource shortage. Updated test now verifies event priority, persistent shortage alert, economy routing and hidden state only after clearing shortage. Runtime and renderer unchanged; new browser gate pending.
+
+## v0.7 final automated QA — publication authorized
+6/6 renderer assertions + coastline SHA256; 12/12 Chromium file-URL scenarios PASS; exact downloaded ZIP and HTML SHA256 and CRC verified. Seven README previews read back as PNG blobs. Independent visual/device UAT and measured sustained frame rate remain open.
+Exact tested source 2cb3d2919b4274536b1358fb24fbf9c72a45d1cd; [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45792360228) job 139814320531 SUCCESS; [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45792360228/artifacts/15103101950), 174329 bytes SHA256 `a4485c8afdbd27d5245f70673e37021eb136b80b15de81e6b04d940ce4c3ef2c`. Owner explicitly approved project page publication to main on 2026-11-26. Main merge pending exact scope and integration check. No hosted game deployment; no formal binary release claimed. Gameplay depth deferred by owner.

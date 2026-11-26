@@ -20,7 +20,7 @@
 | Pluto | Mercury | Moon |
 | ![Pluto](assets/v0.7/pluto.png) | ![Mercury](assets/v0.7/mercury.png) | ![Moon](assets/v0.7/luna.png) |
 
-*Version 0.7 original renderer previews at initial scenario conditions, not satellite photographs or full-interface screenshots. Mars uses measured MOLA in the offline package; the historical Mars transformation illustrations below remain preserved. Independent visual acceptance and CI are separate gates.*
+*Version 0.7 original renderer previews at initial scenario conditions, not satellite photographs or full-interface screenshots. Mars uses measured MOLA in the offline package; the historical Mars transformation illustrations below remain preserved. Final automated CI passed; independent visual acceptance remains separate.*
 
 ### From a barren planet to a living world
 
@@ -96,4 +96,6 @@ Extract the development ZIP and open the HTML directly. No account, server, data
 **v0.6 verified development candidate:** [ZIP and actual browser screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45788305057/artifacts/15101726584) · [QA and hashes](docs/V0_6_QA.md). Seven tabs, Natural Earth land outlines, enhanced procedural globe, scenario operations; offline. Existing v0.5 JSON compatible; export before moving files. No formal release. Temporary archive expires 2027-02-24.
 
 ## v0.7 Planetary Visuals (development)
-[Prototype](play/GenesisOfWorlds_v0.7.html) · [Visual scope](docs/V0_7_VISUAL_SCOPE.md). QA pending; existing gameplay unchanged.
+[Prototype](play/GenesisOfWorlds_v0.7.html) · [Visual scope](docs/V0_7_VISUAL_SCOPE.md). Final automated QA passed; existing gameplay unchanged.
+
+**Latest v0.7 verified offline development candidate:** [ZIP and actual browser screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45792360228/artifacts/15103101950) · [QA and checksums](docs/V0_7_QA.md). Download and extract `GenesisOfWorlds.html` to play locally. CI artifact is temporary; no account or hosted game server required. Previous builds retained.

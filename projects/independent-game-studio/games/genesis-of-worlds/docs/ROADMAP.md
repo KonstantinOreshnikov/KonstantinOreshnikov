@@ -20,3 +20,6 @@ Current baseline: verified v0.4 offline candidate; verified v0.6 Living Worlds d
 
 ## Next implementation package
 See [v0.2 execution plan](V0_2_EXECUTION_PLAN.md). Preserve the Mars v0.1 baseline and validate only new scope plus affected integrations. Earth is the signature campaign; plan its shared systems early, without claiming it is implemented or delaying core playable Mars work.
+
+## Owner priority override — v0.7
+Visual quality of all eight worlds and README gallery first; deeper gameplay, disasters and difficulty calibration deferred. Automated v0.7 visual QA passed; independent visual/performance acceptance remains open. Owner approved project page publication to main.
