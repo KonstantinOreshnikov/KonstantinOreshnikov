@@ -1,0 +1,10 @@
+# v0.3 science/restoration candidate — QA evidence
+
+Exact runtime 17128ebbe6eb91cd674bd630965490470a9c977e; CI [45774541198](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45774541198), job 139754910897, SUCCESS. 22/22 Node assertions; 10/10 Chromium E2E; 3/3 fresh maker model victory paths (156/168/179 years); measured MOLA ZIP and embedded hashes verified. Independent human/device/UAT, alternative-path balance and long-session performance remain open.
+
+- Node: 22/22 v0.3 assertions, maker-authored, including legacy migration, technology constraints, power, reverse climate control, seeded events, stable objectives, collapse recovery and campaign separation.
+- Chromium: 10/10 (menu, lab/technology, economy integration, event pause/resolve, save/reload, campaign isolation, v2 import, fixture-based victory/sandbox, RU/EN/AZ 390px, MOLA/no network/errors).
+- Fresh simulation: three complete deterministic public-action paths, no fixture injection; [reproducible evidence](V0_3_FRESH_VICTORY.md). Not full browser gameplay from start or independent balance certification.
+- Artifact [15094714534](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45774541198/artifacts/15094714534); temporary, expires 2027-02-24. Inner ZIP `GenesisOfWorlds_v0.3_MOLA.zip`, 148903 bytes, SHA-256 `ae056743025f22427e46730e343c5ea4f953de9c7ef32af430d922fffae88b08`. Outer artifact SHA-256 `63cd9a311abe914993cba73e5ad1b9d9447ecf1d247f1ee30af908ed923238c1`; embedded HTML `ab683401fb3a04b0069abdffd514ec0d94261040687da9cbe4ad4b5beafad4bc`; embedded grid `ca5e873a2a283cb717e9433ef3e06b2b4ee211c22eabb522965f5e865ace0e52` (64800 int16 samples). Downloaded bytes matched hashes; both ZIP CRC checks passed. Reviewer maker/runtime CI; independent human acceptance not verified.
+
+Historical v0.1/v0.2 artifacts and gates retained. No formal release/deployment. Remaining: human UAT, native locale/editorial and physical device, long-session balance/performance, deeper species ecology and additional worlds. Future development v0.4.
