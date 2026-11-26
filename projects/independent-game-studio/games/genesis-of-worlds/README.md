@@ -80,3 +80,5 @@ Extract the development ZIP and open the HTML directly. No account, server, data
 
 ## v0.6 Living Worlds (development)
 [Prototype](play/GenesisOfWorlds_v0.6.html) · [Scope](docs/V0_6_IMPLEMENTATION.md). Seven tabs, Earth land outlines, refined globe and scenario operations. QA pending.
+
+**v0.6 verified development candidate:** [ZIP and actual browser screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45788305057/artifacts/15101726584) · [QA and hashes](docs/V0_6_QA.md). Seven tabs, Natural Earth land outlines, enhanced procedural globe, scenario operations; offline. Existing v0.5 JSON compatible; export before moving files. No formal release. Temporary archive expires 2027-02-24.
