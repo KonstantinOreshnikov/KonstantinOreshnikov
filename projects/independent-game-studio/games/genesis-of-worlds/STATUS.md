@@ -91,3 +91,6 @@ Exact tested source 2cb3d2919b4274536b1358fb24fbf9c72a45d1cd; [CI](https://githu
 
 ## v0.8 active development
 v0.7 published main bd4ac0a25ae6f64ca8a5004197b67fd2c53ef1dc; owner authorizes combined visual polish and living civilization, not new merge. 15 maker model checks passed. UI and renderer integrated, dedicated CI pending. Next exact Node/browser and package verification. Prior gates remain historical.
+
+### v0.8 model reachability
+24/24 maker model fresh paths PASS after strategy correction (Venus Expert 500-credit reserve); initial 23/24 result and alternative path documented. No runtime changes. Browser and package gate still pending.

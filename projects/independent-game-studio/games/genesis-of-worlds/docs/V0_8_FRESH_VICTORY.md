@@ -1,0 +1,3 @@
+# v0.8 fresh campaign model QA
+
+Exact runtime de89d74109cff498c0081a20a3f2ab91b2b6985e. Maker JS isolate, procedural fallback, all 24 scenario/mode paths start fresh and use public game actions. First strategy paid response above 100-credit reserve: 23/24 victories; Venus Expert stalled at year 901, credits 39, shortage, seven unmet goals. Two alternative strategies both reached victory without model changes: retain 500-credit reserve for crisis response (275 years), or early level-2 protection (284 years). Final harness uses 500 reserve on Venus Expert and 100 elsewhere. All 24 win. No victory requirement or runtime changed. This establishes one viable path each, not complete balance or independent browser gameplay. Results JSON and reproducible Node test included.
