@@ -4,3 +4,6 @@ Three unique orbital projects: mirror warms, shade cools, station supplies food 
 
 ## Model regression and exact CI
 22 Node model assertions and MOLA build step PASS; 3/3 fresh model regression paths with procedural fallback (156/168/179 years; 92/129/186 actions). Browser and downloaded package gate pending. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754). The v0.3 fresh campaign action policy was rerun on v0.4 model with procedural fallback, not a complete MOLA browser playthrough. No independent certification.
+
+## Verified result
+22/22 Node assertions; 10/10 Chromium E2E; 3/3 fresh model regression victories with procedural fallback (156/168/179 years); MOLA ZIP, CRC and embedded hashes verified. Independent human/device and long-session balance/performance remain open. See [QA evidence](V0_4_QA.md).

@@ -68,3 +68,5 @@ Extract the development ZIP and open the HTML directly. No account, server, data
 
 ## v0.4 planetary management (development)
 [Prototype](play/GenesisOfWorlds_v0.4.html) · [Scope](docs/V0_4_IMPLEMENTATION.md). Mars only; QA pending.
+
+**v0.4 development candidate:** [ZIP + browser screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45775392754/artifacts/15095742662) · [QA and hashes](docs/V0_4_QA.md). Mars playable; other worlds planned. Temporary artifact expires 2027-02-24.
