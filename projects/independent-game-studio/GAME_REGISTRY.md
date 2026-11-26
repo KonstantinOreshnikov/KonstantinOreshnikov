@@ -41,3 +41,19 @@ P0–P2 source [merged to GitHub `main`](https://github.com/KonstantinOreshnikov
 3. After a change update `games.json`, this registry, game README/STATUS and changelog together; rerun relevant QA, verify checksums and GitHub read-back.
 4. When claims disagree, record the conflict in `MIGRATION_REPORT.md` or game QA, state which source is verified, and keep the superseded evidence.
 5. Distinguish latest verified artifact, current release, development candidate, history, specification and BLOCKED/NOT TESTED. No automatic sync across chats.
+
+
+## Genesis of Worlds v0.9 development checkpoint
+First Deep Strategy slice: crisis differentiation. Last verified candidate v0.8; published project page v0.7. See [status](games/genesis-of-worlds/STATUS.md). No release.
+
+
+## Genesis of Worlds v0.9 expanded checkpoint
+Intermediate crisis slice verified: [ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45817386493/artifacts/15115049032). Expanded 3 technologies / 3 megaprojects, 24/24 fresh maker victories; [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126) browser/archive pending. Main project page v0.7, no formal release. [Status](games/genesis-of-worlds/STATUS.md).
+
+
+## Genesis of Worlds v0.9 verified automated candidate
+[ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126/artifacts/15118309413) · [QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126). 24/24 fresh victories, 17 Chromium, ZIP/HTML hashes and CRC verified. v0.9.5 Balance & QA next; independent acceptance open. Main project page remains v0.7. No formal release.
+
+
+## Genesis of Worlds — current development baseline / owner integration policy
+v0.9 Deep Strategy verified; [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126/artifacts/15118309413), [QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126). v0.8 [PR #40](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/40) merged; v0.9 [PR #41](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/41) authorized for main. Owner-authorized development integration: publish each verified Genesis of Worlds development milestone to `main` promptly, preserving earlier source, version inventory and QA evidence. Record incomplete independent/release gates explicitly. Development integration does not authorize a formal GitHub Release, hosted deployment or changes to other games.

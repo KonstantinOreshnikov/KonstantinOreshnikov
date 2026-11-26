@@ -1,5 +1,7 @@
 # Genesis of Worlds
 
+**Current development baseline: v0.9 Deep Strategy.** [Offline ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126/artifacts/15118309413) · [Automated QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126) · [Source and history](#how-the-project-changed). Eight worlds, three modes, RU/EN/AZ. Independent acceptance and v0.9.5 balance remain open. This is not a formal release. Earlier dated development sections are historical.
+
 **Create life on new worlds. Save civilization on Earth.**
 
 ### Featured challenge — [Earth: Save Civilization](docs/EARTH_SAVE_CIVILIZATION.md)
@@ -104,3 +106,13 @@ Extract the development ZIP and open the HTML directly. No account, server, data
 [Scope](docs/V0_8_IMPLEMENTATION.md) · [HTML](play/GenesisOfWorlds_v0.8.html). Combined graphics and society/crisis implementation; QA pending. v0.7 remains verified baseline.
 
 **Latest v0.8 verified development candidate:** [ZIP and actual browser screenshots](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45804202713/artifacts/15108139401) · [QA](docs/V0_8_QA.md) · [Fresh campaign paths](docs/V0_8_FRESH_VICTORY.md). Offline. Export earlier JSON saves before upgrading. No formal release. Temporary artifact expires 2027-02-24.
+
+
+## v0.9 development in progress
+[Deep Strategy first slice](docs/V0_9_IMPLEMENTATION.md): differentiated crisis consequences and previews. v0.8 remains the last verified downloadable candidate. v0.9 is not released.
+
+
+v0.9 adds optional fusion, logistics and orbital science megaprojects. [Intermediate crisis candidate](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45817386493/artifacts/15115049032) verified; expanded build under [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126). No formal release.
+
+
+**Latest verified development candidate: v0.9 Deep Strategy.** [Offline ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126/artifacts/15118309413) · [QA evidence](docs/V0_9_QA.md). Independent acceptance and v0.9.5 balance pending. No formal release.
