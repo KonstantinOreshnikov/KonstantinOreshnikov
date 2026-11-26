@@ -104,18 +104,18 @@
       "id": "genesis-of-worlds",
       "canonical_path": "projects/independent-game-studio/games/genesis-of-worlds",
       "current_verified_release": null,
-      "latest_development_candidate": null,
+      "latest_development_candidate": "v0.1 technical prototype (branch only)",
       "latest_verified_artifact": null,
-      "source_path": null,
+      "source_path": "projects/independent-game-studio/games/genesis-of-worlds/src/engine.js",
       "sha256": null,
-      "qa_status": "NOT STARTED — research/concept only; no playable build",
-      "known_blockers": "Implementation not authorized; candidate source/data licenses and science/balance assumptions require validation before reuse",
-      "last_verified": "2026-11-25 — concept registration only",
-      "origin_branch": "docs/genesis-of-worlds-concept-20261125",
+      "qa_status": "12/12 maker simulation assertions in JS isolate; browser/independent/MOLA gates NOT VERIFIED",
+      "known_blockers": "Real browser and Android QA, actual MOLA terrain and data processing, independent acceptance; no release approved",
+      "last_verified": "2026-11-26 — maker simulation assertions only",
+      "origin_branch": "game/genesis-of-worlds-v0.1-20261126",
       "status_path": "projects/independent-game-studio/games/genesis-of-worlds/STATUS.md",
       "design_path": "projects/independent-game-studio/games/genesis-of-worlds/docs/GAME_DESIGN.md",
-      "project_stage": "RESEARCH_CONCEPT"
+      "project_stage": "DEVELOPMENT_PROTOTYPE"
     }
   ],
-  "latest_update": "2026-11-25 Genesis of Worlds registered as fifth project; existing four game records unchanged"
+  "latest_update": "2026-11-26 Genesis of Worlds Mars prototype development; previous game records unchanged"
 }

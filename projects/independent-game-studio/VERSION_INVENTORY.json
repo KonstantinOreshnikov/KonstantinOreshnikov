@@ -324,17 +324,17 @@
       "bytes": 2047853
     }
   ],
-  "concept_only_projects": [
+  "concept_only_projects": [],
+  "development_prototypes": [
     {
       "game_id": "genesis-of-worlds",
-      "state": "RESEARCH_CONCEPT",
-      "version": null,
-      "artifact": null,
+      "version": "v0.1",
+      "state": "DEVELOPMENT_PROTOTYPE",
+      "path": "projects/independent-game-studio/games/genesis-of-worlds/play/MarsPrototype_v0.1.html",
       "sha256": null,
+      "qa": "maker engine assertions only; browser and independent acceptance pending",
       "release": null,
-      "qa": "NOT_STARTED",
-      "status_path": "projects/independent-game-studio/games/genesis-of-worlds/STATUS.md",
-      "registered_on": "2026-11-25"
+      "branch": "game/genesis-of-worlds-v0.1-20261126"
     }
   ]
 }

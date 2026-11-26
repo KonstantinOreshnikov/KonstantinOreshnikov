@@ -1,6 +1,14 @@
 # Genesis of Worlds
 
-**Independent Game Studio — Project 05 | RESEARCH / CONCEPT | 2026-11-25**
+### From a barren planet to a living world
+
+| Barren Mars | Terraforming in progress | Habitable world |
+| --- | --- | --- |
+| ![Barren Mars](assets/barren-mars.svg) | ![Terraforming](assets/terraforming.svg) | ![Habitable world](assets/habitable-world.svg) |
+
+*Original procedural prototype illustrations rendered from the same terrain and shading model; not NASA photographs, scientific maps, or finished game screenshots.*
+
+**Independent Game Studio — Project 05 | DEVELOPMENT PROTOTYPE | 2026-11-26**
 
 A calm, original single-player planetary strategy and terraforming simulator inspired by the classic 2016–2018 TerraGenesis experience. The player turns a hostile world into a living, self-sustaining civilization and can continue playing after victory. Genesis of Worlds is a provisional working title, not a claim of affiliation, license, or access to the original game's source code.
 
@@ -26,3 +34,5 @@ A calm, original single-player planetary strategy and terraforming simulator ins
 ## How the project changed
 
 - **2026-11-25:** Owner requested a detailed GitHub concept as the fifth independent studio project following a nostalgic recollection of TerraGenesis. Research and design recorded; no game implementation or public release authorized. See [studio registry](../../GAME_REGISTRY.md).
+
+- **2026-11-26:** Owner authorized Mars v0.1 implementation only. [Technical prototype](play/MarsPrototype_v0.1.html) (download and open locally), [engine research and design decision](docs/MARS_PROTOTYPE_V0_1.md). No release or deployment. Browser and independent QA pending.

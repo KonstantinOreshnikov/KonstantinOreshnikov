@@ -1,5 +1,9 @@
 # Studio development history
 
+## 2026-11-26 — Genesis of Worlds Mars v0.1 prototype
+
+Owner-authorized isolated development prototype: five coupled parameters, procedural globe, controls, presets, time and local saves; three original procedural README illustrations. 12/12 maker simulation assertions in JS isolate; browser/independent QA and actual terrain ingestion open. No release/deploy. Other games unchanged.
+
 ## 2026-11-25 — v1.1.3 Practice HUD (owner feedback)
 
 **Current web version: v1.1.3 — deployed production UAT candidate (25 November 2026).** [Play](https://konstantinoreshnikov.github.io/KonstantinOreshnikov/chess-odyssey/) · [PR #31](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/31) · [Focused QA 24/24](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670474986) · [Full regression 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45670473640) · [Production Pages 3/3](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45673333733). Practice HUD parity with PvP: side clocks, turn, captured pieces, last move, replay-aware information and thinner arrows. Real production UAT, latency and independent human/device acceptance remain open. Latest permanent prerelease v1.1.1; latest non-prerelease tagged package v1.1.0. v1.1.3 ZIP is a verified temporary CI artifact. No server, database or security-policy change.
