@@ -1,0 +1,78 @@
+{
+  "contractVersion": "1.0.0",
+  "fingerprintMethod": "SHA256 exact Git blob identifiers (LF-joined ordered dependencies) or actual embedded HTML SHA256 for browser; short performance scope and package hashes recorded",
+  "rows": [
+    {
+      "objectId": "GOW-v0.8",
+      "gateId": "MODEL",
+      "scopeHash": "dcbdb77835dace07d79b2bc02131176c758a01782846967873d8f5141a988b54",
+      "dependencyHash": "49ecd3b4cb8547c24a7099365fe8dd294eb975be133e95662a75233b523caa0b",
+      "environment": "GitHub Actions ubuntu-24.04 Node 22",
+      "contractVersion": "1.0.0",
+      "status": "PASS",
+      "evidence": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45804202713",
+      "reviewer": "maker/runtime CI or local maker check",
+      "independentRequired": false,
+      "independentVerified": false
+    },
+    {
+      "objectId": "GOW-v0.8",
+      "gateId": "FRESH-VICTORY",
+      "scopeHash": "119c2574429865ae4310de8c74e343d30b7fcae450267265c4d7d0b61ecf0d06",
+      "dependencyHash": "76e9cb35c928569be90fca2a77e230ebb9031d077c4be596ef28ae3d1aef6561",
+      "environment": "maker JS isolate, procedural fallback",
+      "contractVersion": "1.0.0",
+      "status": "PASS",
+      "evidence": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/blob/b273fca09f87f9376d9d091f036dbdc17791ae3b/projects/independent-game-studio/games/genesis-of-worlds/docs/V0_8_FRESH_VICTORY.md",
+      "reviewer": "maker/runtime CI or local maker check",
+      "independentRequired": false,
+      "independentVerified": false
+    },
+    {
+      "objectId": "GOW-v0.8",
+      "gateId": "BROWSER",
+      "scopeHash": "80a70e46890b57dde3755ddd41d8e98315b8f3af988bb883e575cfe0c5bd09db",
+      "dependencyHash": "90ea0b32f89568468219b3e9f2c2b3f978d15aa5c433febc57e5f5f8b0c8933c",
+      "environment": "GitHub Actions Chromium Playwright 1.51.1 file URL",
+      "contractVersion": "1.0.0",
+      "status": "PASS",
+      "evidence": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45804202713",
+      "reviewer": "maker/runtime CI or local maker check",
+      "independentRequired": false,
+      "independentVerified": false
+    },
+    {
+      "objectId": "GOW-v0.8",
+      "gateId": "PACKAGE",
+      "scopeHash": "defb04f9dec12b82da115492e5dd5307fe1ceecac8c3a6e93a78e75c1843f73b",
+      "dependencyHash": "6e1d6b281dcda83835d181ec6867967fc42f6950ae1069a73cab93b84730f3a1",
+      "environment": "GitHub Actions pinned MOLA build and local ZIP readback",
+      "contractVersion": "1.0.0",
+      "status": "PASS",
+      "evidence": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/blob/b5cf967359629439e6f12a7a40403a5506a66e9c/projects/independent-game-studio/games/genesis-of-worlds/docs/V0_8_QA.md",
+      "reviewer": "maker/runtime CI or local maker check",
+      "independentRequired": false,
+      "independentVerified": false
+    },
+    {
+      "objectId": "GOW-v0.8",
+      "gateId": "SHORT-PERFORMANCE",
+      "scopeHash": "dee5bea5238e09a0ebb1658a01c21eeae6cce0496153a72a97b043fb09c83799",
+      "dependencyHash": "e5c54e170a92a056cc6e80ebc71d9c359285dd8c9a99a19662628a70cc904836",
+      "environment": "local system Chromium headless set_content 1280x900, 3.5s Earth/Mars",
+      "contractVersion": "1.0.0",
+      "status": "PASS",
+      "evidence": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/blob/b5cf967359629439e6f12a7a40403a5506a66e9c/projects/independent-game-studio/games/genesis-of-worlds/docs/V0_8_QA.md",
+      "reviewer": "maker/runtime CI or local maker check",
+      "independentRequired": false,
+      "independentVerified": false
+    }
+  ],
+  "openGates": {
+    "independentAcceptance": "NOT_VERIFIED",
+    "physicalDevice": "NOT_VERIFIED",
+    "sustainedPerformance": "NOT_VERIFIED",
+    "comprehensiveBalance": "NOT_VERIFIED",
+    "mergeRelease": "NOT_AUTHORIZED"
+  }
+}

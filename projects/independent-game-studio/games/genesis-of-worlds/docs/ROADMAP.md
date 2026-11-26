@@ -23,3 +23,6 @@ See [v0.2 execution plan](V0_2_EXECUTION_PLAN.md). Preserve the Mars v0.1 baseli
 
 ## Owner priority override — v0.7
 Visual quality of all eight worlds and README gallery first; deeper gameplay, disasters and difficulty calibration deferred. Automated v0.7 visual QA passed; independent visual/performance acceptance remains open. Owner approved project page publication to main.
+
+## Owner-approved v0.8 combined scope
+Graphics polish from v0.7.1 integrated with living civilization: regional indicators, crisis decisions, relocation, persistent alerts, schema 6 migration. Verified automated candidate, independent playtest open. Next proposed v0.9: deepen technology, megaprojects, distinct crisis consequences and alternative strategies; v0.9.5 balance/QA; v1.0 only after mandatory independent gates and approval.

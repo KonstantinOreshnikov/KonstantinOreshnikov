@@ -1,5 +1,9 @@
 # Studio development history
 
+## 2026-11-26 — Genesis of Worlds v0.8 Living Civilization and graphics polish
+
+15/15 Node model checks; 14/14 real Chromium file-URL scenarios; 24/24 fresh deterministic maker model victory routes; downloaded ZIP/HTML hashes and CRC verified. Short 3.5s headless Chromium benchmark at 768px: Earth/Mars v0.7 22.28 FPS each; v0.8 30.17/30.28 FPS respectively. Independent human/device, sustained FPS, crisis differentiation and balance remain open. [PR #40](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/40) · [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45804202713). Previous versions preserved. No merge/release.
+
 ## 2026-11-26 — Genesis of Worlds v0.7 visual-first candidate
 
 6/6 renderer assertions + coastline SHA256; 12/12 Chromium file-URL scenarios PASS; exact downloaded ZIP and HTML SHA256 and CRC verified. Seven README previews read back as PNG blobs. Independent visual/device UAT and measured sustained frame rate remain open. [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45792360228) · [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45792360228/artifacts/15103101950). Owner approved publication of project page to main; game remains local-only. Earlier versions preserved.

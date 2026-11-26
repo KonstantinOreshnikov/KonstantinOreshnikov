@@ -88,3 +88,13 @@ Initial CI 45791951673, job 139812911642: six renderer assertions and coastline 
 ## v0.7 final automated QA — publication authorized
 6/6 renderer assertions + coastline SHA256; 12/12 Chromium file-URL scenarios PASS; exact downloaded ZIP and HTML SHA256 and CRC verified. Seven README previews read back as PNG blobs. Independent visual/device UAT and measured sustained frame rate remain open.
 Exact tested source 2cb3d2919b4274536b1358fb24fbf9c72a45d1cd; [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45792360228) job 139814320531 SUCCESS; [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45792360228/artifacts/15103101950), 174329 bytes SHA256 `a4485c8afdbd27d5245f70673e37021eb136b80b15de81e6b04d940ce4c3ef2c`. Owner explicitly approved project page publication to main on 2026-11-26. Main merge pending exact scope and integration check. No hosted game deployment; no formal binary release claimed. Gameplay depth deferred by owner.
+
+## v0.8 active development
+v0.7 published main bd4ac0a25ae6f64ca8a5004197b67fd2c53ef1dc; owner authorizes combined visual polish and living civilization, not new merge. 15 maker model checks passed. UI and renderer integrated, dedicated CI pending. Next exact Node/browser and package verification. Prior gates remain historical.
+
+### v0.8 model reachability
+24/24 maker model fresh paths PASS after strategy correction (Venus Expert 500-credit reserve); initial 23/24 result and alternative path documented. No runtime changes. Browser and package gate still pending.
+
+## v0.8 verified automated candidate — supersedes pending checkpoint
+15/15 Node model checks; 14/14 real Chromium file-URL scenarios; 24/24 fresh deterministic maker model victory routes; downloaded ZIP/HTML hashes and CRC verified. Short 3.5s headless Chromium benchmark at 768px: Earth/Mars v0.7 22.28 FPS each; v0.8 30.17/30.28 FPS respectively. Independent human/device, sustained FPS, crisis differentiation and balance remain open.
+Exact runtime de89d74109cff498c0081a20a3f2ab91b2b6985e; [CI](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45804202713) job 139855019795 SUCCESS; [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45804202713/artifacts/15108139401), 177991 bytes SHA256 `d0fec0a524a652beb19341bafeb8ac512861f05c55f13bdcaf12122c3390d9ab`, expires 2027-02-24. [QA evidence](docs/V0_8_QA.md). Existing main v0.7 unchanged; v0.8 draft PR #40. Next owner playtest, differentiated crisis mechanics/longer balance and graphics acceptance. No merge/release.
