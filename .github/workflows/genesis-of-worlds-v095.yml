@@ -1,0 +1,28 @@
+name: Genesis of Worlds v0.9.5 UX QA
+on:
+  pull_request:
+    paths:
+      - 'projects/independent-game-studio/games/genesis-of-worlds/**'
+      - '.github/workflows/genesis-of-worlds-v095.yml'
+jobs:
+  ux:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: projects/independent-game-studio/games/genesis-of-worlds
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/market-v0.9.5.test.cjs
+      - run: python3 scripts/package-v0.9.5.py --mola
+      - run: npm install --no-save --no-package-lock playwright@1.51.1 && npx playwright install --with-deps chromium
+      - run: GOW_HTML="$PWD/packages/GenesisOfWorlds_v0.9.5_MOLA.html" node tests/browser-v0.9.5.test.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: GenesisOfWorlds-v0.9.5-UX-candidate
+          path: |
+            projects/independent-game-studio/games/genesis-of-worlds/packages/GenesisOfWorlds_v0.9.5_MOLA.zip
+            projects/independent-game-studio/games/genesis-of-worlds/packages/GenesisOfWorlds_v0.9.5_MOLA.zip.sha256
+            projects/independent-game-studio/games/genesis-of-worlds/qa-v095/
