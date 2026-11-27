@@ -1,0 +1,3 @@
+# v0.9.5 owner usability feedback — P0
+
+Owner desktop playtest 2026-11-27: ore recovery, upgrades, event-paused construction, building functions and combinations, automation are not discoverable. UX before balance. First slice: 18 building descriptions and combinations RU/EN/AZ, nominal stats from catalog, upgrade/founding/build cost reasons, sticky time/resources, all-colony queue, advisor, installed local capacity, automation direction and missing-facility guidance. Model unchanged. Script syntax PASS; browser and package gates pending. Remaining: guided tutorial, bulk trade, orbital guides, full automation funding diagnostics, local supply forecasting, independent acceptance and balance. No formal release.
