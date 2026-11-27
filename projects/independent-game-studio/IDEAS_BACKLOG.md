@@ -42,3 +42,7 @@ Genesis of Worlds is a separately registered fifth project, not an eleventh back
 ## Deferred studio visual presentation task (2026-11-26)
 
 Owner requested a later, separate documentation work package: place representative visuals directly under the title for all five registered games, actual version-labeled screenshots for implemented titles and clearly labeled original concept art for unimplemented titles. Preserve Caribbean Merchant's existing map; illustrate the ten future concepts as concepts, not delivered games. P1 DEFERRED; Genesis of Worlds P0 takes precedence. Do not start other visual work yet.
+
+
+## Genesis of Worlds — post-victory expansion concepts (2026-11-27)
+Existing game expansion ideas, not additional games: [urbanization, demographics, industry/export, ecology, transport, space expansion and long-term endgame projects](games/genesis-of-worlds/docs/V1_0_RELEASE_BACKLOG.md#4-post-victory--future-ideas-concept-backlog-not-v10-prerequisites). Proposed v1.1+ only; no implementation authorization. v1.0 core UX, performance and balance take priority.

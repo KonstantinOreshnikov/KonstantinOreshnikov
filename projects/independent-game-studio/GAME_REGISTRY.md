@@ -57,3 +57,7 @@ Intermediate crisis slice verified: [ZIP](https://github.com/KonstantinOreshniko
 
 ## Genesis of Worlds — current development baseline / owner integration policy
 v0.9 Deep Strategy verified; [artifact](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126/artifacts/15118309413), [QA](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126). v0.8 [PR #40](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/40) merged; v0.9 [PR #41](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/pull/41) authorized for main. Owner-authorized development integration: publish each verified Genesis of Worlds development milestone to `main` promptly, preserving earlier source, version inventory and QA evidence. Record incomplete independent/release gates explicitly. Development integration does not authorize a formal GitHub Release, hosted deployment or changes to other games.
+
+
+## Genesis of Worlds — owner playtest / release readiness HOLD
+[14 pre-v1.0 work packages and future ideas](games/genesis-of-worlds/docs/V1_0_RELEASE_BACKLOG.md). v0.9 Mars Beginner owner completion verified by screenshot; ×5 freezes reported; UX/acceptance open. Main v0.9; separate PR #42 automated CI PASS, not merged. Documentation only; no implementation until owner command.

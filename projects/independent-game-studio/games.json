@@ -109,7 +109,7 @@
       "source_path": "projects/independent-game-studio/games/genesis-of-worlds/src/campaign-v0.9.js",
       "sha256": "85b18ca044e1a843d27955441c47997d8b0c6a5629716063f4b0018006f347b6",
       "qa_status": "15 Node + 468 crisis matrix + 13 zero-stock + 9 project-mode + 4 integration; 24/24 fresh victories; 17 Chromium; exact ZIP/HTML SHA256 and CRC PASS. Independent acceptance open.",
-      "known_blockers": "Independent gameplay/device and locale acceptance, sustained performance and broader balance; formal release not authorized",
+      "known_blockers": "Owner-reported ×5 freezes; UX acceptance, market balance, candidate archive integrity, independent device/localization and release gates open. Implementation paused by owner.",
       "last_verified": "2026-11-26 CI 45823405126 and downloaded ZIP readback",
       "origin_branch": "game/genesis-of-worlds-v0.9-20261126",
       "status_path": "projects/independent-game-studio/games/genesis-of-worlds/STATUS.md",
@@ -121,20 +121,24 @@
       "artifact_expires_on": "2027-02-24",
       "artifact_provenance": "Exact CI artifact 15118309413; downloaded ZIP/HTML SHA256 and CRC verified",
       "development_history": "projects/independent-game-studio/games/genesis-of-worlds/docs/P0_OFFLINE_QA.md",
-      "active_development_branch": "game/genesis-of-worlds-v0.9-20261126",
-      "active_development_commit": "85b5e9b91a20e6ccdac18f4bc324438621416005",
-      "active_development_pr": 41,
-      "active_development_ci": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126",
-      "active_development_source": "projects/independent-game-studio/games/genesis-of-worlds/src/campaign-v0.9.js",
-      "active_development_html": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.9.html",
+      "active_development_branch": "game/genesis-of-worlds-v0.9.5-ux-20261127",
+      "active_development_commit": "23ef8abb841a5f4f60391432930c993ee925fb83",
+      "active_development_pr": 42,
+      "active_development_ci": "https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/46046955155",
+      "active_development_source": "projects/independent-game-studio/games/genesis-of-worlds/src/campaign-v0.9.5.js",
+      "active_development_html": "projects/independent-game-studio/games/genesis-of-worlds/play/GenesisOfWorlds_v0.9.5.html",
       "development_integration_policy": "Owner-authorized main integration of verified Genesis of Worlds development milestones; formal release and deployment require separate approval",
-      "next_development_stage": "v0.9.5 Balance & QA",
+      "next_development_stage": "HOLD — await owner command; v0.9.5 UX, performance and balance",
       "development_baseline_branch": "main",
       "development_integration_prs": [
         40,
         41
       ],
-      "development_integration_status": "OWNER_AUTHORIZED"
+      "development_integration_status": "OWNER_AUTHORIZED",
+      "active_development_status": "OWNER_HOLD",
+      "release_readiness": "NOT_READY",
+      "release_backlog_path": "projects/independent-game-studio/games/genesis-of-worlds/docs/V1_0_RELEASE_BACKLOG.md",
+      "owner_playtest": "v0.9 Mars Beginner victory; 8/8 goals, 5/5 stable at year 480; scoped owner evidence only"
     }
   ],
   "latest_update": "2026-11-26 Genesis of Worlds v0.1 verified local technical candidate; other four game records unchanged"
