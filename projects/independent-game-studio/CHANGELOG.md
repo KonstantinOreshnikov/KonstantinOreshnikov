@@ -129,3 +129,7 @@ Owner-authorized isolated development prototype: five coupled parameters, proced
 - **2026-11-19:** Lord of Ultima-inspired work consists of research, single-player v0.1 specification and roadmap; no build. [Documents](games/lord-of-ultima/README.md).
 
 Dates above identify source events; they do not imply new execution of old QA in this migration.
+
+
+## 2026-11-27 — Genesis of Worlds owner playtest and release backlog (documentation only)
+Recorded Mars Beginner completion, usability and ×5 performance findings, 14 pre-release work packages and deferred endgame concepts. [Backlog](games/genesis-of-worlds/docs/V1_0_RELEASE_BACKLOG.md). Implementation HOLD; no game release or runtime changes.

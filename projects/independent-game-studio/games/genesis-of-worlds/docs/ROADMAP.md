@@ -14,7 +14,7 @@ No dates or implementation commitment. Every milestone requires explicit applica
 | v0.7 proposed | Deeper regional crises, higher-resolution assets, difficulty calibration and alternative strategies | Owner-authorized delta, independent gameplay and performance evidence |
 | v0.8 | Living Civilization + graphics polish | Automated QA PASS; independent acceptance open |
 | v0.9 | Deep Strategy: 13 crisis profiles, 9 technologies, 6 orbital projects | Automated QA PASS; independent acceptance open |
-| v0.9.5 | Balance & QA | Comprehensive balance, longer sessions, independent acceptance |
+| v0.9.5 | UX, market, performance, balance & QA | See 14 mandatory work packages in [release backlog](V1_0_RELEASE_BACKLOG.md); implementation HOLD |
 | v1.0 candidate | Full core scope, RU/EN/AZ, offline saves/import/export, documentation, QA | Required independent gameplay/browser/device/localization/security/regression gates evidenced; owner approval before release |
 
 MVP preference: Mars only, minimal colony economy, 5 core environmental parameters, meaningful planetary visual changes, research subset, stable target victory, pause/speed, reliable local saves. Add other content only after vertical slice demonstrates value. Multi-world local campaign management is required; procedural worlds remain optional. Cloud saves are excluded by the local-only decision.
@@ -32,3 +32,7 @@ Graphics polish from v0.7.1 integrated with living civilization: regional indica
 
 ## Development visibility policy (2026-11-26)
 Owner-authorized development integration: publish each verified Genesis of Worlds development milestone to `main` promptly, preserving earlier source, version inventory and QA evidence. Record incomplete independent/release gates explicitly. Development integration does not authorize a formal GitHub Release, hosted deployment or changes to other games.
+
+
+## Owner playtest priority / release hold (2026-11-27)
+[Mandatory pre-v1.0 backlog and future concepts](V1_0_RELEASE_BACKLOG.md). v1.0 is not ready. UX and ×5 performance before final balance; post-victory expansion proposed v1.1+, concept only. No further implementation until owner resumes.

@@ -116,3 +116,6 @@ v0.9 adds optional fusion, logistics and orbital science megaprojects. [Intermed
 
 
 **Latest verified development candidate: v0.9 Deep Strategy.** [Offline ZIP](https://github.com/KonstantinOreshnikov/KonstantinOreshnikov/actions/runs/45823405126/artifacts/15118309413) · [QA evidence](docs/V0_9_QA.md). Independent acceptance and v0.9.5 balance pending. No formal release.
+
+
+**Current status (2026-11-27): development on owner HOLD.** [Owner playtest, pre-v1.0 backlog and future ideas](docs/V1_0_RELEASE_BACKLOG.md). Mars Beginner completed in v0.9; usability and ×5 freezes require further work. v1.0 not released. PR #42 remains separate.
